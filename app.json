@@ -9,7 +9,8 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.ybai08.docket",
-      "usesAppleSignIn": true
+      "usesAppleSignIn": true,
+      "appleTeamId": "K24TK2WT4M"
     },
     "android": {
       "adaptiveIcon": {

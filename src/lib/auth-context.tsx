@@ -81,6 +81,8 @@ const AUTH_ERRORS: Record<string, string> = {
   'auth/too-many-requests': 'Too many attempts. Wait a minute and try again.',
   'auth/network-request-failed': 'No connection. Check your internet and try again.',
   IN_PROGRESS: 'Sign-in is already in progress.',
+  ERR_REQUEST_UNKNOWN: 'Apple sign-in did not finish. Make sure this device is signed in to an Apple Account in Settings.',
+  ERR_REQUEST_FAILED: 'Apple sign-in failed. Try again in a moment.',
 };
 
 export function authErrorMessage(err: unknown): string {
