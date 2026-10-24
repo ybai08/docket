@@ -1,124 +1,116 @@
-import { useState } from 'react';
-import { KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import * as AppleAuthentication from 'expo-apple-authentication';
+import { useEffect, useState } from 'react';
+import { ActivityIndicator, Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { Button, Logo, TextField } from '@/components/ui';
-import { authErrorMessage, useAuth } from '@/lib/auth-context';
+import { Logo } from '@/components/ui';
+import { authErrorMessage, isCancelled, useAuth } from '@/lib/auth-context';
 import { isFirebaseConfigured } from '@/lib/firebaseConfig';
+import { isAppleSignInAvailable, isGoogleConfigured } from '@/lib/social-auth';
 import { colors, radius } from '@/lib/theme';
 
-type Mode = 'sign-in' | 'sign-up';
+type Provider = 'google' | 'apple';
 
 export default function SignInScreen() {
-  const { signIn, signUp } = useAuth();
-  const [mode, setMode] = useState<Mode>('sign-in');
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const { signInWithGoogle, signInWithApple } = useAuth();
+  const [appleAvailable, setAppleAvailable] = useState(false);
+  const [busy, setBusy] = useState<Provider | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
 
-  const isSignUp = mode === 'sign-up';
-  const canSubmit = email.length > 0 && password.length > 0 && (!isSignUp || name.trim().length > 0);
+  useEffect(() => {
+    isAppleSignInAvailable().then(setAppleAvailable);
+  }, []);
 
-  async function submit() {
+  async function run(provider: Provider) {
     setError(null);
-    setLoading(true);
+    setBusy(provider);
     try {
-      if (isSignUp) await signUp(name, email, password);
-      else await signIn(email, password);
+      await (provider === 'google' ? signInWithGoogle() : signInWithApple());
     } catch (err) {
-      setError(authErrorMessage(err));
+      if (!isCancelled(err)) setError(authErrorMessage(err));
     } finally {
-      setLoading(false);
+      setBusy(null);
     }
   }
 
-  function switchMode() {
-    setMode(isSignUp ? 'sign-in' : 'sign-up');
-    setError(null);
-  }
+  const setupMessage = !isFirebaseConfigured
+    ? 'Firebase is not set up yet. Copy .env.example to .env, add your Firebase web config, then restart Expo.'
+    : !isGoogleConfigured
+      ? 'Google sign-in needs EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID and EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID in .env, then a rebuild.'
+      : null;
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
-        <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
-          <View style={{ gap: 8 }}>
-            <Logo size={40} />
-            <Text style={styles.tagline}>Real bills. Your call. Every day.</Text>
-          </View>
+      <View style={styles.container}>
+        <View style={{ gap: 8 }}>
+          <Logo size={40} />
+          <Text style={styles.tagline}>Real bills. Your call. Every day.</Text>
+        </View>
 
-          {!isFirebaseConfigured && (
-            <Text style={styles.warning}>
-              Firebase is not set up yet. Copy .env.example to .env, add your Firebase web config, then restart Expo.
-            </Text>
+        {setupMessage && <Text style={styles.warning}>{setupMessage}</Text>}
+
+        <View style={{ gap: 12 }}>
+          {appleAvailable && (
+            <AppleAuthentication.AppleAuthenticationButton
+              buttonType={AppleAuthentication.AppleAuthenticationButtonType.CONTINUE}
+              buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.WHITE}
+              cornerRadius={radius.md}
+              style={[styles.appleButton, (busy !== null || !isFirebaseConfigured) && { opacity: 0.5 }]}
+              onPress={() => busy === null && isFirebaseConfigured && run('apple')}
+            />
           )}
 
-          <View style={{ gap: 14 }}>
-            <Text style={styles.heading}>{isSignUp ? 'Create your account' : 'Welcome back'}</Text>
-            {isSignUp && (
-              <TextField
-                label="Name"
-                value={name}
-                onChangeText={setName}
-                placeholder="Alex Rivera"
-                autoComplete="name"
-                textContentType="name"
-              />
+          <Pressable
+            accessibilityRole="button"
+            onPress={() => run('google')}
+            disabled={busy !== null || !isFirebaseConfigured || !isGoogleConfigured}
+            style={({ pressed }) => [
+              styles.googleButton,
+              pressed && { opacity: 0.85 },
+              (busy !== null || !isFirebaseConfigured || !isGoogleConfigured) && { opacity: 0.5 },
+            ]}>
+            {busy === 'google' ? (
+              <ActivityIndicator color="#1F1F1F" />
+            ) : (
+              <>
+                <Text style={styles.googleG}>G</Text>
+                <Text style={styles.googleText}>Continue with Google</Text>
+              </>
             )}
-            <TextField
-              label="Email"
-              value={email}
-              onChangeText={setEmail}
-              placeholder="you@utexas.edu"
-              autoCapitalize="none"
-              autoComplete="email"
-              keyboardType="email-address"
-              textContentType="emailAddress"
-            />
-            <TextField
-              label="Password"
-              value={password}
-              onChangeText={setPassword}
-              placeholder={isSignUp ? 'At least 6 characters' : 'Your password'}
-              secureTextEntry
-              autoComplete={isSignUp ? 'new-password' : 'current-password'}
-              textContentType={isSignUp ? 'newPassword' : 'password'}
-              onSubmitEditing={() => canSubmit && submit()}
-            />
-            {error && <Text style={styles.error}>{error}</Text>}
-            <Button
-              title={isSignUp ? 'Sign up' : 'Sign in'}
-              onPress={submit}
-              loading={loading}
-              disabled={!canSubmit || !isFirebaseConfigured}
-            />
-          </View>
-
-          <Pressable onPress={switchMode} accessibilityRole="button" style={{ alignSelf: 'center', padding: 8 }}>
-            <Text style={styles.switchText}>
-              {isSignUp ? 'Already have an account? ' : 'New to Docket? '}
-              <Text style={{ color: colors.accent, fontWeight: '700' }}>{isSignUp ? 'Sign in' : 'Create one'}</Text>
-            </Text>
           </Pressable>
-        </ScrollView>
-      </KeyboardAvoidingView>
+
+          {error && <Text style={styles.error}>{error}</Text>}
+        </View>
+
+        <Text style={styles.fine}>We only use your name and email to set up your profile.</Text>
+      </View>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
+    flex: 1,
     justifyContent: 'center',
-    gap: 28,
+    gap: 32,
     padding: 24,
     width: '100%',
     maxWidth: 440,
     alignSelf: 'center',
   },
   tagline: { color: colors.muted, fontSize: 16 },
-  heading: { color: colors.text, fontSize: 22, fontWeight: '700' },
+  appleButton: { height: 52, width: '100%' },
+  googleButton: {
+    height: 52,
+    borderRadius: radius.md,
+    backgroundColor: '#FFFFFF',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 10,
+  },
+  googleG: { color: '#4285F4', fontSize: 20, fontWeight: '800' },
+  googleText: { color: '#1F1F1F', fontSize: 17, fontWeight: '600' },
   error: { color: colors.danger, fontSize: 14 },
   warning: {
     color: colors.warningText,
@@ -128,5 +120,5 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 20,
   },
-  switchText: { color: colors.muted, fontSize: 15 },
+  fine: { color: colors.muted, fontSize: 13, textAlign: 'center' },
 });

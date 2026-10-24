@@ -1,20 +1,19 @@
-import {
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
-  signOut as firebaseSignOut,
-  updateProfile,
-  type User,
-} from 'firebase/auth';
+import { onAuthStateChanged, signOut as firebaseSignOut, type User } from 'firebase/auth';
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
 
 import { auth } from './firebase';
+import {
+  SignInCancelled,
+  signInWithApple as appleSignIn,
+  signInWithGoogle as googleSignIn,
+  signOutOfProviders,
+} from './social-auth';
 
 type AuthState = {
   user: User | null;
   initializing: boolean;
-  signIn: (email: string, password: string) => Promise<void>;
-  signUp: (name: string, email: string, password: string) => Promise<void>;
+  signInWithGoogle: () => Promise<void>;
+  signInWithApple: () => Promise<void>;
   signOut: () => Promise<void>;
 };
 
@@ -28,7 +27,7 @@ function requireAuth() {
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [initializing, setInitializing] = useState(Boolean(auth));
-  // updateProfile() does not fire onAuthStateChanged, so bump this to re-render.
+  // updateProfile() (Apple's first sign-in) does not fire onAuthStateChanged, so bump this to re-render.
   const [, setProfileVersion] = useState(0);
 
   useEffect(() => {
@@ -42,15 +41,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const value: AuthState = {
     user,
     initializing,
-    signIn: async (email, password) => {
-      await signInWithEmailAndPassword(requireAuth(), email.trim(), password);
+    signInWithGoogle: async () => {
+      await googleSignIn(requireAuth());
     },
-    signUp: async (name, email, password) => {
-      const { user: created } = await createUserWithEmailAndPassword(requireAuth(), email.trim(), password);
-      await updateProfile(created, { displayName: name.trim() });
+    signInWithApple: async () => {
+      await appleSignIn(requireAuth());
       setProfileVersion((v) => v + 1);
     },
     signOut: async () => {
+      await signOutOfProviders();
       await firebaseSignOut(requireAuth());
     },
   };
@@ -64,17 +63,24 @@ export function useAuth() {
   return ctx;
 }
 
+const CANCEL_CODES = new Set(['auth/popup-closed-by-user', 'auth/cancelled-popup-request', 'SIGN_IN_CANCELLED', '-5']);
+
+/** True when the person closed the Google/Apple sheet; show nothing. */
+export function isCancelled(err: unknown) {
+  const code = (err as { code?: string })?.code;
+  return err instanceof SignInCancelled || (code !== undefined && CANCEL_CODES.has(String(code)));
+}
+
 const AUTH_ERRORS: Record<string, string> = {
-  'auth/invalid-email': 'That email address looks wrong.',
-  'auth/invalid-credential': 'Wrong email or password.',
-  'auth/user-not-found': 'Wrong email or password.',
-  'auth/wrong-password': 'Wrong email or password.',
-  'auth/email-already-in-use': 'An account with that email already exists. Sign in instead.',
-  'auth/weak-password': 'Password needs at least 6 characters.',
+  'auth/account-exists-with-different-credential':
+    'That email already signed in with the other provider. Use that button instead.',
+  'auth/operation-not-allowed': 'This sign-in method is not enabled in the Firebase console.',
+  'auth/invalid-credential': 'Sign-in failed. Check the Firebase and Google/Apple setup.',
+  'auth/popup-blocked': 'Your browser blocked the sign-in popup. Allow popups and try again.',
+  'auth/unauthorized-domain': 'This domain is not authorized in the Firebase console.',
   'auth/too-many-requests': 'Too many attempts. Wait a minute and try again.',
   'auth/network-request-failed': 'No connection. Check your internet and try again.',
-  'auth/operation-not-allowed': 'Email sign-in is not enabled in the Firebase console.',
-  'auth/configuration-not-found': 'Email sign-in is not enabled in the Firebase console.',
+  IN_PROGRESS: 'Sign-in is already in progress.',
 };
 
 export function authErrorMessage(err: unknown): string {

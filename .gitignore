@@ -45,3 +45,9 @@ yarn-error.*
 
 # Firebase emulator logs
 firebase-debug.log
+
+# VS Code
+.vscode
+# Firebase native config (client IDs go in .env)
+GoogleService-Info.plist
+google-services.json
