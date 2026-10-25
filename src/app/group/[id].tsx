@@ -217,7 +217,10 @@ function Group({ id }: { id: string }) {
 
 function Split({ split: s, minVoters }: { split: GroupSplit; minVoters: number }) {
   return (
-    <View style={{ gap: 5 }}>
+    <Pressable
+      accessibilityHint="Opens the bill"
+      onPress={() => router.push({ pathname: '/bill/[id]', params: { id: s.billId } })}
+      style={({ pressed }) => ({ gap: 5, opacity: pressed ? 0.6 : 1 })}>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 8 }}>
         <Text style={{ flex: 1, fontSize: 14, fontWeight: '600' }} numberOfLines={1}>
           {s.number}, {s.title}
@@ -256,6 +259,6 @@ function Split({ split: s, minVoters }: { split: GroupSplit; minVoters: number }
           </View>
         </View>
       )}
-    </View>
+    </Pressable>
   );
 }

@@ -7,6 +7,7 @@ import Svg, { Circle } from 'react-native-svg';
 import { Avatar, DemoTag } from '@/components/avatar';
 import { PillButton } from '@/components/pill-button';
 import { ScreenHeader } from '@/components/screen-header';
+import { BILLS } from '@/data/bills';
 import { api } from '@/lib/api';
 import { useMe } from '@/lib/me-context';
 import { useRemote, type FriendDetail } from '@/lib/social';
@@ -196,6 +197,11 @@ function Note({ children }: { children: ReactNode }) {
 type RecentBill = FriendDetail['recent'][number];
 const word = (v: 'yea' | 'nay') => (v === 'yea' ? 'Yea' : 'Nay');
 
+// The friend endpoint sends a bill's number and short title but not its id, so match both against the bill list.
+function billIdFor(b: RecentBill) {
+  return Object.values(BILLS).find((x) => x.number === b.number && x.shortTitle === b.title)?.id;
+}
+
 const CELL_W = 56;
 const CELL_GAP = 6;
 
@@ -215,19 +221,25 @@ function VoteGroup({ label, bills, name }: { label: string; bills: RecentBill[];
           </Text>
         </View>
       </View>
-      {bills.map((b) => (
-        <View
+      {bills.map((b) => {
+        const billId = billIdFor(b);
+        return (
+        <Pressable
           key={b.number}
           accessible
           accessibilityLabel={`${b.title}, ${b.number}. You voted ${word(b.mine)}, ${name} voted ${word(b.theirs)}.`}
-          style={{
+          accessibilityHint={billId ? 'Opens the bill' : undefined}
+          disabled={!billId}
+          onPress={() => billId && router.push({ pathname: '/bill/[id]', params: { id: billId } })}
+          style={({ pressed }) => ({
             flexDirection: 'row',
             alignItems: 'center',
             gap: 12,
             paddingVertical: 11,
             borderTopWidth: 1,
             borderTopColor: colors.hairline,
-          }}>
+            opacity: pressed ? 0.6 : 1,
+          })}>
           <View style={{ flex: 1, gap: 1 }}>
             <Text style={{ fontSize: 15, fontWeight: '600' }}>{b.title}</Text>
             <Text style={{ fontSize: 12, color: colors.meta }}>{b.number}</Text>
@@ -236,8 +248,9 @@ function VoteGroup({ label, bills, name }: { label: string; bills: RecentBill[];
             <VoteBadge vote={b.mine} />
             <VoteBadge vote={b.theirs} />
           </View>
-        </View>
-      ))}
+        </Pressable>
+        );
+      })}
     </View>
   );
 }

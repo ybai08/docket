@@ -1,7 +1,7 @@
 import * as Haptics from 'expo-haptics';
 import { router } from 'expo-router';
 import { useState } from 'react';
-import { Alert, ScrollView, Share, Text, View } from 'react-native';
+import { Alert, Pressable, ScrollView, Share, Text, View } from 'react-native';
 import { GestureDetector, usePanGesture } from 'react-native-gesture-handler';
 import Animated, {
   useAnimatedReaction,
@@ -278,11 +278,22 @@ function Reveal({ items, order, onShare }: { items: LandslideItem[]; order: stri
             const yourSlot = order.indexOf(id);
             const pts = points[yourSlot];
             return (
-              <View
+              <Pressable
                 key={id}
                 accessible
+                accessibilityRole="button"
                 accessibilityLabel={`${i + 1}. ${it.number}, ${it.title}. Passed ${it.yeas} to ${it.nays}. You ranked it ${yourSlot + 1}, ${pts} points.`}
-                style={{ flexDirection: 'row', alignItems: 'center', gap: 12, padding: 14, borderRadius: 12, borderWidth: 2 }}>
+                accessibilityHint="Opens the bill"
+                onPress={() => router.push({ pathname: '/bill/[id]', params: { id: it.billId } })}
+                style={({ pressed }) => ({
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  gap: 12,
+                  padding: 14,
+                  borderRadius: 12,
+                  borderWidth: 2,
+                  opacity: pressed ? 0.7 : 1,
+                })}>
                 <View
                   style={{
                     width: 28,
@@ -316,7 +327,7 @@ function Reveal({ items, order, onShare }: { items: LandslideItem[]; order: stri
                     +{pts}
                   </Text>
                 </View>
-              </View>
+              </Pressable>
             );
           })}
           <Text style={{ fontSize: 12, fontWeight: '800', letterSpacing: 0.2 }}>Closest vote</Text>

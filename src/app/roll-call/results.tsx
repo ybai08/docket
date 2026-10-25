@@ -189,7 +189,11 @@ function Legend({ color, label }: { color: string; label: string }) {
 function BillResult({ bill, vote }: { bill: Bill; vote: Vote }) {
   const ok = agreed(bill, vote);
   return (
-    <View style={{ gap: 6, paddingVertical: 10, borderTopWidth: 1, borderTopColor: colors.hairline }}>
+    <Pressable
+      accessibilityRole="button"
+      accessibilityHint="Opens the bill"
+      onPress={() => router.push({ pathname: '/bill/[id]', params: { id: bill.id } })}
+      style={({ pressed }) => ({ gap: 6, paddingVertical: 10, borderTopWidth: 1, borderTopColor: colors.hairline, opacity: pressed ? 0.6 : 1 })}>
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
         <BillChip number={bill.number} level={bill.level} size="sm" />
         <Text style={{ flex: 1, fontSize: 14, fontWeight: '700' }}>{bill.shortTitle}</Text>
@@ -213,7 +217,7 @@ function BillResult({ bill, vote }: { bill: Bill; vote: Vote }) {
       {bill.chamberVotes.map((c) => (
         <VoteSlider key={c.chamber} chamber={c.chamber} yeas={c.yeas} nays={c.nays} consent={c.consent} />
       ))}
-    </View>
+    </Pressable>
   );
 }
 

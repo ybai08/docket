@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import { Linking, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -23,7 +24,11 @@ export default function ReviewBills() {
         {set.rollCall.map((b) => {
           const vote = votes[b.id];
           return (
-            <View key={b.id} style={{ gap: 10, padding: 18, borderRadius: 14, borderWidth: 2 }}>
+            <Pressable
+              key={b.id}
+              accessibilityHint="Opens the bill"
+              onPress={() => router.push({ pathname: '/bill/[id]', params: { id: b.id } })}
+              style={({ pressed }) => ({ gap: 10, padding: 18, borderRadius: 14, borderWidth: 2, opacity: pressed ? 0.7 : 1 })}>
               <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                 <BillChip number={b.number} level={b.level} />
                 <Text style={type.meta}>{b.origin}</Text>
@@ -62,7 +67,7 @@ export default function ReviewBills() {
               <Pressable accessibilityRole="link" onPress={() => Linking.openURL(b.sourceUrl)} hitSlop={8}>
                 <Text style={{ fontSize: 15, fontWeight: '600', textDecorationLine: 'underline' }}>Read the bill</Text>
               </Pressable>
-            </View>
+            </Pressable>
           );
         })}
       </ScrollView>
