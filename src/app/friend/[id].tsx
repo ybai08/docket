@@ -204,9 +204,10 @@ function VoteGroup({ label, color, bills, name }: { label: string; color: string
   return (
     <View>
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, paddingBottom: 8 }}>
-        <View style={{ width: 10, height: 10, borderRadius: 2, backgroundColor: color }} />
-        <Text style={{ fontSize: 14, fontWeight: '800' }}>{label}</Text>
-        <Text style={{ fontSize: 14, color: colors.meta, fontVariant: ['tabular-nums'] }}>{bills.length}</Text>
+        <Text style={{ fontSize: 15, fontWeight: '800' }}>{label}</Text>
+        <View style={{ minWidth: 24, height: 22, paddingHorizontal: 7, borderRadius: 11, backgroundColor: color, alignItems: 'center', justifyContent: 'center' }}>
+          <Text style={{ fontSize: 12, fontWeight: '800', fontVariant: ['tabular-nums'] }}>{bills.length}</Text>
+        </View>
       </View>
       {bills.map((b) => {
         const same = b.mine === b.theirs;
@@ -228,22 +229,27 @@ function VoteGroup({ label, color, bills, name }: { label: string; color: string
               <Text style={{ fontSize: 12, color: colors.meta }}>{b.number}</Text>
             </View>
             {same ? (
-              <Text style={{ fontSize: 14, color: colors.text2 }}>
-                Both <Text style={{ fontWeight: '700', color: colors.ink }}>{word(b.mine)}</Text>
-              </Text>
+              <Badge color={color} who="Both" vote={word(b.mine)} />
             ) : (
-              <View style={{ alignItems: 'flex-end' }}>
-                <Text style={{ fontSize: 14, color: colors.text2 }}>
-                  You <Text style={{ fontWeight: '700', color: colors.ink }}>{word(b.mine)}</Text>
-                </Text>
-                <Text style={{ fontSize: 14, color: colors.text2 }} numberOfLines={1}>
-                  {name} <Text style={{ fontWeight: '700', color: colors.ink }}>{word(b.theirs)}</Text>
-                </Text>
+              <View style={{ flexDirection: 'row', gap: 4 }}>
+                <Badge color={color} who="You" vote={word(b.mine)} />
+                <Badge color={color} who={name} vote={word(b.theirs)} />
               </View>
             )}
           </View>
         );
       })}
+    </View>
+  );
+}
+
+function Badge({ color, who, vote }: { color: string; who: string; vote: string }) {
+  return (
+    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5, height: 26, paddingHorizontal: 10, borderRadius: 13, backgroundColor: color }}>
+      <Text style={{ maxWidth: 70, fontSize: 13, color: colors.text2 }} numberOfLines={1}>
+        {who}
+      </Text>
+      <Text style={{ fontSize: 13, fontWeight: '800' }}>{vote}</Text>
     </View>
   );
 }
