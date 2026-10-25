@@ -22,10 +22,13 @@ export default function ProfileScreen() {
   const [level, setLevel] = useState<Level>('federal');
   const { data: lawmakerData } = useRemote<LawmakerData>('/me/lawmakers');
   const { data: friendsData } = useRemote<FriendsData>('/friends');
+  // The server spells out the state ("Texas"); fall back to the code until it loads.
+  const stateName =
+    (profile as { stateName?: string | null } | null)?.stateName || lawmakerData?.stateName || profile?.state || '';
   // Only offer levels that have someone in them.
   const levels = (
     [
-      ['state', profileStateName(profile?.state) || 'State'],
+      ['state', stateName || 'State'],
       ['federal', 'Congress'],
       ['local', 'Local'],
     ] as [Level, string][]
@@ -41,7 +44,7 @@ export default function ProfileScreen() {
   const name = profile?.displayName || user.displayName || (!hiddenEmail && user.email?.split('@')[0]) || 'Docket member';
   const where = [
     profile?.city,
-    profile?.districts?.stateHouse ? `${profileStateName(profile.state)} House District ${profile.districts.stateHouse}` : null,
+    profile?.districts?.stateHouse ? `${stateName} House District ${profile.districts.stateHouse}` : null,
   ]
     .filter(Boolean)
     .join(', ');
@@ -611,11 +614,6 @@ function Empty({ children }: { children: ReactNode }) {
   );
 }
 
-const STATE_NAMES: Record<string, string> = { TX: 'Texas' };
-function profileStateName(state: string | null | undefined) {
-  return state ? (STATE_NAMES[state] ?? state) : '';
-}
-
 const PARTY: Record<string, string> = {
   D: 'Democrat',
   R: 'Republican',
@@ -638,6 +636,7 @@ type LawmakerData = {
   state: LawmakerRow[];
   local: LawmakerRow[];
   credit?: string | null;
+  stateName?: string | null;
 };
 
 // Your lawmakers from the server's lawmakers table, by your districts. Seats we have no one for (county
