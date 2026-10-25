@@ -1,10 +1,11 @@
 import { Image } from 'expo-image';
 import { router } from 'expo-router';
 import { useState, type ReactNode } from 'react';
-import { Alert, Pressable, Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 import Svg, { Line } from 'react-native-svg';
 
 import { stateDistrictLine } from '@/components/civic';
+import { showAlert } from '@/components/dialog';
 import { ChevronRight, FiledOrFakeGlyph, FlameIcon, LandslideGlyph, RollCallGlyph } from '@/components/icons';
 import { TabScreen } from '@/components/tab-screen';
 import { WeekTiles } from '@/components/week-tiles';
@@ -58,7 +59,7 @@ export default function ProfileScreen() {
   });
 
   function confirmSignOut() {
-    Alert.alert('Sign out of Docket?', 'You can sign back in anytime with Apple or Google.', [
+    showAlert('Sign out of Docket?', 'You can sign back in anytime with Apple or Google.', [
       { text: 'Cancel', style: 'cancel' },
       {
         text: 'Sign out',

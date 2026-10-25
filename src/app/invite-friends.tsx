@@ -2,9 +2,10 @@ import * as Clipboard from 'expo-clipboard';
 import * as Haptics from 'expo-haptics';
 import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { Alert, Pressable, ScrollView, Share, Text, TextInput, View } from 'react-native';
+import { Pressable, ScrollView, Share, Text, TextInput, View } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
 
+import { showAlert, showPrompt } from '@/components/dialog';
 import { ChevronRight } from '@/components/icons';
 import { PillButton } from '@/components/pill-button';
 import { api } from '@/lib/api';
@@ -57,17 +58,16 @@ export default function InviteSheet() {
   }
 
   function editUsername() {
-    Alert.prompt(
+    showPrompt(
       'Your username',
       '3 to 20 lowercase letters, numbers or underscores. Friends can add you with it.',
       async (value) => {
         try {
           await patch({ username: value.trim().replace(/^@/, '').toLowerCase() });
         } catch (err) {
-          Alert.alert("Couldn't save that username", (err as Error).message);
+          showAlert("Couldn't save that username", (err as Error).message);
         }
       },
-      'plain-text',
       profile?.username ?? '',
     );
   }
@@ -140,7 +140,7 @@ export default function InviteSheet() {
         <Pressable
           accessibilityRole="button"
           onPress={() =>
-            Alert.alert(
+            showAlert(
               'Contact matching',
               'Matching works only when both people turn on "Match me from contacts" in Privacy. It arrives in a later update.',
             )

@@ -1,10 +1,11 @@
 import { router, useLocalSearchParams } from 'expo-router';
 import type { ReactNode } from 'react';
-import { ActionSheetIOS, ActivityIndicator, Alert, Platform, Pressable, ScrollView, Text, View } from 'react-native';
+import { ActivityIndicator, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Svg, { Circle } from 'react-native-svg';
 
 import { Avatar, DemoTag } from '@/components/avatar';
+import { showAlert, showOptions } from '@/components/dialog';
 import { PillButton } from '@/components/pill-button';
 import { ScreenHeader } from '@/components/screen-header';
 import { BILLS } from '@/data/bills';
@@ -22,46 +23,42 @@ export default function FriendProfile() {
     if (!data) return;
     const name = data.name;
     const mine = data.myOverride ?? profile?.shareVotes ?? false;
-    const options = [
-      mine ? `Stop sharing my votes with ${name}` : `Share my votes with ${name}`,
-      `Remove ${name}`,
-      `Block ${name}`,
-      'Cancel',
-    ];
-    const run = async (i: number) => {
-      if (i === 0) {
-        await api(`/friends/${id}/sharing`, { method: 'PUT', body: { share: !mine } }).catch(() => {});
-        reload();
-      } else if (i === 1) {
-        await api(`/friends/${id}`, { method: 'DELETE' }).catch(() => {});
-        router.back();
-      } else if (i === 2) {
-        Alert.alert(`Block ${name}?`, `${name} won't be told. You won't see each other's rank in shared groups, and they can't send you requests.`, [
-          { text: 'Cancel', style: 'cancel' },
-          {
-            text: 'Block',
-            style: 'destructive',
-            onPress: async () => {
-              await api('/blocks', { method: 'POST', body: { userId: id } }).catch(() => {});
-              router.back();
-            },
+    showOptions({
+      title: `Removing or blocking is silent. ${name} won't be told.`,
+      options: [
+        {
+          text: mine ? `Stop sharing my votes with ${name}` : `Share my votes with ${name}`,
+          onPress: async () => {
+            await api(`/friends/${id}/sharing`, { method: 'PUT', body: { share: !mine } }).catch(() => {});
+            reload();
           },
-        ]);
-      }
-    };
-    if (Platform.OS === 'ios') {
-      ActionSheetIOS.showActionSheetWithOptions(
-        { options, cancelButtonIndex: 3, destructiveButtonIndex: [1, 2], title: `Removing or blocking is silent. ${name} won't be told.` },
-        run,
-      );
-    } else {
-      Alert.alert(name, undefined, [
-        { text: options[0], onPress: () => run(0) },
-        { text: options[1], onPress: () => run(1) },
-        { text: options[2], style: 'destructive', onPress: () => run(2) },
-        { text: 'Cancel', style: 'cancel' },
-      ]);
-    }
+        },
+        {
+          text: `Remove ${name}`,
+          style: 'destructive',
+          onPress: async () => {
+            await api(`/friends/${id}`, { method: 'DELETE' }).catch(() => {});
+            router.back();
+          },
+        },
+        {
+          text: `Block ${name}`,
+          style: 'destructive',
+          onPress: () =>
+            showAlert(`Block ${name}?`, `${name} won't be told. You won't see each other's rank in shared groups, and they can't send you requests.`, [
+              { text: 'Cancel', style: 'cancel' },
+              {
+                text: 'Block',
+                style: 'destructive',
+                onPress: async () => {
+                  await api('/blocks', { method: 'POST', body: { userId: id } }).catch(() => {});
+                  router.back();
+                },
+              },
+            ]),
+        },
+      ],
+    });
   }
 
   return (

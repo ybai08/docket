@@ -1,8 +1,9 @@
 import { Redirect, router, useLocalSearchParams } from 'expo-router';
-import { ActionSheetIOS, ActivityIndicator, Alert, Pressable, ScrollView, Share, Text, View } from 'react-native';
+import { ActivityIndicator, Pressable, ScrollView, Share, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Svg, { Circle, Path } from 'react-native-svg';
 
+import { showAlert, showOptions, showPrompt } from '@/components/dialog';
 import { PillButton } from '@/components/pill-button';
 import { ScreenHeader } from '@/components/screen-header';
 import { SwitchRow } from '@/components/switch-row';
@@ -36,8 +37,8 @@ function Group({ id }: { id: string }) {
 
   function settings() {
     if (!g) return;
-    const leave = async () => {
-      Alert.alert(`Leave ${g.name}?`, 'Your past votes stay in its anonymous splits.', [
+    const leave = () =>
+      showAlert(`Leave ${g.name}?`, 'Your past votes stay in its anonymous splits.', [
         { text: 'Cancel', style: 'cancel' },
         {
           text: 'Leave',
@@ -49,60 +50,66 @@ function Group({ id }: { id: string }) {
           },
         },
       ]);
-    };
     if (!g.isAdmin) {
-      return Alert.alert(g.name, `Group code ${g.code}`, [
-        { text: 'Leave group', style: 'destructive', onPress: leave },
-        { text: 'Cancel', style: 'cancel' },
-      ]);
+      return showOptions({ title: g.name, message: `Group code ${g.code}`, options: [{ text: 'Leave group', style: 'destructive', onPress: leave }] });
     }
-    const options = [
-      'Rename group',
-      g.approvalRequired ? 'Let anyone join with the code' : 'Approve new members',
-      'Reset the code',
-      'Members',
-      'Cancel',
-    ];
-    ActionSheetIOS.showActionSheetWithOptions({ options, cancelButtonIndex: 4, title: `Code ${g.code}` }, async (i) => {
-      if (i === 0) {
-        Alert.prompt('Rename group', undefined, async (name) => {
-          await api(`/groups/${id}`, { method: 'PATCH', body: { name } }).catch((err: Error) => Alert.alert(err.message));
-          reload();
-        }, 'plain-text', g.name);
-      } else if (i === 1) {
-        await api(`/groups/${id}`, { method: 'PATCH', body: { approvalRequired: !g.approvalRequired } }).catch(() => {});
-        reload();
-      } else if (i === 2) {
-        Alert.alert('Reset the code?', 'The old code and link stop working. Current members stay.', [
-          { text: 'Cancel', style: 'cancel' },
-          {
-            text: 'Reset',
-            onPress: async () => {
-              await api(`/groups/${id}/reset-code`, { method: 'POST' }).catch(() => {});
-              reload();
-            },
+    showOptions({
+      title: `Code ${g.code}`,
+      options: [
+        {
+          text: 'Rename group',
+          onPress: () =>
+            showPrompt(
+              'Rename group',
+              undefined,
+              async (name) => {
+                await api(`/groups/${id}`, { method: 'PATCH', body: { name } }).catch((err: Error) => showAlert(err.message));
+                reload();
+              },
+              g.name,
+            ),
+        },
+        {
+          text: g.approvalRequired ? 'Let anyone join with the code' : 'Approve new members',
+          onPress: async () => {
+            await api(`/groups/${id}`, { method: 'PATCH', body: { approvalRequired: !g.approvalRequired } }).catch(() => {});
+            reload();
           },
-        ]);
-      } else if (i === 3) {
-        manageMembers();
-      }
+        },
+        {
+          text: 'Reset the code',
+          onPress: () =>
+            showAlert('Reset the code?', 'The old code and link stop working. Current members stay.', [
+              { text: 'Cancel', style: 'cancel' },
+              {
+                text: 'Reset',
+                onPress: async () => {
+                  await api(`/groups/${id}/reset-code`, { method: 'POST' }).catch(() => {});
+                  reload();
+                },
+              },
+            ]),
+        },
+        { text: 'Members', onPress: manageMembers },
+      ],
     });
   }
 
   function manageMembers() {
     if (!g) return;
     const others = g.people.filter((p) => !p.isYou);
-    const options = [...others.map((p) => (p.status === 'pending' ? `Approve ${p.name}` : `Remove ${p.name}`)), 'Done'];
-    ActionSheetIOS.showActionSheetWithOptions(
-      { options, cancelButtonIndex: options.length - 1, title: 'Removing someone is silent.' },
-      async (i) => {
-        const p = others[i];
-        if (!p) return;
-        const path = p.status === 'pending' ? `/groups/${id}/members/${p.id}/approve` : `/groups/${id}/members/${p.id}`;
-        await api(path, { method: p.status === 'pending' ? 'POST' : 'DELETE' }).catch((err: Error) => Alert.alert(err.message));
-        reload();
-      },
-    );
+    showOptions({
+      title: 'Removing someone is silent.',
+      cancelText: 'Done',
+      options: others.map((p) => ({
+        text: p.status === 'pending' ? `Approve ${p.name}` : `Remove ${p.name}`,
+        onPress: async () => {
+          const path = p.status === 'pending' ? `/groups/${id}/members/${p.id}/approve` : `/groups/${id}/members/${p.id}`;
+          await api(path, { method: p.status === 'pending' ? 'POST' : 'DELETE' }).catch((err: Error) => showAlert(err.message));
+          reload();
+        },
+      })),
+    });
   }
 
   return (

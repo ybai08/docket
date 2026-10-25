@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { Alert, Pressable, ScrollView, Text, View } from 'react-native';
+import { Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { showAlert } from '@/components/dialog';
 import { ScreenHeader } from '@/components/screen-header';
 import { SwitchRow } from '@/components/switch-row';
 import { api } from '@/lib/api';
@@ -39,8 +40,8 @@ export default function PrivacyScreen() {
 
   function showBlocked() {
     const list = blocked.data?.blocked ?? [];
-    if (!list.length) return Alert.alert('Blocked people', "You haven't blocked anyone.");
-    Alert.alert(
+    if (!list.length) return showAlert('Blocked people', "You haven't blocked anyone.");
+    showAlert(
       'Blocked people',
       'Unblocking lets them send you requests again. They are not told.',
       [
@@ -57,7 +58,7 @@ export default function PrivacyScreen() {
   }
 
   function deleteAccount() {
-    Alert.alert('Delete your account?', 'This deletes your votes, results, friends and groups from Docket. It cannot be undone.', [
+    showAlert('Delete your account?', 'This deletes your votes, results, friends and groups from Docket. It cannot be undone.', [
       { text: 'Cancel', style: 'cancel' },
       {
         text: 'Delete everything',

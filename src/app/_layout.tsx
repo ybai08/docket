@@ -10,6 +10,7 @@ import { StatusBar } from 'expo-status-bar';
 import { ActivityIndicator, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
+import { DialogHost } from '@/components/dialog';
 import { AuthProvider, useAuth } from '@/lib/auth-context';
 import { GameStoreProvider } from '@/lib/game-store';
 import { MeProvider, useMe } from '@/lib/me-context';
@@ -87,6 +88,7 @@ export default function RootLayout() {
             <TodayProvider>
               <StatusBar style="dark" />
               {fontsLoaded ? <RootStack /> : null}
+              <DialogHost />
             </TodayProvider>
           </GameStoreProvider>
         </MeProvider>
