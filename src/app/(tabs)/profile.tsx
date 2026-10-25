@@ -97,6 +97,7 @@ export default function ProfileScreen() {
       <Section title="By game">
         <View style={{ gap: 10 }}>
           <GameRow
+            id="roll-call"
             color={colors.lavender}
             glyph={<RollCallGlyph size={36} />}
             game="Roll Call"
@@ -104,6 +105,7 @@ export default function ProfileScreen() {
             value={byGame?.rollCallAgreementPct != null ? `${byGame.rollCallAgreementPct}%` : null}
           />
           <GameRow
+            id="filed-or-fake"
             color={colors.yellow}
             glyph={<FiledOrFakeGlyph size={36} />}
             game="Filed or Fake"
@@ -111,6 +113,7 @@ export default function ProfileScreen() {
             value={byGame?.filedOrFakePct != null ? `${byGame.filedOrFakePct}%` : null}
           />
           <GameRow
+            id="landslide"
             color={colors.teal}
             glyph={<LandslideGlyph size={36} />}
             game="Landslide"
@@ -381,12 +384,14 @@ function Section({ title, note, children }: { title: string; note?: string; chil
 }
 
 function GameRow({
+  id,
   color,
   glyph,
   game,
   caption,
   value,
 }: {
+  id: 'roll-call' | 'filed-or-fake' | 'landslide';
   color: string;
   glyph: ReactNode;
   game: string;
@@ -394,18 +399,23 @@ function GameRow({
   value: string | null;
 }) {
   return (
-    <View
-      accessible
+    <Pressable
+      accessibilityRole="button"
       accessibilityLabel={`${game}: ${value ?? 'not played yet'}, ${caption.toLowerCase()}`}
-      style={{
+      accessibilityHint="Opens your history"
+      onPress={() => router.push({ pathname: '/history/[game]', params: { game: id } })}
+      style={({ pressed }) => ({
         flexDirection: 'row',
         alignItems: 'center',
         gap: 12,
         paddingVertical: 12,
-        paddingHorizontal: 14,
+        paddingLeft: 14,
+        paddingRight: 10,
         borderRadius: 12,
         backgroundColor: color,
-      }}>
+        opacity: pressed ? 0.7 : 1,
+        transform: [{ scale: pressed ? 0.98 : 1 }],
+      })}>
       {glyph}
       <View style={{ flex: 1, gap: 1 }}>
         <Text style={{ fontFamily: fonts.serif700, fontSize: 19 }}>{game}</Text>
@@ -419,7 +429,8 @@ function GameRow({
         }}>
         {value ?? '–'}
       </Text>
-    </View>
+      <ChevronRight size={16} />
+    </Pressable>
   );
 }
 
