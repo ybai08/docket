@@ -152,6 +152,13 @@ export default function FriendProfile() {
           <Section title="How you each voted" note={data.votesShared ? 'Your most recent bills in common, newest first' : undefined}>
             {data.votesShared ? (
               <View>
+                {/* Column heads once, so each row is just two votes. */}
+                <View style={{ flexDirection: 'row', justifyContent: 'flex-end', gap: CELL_GAP, paddingBottom: 6 }}>
+                  <Text style={headStyle}>You</Text>
+                  <Text style={headStyle} numberOfLines={1}>
+                    {data.name}
+                  </Text>
+                </View>
                 {data.recent.map((b, i) => (
                   <VoteRow key={b.number} bill={b} name={data.name} first={i === 0} />
                 ))}
@@ -190,7 +197,7 @@ function Note({ children }: { children: ReactNode }) {
   return <Text style={{ padding: 14, borderRadius: 12, backgroundColor: colors.muted, fontSize: 14, lineHeight: 19, color: colors.text2 }}>{children}</Text>;
 }
 
-/** One bill: its title, then both votes side by side, tinted teal when they match and lavender when they don't. */
+/** One bill: a teal or lavender edge for same or different, its title, then both votes as ballot pills. */
 function VoteRow({ bill: b, name, first }: { bill: FriendDetail['recent'][number]; name: string; first: boolean }) {
   const same = b.mine === b.theirs;
   const word = (v: 'yea' | 'nay') => (v === 'yea' ? 'Yea' : 'Nay');
@@ -206,26 +213,39 @@ function VoteRow({ bill: b, name, first }: { bill: FriendDetail['recent'][number
         borderTopWidth: first ? 0 : 1,
         borderTopColor: colors.hairline,
       }}>
+      <View style={{ width: 4, alignSelf: 'stretch', borderRadius: 2, backgroundColor: same ? colors.teal : colors.lavender }} />
       <View style={{ flex: 1, gap: 2 }}>
         <Text style={{ fontSize: 15, fontWeight: '600' }}>{b.title}</Text>
         <Text style={{ fontSize: 12, color: colors.meta }}>{b.number}</Text>
       </View>
-      <View style={{ flexDirection: 'row', borderRadius: 10, backgroundColor: same ? colors.teal : colors.lavender, paddingVertical: 6 }}>
-        <VoteCell who="You" vote={word(b.mine)} />
-        <View style={{ width: 1, backgroundColor: colors.dashed, opacity: 0.4 }} />
-        <VoteCell who={name} vote={word(b.theirs)} />
+      <View style={{ flexDirection: 'row', gap: CELL_GAP }}>
+        <VotePill vote={b.mine} />
+        <VotePill vote={b.theirs} />
       </View>
     </View>
   );
 }
 
-function VoteCell({ who, vote }: { who: string; vote: string }) {
+const CELL_W = 50;
+const CELL_GAP = 6;
+const headStyle = { width: CELL_W, textAlign: 'center' as const, fontSize: 12, fontWeight: '700' as const, color: colors.meta };
+
+/** Yea is a filled black pill, Nay an outlined one: readable at a glance without color. */
+function VotePill({ vote }: { vote: 'yea' | 'nay' }) {
+  const yea = vote === 'yea';
   return (
-    <View style={{ width: 58, alignItems: 'center' }}>
-      <Text style={{ fontSize: 11, color: colors.text2 }} numberOfLines={1}>
-        {who}
-      </Text>
-      <Text style={{ fontSize: 15, fontWeight: '800' }}>{vote}</Text>
+    <View
+      style={{
+        width: CELL_W,
+        height: 28,
+        borderRadius: 14,
+        borderWidth: 1.5,
+        borderColor: colors.ink,
+        backgroundColor: yea ? colors.ink : colors.ground,
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}>
+      <Text style={{ fontSize: 13, fontWeight: '700', color: yea ? colors.ground : colors.ink }}>{yea ? 'Yea' : 'Nay'}</Text>
     </View>
   );
 }
