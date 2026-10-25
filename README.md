@@ -43,13 +43,26 @@ cd server
 npm install
 cp .env.example .env    # DATABASE_URL, and FIREBASE_PROJECT_ID (same as the app's)
 npm run migrate         # applies migrations/*.sql once each
-npm run seed            # loads the verified bills and daily sets from src/data
+npm run seed            # loads the verified bills, daily sets, lawmakers and ZIP districts
 npm run dev             # http://localhost:8787, reloads on change
 ```
 
 The iOS Simulator reaches `localhost` directly. For a phone, set `EXPO_PUBLIC_API_URL` in the app's `.env` to an address it can reach. Hosted Postgres (Tiger Cloud) works the same: put its connection string in `DATABASE_URL`. Tiger Cloud signs with its own CA, so `server/certs/timescale-ca.pem` is pinned and TLS stays fully verified; other hosts must present a publicly trusted certificate.
 
 Endpoints (all need `Authorization: Bearer <Firebase ID token>`): `GET /today`, `POST /votes`, `POST /votes/reset`, `POST /results/:game`, `GET /results/today`, `GET /me`, `PATCH /me`.
+
+## Civic data
+
+Lawmakers, their recorded votes and the districts of every Texas ZIP code live in Postgres (`lawmakers`, `lawmaker_votes`, `zip_districts`), so the API never looks up districts or representatives at request time. `server/scripts/build_civic_data.py` rebuilds the JSON in `server/data/` from public sources, and `npm run seed` loads it:
+
+- **Lawmakers:** Texas's members of Congress (unitedstates/congress-legislators, official portraits), all Texas legislators (OpenStates, with their official photos), and Austin's mayor and council (City of Austin).
+- **Votes:** Congress from Voteview; Austin from the city's council votes dataset. Texas Legislature member votes aren't machine-readable yet.
+- **ZIP districts:** Census 2020 relationship files for the 119th Congress, the 2024 Texas House and Senate plans, counties and cities, with the share of each ZIP in each district. Austin council districts come from the city's boundary map, by each ZIP's center point.
+
+```bash
+python3 -I server/scripts/build_civic_data.py   # when rosters or bills change
+cd server && npm run seed
+```
 
 ## Deploy the API
 

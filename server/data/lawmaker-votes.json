@@ -1,1875 +1,1076 @@
 [
- {
-  "billId": "us-119-s5",
-  "body": "us-senate",
-  "memberId": "C001056",
-  "name": "CORNYN, John",
-  "party": "R",
-  "district": null,
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RS1190007"
- },
- {
-  "billId": "us-119-s5",
-  "body": "us-senate",
-  "memberId": "C001098",
-  "name": "CRUZ, Rafael Edward (Ted)",
-  "party": "R",
-  "district": null,
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RS1190007"
- },
- {
-  "billId": "us-119-s331",
-  "body": "us-senate",
-  "memberId": "C001056",
-  "name": "CORNYN, John",
-  "party": "R",
-  "district": null,
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RS1190127"
- },
- {
-  "billId": "us-119-s331",
-  "body": "us-senate",
-  "memberId": "C001098",
-  "name": "CRUZ, Rafael Edward (Ted)",
-  "party": "R",
-  "district": null,
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RS1190127"
- },
- {
-  "billId": "us-119-hr1",
-  "body": "us-senate",
-  "memberId": "C001056",
-  "name": "CORNYN, John",
-  "party": "R",
-  "district": null,
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RS1190372"
- },
- {
-  "billId": "us-119-hr1",
-  "body": "us-senate",
-  "memberId": "C001098",
-  "name": "CRUZ, Rafael Edward (Ted)",
-  "party": "R",
-  "district": null,
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RS1190372"
- },
- {
-  "billId": "us-119-s5",
-  "body": "us-house",
-  "memberId": "C001051",
-  "name": "CARTER, John R.",
-  "party": "R",
-  "district": "31",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190022"
- },
- {
-  "billId": "us-119-s5",
-  "body": "us-house",
-  "memberId": "G000553",
-  "name": "GREEN, Al",
-  "party": "D",
-  "district": "9",
-  "vote": "nay",
-  "source": "https://voteview.com/rollcall/RH1190022"
- },
- {
-  "billId": "us-119-s5",
-  "body": "us-house",
-  "memberId": "M001157",
-  "name": "MCCAUL, Michael T.",
-  "party": "R",
-  "district": "10",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190022"
- },
- {
-  "billId": "us-119-s5",
-  "body": "us-house",
-  "memberId": "C001063",
-  "name": "CUELLAR, Henry",
-  "party": "D",
-  "district": "28",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190022"
- },
- {
-  "billId": "us-119-s5",
-  "body": "us-house",
-  "memberId": "W000814",
-  "name": "WEBER, Randy",
-  "party": "R",
-  "district": "14",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190022"
- },
- {
-  "billId": "us-119-s5",
-  "body": "us-house",
-  "memberId": "C001091",
-  "name": "CASTRO, Joaquin",
-  "party": "D",
-  "district": "20",
-  "vote": "nay",
-  "source": "https://voteview.com/rollcall/RH1190022"
- },
- {
-  "billId": "us-119-s5",
-  "body": "us-house",
-  "memberId": "V000131",
-  "name": "VEASEY, Marc",
-  "party": "D",
-  "district": "33",
-  "vote": "nay",
-  "source": "https://voteview.com/rollcall/RH1190022"
- },
- {
-  "billId": "us-119-s5",
-  "body": "us-house",
-  "memberId": "B001291",
-  "name": "BABIN, Brian",
-  "party": "R",
-  "district": "36",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190022"
- },
- {
-  "billId": "us-119-s5",
-  "body": "us-house",
-  "memberId": "A000375",
-  "name": "ARRINGTON, Jodey Cook",
-  "party": "R",
-  "district": "19",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190022"
- },
- {
-  "billId": "us-119-s5",
-  "body": "us-house",
-  "memberId": "G000581",
-  "name": "GONZALEZ, Vicente, Jr.",
-  "party": "D",
-  "district": "34",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190022"
- },
- {
-  "billId": "us-119-s5",
-  "body": "us-house",
-  "memberId": "C001115",
-  "name": "CLOUD, Michael",
-  "party": "R",
-  "district": "27",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190022"
- },
- {
-  "billId": "us-119-s5",
-  "body": "us-house",
-  "memberId": "C001120",
-  "name": "CRENSHAW, Daniel",
-  "party": "R",
-  "district": "2",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190022"
- },
- {
-  "billId": "us-119-s5",
-  "body": "us-house",
-  "memberId": "E000299",
-  "name": "ESCOBAR, Veronica",
-  "party": "D",
-  "district": "16",
-  "vote": "nay",
-  "source": "https://voteview.com/rollcall/RH1190022"
- },
- {
-  "billId": "us-119-s5",
-  "body": "us-house",
-  "memberId": "F000468",
-  "name": "FLETCHER, Elizabeth",
-  "party": "D",
-  "district": "7",
-  "vote": "nay",
-  "source": "https://voteview.com/rollcall/RH1190022"
- },
- {
-  "billId": "us-119-s5",
-  "body": "us-house",
-  "memberId": "G000587",
-  "name": "GARCIA, Sylvia",
-  "party": "D",
-  "district": "29",
-  "vote": "nay",
-  "source": "https://voteview.com/rollcall/RH1190022"
- },
- {
-  "billId": "us-119-s5",
-  "body": "us-house",
-  "memberId": "G000589",
-  "name": "GOODEN, Lance",
-  "party": "R",
-  "district": "5",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190022"
- },
- {
-  "billId": "us-119-s5",
-  "body": "us-house",
-  "memberId": "R000614",
-  "name": "ROY, Charles",
-  "party": "R",
-  "district": "21",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190022"
- },
- {
-  "billId": "us-119-s5",
-  "body": "us-house",
-  "memberId": "F000246",
-  "name": "FALLON, Pat",
-  "party": "R",
-  "district": "4",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190022"
- },
- {
-  "billId": "us-119-s5",
-  "body": "us-house",
-  "memberId": "G000594",
-  "name": "GONZALES, Tony",
-  "party": "R",
-  "district": "23",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190022"
- },
- {
-  "billId": "us-119-s5",
-  "body": "us-house",
-  "memberId": "J000304",
-  "name": "JACKSON, Ronny",
-  "party": "R",
-  "district": "13",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190022"
- },
- {
-  "billId": "us-119-s5",
-  "body": "us-house",
-  "memberId": "N000026",
-  "name": "NEHLS, Troy E.",
-  "party": "R",
-  "district": "22",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190022"
- },
- {
-  "billId": "us-119-s5",
-  "body": "us-house",
-  "memberId": "P000048",
-  "name": "PFLUGER, August",
-  "party": "R",
-  "district": "11",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190022"
- },
- {
-  "billId": "us-119-s5",
-  "body": "us-house",
-  "memberId": "V000134",
-  "name": "VAN DUYNE, Beth",
-  "party": "R",
-  "district": "24",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190022"
- },
- {
-  "billId": "us-119-s5",
-  "body": "us-house",
-  "memberId": "E000071",
-  "name": "ELLZEY, Jake",
-  "party": "R",
-  "district": "6",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190022"
- },
- {
-  "billId": "us-119-s5",
-  "body": "us-house",
-  "memberId": "C001131",
-  "name": "CASAR, Greg",
-  "party": "D",
-  "district": "35",
-  "vote": "nay",
-  "source": "https://voteview.com/rollcall/RH1190022"
- },
- {
-  "billId": "us-119-s5",
-  "body": "us-house",
-  "memberId": "C001130",
-  "name": "CROCKETT, Jasmine",
-  "party": "D",
-  "district": "30",
-  "vote": "nay",
-  "source": "https://voteview.com/rollcall/RH1190022"
- },
- {
-  "billId": "us-119-s5",
-  "body": "us-house",
-  "memberId": "D000594",
-  "name": "DE LA CRUZ, Monica",
-  "party": "R",
-  "district": "15",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190022"
- },
- {
-  "billId": "us-119-s5",
-  "body": "us-house",
-  "memberId": "H001095",
-  "name": "HUNT, Wesley",
-  "party": "R",
-  "district": "38",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190022"
- },
- {
-  "billId": "us-119-s5",
-  "body": "us-house",
-  "memberId": "L000603",
-  "name": "LUTTRELL, Morgan",
-  "party": "R",
-  "district": "8",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190022"
- },
- {
-  "billId": "us-119-s5",
-  "body": "us-house",
-  "memberId": "M001224",
-  "name": "MORAN, Nathaniel",
-  "party": "R",
-  "district": "1",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190022"
- },
- {
-  "billId": "us-119-s5",
-  "body": "us-house",
-  "memberId": "S001224",
-  "name": "SELF, Keith",
-  "party": "R",
-  "district": "3",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190022"
- },
- {
-  "billId": "us-119-s5",
-  "body": "us-house",
-  "memberId": "G000603",
-  "name": "GILL, Brandon",
-  "party": "R",
-  "district": "26",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190022"
- },
- {
-  "billId": "us-119-s5",
-  "body": "us-house",
-  "memberId": "G000601",
-  "name": "GOLDMAN, Craig A.",
-  "party": "R",
-  "district": "12",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190022"
- },
- {
-  "billId": "us-119-s5",
-  "body": "us-house",
-  "memberId": "J000310",
-  "name": "JOHNSON, Julie",
-  "party": "D",
-  "district": "32",
-  "vote": "nay",
-  "source": "https://voteview.com/rollcall/RH1190022"
- },
- {
-  "billId": "us-119-s5",
-  "body": "us-house",
-  "memberId": "T000489",
-  "name": "TURNER, Sylvester",
-  "party": "D",
-  "district": "18",
-  "vote": "nay",
-  "source": "https://voteview.com/rollcall/RH1190022"
- },
- {
-  "billId": "us-119-s5",
-  "body": "us-house",
-  "memberId": "D000399",
-  "name": "DOGGETT, Lloyd Alton, II",
-  "party": "D",
-  "district": "37",
-  "vote": "nay",
-  "source": "https://voteview.com/rollcall/RH1190022"
- },
- {
-  "billId": "us-119-s5",
-  "body": "us-house",
-  "memberId": "S000250",
-  "name": "SESSIONS, Pete",
-  "party": "R",
-  "district": "17",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190022"
- },
- {
-  "billId": "us-119-s146",
-  "body": "us-house",
-  "memberId": "C001051",
-  "name": "CARTER, John R.",
-  "party": "R",
-  "district": "31",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190103"
- },
- {
-  "billId": "us-119-s146",
-  "body": "us-house",
-  "memberId": "G000553",
-  "name": "GREEN, Al",
-  "party": "D",
-  "district": "9",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190103"
- },
- {
-  "billId": "us-119-s146",
-  "body": "us-house",
-  "memberId": "C001063",
-  "name": "CUELLAR, Henry",
-  "party": "D",
-  "district": "28",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190103"
- },
- {
-  "billId": "us-119-s146",
-  "body": "us-house",
-  "memberId": "W000814",
-  "name": "WEBER, Randy",
-  "party": "R",
-  "district": "14",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190103"
- },
- {
-  "billId": "us-119-s146",
-  "body": "us-house",
-  "memberId": "C001091",
-  "name": "CASTRO, Joaquin",
-  "party": "D",
-  "district": "20",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190103"
- },
- {
-  "billId": "us-119-s146",
-  "body": "us-house",
-  "memberId": "W000816",
-  "name": "WILLIAMS, Roger",
-  "party": "R",
-  "district": "25",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190103"
- },
- {
-  "billId": "us-119-s146",
-  "body": "us-house",
-  "memberId": "V000131",
-  "name": "VEASEY, Marc",
-  "party": "D",
-  "district": "33",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190103"
- },
- {
-  "billId": "us-119-s146",
-  "body": "us-house",
-  "memberId": "B001291",
-  "name": "BABIN, Brian",
-  "party": "R",
-  "district": "36",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190103"
- },
- {
-  "billId": "us-119-s146",
-  "body": "us-house",
-  "memberId": "A000375",
-  "name": "ARRINGTON, Jodey Cook",
-  "party": "R",
-  "district": "19",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190103"
- },
- {
-  "billId": "us-119-s146",
-  "body": "us-house",
-  "memberId": "G000581",
-  "name": "GONZALEZ, Vicente, Jr.",
-  "party": "D",
-  "district": "34",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190103"
- },
- {
-  "billId": "us-119-s146",
-  "body": "us-house",
-  "memberId": "C001115",
-  "name": "CLOUD, Michael",
-  "party": "R",
-  "district": "27",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190103"
- },
- {
-  "billId": "us-119-s146",
-  "body": "us-house",
-  "memberId": "C001120",
-  "name": "CRENSHAW, Daniel",
-  "party": "R",
-  "district": "2",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190103"
- },
- {
-  "billId": "us-119-s146",
-  "body": "us-house",
-  "memberId": "E000299",
-  "name": "ESCOBAR, Veronica",
-  "party": "D",
-  "district": "16",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190103"
- },
- {
-  "billId": "us-119-s146",
-  "body": "us-house",
-  "memberId": "F000468",
-  "name": "FLETCHER, Elizabeth",
-  "party": "D",
-  "district": "7",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190103"
- },
- {
-  "billId": "us-119-s146",
-  "body": "us-house",
-  "memberId": "G000587",
-  "name": "GARCIA, Sylvia",
-  "party": "D",
-  "district": "29",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190103"
- },
- {
-  "billId": "us-119-s146",
-  "body": "us-house",
-  "memberId": "G000589",
-  "name": "GOODEN, Lance",
-  "party": "R",
-  "district": "5",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190103"
- },
- {
-  "billId": "us-119-s146",
-  "body": "us-house",
-  "memberId": "R000614",
-  "name": "ROY, Charles",
-  "party": "R",
-  "district": "21",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190103"
- },
- {
-  "billId": "us-119-s146",
-  "body": "us-house",
-  "memberId": "F000246",
-  "name": "FALLON, Pat",
-  "party": "R",
-  "district": "4",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190103"
- },
- {
-  "billId": "us-119-s146",
-  "body": "us-house",
-  "memberId": "G000594",
-  "name": "GONZALES, Tony",
-  "party": "R",
-  "district": "23",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190103"
- },
- {
-  "billId": "us-119-s146",
-  "body": "us-house",
-  "memberId": "J000304",
-  "name": "JACKSON, Ronny",
-  "party": "R",
-  "district": "13",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190103"
- },
- {
-  "billId": "us-119-s146",
-  "body": "us-house",
-  "memberId": "N000026",
-  "name": "NEHLS, Troy E.",
-  "party": "R",
-  "district": "22",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190103"
- },
- {
-  "billId": "us-119-s146",
-  "body": "us-house",
-  "memberId": "P000048",
-  "name": "PFLUGER, August",
-  "party": "R",
-  "district": "11",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190103"
- },
- {
-  "billId": "us-119-s146",
-  "body": "us-house",
-  "memberId": "V000134",
-  "name": "VAN DUYNE, Beth",
-  "party": "R",
-  "district": "24",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190103"
- },
- {
-  "billId": "us-119-s146",
-  "body": "us-house",
-  "memberId": "E000071",
-  "name": "ELLZEY, Jake",
-  "party": "R",
-  "district": "6",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190103"
- },
- {
-  "billId": "us-119-s146",
-  "body": "us-house",
-  "memberId": "C001131",
-  "name": "CASAR, Greg",
-  "party": "D",
-  "district": "35",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190103"
- },
- {
-  "billId": "us-119-s146",
-  "body": "us-house",
-  "memberId": "C001130",
-  "name": "CROCKETT, Jasmine",
-  "party": "D",
-  "district": "30",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190103"
- },
- {
-  "billId": "us-119-s146",
-  "body": "us-house",
-  "memberId": "L000603",
-  "name": "LUTTRELL, Morgan",
-  "party": "R",
-  "district": "8",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190103"
- },
- {
-  "billId": "us-119-s146",
-  "body": "us-house",
-  "memberId": "M001224",
-  "name": "MORAN, Nathaniel",
-  "party": "R",
-  "district": "1",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190103"
- },
- {
-  "billId": "us-119-s146",
-  "body": "us-house",
-  "memberId": "S001224",
-  "name": "SELF, Keith",
-  "party": "R",
-  "district": "3",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190103"
- },
- {
-  "billId": "us-119-s146",
-  "body": "us-house",
-  "memberId": "G000603",
-  "name": "GILL, Brandon",
-  "party": "R",
-  "district": "26",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190103"
- },
- {
-  "billId": "us-119-s146",
-  "body": "us-house",
-  "memberId": "G000601",
-  "name": "GOLDMAN, Craig A.",
-  "party": "R",
-  "district": "12",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190103"
- },
- {
-  "billId": "us-119-s146",
-  "body": "us-house",
-  "memberId": "J000310",
-  "name": "JOHNSON, Julie",
-  "party": "D",
-  "district": "32",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190103"
- },
- {
-  "billId": "us-119-s146",
-  "body": "us-house",
-  "memberId": "D000399",
-  "name": "DOGGETT, Lloyd Alton, II",
-  "party": "D",
-  "district": "37",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190103"
- },
- {
-  "billId": "us-119-s146",
-  "body": "us-house",
-  "memberId": "S000250",
-  "name": "SESSIONS, Pete",
-  "party": "R",
-  "district": "17",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190103"
- },
- {
-  "billId": "us-119-s331",
-  "body": "us-house",
-  "memberId": "C001051",
-  "name": "CARTER, John R.",
-  "party": "R",
-  "district": "31",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190165"
- },
- {
-  "billId": "us-119-s331",
-  "body": "us-house",
-  "memberId": "G000553",
-  "name": "GREEN, Al",
-  "party": "D",
-  "district": "9",
-  "vote": "nay",
-  "source": "https://voteview.com/rollcall/RH1190165"
- },
- {
-  "billId": "us-119-s331",
-  "body": "us-house",
-  "memberId": "M001157",
-  "name": "MCCAUL, Michael T.",
-  "party": "R",
-  "district": "10",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190165"
- },
- {
-  "billId": "us-119-s331",
-  "body": "us-house",
-  "memberId": "C001063",
-  "name": "CUELLAR, Henry",
-  "party": "D",
-  "district": "28",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190165"
- },
- {
-  "billId": "us-119-s331",
-  "body": "us-house",
-  "memberId": "W000814",
-  "name": "WEBER, Randy",
-  "party": "R",
-  "district": "14",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190165"
- },
- {
-  "billId": "us-119-s331",
-  "body": "us-house",
-  "memberId": "C001091",
-  "name": "CASTRO, Joaquin",
-  "party": "D",
-  "district": "20",
-  "vote": "nay",
-  "source": "https://voteview.com/rollcall/RH1190165"
- },
- {
-  "billId": "us-119-s331",
-  "body": "us-house",
-  "memberId": "W000816",
-  "name": "WILLIAMS, Roger",
-  "party": "R",
-  "district": "25",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190165"
- },
- {
-  "billId": "us-119-s331",
-  "body": "us-house",
-  "memberId": "V000131",
-  "name": "VEASEY, Marc",
-  "party": "D",
-  "district": "33",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190165"
- },
- {
-  "billId": "us-119-s331",
-  "body": "us-house",
-  "memberId": "B001291",
-  "name": "BABIN, Brian",
-  "party": "R",
-  "district": "36",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190165"
- },
- {
-  "billId": "us-119-s331",
-  "body": "us-house",
-  "memberId": "A000375",
-  "name": "ARRINGTON, Jodey Cook",
-  "party": "R",
-  "district": "19",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190165"
- },
- {
-  "billId": "us-119-s331",
-  "body": "us-house",
-  "memberId": "G000581",
-  "name": "GONZALEZ, Vicente, Jr.",
-  "party": "D",
-  "district": "34",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190165"
- },
- {
-  "billId": "us-119-s331",
-  "body": "us-house",
-  "memberId": "C001115",
-  "name": "CLOUD, Michael",
-  "party": "R",
-  "district": "27",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190165"
- },
- {
-  "billId": "us-119-s331",
-  "body": "us-house",
-  "memberId": "C001120",
-  "name": "CRENSHAW, Daniel",
-  "party": "R",
-  "district": "2",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190165"
- },
- {
-  "billId": "us-119-s331",
-  "body": "us-house",
-  "memberId": "E000299",
-  "name": "ESCOBAR, Veronica",
-  "party": "D",
-  "district": "16",
-  "vote": "nay",
-  "source": "https://voteview.com/rollcall/RH1190165"
- },
- {
-  "billId": "us-119-s331",
-  "body": "us-house",
-  "memberId": "F000468",
-  "name": "FLETCHER, Elizabeth",
-  "party": "D",
-  "district": "7",
-  "vote": "nay",
-  "source": "https://voteview.com/rollcall/RH1190165"
- },
- {
-  "billId": "us-119-s331",
-  "body": "us-house",
-  "memberId": "G000587",
-  "name": "GARCIA, Sylvia",
-  "party": "D",
-  "district": "29",
-  "vote": "nay",
-  "source": "https://voteview.com/rollcall/RH1190165"
- },
- {
-  "billId": "us-119-s331",
-  "body": "us-house",
-  "memberId": "G000589",
-  "name": "GOODEN, Lance",
-  "party": "R",
-  "district": "5",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190165"
- },
- {
-  "billId": "us-119-s331",
-  "body": "us-house",
-  "memberId": "R000614",
-  "name": "ROY, Charles",
-  "party": "R",
-  "district": "21",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190165"
- },
- {
-  "billId": "us-119-s331",
-  "body": "us-house",
-  "memberId": "F000246",
-  "name": "FALLON, Pat",
-  "party": "R",
-  "district": "4",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190165"
- },
- {
-  "billId": "us-119-s331",
-  "body": "us-house",
-  "memberId": "G000594",
-  "name": "GONZALES, Tony",
-  "party": "R",
-  "district": "23",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190165"
- },
- {
-  "billId": "us-119-s331",
-  "body": "us-house",
-  "memberId": "J000304",
-  "name": "JACKSON, Ronny",
-  "party": "R",
-  "district": "13",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190165"
- },
- {
-  "billId": "us-119-s331",
-  "body": "us-house",
-  "memberId": "N000026",
-  "name": "NEHLS, Troy E.",
-  "party": "R",
-  "district": "22",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190165"
- },
- {
-  "billId": "us-119-s331",
-  "body": "us-house",
-  "memberId": "P000048",
-  "name": "PFLUGER, August",
-  "party": "R",
-  "district": "11",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190165"
- },
- {
-  "billId": "us-119-s331",
-  "body": "us-house",
-  "memberId": "V000134",
-  "name": "VAN DUYNE, Beth",
-  "party": "R",
-  "district": "24",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190165"
- },
- {
-  "billId": "us-119-s331",
-  "body": "us-house",
-  "memberId": "E000071",
-  "name": "ELLZEY, Jake",
-  "party": "R",
-  "district": "6",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190165"
- },
- {
-  "billId": "us-119-s331",
-  "body": "us-house",
-  "memberId": "C001131",
-  "name": "CASAR, Greg",
-  "party": "D",
-  "district": "35",
-  "vote": "nay",
-  "source": "https://voteview.com/rollcall/RH1190165"
- },
- {
-  "billId": "us-119-s331",
-  "body": "us-house",
-  "memberId": "C001130",
-  "name": "CROCKETT, Jasmine",
-  "party": "D",
-  "district": "30",
-  "vote": "nay",
-  "source": "https://voteview.com/rollcall/RH1190165"
- },
- {
-  "billId": "us-119-s331",
-  "body": "us-house",
-  "memberId": "D000594",
-  "name": "DE LA CRUZ, Monica",
-  "party": "R",
-  "district": "15",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190165"
- },
- {
-  "billId": "us-119-s331",
-  "body": "us-house",
-  "memberId": "H001095",
-  "name": "HUNT, Wesley",
-  "party": "R",
-  "district": "38",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190165"
- },
- {
-  "billId": "us-119-s331",
-  "body": "us-house",
-  "memberId": "L000603",
-  "name": "LUTTRELL, Morgan",
-  "party": "R",
-  "district": "8",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190165"
- },
- {
-  "billId": "us-119-s331",
-  "body": "us-house",
-  "memberId": "M001224",
-  "name": "MORAN, Nathaniel",
-  "party": "R",
-  "district": "1",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190165"
- },
- {
-  "billId": "us-119-s331",
-  "body": "us-house",
-  "memberId": "S001224",
-  "name": "SELF, Keith",
-  "party": "R",
-  "district": "3",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190165"
- },
- {
-  "billId": "us-119-s331",
-  "body": "us-house",
-  "memberId": "G000603",
-  "name": "GILL, Brandon",
-  "party": "R",
-  "district": "26",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190165"
- },
- {
-  "billId": "us-119-s331",
-  "body": "us-house",
-  "memberId": "G000601",
-  "name": "GOLDMAN, Craig A.",
-  "party": "R",
-  "district": "12",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190165"
- },
- {
-  "billId": "us-119-s331",
-  "body": "us-house",
-  "memberId": "J000310",
-  "name": "JOHNSON, Julie",
-  "party": "D",
-  "district": "32",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190165"
- },
- {
-  "billId": "us-119-s331",
-  "body": "us-house",
-  "memberId": "D000399",
-  "name": "DOGGETT, Lloyd Alton, II",
-  "party": "D",
-  "district": "37",
-  "vote": "nay",
-  "source": "https://voteview.com/rollcall/RH1190165"
- },
- {
-  "billId": "us-119-s331",
-  "body": "us-house",
-  "memberId": "S000250",
-  "name": "SESSIONS, Pete",
-  "party": "R",
-  "district": "17",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190165"
- },
- {
-  "billId": "us-119-hr1",
-  "body": "us-house",
-  "memberId": "C001051",
-  "name": "CARTER, John R.",
-  "party": "R",
-  "district": "31",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190189"
- },
- {
-  "billId": "us-119-hr1",
-  "body": "us-house",
-  "memberId": "G000553",
-  "name": "GREEN, Al",
-  "party": "D",
-  "district": "9",
-  "vote": "nay",
-  "source": "https://voteview.com/rollcall/RH1190189"
- },
- {
-  "billId": "us-119-hr1",
-  "body": "us-house",
-  "memberId": "M001157",
-  "name": "MCCAUL, Michael T.",
-  "party": "R",
-  "district": "10",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190189"
- },
- {
-  "billId": "us-119-hr1",
-  "body": "us-house",
-  "memberId": "C001063",
-  "name": "CUELLAR, Henry",
-  "party": "D",
-  "district": "28",
-  "vote": "nay",
-  "source": "https://voteview.com/rollcall/RH1190189"
- },
- {
-  "billId": "us-119-hr1",
-  "body": "us-house",
-  "memberId": "W000814",
-  "name": "WEBER, Randy",
-  "party": "R",
-  "district": "14",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190189"
- },
- {
-  "billId": "us-119-hr1",
-  "body": "us-house",
-  "memberId": "C001091",
-  "name": "CASTRO, Joaquin",
-  "party": "D",
-  "district": "20",
-  "vote": "nay",
-  "source": "https://voteview.com/rollcall/RH1190189"
- },
- {
-  "billId": "us-119-hr1",
-  "body": "us-house",
-  "memberId": "W000816",
-  "name": "WILLIAMS, Roger",
-  "party": "R",
-  "district": "25",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190189"
- },
- {
-  "billId": "us-119-hr1",
-  "body": "us-house",
-  "memberId": "V000131",
-  "name": "VEASEY, Marc",
-  "party": "D",
-  "district": "33",
-  "vote": "nay",
-  "source": "https://voteview.com/rollcall/RH1190189"
- },
- {
-  "billId": "us-119-hr1",
-  "body": "us-house",
-  "memberId": "B001291",
-  "name": "BABIN, Brian",
-  "party": "R",
-  "district": "36",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190189"
- },
- {
-  "billId": "us-119-hr1",
-  "body": "us-house",
-  "memberId": "A000375",
-  "name": "ARRINGTON, Jodey Cook",
-  "party": "R",
-  "district": "19",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190189"
- },
- {
-  "billId": "us-119-hr1",
-  "body": "us-house",
-  "memberId": "G000581",
-  "name": "GONZALEZ, Vicente, Jr.",
-  "party": "D",
-  "district": "34",
-  "vote": "nay",
-  "source": "https://voteview.com/rollcall/RH1190189"
- },
- {
-  "billId": "us-119-hr1",
-  "body": "us-house",
-  "memberId": "C001115",
-  "name": "CLOUD, Michael",
-  "party": "R",
-  "district": "27",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190189"
- },
- {
-  "billId": "us-119-hr1",
-  "body": "us-house",
-  "memberId": "C001120",
-  "name": "CRENSHAW, Daniel",
-  "party": "R",
-  "district": "2",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190189"
- },
- {
-  "billId": "us-119-hr1",
-  "body": "us-house",
-  "memberId": "E000299",
-  "name": "ESCOBAR, Veronica",
-  "party": "D",
-  "district": "16",
-  "vote": "nay",
-  "source": "https://voteview.com/rollcall/RH1190189"
- },
- {
-  "billId": "us-119-hr1",
-  "body": "us-house",
-  "memberId": "F000468",
-  "name": "FLETCHER, Elizabeth",
-  "party": "D",
-  "district": "7",
-  "vote": "nay",
-  "source": "https://voteview.com/rollcall/RH1190189"
- },
- {
-  "billId": "us-119-hr1",
-  "body": "us-house",
-  "memberId": "G000587",
-  "name": "GARCIA, Sylvia",
-  "party": "D",
-  "district": "29",
-  "vote": "nay",
-  "source": "https://voteview.com/rollcall/RH1190189"
- },
- {
-  "billId": "us-119-hr1",
-  "body": "us-house",
-  "memberId": "G000589",
-  "name": "GOODEN, Lance",
-  "party": "R",
-  "district": "5",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190189"
- },
- {
-  "billId": "us-119-hr1",
-  "body": "us-house",
-  "memberId": "R000614",
-  "name": "ROY, Charles",
-  "party": "R",
-  "district": "21",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190189"
- },
- {
-  "billId": "us-119-hr1",
-  "body": "us-house",
-  "memberId": "F000246",
-  "name": "FALLON, Pat",
-  "party": "R",
-  "district": "4",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190189"
- },
- {
-  "billId": "us-119-hr1",
-  "body": "us-house",
-  "memberId": "G000594",
-  "name": "GONZALES, Tony",
-  "party": "R",
-  "district": "23",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190189"
- },
- {
-  "billId": "us-119-hr1",
-  "body": "us-house",
-  "memberId": "J000304",
-  "name": "JACKSON, Ronny",
-  "party": "R",
-  "district": "13",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190189"
- },
- {
-  "billId": "us-119-hr1",
-  "body": "us-house",
-  "memberId": "N000026",
-  "name": "NEHLS, Troy E.",
-  "party": "R",
-  "district": "22",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190189"
- },
- {
-  "billId": "us-119-hr1",
-  "body": "us-house",
-  "memberId": "P000048",
-  "name": "PFLUGER, August",
-  "party": "R",
-  "district": "11",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190189"
- },
- {
-  "billId": "us-119-hr1",
-  "body": "us-house",
-  "memberId": "V000134",
-  "name": "VAN DUYNE, Beth",
-  "party": "R",
-  "district": "24",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190189"
- },
- {
-  "billId": "us-119-hr1",
-  "body": "us-house",
-  "memberId": "E000071",
-  "name": "ELLZEY, Jake",
-  "party": "R",
-  "district": "6",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190189"
- },
- {
-  "billId": "us-119-hr1",
-  "body": "us-house",
-  "memberId": "C001131",
-  "name": "CASAR, Greg",
-  "party": "D",
-  "district": "35",
-  "vote": "nay",
-  "source": "https://voteview.com/rollcall/RH1190189"
- },
- {
-  "billId": "us-119-hr1",
-  "body": "us-house",
-  "memberId": "C001130",
-  "name": "CROCKETT, Jasmine",
-  "party": "D",
-  "district": "30",
-  "vote": "nay",
-  "source": "https://voteview.com/rollcall/RH1190189"
- },
- {
-  "billId": "us-119-hr1",
-  "body": "us-house",
-  "memberId": "D000594",
-  "name": "DE LA CRUZ, Monica",
-  "party": "R",
-  "district": "15",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190189"
- },
- {
-  "billId": "us-119-hr1",
-  "body": "us-house",
-  "memberId": "H001095",
-  "name": "HUNT, Wesley",
-  "party": "R",
-  "district": "38",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190189"
- },
- {
-  "billId": "us-119-hr1",
-  "body": "us-house",
-  "memberId": "L000603",
-  "name": "LUTTRELL, Morgan",
-  "party": "R",
-  "district": "8",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190189"
- },
- {
-  "billId": "us-119-hr1",
-  "body": "us-house",
-  "memberId": "M001224",
-  "name": "MORAN, Nathaniel",
-  "party": "R",
-  "district": "1",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190189"
- },
- {
-  "billId": "us-119-hr1",
-  "body": "us-house",
-  "memberId": "S001224",
-  "name": "SELF, Keith",
-  "party": "R",
-  "district": "3",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190189"
- },
- {
-  "billId": "us-119-hr1",
-  "body": "us-house",
-  "memberId": "G000603",
-  "name": "GILL, Brandon",
-  "party": "R",
-  "district": "26",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190189"
- },
- {
-  "billId": "us-119-hr1",
-  "body": "us-house",
-  "memberId": "G000601",
-  "name": "GOLDMAN, Craig A.",
-  "party": "R",
-  "district": "12",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190189"
- },
- {
-  "billId": "us-119-hr1",
-  "body": "us-house",
-  "memberId": "J000310",
-  "name": "JOHNSON, Julie",
-  "party": "D",
-  "district": "32",
-  "vote": "nay",
-  "source": "https://voteview.com/rollcall/RH1190189"
- },
- {
-  "billId": "us-119-hr1",
-  "body": "us-house",
-  "memberId": "D000399",
-  "name": "DOGGETT, Lloyd Alton, II",
-  "party": "D",
-  "district": "37",
-  "vote": "nay",
-  "source": "https://voteview.com/rollcall/RH1190189"
- },
- {
-  "billId": "us-119-hr1",
-  "body": "us-house",
-  "memberId": "S000250",
-  "name": "SESSIONS, Pete",
-  "party": "R",
-  "district": "17",
-  "vote": "yea",
-  "source": "https://voteview.com/rollcall/RH1190189"
- },
- {
-  "billId": "atx-c14-2026-0020",
-  "body": "atx-council",
-  "memberId": "Kirk Watson",
-  "name": "Kirk Watson",
-  "title": "Mayor",
-  "party": null,
-  "district": "0",
-  "vote": "yea",
-  "source": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_098"
- },
- {
-  "billId": "atx-c14-2026-0020",
-  "body": "atx-council",
-  "memberId": "Natasha Harper-Madison",
-  "name": "Natasha Harper-Madison",
-  "title": "Council Member",
-  "party": null,
-  "district": "1",
-  "vote": "yea",
-  "source": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_098"
- },
- {
-  "billId": "atx-c14-2026-0020",
-  "body": "atx-council",
-  "memberId": "Marc Duchen",
-  "name": "Marc Duchen",
-  "title": "Council Member",
-  "party": null,
-  "district": "10",
-  "vote": "nay",
-  "source": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_098"
- },
- {
-  "billId": "atx-c14-2026-0020",
-  "body": "atx-council",
-  "memberId": "Vanessa Fuentes",
-  "name": "Vanessa Fuentes",
-  "title": "Council Member",
-  "party": null,
-  "district": "2",
-  "vote": "yea",
-  "source": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_098"
- },
- {
-  "billId": "atx-c14-2026-0020",
-  "body": "atx-council",
-  "memberId": "José Velásquez",
-  "name": "José Velásquez",
-  "title": "Council Member",
-  "party": null,
-  "district": "3",
-  "vote": "yea",
-  "source": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_098"
- },
- {
-  "billId": "atx-c14-2026-0020",
-  "body": "atx-council",
-  "memberId": "José \"Chito\" Vela",
-  "name": "José \"Chito\" Vela",
-  "title": "Mayor Pro Tem",
-  "party": null,
-  "district": "4",
-  "vote": "yea",
-  "source": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_098"
- },
- {
-  "billId": "atx-c14-2026-0020",
-  "body": "atx-council",
-  "memberId": "Ryan Alter",
-  "name": "Ryan Alter",
-  "title": "Council Member",
-  "party": null,
-  "district": "5",
-  "vote": "yea",
-  "source": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_098"
- },
- {
-  "billId": "atx-c14-2026-0020",
-  "body": "atx-council",
-  "memberId": "Krista Laine",
-  "name": "Krista Laine",
-  "title": "Council Member",
-  "party": null,
-  "district": "6",
-  "vote": "yea",
-  "source": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_098"
- },
- {
-  "billId": "atx-c14-2026-0020",
-  "body": "atx-council",
-  "memberId": "Mike Siegel",
-  "name": "Mike Siegel",
-  "title": "Council Member",
-  "party": null,
-  "district": "7",
-  "vote": "yea",
-  "source": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_098"
- },
- {
-  "billId": "atx-c14-2026-0020",
-  "body": "atx-council",
-  "memberId": "Paige Ellis",
-  "name": "Paige Ellis",
-  "title": "Council Member",
-  "party": null,
-  "district": "8",
-  "vote": "yea",
-  "source": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_098"
- },
- {
-  "billId": "atx-c14-2026-0020",
-  "body": "atx-council",
-  "memberId": "Zohaib \"Zo\" Qadri",
-  "name": "Zohaib \"Zo\" Qadri",
-  "title": "Council Member",
-  "party": null,
-  "district": "9",
-  "vote": "yea",
-  "source": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_098"
- },
- {
-  "billId": "atx-26-2163",
-  "body": "atx-council",
-  "memberId": "Kirk Watson",
-  "name": "Kirk Watson",
-  "title": "Mayor",
-  "party": null,
-  "district": "0",
-  "vote": "yea",
-  "source": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_011"
- },
- {
-  "billId": "atx-26-2163",
-  "body": "atx-council",
-  "memberId": "Natasha Harper-Madison",
-  "name": "Natasha Harper-Madison",
-  "title": "Council Member",
-  "party": null,
-  "district": "1",
-  "vote": "yea",
-  "source": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_011"
- },
- {
-  "billId": "atx-26-2163",
-  "body": "atx-council",
-  "memberId": "Marc Duchen",
-  "name": "Marc Duchen",
-  "title": "Council Member",
-  "party": null,
-  "district": "10",
-  "vote": "nay",
-  "source": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_011"
- },
- {
-  "billId": "atx-26-2163",
-  "body": "atx-council",
-  "memberId": "Vanessa Fuentes",
-  "name": "Vanessa Fuentes",
-  "title": "Council Member",
-  "party": null,
-  "district": "2",
-  "vote": "yea",
-  "source": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_011"
- },
- {
-  "billId": "atx-26-2163",
-  "body": "atx-council",
-  "memberId": "José Velásquez",
-  "name": "José Velásquez",
-  "title": "Council Member",
-  "party": null,
-  "district": "3",
-  "vote": "yea",
-  "source": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_011"
- },
- {
-  "billId": "atx-26-2163",
-  "body": "atx-council",
-  "memberId": "José \"Chito\" Vela",
-  "name": "José \"Chito\" Vela",
-  "title": "Mayor Pro Tem",
-  "party": null,
-  "district": "4",
-  "vote": "yea",
-  "source": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_011"
- },
- {
-  "billId": "atx-26-2163",
-  "body": "atx-council",
-  "memberId": "Ryan Alter",
-  "name": "Ryan Alter",
-  "title": "Council Member",
-  "party": null,
-  "district": "5",
-  "vote": "yea",
-  "source": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_011"
- },
- {
-  "billId": "atx-26-2163",
-  "body": "atx-council",
-  "memberId": "Krista Laine",
-  "name": "Krista Laine",
-  "title": "Council Member",
-  "party": null,
-  "district": "6",
-  "vote": "yea",
-  "source": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_011"
- },
- {
-  "billId": "atx-26-2163",
-  "body": "atx-council",
-  "memberId": "Mike Siegel",
-  "name": "Mike Siegel",
-  "title": "Council Member",
-  "party": null,
-  "district": "7",
-  "vote": "yea",
-  "source": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_011"
- },
- {
-  "billId": "atx-26-2163",
-  "body": "atx-council",
-  "memberId": "Paige Ellis",
-  "name": "Paige Ellis",
-  "title": "Council Member",
-  "party": null,
-  "district": "8",
-  "vote": "yea",
-  "source": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_011"
- },
- {
-  "billId": "atx-26-2163",
-  "body": "atx-council",
-  "memberId": "Zohaib \"Zo\" Qadri",
-  "name": "Zohaib \"Zo\" Qadri",
-  "title": "Council Member",
-  "party": null,
-  "district": "9",
-  "vote": "yea",
-  "source": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_011"
- },
- {
-  "billId": "atx-26-2274",
-  "body": "atx-council",
-  "memberId": "Kirk Watson",
-  "name": "Kirk Watson",
-  "title": "Mayor",
-  "party": null,
-  "district": "0",
-  "vote": "yea",
-  "source": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_004"
- },
- {
-  "billId": "atx-26-2274",
-  "body": "atx-council",
-  "memberId": "Natasha Harper-Madison",
-  "name": "Natasha Harper-Madison",
-  "title": "Council Member",
-  "party": null,
-  "district": "1",
-  "vote": "yea",
-  "source": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_004"
- },
- {
-  "billId": "atx-26-2274",
-  "body": "atx-council",
-  "memberId": "Marc Duchen",
-  "name": "Marc Duchen",
-  "title": "Council Member",
-  "party": null,
-  "district": "10",
-  "vote": "yea",
-  "source": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_004"
- },
- {
-  "billId": "atx-26-2274",
-  "body": "atx-council",
-  "memberId": "Vanessa Fuentes",
-  "name": "Vanessa Fuentes",
-  "title": "Council Member",
-  "party": null,
-  "district": "2",
-  "vote": "nay",
-  "source": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_004"
- },
- {
-  "billId": "atx-26-2274",
-  "body": "atx-council",
-  "memberId": "José Velásquez",
-  "name": "José Velásquez",
-  "title": "Council Member",
-  "party": null,
-  "district": "3",
-  "vote": "yea",
-  "source": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_004"
- },
- {
-  "billId": "atx-26-2274",
-  "body": "atx-council",
-  "memberId": "José \"Chito\" Vela",
-  "name": "José \"Chito\" Vela",
-  "title": "Mayor Pro Tem",
-  "party": null,
-  "district": "4",
-  "vote": "yea",
-  "source": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_004"
- },
- {
-  "billId": "atx-26-2274",
-  "body": "atx-council",
-  "memberId": "Ryan Alter",
-  "name": "Ryan Alter",
-  "title": "Council Member",
-  "party": null,
-  "district": "5",
-  "vote": "yea",
-  "source": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_004"
- },
- {
-  "billId": "atx-26-2274",
-  "body": "atx-council",
-  "memberId": "Krista Laine",
-  "name": "Krista Laine",
-  "title": "Council Member",
-  "party": null,
-  "district": "6",
-  "vote": "yea",
-  "source": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_004"
- },
- {
-  "billId": "atx-26-2274",
-  "body": "atx-council",
-  "memberId": "Mike Siegel",
-  "name": "Mike Siegel",
-  "title": "Council Member",
-  "party": null,
-  "district": "7",
-  "vote": "yea",
-  "source": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_004"
- },
- {
-  "billId": "atx-26-2274",
-  "body": "atx-council",
-  "memberId": "Paige Ellis",
-  "name": "Paige Ellis",
-  "title": "Council Member",
-  "party": null,
-  "district": "8",
-  "vote": "nay",
-  "source": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_004"
- },
- {
-  "billId": "atx-26-2274",
-  "body": "atx-council",
-  "memberId": "Zohaib \"Zo\" Qadri",
-  "name": "Zohaib \"Zo\" Qadri",
-  "title": "Council Member",
-  "party": null,
-  "district": "9",
-  "vote": "yea",
-  "source": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_004"
- }
+{
+"bill_id": "us-119-s5",
+"lawmaker_id": "C001056",
+"source_url": "https://voteview.com/rollcall/RS1190007",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s5",
+"lawmaker_id": "C001098",
+"source_url": "https://voteview.com/rollcall/RS1190007",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s331",
+"lawmaker_id": "C001056",
+"source_url": "https://voteview.com/rollcall/RS1190127",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s331",
+"lawmaker_id": "C001098",
+"source_url": "https://voteview.com/rollcall/RS1190127",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-hr1",
+"lawmaker_id": "C001056",
+"source_url": "https://voteview.com/rollcall/RS1190372",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-hr1",
+"lawmaker_id": "C001098",
+"source_url": "https://voteview.com/rollcall/RS1190372",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s5",
+"lawmaker_id": "C001051",
+"source_url": "https://voteview.com/rollcall/RH1190022",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s5",
+"lawmaker_id": "G000553",
+"source_url": "https://voteview.com/rollcall/RH1190022",
+"vote": "nay"
+},
+{
+"bill_id": "us-119-s5",
+"lawmaker_id": "M001157",
+"source_url": "https://voteview.com/rollcall/RH1190022",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s5",
+"lawmaker_id": "C001063",
+"source_url": "https://voteview.com/rollcall/RH1190022",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s5",
+"lawmaker_id": "W000814",
+"source_url": "https://voteview.com/rollcall/RH1190022",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s5",
+"lawmaker_id": "C001091",
+"source_url": "https://voteview.com/rollcall/RH1190022",
+"vote": "nay"
+},
+{
+"bill_id": "us-119-s5",
+"lawmaker_id": "V000131",
+"source_url": "https://voteview.com/rollcall/RH1190022",
+"vote": "nay"
+},
+{
+"bill_id": "us-119-s5",
+"lawmaker_id": "B001291",
+"source_url": "https://voteview.com/rollcall/RH1190022",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s5",
+"lawmaker_id": "A000375",
+"source_url": "https://voteview.com/rollcall/RH1190022",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s5",
+"lawmaker_id": "G000581",
+"source_url": "https://voteview.com/rollcall/RH1190022",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s5",
+"lawmaker_id": "C001115",
+"source_url": "https://voteview.com/rollcall/RH1190022",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s5",
+"lawmaker_id": "C001120",
+"source_url": "https://voteview.com/rollcall/RH1190022",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s5",
+"lawmaker_id": "E000299",
+"source_url": "https://voteview.com/rollcall/RH1190022",
+"vote": "nay"
+},
+{
+"bill_id": "us-119-s5",
+"lawmaker_id": "F000468",
+"source_url": "https://voteview.com/rollcall/RH1190022",
+"vote": "nay"
+},
+{
+"bill_id": "us-119-s5",
+"lawmaker_id": "G000587",
+"source_url": "https://voteview.com/rollcall/RH1190022",
+"vote": "nay"
+},
+{
+"bill_id": "us-119-s5",
+"lawmaker_id": "G000589",
+"source_url": "https://voteview.com/rollcall/RH1190022",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s5",
+"lawmaker_id": "R000614",
+"source_url": "https://voteview.com/rollcall/RH1190022",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s5",
+"lawmaker_id": "F000246",
+"source_url": "https://voteview.com/rollcall/RH1190022",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s5",
+"lawmaker_id": "J000304",
+"source_url": "https://voteview.com/rollcall/RH1190022",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s5",
+"lawmaker_id": "N000026",
+"source_url": "https://voteview.com/rollcall/RH1190022",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s5",
+"lawmaker_id": "P000048",
+"source_url": "https://voteview.com/rollcall/RH1190022",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s5",
+"lawmaker_id": "V000134",
+"source_url": "https://voteview.com/rollcall/RH1190022",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s5",
+"lawmaker_id": "E000071",
+"source_url": "https://voteview.com/rollcall/RH1190022",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s5",
+"lawmaker_id": "C001131",
+"source_url": "https://voteview.com/rollcall/RH1190022",
+"vote": "nay"
+},
+{
+"bill_id": "us-119-s5",
+"lawmaker_id": "C001130",
+"source_url": "https://voteview.com/rollcall/RH1190022",
+"vote": "nay"
+},
+{
+"bill_id": "us-119-s5",
+"lawmaker_id": "D000594",
+"source_url": "https://voteview.com/rollcall/RH1190022",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s5",
+"lawmaker_id": "H001095",
+"source_url": "https://voteview.com/rollcall/RH1190022",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s5",
+"lawmaker_id": "L000603",
+"source_url": "https://voteview.com/rollcall/RH1190022",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s5",
+"lawmaker_id": "M001224",
+"source_url": "https://voteview.com/rollcall/RH1190022",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s5",
+"lawmaker_id": "S001224",
+"source_url": "https://voteview.com/rollcall/RH1190022",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s5",
+"lawmaker_id": "G000603",
+"source_url": "https://voteview.com/rollcall/RH1190022",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s5",
+"lawmaker_id": "G000601",
+"source_url": "https://voteview.com/rollcall/RH1190022",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s5",
+"lawmaker_id": "J000310",
+"source_url": "https://voteview.com/rollcall/RH1190022",
+"vote": "nay"
+},
+{
+"bill_id": "us-119-s5",
+"lawmaker_id": "D000399",
+"source_url": "https://voteview.com/rollcall/RH1190022",
+"vote": "nay"
+},
+{
+"bill_id": "us-119-s5",
+"lawmaker_id": "S000250",
+"source_url": "https://voteview.com/rollcall/RH1190022",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s146",
+"lawmaker_id": "C001051",
+"source_url": "https://voteview.com/rollcall/RH1190103",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s146",
+"lawmaker_id": "G000553",
+"source_url": "https://voteview.com/rollcall/RH1190103",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s146",
+"lawmaker_id": "C001063",
+"source_url": "https://voteview.com/rollcall/RH1190103",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s146",
+"lawmaker_id": "W000814",
+"source_url": "https://voteview.com/rollcall/RH1190103",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s146",
+"lawmaker_id": "C001091",
+"source_url": "https://voteview.com/rollcall/RH1190103",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s146",
+"lawmaker_id": "W000816",
+"source_url": "https://voteview.com/rollcall/RH1190103",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s146",
+"lawmaker_id": "V000131",
+"source_url": "https://voteview.com/rollcall/RH1190103",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s146",
+"lawmaker_id": "B001291",
+"source_url": "https://voteview.com/rollcall/RH1190103",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s146",
+"lawmaker_id": "A000375",
+"source_url": "https://voteview.com/rollcall/RH1190103",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s146",
+"lawmaker_id": "G000581",
+"source_url": "https://voteview.com/rollcall/RH1190103",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s146",
+"lawmaker_id": "C001115",
+"source_url": "https://voteview.com/rollcall/RH1190103",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s146",
+"lawmaker_id": "C001120",
+"source_url": "https://voteview.com/rollcall/RH1190103",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s146",
+"lawmaker_id": "E000299",
+"source_url": "https://voteview.com/rollcall/RH1190103",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s146",
+"lawmaker_id": "F000468",
+"source_url": "https://voteview.com/rollcall/RH1190103",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s146",
+"lawmaker_id": "G000587",
+"source_url": "https://voteview.com/rollcall/RH1190103",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s146",
+"lawmaker_id": "G000589",
+"source_url": "https://voteview.com/rollcall/RH1190103",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s146",
+"lawmaker_id": "R000614",
+"source_url": "https://voteview.com/rollcall/RH1190103",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s146",
+"lawmaker_id": "F000246",
+"source_url": "https://voteview.com/rollcall/RH1190103",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s146",
+"lawmaker_id": "J000304",
+"source_url": "https://voteview.com/rollcall/RH1190103",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s146",
+"lawmaker_id": "N000026",
+"source_url": "https://voteview.com/rollcall/RH1190103",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s146",
+"lawmaker_id": "P000048",
+"source_url": "https://voteview.com/rollcall/RH1190103",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s146",
+"lawmaker_id": "V000134",
+"source_url": "https://voteview.com/rollcall/RH1190103",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s146",
+"lawmaker_id": "E000071",
+"source_url": "https://voteview.com/rollcall/RH1190103",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s146",
+"lawmaker_id": "C001131",
+"source_url": "https://voteview.com/rollcall/RH1190103",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s146",
+"lawmaker_id": "C001130",
+"source_url": "https://voteview.com/rollcall/RH1190103",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s146",
+"lawmaker_id": "L000603",
+"source_url": "https://voteview.com/rollcall/RH1190103",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s146",
+"lawmaker_id": "M001224",
+"source_url": "https://voteview.com/rollcall/RH1190103",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s146",
+"lawmaker_id": "S001224",
+"source_url": "https://voteview.com/rollcall/RH1190103",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s146",
+"lawmaker_id": "G000603",
+"source_url": "https://voteview.com/rollcall/RH1190103",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s146",
+"lawmaker_id": "G000601",
+"source_url": "https://voteview.com/rollcall/RH1190103",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s146",
+"lawmaker_id": "J000310",
+"source_url": "https://voteview.com/rollcall/RH1190103",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s146",
+"lawmaker_id": "D000399",
+"source_url": "https://voteview.com/rollcall/RH1190103",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s146",
+"lawmaker_id": "S000250",
+"source_url": "https://voteview.com/rollcall/RH1190103",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s331",
+"lawmaker_id": "C001051",
+"source_url": "https://voteview.com/rollcall/RH1190165",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s331",
+"lawmaker_id": "G000553",
+"source_url": "https://voteview.com/rollcall/RH1190165",
+"vote": "nay"
+},
+{
+"bill_id": "us-119-s331",
+"lawmaker_id": "M001157",
+"source_url": "https://voteview.com/rollcall/RH1190165",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s331",
+"lawmaker_id": "C001063",
+"source_url": "https://voteview.com/rollcall/RH1190165",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s331",
+"lawmaker_id": "W000814",
+"source_url": "https://voteview.com/rollcall/RH1190165",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s331",
+"lawmaker_id": "C001091",
+"source_url": "https://voteview.com/rollcall/RH1190165",
+"vote": "nay"
+},
+{
+"bill_id": "us-119-s331",
+"lawmaker_id": "W000816",
+"source_url": "https://voteview.com/rollcall/RH1190165",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s331",
+"lawmaker_id": "V000131",
+"source_url": "https://voteview.com/rollcall/RH1190165",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s331",
+"lawmaker_id": "B001291",
+"source_url": "https://voteview.com/rollcall/RH1190165",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s331",
+"lawmaker_id": "A000375",
+"source_url": "https://voteview.com/rollcall/RH1190165",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s331",
+"lawmaker_id": "G000581",
+"source_url": "https://voteview.com/rollcall/RH1190165",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s331",
+"lawmaker_id": "C001115",
+"source_url": "https://voteview.com/rollcall/RH1190165",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s331",
+"lawmaker_id": "C001120",
+"source_url": "https://voteview.com/rollcall/RH1190165",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s331",
+"lawmaker_id": "E000299",
+"source_url": "https://voteview.com/rollcall/RH1190165",
+"vote": "nay"
+},
+{
+"bill_id": "us-119-s331",
+"lawmaker_id": "F000468",
+"source_url": "https://voteview.com/rollcall/RH1190165",
+"vote": "nay"
+},
+{
+"bill_id": "us-119-s331",
+"lawmaker_id": "G000587",
+"source_url": "https://voteview.com/rollcall/RH1190165",
+"vote": "nay"
+},
+{
+"bill_id": "us-119-s331",
+"lawmaker_id": "G000589",
+"source_url": "https://voteview.com/rollcall/RH1190165",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s331",
+"lawmaker_id": "R000614",
+"source_url": "https://voteview.com/rollcall/RH1190165",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s331",
+"lawmaker_id": "F000246",
+"source_url": "https://voteview.com/rollcall/RH1190165",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s331",
+"lawmaker_id": "J000304",
+"source_url": "https://voteview.com/rollcall/RH1190165",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s331",
+"lawmaker_id": "N000026",
+"source_url": "https://voteview.com/rollcall/RH1190165",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s331",
+"lawmaker_id": "P000048",
+"source_url": "https://voteview.com/rollcall/RH1190165",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s331",
+"lawmaker_id": "V000134",
+"source_url": "https://voteview.com/rollcall/RH1190165",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s331",
+"lawmaker_id": "E000071",
+"source_url": "https://voteview.com/rollcall/RH1190165",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s331",
+"lawmaker_id": "C001131",
+"source_url": "https://voteview.com/rollcall/RH1190165",
+"vote": "nay"
+},
+{
+"bill_id": "us-119-s331",
+"lawmaker_id": "C001130",
+"source_url": "https://voteview.com/rollcall/RH1190165",
+"vote": "nay"
+},
+{
+"bill_id": "us-119-s331",
+"lawmaker_id": "D000594",
+"source_url": "https://voteview.com/rollcall/RH1190165",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s331",
+"lawmaker_id": "H001095",
+"source_url": "https://voteview.com/rollcall/RH1190165",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s331",
+"lawmaker_id": "L000603",
+"source_url": "https://voteview.com/rollcall/RH1190165",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s331",
+"lawmaker_id": "M001224",
+"source_url": "https://voteview.com/rollcall/RH1190165",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s331",
+"lawmaker_id": "S001224",
+"source_url": "https://voteview.com/rollcall/RH1190165",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s331",
+"lawmaker_id": "G000603",
+"source_url": "https://voteview.com/rollcall/RH1190165",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s331",
+"lawmaker_id": "G000601",
+"source_url": "https://voteview.com/rollcall/RH1190165",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s331",
+"lawmaker_id": "J000310",
+"source_url": "https://voteview.com/rollcall/RH1190165",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-s331",
+"lawmaker_id": "D000399",
+"source_url": "https://voteview.com/rollcall/RH1190165",
+"vote": "nay"
+},
+{
+"bill_id": "us-119-s331",
+"lawmaker_id": "S000250",
+"source_url": "https://voteview.com/rollcall/RH1190165",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-hr1",
+"lawmaker_id": "C001051",
+"source_url": "https://voteview.com/rollcall/RH1190189",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-hr1",
+"lawmaker_id": "G000553",
+"source_url": "https://voteview.com/rollcall/RH1190189",
+"vote": "nay"
+},
+{
+"bill_id": "us-119-hr1",
+"lawmaker_id": "M001157",
+"source_url": "https://voteview.com/rollcall/RH1190189",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-hr1",
+"lawmaker_id": "C001063",
+"source_url": "https://voteview.com/rollcall/RH1190189",
+"vote": "nay"
+},
+{
+"bill_id": "us-119-hr1",
+"lawmaker_id": "W000814",
+"source_url": "https://voteview.com/rollcall/RH1190189",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-hr1",
+"lawmaker_id": "C001091",
+"source_url": "https://voteview.com/rollcall/RH1190189",
+"vote": "nay"
+},
+{
+"bill_id": "us-119-hr1",
+"lawmaker_id": "W000816",
+"source_url": "https://voteview.com/rollcall/RH1190189",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-hr1",
+"lawmaker_id": "V000131",
+"source_url": "https://voteview.com/rollcall/RH1190189",
+"vote": "nay"
+},
+{
+"bill_id": "us-119-hr1",
+"lawmaker_id": "B001291",
+"source_url": "https://voteview.com/rollcall/RH1190189",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-hr1",
+"lawmaker_id": "A000375",
+"source_url": "https://voteview.com/rollcall/RH1190189",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-hr1",
+"lawmaker_id": "G000581",
+"source_url": "https://voteview.com/rollcall/RH1190189",
+"vote": "nay"
+},
+{
+"bill_id": "us-119-hr1",
+"lawmaker_id": "C001115",
+"source_url": "https://voteview.com/rollcall/RH1190189",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-hr1",
+"lawmaker_id": "C001120",
+"source_url": "https://voteview.com/rollcall/RH1190189",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-hr1",
+"lawmaker_id": "E000299",
+"source_url": "https://voteview.com/rollcall/RH1190189",
+"vote": "nay"
+},
+{
+"bill_id": "us-119-hr1",
+"lawmaker_id": "F000468",
+"source_url": "https://voteview.com/rollcall/RH1190189",
+"vote": "nay"
+},
+{
+"bill_id": "us-119-hr1",
+"lawmaker_id": "G000587",
+"source_url": "https://voteview.com/rollcall/RH1190189",
+"vote": "nay"
+},
+{
+"bill_id": "us-119-hr1",
+"lawmaker_id": "G000589",
+"source_url": "https://voteview.com/rollcall/RH1190189",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-hr1",
+"lawmaker_id": "R000614",
+"source_url": "https://voteview.com/rollcall/RH1190189",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-hr1",
+"lawmaker_id": "F000246",
+"source_url": "https://voteview.com/rollcall/RH1190189",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-hr1",
+"lawmaker_id": "J000304",
+"source_url": "https://voteview.com/rollcall/RH1190189",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-hr1",
+"lawmaker_id": "N000026",
+"source_url": "https://voteview.com/rollcall/RH1190189",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-hr1",
+"lawmaker_id": "P000048",
+"source_url": "https://voteview.com/rollcall/RH1190189",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-hr1",
+"lawmaker_id": "V000134",
+"source_url": "https://voteview.com/rollcall/RH1190189",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-hr1",
+"lawmaker_id": "E000071",
+"source_url": "https://voteview.com/rollcall/RH1190189",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-hr1",
+"lawmaker_id": "C001131",
+"source_url": "https://voteview.com/rollcall/RH1190189",
+"vote": "nay"
+},
+{
+"bill_id": "us-119-hr1",
+"lawmaker_id": "C001130",
+"source_url": "https://voteview.com/rollcall/RH1190189",
+"vote": "nay"
+},
+{
+"bill_id": "us-119-hr1",
+"lawmaker_id": "D000594",
+"source_url": "https://voteview.com/rollcall/RH1190189",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-hr1",
+"lawmaker_id": "H001095",
+"source_url": "https://voteview.com/rollcall/RH1190189",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-hr1",
+"lawmaker_id": "L000603",
+"source_url": "https://voteview.com/rollcall/RH1190189",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-hr1",
+"lawmaker_id": "M001224",
+"source_url": "https://voteview.com/rollcall/RH1190189",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-hr1",
+"lawmaker_id": "S001224",
+"source_url": "https://voteview.com/rollcall/RH1190189",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-hr1",
+"lawmaker_id": "G000603",
+"source_url": "https://voteview.com/rollcall/RH1190189",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-hr1",
+"lawmaker_id": "G000601",
+"source_url": "https://voteview.com/rollcall/RH1190189",
+"vote": "yea"
+},
+{
+"bill_id": "us-119-hr1",
+"lawmaker_id": "J000310",
+"source_url": "https://voteview.com/rollcall/RH1190189",
+"vote": "nay"
+},
+{
+"bill_id": "us-119-hr1",
+"lawmaker_id": "D000399",
+"source_url": "https://voteview.com/rollcall/RH1190189",
+"vote": "nay"
+},
+{
+"bill_id": "us-119-hr1",
+"lawmaker_id": "S000250",
+"source_url": "https://voteview.com/rollcall/RH1190189",
+"vote": "yea"
+},
+{
+"bill_id": "atx-c14-2026-0020",
+"lawmaker_id": "atx-mayor",
+"source_url": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_098",
+"vote": "yea"
+},
+{
+"bill_id": "atx-c14-2026-0020",
+"lawmaker_id": "atx-d1",
+"source_url": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_098",
+"vote": "yea"
+},
+{
+"bill_id": "atx-c14-2026-0020",
+"lawmaker_id": "atx-d10",
+"source_url": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_098",
+"vote": "nay"
+},
+{
+"bill_id": "atx-c14-2026-0020",
+"lawmaker_id": "atx-d2",
+"source_url": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_098",
+"vote": "yea"
+},
+{
+"bill_id": "atx-c14-2026-0020",
+"lawmaker_id": "atx-d3",
+"source_url": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_098",
+"vote": "yea"
+},
+{
+"bill_id": "atx-c14-2026-0020",
+"lawmaker_id": "atx-d4",
+"source_url": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_098",
+"vote": "yea"
+},
+{
+"bill_id": "atx-c14-2026-0020",
+"lawmaker_id": "atx-d5",
+"source_url": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_098",
+"vote": "yea"
+},
+{
+"bill_id": "atx-c14-2026-0020",
+"lawmaker_id": "atx-d6",
+"source_url": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_098",
+"vote": "yea"
+},
+{
+"bill_id": "atx-c14-2026-0020",
+"lawmaker_id": "atx-d7",
+"source_url": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_098",
+"vote": "yea"
+},
+{
+"bill_id": "atx-c14-2026-0020",
+"lawmaker_id": "atx-d8",
+"source_url": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_098",
+"vote": "yea"
+},
+{
+"bill_id": "atx-c14-2026-0020",
+"lawmaker_id": "atx-d9",
+"source_url": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_098",
+"vote": "yea"
+},
+{
+"bill_id": "atx-26-2163",
+"lawmaker_id": "atx-mayor",
+"source_url": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_011",
+"vote": "yea"
+},
+{
+"bill_id": "atx-26-2163",
+"lawmaker_id": "atx-d1",
+"source_url": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_011",
+"vote": "yea"
+},
+{
+"bill_id": "atx-26-2163",
+"lawmaker_id": "atx-d10",
+"source_url": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_011",
+"vote": "nay"
+},
+{
+"bill_id": "atx-26-2163",
+"lawmaker_id": "atx-d2",
+"source_url": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_011",
+"vote": "yea"
+},
+{
+"bill_id": "atx-26-2163",
+"lawmaker_id": "atx-d3",
+"source_url": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_011",
+"vote": "yea"
+},
+{
+"bill_id": "atx-26-2163",
+"lawmaker_id": "atx-d4",
+"source_url": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_011",
+"vote": "yea"
+},
+{
+"bill_id": "atx-26-2163",
+"lawmaker_id": "atx-d5",
+"source_url": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_011",
+"vote": "yea"
+},
+{
+"bill_id": "atx-26-2163",
+"lawmaker_id": "atx-d6",
+"source_url": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_011",
+"vote": "yea"
+},
+{
+"bill_id": "atx-26-2163",
+"lawmaker_id": "atx-d7",
+"source_url": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_011",
+"vote": "yea"
+},
+{
+"bill_id": "atx-26-2163",
+"lawmaker_id": "atx-d8",
+"source_url": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_011",
+"vote": "yea"
+},
+{
+"bill_id": "atx-26-2163",
+"lawmaker_id": "atx-d9",
+"source_url": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_011",
+"vote": "yea"
+},
+{
+"bill_id": "atx-26-2274",
+"lawmaker_id": "atx-mayor",
+"source_url": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_004",
+"vote": "yea"
+},
+{
+"bill_id": "atx-26-2274",
+"lawmaker_id": "atx-d1",
+"source_url": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_004",
+"vote": "yea"
+},
+{
+"bill_id": "atx-26-2274",
+"lawmaker_id": "atx-d10",
+"source_url": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_004",
+"vote": "yea"
+},
+{
+"bill_id": "atx-26-2274",
+"lawmaker_id": "atx-d2",
+"source_url": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_004",
+"vote": "nay"
+},
+{
+"bill_id": "atx-26-2274",
+"lawmaker_id": "atx-d3",
+"source_url": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_004",
+"vote": "yea"
+},
+{
+"bill_id": "atx-26-2274",
+"lawmaker_id": "atx-d4",
+"source_url": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_004",
+"vote": "yea"
+},
+{
+"bill_id": "atx-26-2274",
+"lawmaker_id": "atx-d5",
+"source_url": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_004",
+"vote": "yea"
+},
+{
+"bill_id": "atx-26-2274",
+"lawmaker_id": "atx-d6",
+"source_url": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_004",
+"vote": "yea"
+},
+{
+"bill_id": "atx-26-2274",
+"lawmaker_id": "atx-d7",
+"source_url": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_004",
+"vote": "yea"
+},
+{
+"bill_id": "atx-26-2274",
+"lawmaker_id": "atx-d8",
+"source_url": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_004",
+"vote": "nay"
+},
+{
+"bill_id": "atx-26-2274",
+"lawmaker_id": "atx-d9",
+"source_url": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_004",
+"vote": "yea"
+}
 ]

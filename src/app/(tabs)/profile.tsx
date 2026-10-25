@@ -22,7 +22,7 @@ export default function ProfileScreen() {
   const [level, setLevel] = useState<Level>('federal');
   const { data: lawmakerData } = useRemote<LawmakerData>('/me/lawmakers');
   const { data: friendsData } = useRemote<FriendsData>('/friends');
-  // Only offer levels we have lawmakers for; the Texas Legislature has no member votes loaded yet.
+  // Only offer levels that have someone in them.
   const levels = (
     [
       ['state', profileStateName(profile?.state) || 'State'],
@@ -565,11 +565,11 @@ function LawmakerItem({ row: p, local }: { row: LawmakerRow; local: boolean }) {
             color: colors.meta,
             fontVariant: ['tabular-nums'],
           }}>
-          {p.real
-            ? p.shared
-              ? `of ${p.shared} ${p.shared === 1 ? unit.slice(0, -1) : unit}`
-              : 'Vote to compare'
-            : `[n] ${unit}`}
+          {p.shared
+            ? `of ${p.shared} ${p.shared === 1 ? unit.slice(0, -1) : unit}`
+            : p.recorded
+              ? 'Vote to compare'
+              : 'No votes on file'}
         </Text>
       </View>
     </View>
@@ -628,21 +628,24 @@ type LawmakerRow = {
   party?: string | null;
   pct?: number | null;
   shared?: number;
+  /** How many of Docket's bills this lawmaker has a recorded vote on. */
+  recorded?: number;
   real?: boolean;
   photo?: string | null;
 };
 type LawmakerData = {
   federal: LawmakerRow[];
+  state: LawmakerRow[];
   local: LawmakerRow[];
   credit?: string | null;
 };
 
-// Only lawmakers with recorded votes we've loaded (Congress for Texas, Austin's council). Anyone we
-// can't find, like county commissioners and Texas legislators for now, is left out rather than shown blank.
+// Your lawmakers from the server's lawmakers table, by your districts. Seats we have no one for (county
+// commissioners, vacancies) are simply absent rather than shown blank.
 function lawmakers(level: Level, data: LawmakerData | null): LawmakerRow[] {
   if (level === 'federal') return (data?.federal ?? []).map((r) => ({ ...r, real: true }));
   if (level === 'local') return (data?.local ?? []).map((r) => ({ ...r, real: true }));
-  return [];
+  return (data?.state ?? []).map((r) => ({ ...r, real: true }));
 }
 
 function PillTab({ label, on, onPress }: { label: string; on: boolean; onPress: () => void }) {

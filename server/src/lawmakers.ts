@@ -1,137 +1,118 @@
-import { readFileSync } from 'node:fs';
-import { join } from 'node:path';
-
 import type { FastifyInstance } from 'fastify';
 
 import { requireUser } from './auth.ts';
 import { query } from './db.ts';
+import { lookupZip } from './geo.ts';
 
-// Built by scripts/fetch_lawmakers.py from Voteview and the City of Austin's council votes.
-type MemberVote = {
-  billId: string;
-  body: 'us-senate' | 'us-house' | 'atx-council';
-  memberId: string;
+type LawmakerRow = {
+  id: string;
+  body: string;
   name: string;
-  title?: string | null;
-  party: 'D' | 'R' | 'I' | null;
+  title: string;
+  party: string | null;
   district: string | null;
-  vote: 'yea' | 'nay';
+  photo_url: string | null;
+  photo_credit: string | null;
+  recorded: string;
+  shared: string;
+  agreed: string;
 };
 
-const VOTES: MemberVote[] = JSON.parse(readFileSync(join(import.meta.dirname, '..', 'data', 'lawmaker-votes.json'), 'utf8'));
-
-/** "DOGGETT, Lloyd Alton, II" -> "Lloyd Doggett"; "CRUZ, Rafael Edward (Ted)" -> "Ted Cruz". */
-function displayName(raw: string) {
-  if (!raw.includes(',')) return raw;
-  const [last, rest] = raw.split(',').map((s) => s.trim());
-  const nick = rest.match(/\(([^)]+)\)/)?.[1];
-  const first = nick ?? rest.split(/\s+/)[0];
-  const title = (s: string) => s.toLowerCase().replace(/(^|[\s'-])\p{L}/gu, (c) => c.toUpperCase());
-  return `${first} ${title(last)}`;
+/** Every lawmaker matching a seat, with how they compare to this player's votes. */
+async function seats(uid: string, where: string, params: unknown[]) {
+  return query<LawmakerRow>(
+    `SELECT l.id, l.body, l.name, l.title, l.party, l.district, l.photo_url, l.photo_credit,
+            count(lv.bill_id) AS recorded,
+            count(v.bill_id) AS shared,
+            count(v.bill_id) FILTER (WHERE v.vote = lv.vote) AS agreed
+     FROM lawmakers l
+     LEFT JOIN lawmaker_votes lv ON lv.lawmaker_id = l.id
+     LEFT JOIN votes v ON v.bill_id = lv.bill_id AND v.user_id = $1
+     WHERE ${where}
+     GROUP BY l.id
+     ORDER BY l.body, l.name`,
+    [uid, ...params],
+  );
 }
 
-type Row = { name: string; role: string; party: string | null; agreed: number; shared: number; pct: number | null; photo?: string | null };
-
-// Official portraits. Congress: public-domain member photos keyed by Bioguide ID (unitedstates/images).
-// Austin: headshots from each council member's page on austintexas.gov. District 4's page doesn't name
-// its member, so Chito Vela has no photo. Mayor Watson's is from Wikimedia Commons (CC BY-SA 4.0).
-const congressPhoto = (bioguide: string) => `https://unitedstates.github.io/images/congress/225x275/${bioguide}.jpg`;
-const W = 'https://austin.widen.net/content';
-const AUSTIN_PHOTOS: Record<string, string> = {
-  'Kirk Watson':
-    'https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Watson_Groundbreaking_5.3.23_%28cropped%29.jpg/330px-Watson_Groundbreaking_5.3.23_%28cropped%29.jpg',
-  'Natasha Harper-Madison': `${W}/6ownj6z5sv/web/Austin%20District%201%20-%20Web_D1-Headshot.jpg?w=240`,
-  'Vanessa Fuentes': `${W}/w8eqbih8y4/web/Austin%20District%202%20-%20Web_Vanessa-profiledetail.jpg?w=240`,
-  'José Velásquez': `${W}/joekrymskc/web/Austin%20District%203%20-%20Web_jose-velasquez-profiledetail-opt.jpg?w=240`,
-  'Ryan Alter': `${W}/ewbmwfdwyj/web/Alter_Ryan_bio.jpg?w=240`,
-  'Krista Laine': `${W}/r26pgbz6kn/web/Austin%20District%206%20-%20Web_krista-headshot-opt.jpg?w=240`,
-  'Mike Siegel': `${W}/bf26jpttmp/web/Austin%20District%207%20-%20Web_D7-profiledetail-opt.jpg?w=240`,
-  'Paige Ellis': `${W}/ldixhspulc/web/Austin%20District%208%20-%20Web_PJE-profiledetail-opt.png?w=240`,
-  'Zohaib "Zo" Qadri': `${W}/yajrku9cxq/web/Austin%20District%209%20-%20Web_zo-profile-opt.jpg?w=240`,
-  'Marc Duchen': `${W}/opfnakk2tl/web/Austin%20District%2010%20-%20Web_Marc_HollyReed_1_656x584.jpg?w=240`,
-};
-export const PHOTO_CREDIT = 'Kirk Watson photo by EmmaAtx, CC BY-SA 4.0, via Wikimedia Commons';
-
-function photoFor(v: MemberVote) {
-  if (v.body === 'atx-council') return AUSTIN_PHOTOS[v.memberId] ?? null;
-  return /^[A-Z]\d{6}$/.test(v.memberId) ? congressPhoto(v.memberId) : null;
-}
-
-function compare(memberVotes: MemberVote[], mine: Map<string, string>): Omit<Row, 'name' | 'role'> {
-  const both = memberVotes.filter((v) => mine.has(v.billId));
-  const agreed = both.filter((v) => mine.get(v.billId) === v.vote).length;
+function toRow(l: LawmakerRow, role: string) {
+  const shared = Number(l.shared);
   return {
+    id: l.id,
+    name: l.name,
+    role,
     // Party appears only after the player has voted on at least one of this lawmaker's bills.
-    party: both.length ? memberVotes[0].party : null,
-    agreed,
-    shared: both.length,
-    pct: both.length ? Math.round((agreed / both.length) * 100) : null,
+    party: shared ? l.party : null,
+    photo: l.photo_url,
+    credit: l.photo_credit,
+    recorded: Number(l.recorded),
+    shared,
+    agreed: Number(l.agreed),
+    pct: shared ? Math.round((Number(l.agreed) / shared) * 100) : null,
   };
 }
 
-const byMember = (body: MemberVote['body']) => {
-  const map = new Map<string, MemberVote[]>();
-  for (const v of VOTES) if (v.body === body) map.set(v.memberId, [...(map.get(v.memberId) ?? []), v]);
-  return map;
-};
+const LABELS: [string, string][] = [
+  ['U.S. Senate', 'Senator'],
+  ['U.S. House', 'Your rep'],
+  ['Texas Senate', 'State senator'],
+  ['Texas House', 'State rep'],
+  ['Mayor', 'Mayor'],
+  ['Austin', 'Council member'],
+];
 
 export async function lawmakerRoutes(app: FastifyInstance) {
   app.addHook('preHandler', requireUser);
 
   app.get('/me/lawmakers', async (req) => {
-    const [u] = await query<{ state: string | null; city: string | null; districts: { congress?: string | null } | null }>(
-      'SELECT state, city, districts FROM users WHERE id = $1',
-      [req.uid],
-    );
-    const mine = new Map(
-      (await query<{ bill_id: string; vote: string }>('SELECT bill_id, vote FROM votes WHERE user_id = $1', [req.uid])).map((v) => [
-        v.bill_id,
-        v.vote,
-      ]),
-    );
+    const [u] = await query<{ zip: string | null }>('SELECT zip FROM users WHERE id = $1', [req.uid]);
+    const loc = u?.zip ? await lookupZip(u.zip) : null;
+    if (!loc) return { federal: [], state: [], local: [], byBill: {}, credit: null };
+    const d = loc.districts;
 
-    // Member-level votes are loaded for Texas's delegation and Austin's council only.
-    const federal: Row[] = [];
-    if (u?.state === 'TX') {
-      for (const votes of byMember('us-senate').values()) {
-        federal.push({ name: displayName(votes[0].name), role: 'U.S. Senate, Texas', photo: photoFor(votes[0]), ...compare(votes, mine) });
-      }
-      const district = u.districts?.congress;
-      const rep = [...byMember('us-house').values()].find((v) => v[0].district === district);
-      if (rep) federal.push({ name: displayName(rep[0].name), role: `U.S. House, Texas District ${district}`, photo: photoFor(rep[0]), ...compare(rep, mine) });
+    const federal = [
+      ...(await seats(req.uid, `l.body = 'us-senate'`, [])).map((l) => toRow(l, 'U.S. Senate, Texas')),
+      ...(await seats(req.uid, `l.body = 'us-house' AND l.district = $2`, [d.congress])).map((l) =>
+        toRow(l, `U.S. House, Texas District ${l.district}`),
+      ),
+    ];
+    const state = [
+      ...(await seats(req.uid, `l.body = 'tx-senate' AND l.district = $2`, [d.stateSenate])).map((l) =>
+        toRow(l, `Texas Senate, District ${l.district}`),
+      ),
+      ...(await seats(req.uid, `l.body = 'tx-house' AND l.district = $2`, [d.stateHouse])).map((l) =>
+        toRow(l, `Texas House, District ${l.district}`),
+      ),
+    ];
+
+    const local: ReturnType<typeof toRow>[] = [];
+    if (loc.city === 'Austin') {
+      const council = await seats(req.uid, `l.body = 'atx-council'`, []);
+      const mayor = council.find((l) => l.district === null);
+      const mine = council.find((l) => l.district !== null && l.district === d.council);
+      if (mayor) local.push(toRow(mayor, 'Mayor of Austin'));
+      if (mine) local.push(toRow(mine, `Austin City Council, District ${mine.district}`));
+      // Also the council member you agree with most, when that isn't your own.
+      const best = council
+        .filter((l) => l.district !== null && Number(l.shared) > 0)
+        .sort((a, b) => Number(b.agreed) / Number(b.shared) - Number(a.agreed) / Number(a.shared) || a.name.localeCompare(b.name))[0];
+      if (best && best.id !== mine?.id) local.push(toRow(best, `Austin City Council, District ${best.district} (you agree most)`));
     }
 
-    const local: Row[] = [];
-    if (u?.city === 'Austin') {
-      const members = [...byMember('atx-council').values()];
-      const mayor = members.find((v) => v[0].title === 'Mayor');
-      if (mayor) local.push({ name: mayor[0].name, role: 'Mayor of Austin', photo: photoFor(mayor[0]), ...compare(mayor, mine) });
-      // City council districts aren't in the Census data, so show the member you agree with most.
-      const best = members
-        .filter((v) => v[0].title !== 'Mayor')
-        .map((v) => ({ v, c: compare(v, mine) }))
-        .sort((a, b) => (b.c.pct ?? -1) - (a.c.pct ?? -1) || a.v[0].name.localeCompare(b.v[0].name))[0];
-      if (best) {
-        local.push({
-          name: best.v[0].name,
-          role: `Austin City Council, District ${best.v[0].district} (you agree most)`,
-          photo: photoFor(best.v[0]),
-          ...best.c,
-        });
-      }
-    }
     // How your own lawmakers voted on each bill, for the Review screen. Public record, so no guards.
-    const yours = new Map<string, string>(); // memberId -> role label
-    if (u?.state === 'TX') {
-      for (const v of VOTES) if (v.body === 'us-senate') yours.set(v.memberId, 'Senator');
-      for (const v of VOTES) if (v.body === 'us-house' && v.district === u.districts?.congress) yours.set(v.memberId, 'Your rep');
-    }
-    if (u?.city === 'Austin') for (const v of VOTES) if (v.body === 'atx-council' && v.title === 'Mayor') yours.set(v.memberId, 'Mayor');
+    const yours = [...federal, ...state, ...local.filter((r) => !r.role.endsWith('(you agree most)'))];
+    const memberVotes = await query<{ lawmaker_id: string; bill_id: string; vote: string }>(
+      'SELECT lawmaker_id, bill_id, vote FROM lawmaker_votes WHERE lawmaker_id = ANY($1)',
+      [yours.map((r) => r.id)],
+    );
     const byBill: Record<string, { name: string; label: string; vote: string }[]> = {};
-    for (const v of VOTES) {
-      const label = yours.get(v.memberId);
-      if (label) (byBill[v.billId] ??= []).push({ name: displayName(v.name), label, vote: v.vote });
+    for (const v of memberVotes) {
+      const r = yours.find((x) => x.id === v.lawmaker_id)!;
+      const label = LABELS.find(([prefix]) => r.role.startsWith(prefix))?.[1] ?? 'Lawmaker';
+      (byBill[v.bill_id] ??= []).push({ name: r.name, label, vote: v.vote });
     }
-    return { federal, local, state: [], byBill, credit: local.some((r) => r.name === 'Kirk Watson') ? PHOTO_CREDIT : null };
+
+    const credits = [...new Set(local.map((r) => r.credit && `${r.name}: ${r.credit}`).filter(Boolean))];
+    return { federal, state, local, byBill, credit: credits.join(' ') || null };
   });
 }

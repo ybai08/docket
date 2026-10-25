@@ -11,7 +11,7 @@ export type Profile = {
   state: string | null;
   county: string | null;
   city: string | null;
-  districts: { congress: string | null; stateSenate: string | null; stateHouse: string | null; schoolDistrict: string | null } | null;
+  districts: { congress: string | null; stateSenate: string | null; stateHouse: string | null; council?: string | null } | null;
   issues: string[];
   shareVotes: boolean;
   allowUsername: boolean;
@@ -46,6 +46,8 @@ export type Location = {
   county: string | null;
   city: string | null;
   districts: NonNullable<Profile['districts']>;
+  /** District kinds the ZIP straddles; the one covering most of it is used. */
+  split: string[];
 };
 
 type Me = {

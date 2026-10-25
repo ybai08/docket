@@ -176,18 +176,16 @@ export async function meRoutes(app: FastifyInstance) {
   // Preview what a ZIP covers before saving it.
   app.get<{ Params: { zip: string } }>('/geo/:zip', async (req, reply) => {
     if (!/^\d{5}$/.test(req.params.zip)) return reply.code(400).send({ error: 'Enter a 5-digit ZIP code.' });
-    const loc = await lookupZip(req.params.zip).catch(() => undefined);
-    if (loc === undefined) return reply.code(502).send({ error: "Couldn't look up that ZIP right now. Try again." });
-    if (!loc) return reply.code(404).send({ error: "We couldn't find that ZIP code." });
+    const loc = await lookupZip(req.params.zip);
+    if (!loc) return reply.code(404).send({ error: "Docket covers Texas ZIP codes for now. Check the number and try again." });
     return loc;
   });
 
   // Saves state, county, city and districts. The ZIP is kept; never a street address.
   app.post('/me/location', async (req, reply) => {
     const { zip } = z.object({ zip: z.string().regex(/^\d{5}$/, 'Enter a 5-digit ZIP code.') }).parse(req.body);
-    const loc = await lookupZip(zip).catch(() => undefined);
-    if (loc === undefined) return reply.code(502).send({ error: "Couldn't look up that ZIP right now. Try again." });
-    if (!loc) return reply.code(404).send({ error: "We couldn't find that ZIP code." });
+    const loc = await lookupZip(zip);
+    if (!loc) return reply.code(404).send({ error: "Docket covers Texas ZIP codes for now. Check the number and try again." });
     const [u] = await query<UserRow>(
       `UPDATE users SET zip = $2, state = $3, county = $4, city = $5, districts = $6 WHERE id = $1 RETURNING *`,
       [req.uid, zip, loc.state, loc.county, loc.city, JSON.stringify(loc.districts)],

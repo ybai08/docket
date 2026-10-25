@@ -122,22 +122,18 @@ export default function OnboardLocation() {
             title={`${shown.stateName} Legislature`}
             detail={`House District ${shown.districts.stateHouse ?? '[##]'}, Senate District ${shown.districts.stateSenate ?? '[##]'}`}
           />
-          {shown.county && <Coverage badge="CTY" color={colors.teal} title={shown.county} detail="Commissioners Court, Precinct [#]" />}
+          {shown.county && <Coverage badge="CTY" color={colors.teal} title={shown.county} detail="Commissioners Court" />}
           {shown.city && (
             <Coverage
               badge={shown.city === 'Austin' ? 'ATX' : shown.city.slice(0, 3).toUpperCase()}
               color={colors.teal}
               title={`City of ${shown.city}`}
-              detail="City Council District [#], plus the mayor"
+              detail={shown.districts.council ? `City Council District ${shown.districts.council}, plus the mayor` : 'City Council and the mayor'}
             />
           )}
-          {shown.districts.schoolDistrict && (
-            <Text style={{ fontSize: 13, color: colors.text2, marginTop: 2 }}>
-              Also: {shown.districts.schoolDistrict.replace('Independent School District', 'ISD')} school board and local
-              ballot measures
-            </Text>
+          {shown.split.length > 0 && (
+            <Text style={type.meta}>Your ZIP spans more than one district, so we use the one that covers most of it.</Text>
           )}
-          <Text style={type.meta}>Districts come from the center of your ZIP code.</Text>
         </View>
       )}
     </OnboardFrame>

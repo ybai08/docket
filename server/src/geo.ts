@@ -1,14 +1,6 @@
-// ZIP -> state, county, city and districts with the free U.S. Census APIs (no key).
-// A ZIP can straddle districts, so we use the ZIP's internal point and say so in the app.
-
-const STATES: Record<string, string> = {
-  '01': 'AL', '02': 'AK', '04': 'AZ', '05': 'AR', '06': 'CA', '08': 'CO', '09': 'CT', '10': 'DE', '11': 'DC',
-  '12': 'FL', '13': 'GA', '15': 'HI', '16': 'ID', '17': 'IL', '18': 'IN', '19': 'IA', '20': 'KS', '21': 'KY',
-  '22': 'LA', '23': 'ME', '24': 'MD', '25': 'MA', '26': 'MI', '27': 'MN', '28': 'MS', '29': 'MO', '30': 'MT',
-  '31': 'NE', '32': 'NV', '33': 'NH', '34': 'NJ', '35': 'NM', '36': 'NY', '37': 'NC', '38': 'ND', '39': 'OH',
-  '40': 'OK', '41': 'OR', '42': 'PA', '44': 'RI', '45': 'SC', '46': 'SD', '47': 'TN', '48': 'TX', '49': 'UT',
-  '50': 'VT', '51': 'VA', '53': 'WA', '54': 'WV', '55': 'WI', '56': 'WY', '72': 'PR',
-};
+// ZIP -> county, city and districts, read from the zip_districts table (built from Census files by
+// scripts/build_civic_data.py). Nothing is looked up from outside at request time.
+import { query } from './db.ts';
 
 export type Location = {
   zip: string;
@@ -20,63 +12,30 @@ export type Location = {
     congress: string | null;
     stateSenate: string | null;
     stateHouse: string | null;
-    schoolDistrict: string | null;
+    council: string | null;
   };
+  /** Kinds where the ZIP straddles more than one district; the one covering most of it is used. */
+  split: string[];
 };
 
-type Geo = Record<string, string | undefined>;
-
-const cache = new Map<string, Location | null>();
-
-async function getJson(url: string) {
-  const res = await fetch(url, { signal: AbortSignal.timeout(10_000) });
-  if (!res.ok) throw new Error(`Census lookup failed (${res.status})`);
-  return res.json();
-}
+type Row = { kind: string; code: string; name: string; share: number };
 
 export async function lookupZip(zip: string): Promise<Location | null> {
-  if (cache.has(zip)) return cache.get(zip)!;
-  const zcta = await getJson(
-    'https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/PUMA_TAD_TAZ_UGA_ZCTA/MapServer/1/query?' +
-      new URLSearchParams({ where: `ZCTA5='${zip}'`, outFields: 'INTPTLAT,INTPTLON', returnGeometry: 'false', f: 'json' }),
-  );
-  const point = zcta.features?.[0]?.attributes as { INTPTLAT: string; INTPTLON: string } | undefined;
-  if (!point) {
-    cache.set(zip, null);
-    return null;
-  }
-  const geo = await getJson(
-    'https://geocoding.geo.census.gov/geocoder/geographies/coordinates?' +
-      new URLSearchParams({
-        x: String(Number(point.INTPTLON)),
-        y: String(Number(point.INTPTLAT)),
-        benchmark: 'Public_AR_Current',
-        vintage: 'Current_Current',
-        layers: 'all',
-        format: 'json',
-      }),
-  );
-  const layers = geo.result.geographies as Record<string, Geo[]>;
-  // Layer names carry years ("120th Congressional Districts"), so match on the stable part.
-  const first = (part: string) => Object.entries(layers).find(([k, v]) => k.includes(part) && v.length)?.[1][0];
-  const state = first('States');
-  if (!state?.STATE) {
-    cache.set(zip, null);
-    return null;
-  }
-  const loc: Location = {
+  const rows = await query<Row>('SELECT kind, code, name, share FROM zip_districts WHERE zip = $1 ORDER BY share DESC', [zip]);
+  if (!rows.length) return null;
+  const top = (kind: string) => rows.find((r) => r.kind === kind) ?? null;
+  return {
     zip,
-    state: STATES[state.STATE] ?? state.STATE,
-    stateName: state.NAME ?? '',
-    county: first('Counties')?.NAME ?? null,
-    city: first('Incorporated Places')?.BASENAME ?? null,
+    state: 'TX',
+    stateName: 'Texas',
+    county: top('county')?.name ?? null,
+    city: top('city')?.name ?? null,
     districts: {
-      congress: first('Congressional Districts')?.BASENAME ?? null,
-      stateSenate: first('Legislative Districts - Upper')?.BASENAME ?? null,
-      stateHouse: first('Legislative Districts - Lower')?.BASENAME ?? null,
-      schoolDistrict: first('Unified School Districts')?.NAME ?? null,
+      congress: top('us-house')?.code ?? null,
+      stateSenate: top('tx-senate')?.code ?? null,
+      stateHouse: top('tx-house')?.code ?? null,
+      council: top('atx-council')?.code ?? null,
     },
+    split: [...new Set(rows.filter((r) => rows.filter((x) => x.kind === r.kind).length > 1).map((r) => r.kind))],
   };
-  cache.set(zip, loc);
-  return loc;
 }

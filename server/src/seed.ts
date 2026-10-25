@@ -1,7 +1,16 @@
-// Loads the verified bills and daily sets from the app's src/data into Postgres. Safe to rerun.
+// Loads the verified bills and daily sets from the app's src/data, and the civic data built by
+// scripts/build_civic_data.py (lawmakers, their votes, ZIP districts), into Postgres. Safe to rerun.
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+
 import { BILLS } from '../../src/data/bills.ts';
 import { SEEDED_SETS } from '../../src/data/daily.ts';
 import { pool } from './db.ts';
+
+const civic = <T,>(name: string): T[] => JSON.parse(readFileSync(join(import.meta.dirname, '..', 'data', `${name}.json`), 'utf8'));
+type Lawmaker = { id: string; body: string; name: string; title: string; party: string | null; district: string | null; photo_url: string | null; photo_credit: string | null; source_url: string };
+type MemberVote = { lawmaker_id: string; bill_id: string; vote: string; source_url: string };
+type ZipDistrict = { zip: string; kind: string; code: string; name: string; share: number };
 
 const client = await pool.connect();
 try {
@@ -30,6 +39,32 @@ try {
     }
     console.log(`seeded ${day}: ${rows.length} items`);
   }
+
+  // Civic data is replaced wholesale: rosters change, and a lawmaker who left office should disappear.
+  const lawmakers = civic<Lawmaker>('lawmakers');
+  const memberVotes = civic<MemberVote>('lawmaker-votes');
+  const zips = civic<ZipDistrict>('zip-districts');
+  await client.query('DELETE FROM lawmaker_votes');
+  await client.query('DELETE FROM lawmakers');
+  await client.query('DELETE FROM zip_districts');
+  const col = <T, K extends keyof T>(rows: T[], k: K) => rows.map((r) => r[k]);
+  await client.query(
+    `INSERT INTO lawmakers (id, body, name, title, party, district, photo_url, photo_credit, source_url)
+     SELECT * FROM unnest($1::text[], $2::text[], $3::text[], $4::text[], $5::text[], $6::text[], $7::text[], $8::text[], $9::text[])`,
+    (['id', 'body', 'name', 'title', 'party', 'district', 'photo_url', 'photo_credit', 'source_url'] as const).map((k) => col(lawmakers, k)),
+  );
+  await client.query(
+    `INSERT INTO lawmaker_votes (lawmaker_id, bill_id, vote, source_url)
+     SELECT * FROM unnest($1::text[], $2::text[], $3::text[], $4::text[])`,
+    (['lawmaker_id', 'bill_id', 'vote', 'source_url'] as const).map((k) => col(memberVotes, k)),
+  );
+  await client.query(
+    `INSERT INTO zip_districts (zip, kind, code, name, share)
+     SELECT * FROM unnest($1::text[], $2::text[], $3::text[], $4::text[], $5::real[])`,
+    (['zip', 'kind', 'code', 'name', 'share'] as const).map((k) => col(zips, k)),
+  );
+  console.log(`seeded ${lawmakers.length} lawmakers, ${memberVotes.length} member votes, ${zips.length} ZIP district rows`);
+
   await client.query('COMMIT');
 } catch (err) {
   await client.query('ROLLBACK');
