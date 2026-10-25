@@ -3,6 +3,7 @@ import { z } from 'zod';
 
 import { addDays, centralDay } from '../../src/lib/day.ts';
 import { requireUser } from './auth.ts';
+import { lookupZip } from './geo.ts';
 import { query } from './db.ts';
 
 /** Played days, streaks and agreement, all from finished games on the server. */
@@ -36,7 +37,39 @@ export async function statsFor(uid: string) {
     [uid],
   );
   const voted = Number(agreement.voted);
+
+  const [games] = await query<{ fof_right: string | null; fof_played: string; ls_points: string | null; ls_played: string }>(
+    `SELECT sum(score) FILTER (WHERE game = 'filed-or-fake') AS fof_right,
+            count(*) FILTER (WHERE game = 'filed-or-fake') AS fof_played,
+            sum(score) FILTER (WHERE game = 'landslide') AS ls_points,
+            count(*) FILTER (WHERE game = 'landslide') AS ls_played
+     FROM game_results WHERE user_id = $1 AND finished_at IS NOT NULL`,
+    [uid],
+  );
+  const fofPlayed = Number(games.fof_played);
+  const lsPlayed = Number(games.ls_played);
+
+  // Issues: most-voted topics first, with the share of Yea votes on each.
+  const issues = await query<{ topic: string; votes: string; yea: string }>(
+    `SELECT b.topic, count(*) AS votes, count(*) FILTER (WHERE v.vote = 'yea') AS yea
+     FROM votes v JOIN bills b ON b.id = v.bill_id WHERE v.user_id = $1
+     GROUP BY b.topic ORDER BY count(*) DESC, b.topic`,
+    [uid],
+  );
+  const week = await query<{ day: string }>(
+    `SELECT DISTINCT day FROM game_results
+     WHERE user_id = $1 AND finished_at IS NOT NULL AND day > $2::date - 7`,
+    [uid, today],
+  );
+
   return {
+    byGame: {
+      rollCallAgreementPct: voted ? Math.round((Number(agreement.agreed) / voted) * 100) : null,
+      filedOrFakePct: fofPlayed ? Math.round((Number(games.fof_right) / (fofPlayed * 8)) * 100) : null,
+      landslideAvg: lsPlayed ? Math.round(Number(games.ls_points) / lsPlayed) : null,
+    },
+    issues: issues.map((i) => ({ topic: i.topic, votes: Number(i.votes), yeaPct: Math.round((Number(i.yea) / Number(i.votes)) * 100) })),
+    weekPlayed: week.map((w) => w.day),
     daysPlayed: days.length,
     rollCallsPlayed: Number(agreement.roll_calls),
     billsVoted: voted,
@@ -58,6 +91,12 @@ const profilePatch = z.object({
   allowUsername: z.boolean().optional(),
   matchContacts: z.boolean().optional(),
   onboarded: z.boolean().optional(),
+  dailyReminder: z.boolean().optional(),
+  notifyFriendPasses: z.boolean().optional(),
+  notifyStreakRisk: z.boolean().optional(),
+  notifyWeeklyRecap: z.boolean().optional(),
+  notifyRequests: z.boolean().optional(),
+  notifyOppositeVote: z.boolean().optional(),
 });
 
 const COLUMNS: Record<string, string> = {
@@ -69,6 +108,12 @@ const COLUMNS: Record<string, string> = {
   allowUsername: 'allow_username',
   matchContacts: 'match_contacts',
   onboarded: 'onboarded',
+  dailyReminder: 'daily_reminder',
+  notifyFriendPasses: 'notify_friend_passes',
+  notifyStreakRisk: 'notify_streak_risk',
+  notifyWeeklyRecap: 'notify_weekly_recap',
+  notifyRequests: 'notify_requests',
+  notifyOppositeVote: 'notify_opposite_vote',
 };
 
 type UserRow = {
@@ -85,6 +130,12 @@ type UserRow = {
   allow_username: boolean;
   match_contacts: boolean;
   onboarded: boolean;
+  daily_reminder: boolean;
+  notify_friend_passes: boolean;
+  notify_streak_risk: boolean;
+  notify_weekly_recap: boolean;
+  notify_requests: boolean;
+  notify_opposite_vote: boolean;
   created_at: string;
 };
 
@@ -103,12 +154,41 @@ export function toProfile(u: UserRow) {
     allowUsername: u.allow_username,
     matchContacts: u.match_contacts,
     onboarded: u.onboarded,
+    dailyReminder: u.daily_reminder,
+    notifyFriendPasses: u.notify_friend_passes,
+    notifyStreakRisk: u.notify_streak_risk,
+    notifyWeeklyRecap: u.notify_weekly_recap,
+    notifyRequests: u.notify_requests,
+    // Only possible when both people share votes; the app explains that next to the switch.
+    notifyOppositeVote: u.notify_opposite_vote,
     createdAt: u.created_at,
   };
 }
 
 export async function meRoutes(app: FastifyInstance) {
   app.addHook('preHandler', requireUser);
+
+  // Preview what a ZIP covers before saving it.
+  app.get<{ Params: { zip: string } }>('/geo/:zip', async (req, reply) => {
+    if (!/^\d{5}$/.test(req.params.zip)) return reply.code(400).send({ error: 'Enter a 5-digit ZIP code.' });
+    const loc = await lookupZip(req.params.zip).catch(() => undefined);
+    if (loc === undefined) return reply.code(502).send({ error: "Couldn't look up that ZIP right now. Try again." });
+    if (!loc) return reply.code(404).send({ error: "We couldn't find that ZIP code." });
+    return loc;
+  });
+
+  // Saves state, county, city and districts. The ZIP is kept; never a street address.
+  app.post('/me/location', async (req, reply) => {
+    const { zip } = z.object({ zip: z.string().regex(/^\d{5}$/, 'Enter a 5-digit ZIP code.') }).parse(req.body);
+    const loc = await lookupZip(zip).catch(() => undefined);
+    if (loc === undefined) return reply.code(502).send({ error: "Couldn't look up that ZIP right now. Try again." });
+    if (!loc) return reply.code(404).send({ error: "We couldn't find that ZIP code." });
+    const [u] = await query<UserRow>(
+      `UPDATE users SET zip = $2, state = $3, county = $4, city = $5, districts = $6 WHERE id = $1 RETURNING *`,
+      [req.uid, zip, loc.state, loc.county, loc.city, JSON.stringify(loc.districts)],
+    );
+    return { profile: toProfile(u), location: loc };
+  });
 
   app.get('/me', async (req) => {
     const [u] = await query<UserRow>('SELECT * FROM users WHERE id = $1', [req.uid]);

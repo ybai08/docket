@@ -28,7 +28,9 @@ export function PillButton({
   style,
 }: Props) {
   const primary = variant === 'primary';
-  const fg = primary ? colors.ground : colors.ink;
+  // Disabled primary buttons turn grey, as in the onboarding design.
+  const off = primary && disabled;
+  const fg = off ? colors.tabInactive : primary ? colors.ground : colors.ink;
   const lg = size === 'lg';
 
   return (
@@ -43,14 +45,14 @@ export function PillButton({
           height: lg ? 54 : 38,
           paddingHorizontal: lg ? 24 : 20,
           borderRadius: radius.pill,
-          backgroundColor: primary ? colors.ink : colors.ground,
+          backgroundColor: off ? colors.hairline : primary ? colors.ink : colors.ground,
           borderWidth: primary ? 0 : lg ? 2 : 1.5,
           borderColor: colors.ink,
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'center',
           gap: 8,
-          opacity: disabled ? 0.35 : pressed ? 0.75 : 1,
+          opacity: disabled && !primary ? 0.35 : pressed ? 0.75 : 1,
         },
         style,
       ]}>

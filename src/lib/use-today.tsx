@@ -7,18 +7,10 @@ import { api } from './api';
 import { useAuth } from './auth-context';
 import { centralDay, msUntilNextDay } from './day';
 import { useGameStore, type DayProgress } from './game-store';
+import { useMe } from './me-context';
 import { filedOrFakeScore, landslideAnswer, landslidePoints, rollCallAgreement, rollCallStats } from './scoring';
 
 export type GameStatus = { state: 'new' | 'progress' | 'done'; done: number; total: number; result?: number };
-
-export type Stats = {
-  daysPlayed: number;
-  rollCallsPlayed: number;
-  billsVoted: number;
-  agreementPct: number;
-  currentStreak: number;
-  maxStreak: number;
-};
 
 /** Re-renders at Central midnight so new ballots appear without a restart. */
 export function useCentralDay() {
@@ -39,17 +31,13 @@ function useTodayState() {
   const [remote, setRemote] = useState<Remote | null>(null);
   const [loadState, setLoadState] = useState<'loading' | 'ready' | 'error'>('loading');
   const [error, setError] = useState<string | null>(null);
-  const [serverStats, setServerStats] = useState<Stats | null>(null);
+  const me = useMe();
   // Writes go out in order so the server sees every vote before the Roll Call is finished.
   const queue = useRef<Promise<unknown>>(Promise.resolve());
 
   const { ready: storeReady, replace } = store;
 
-  const loadStats = useCallback(() => {
-    api<{ stats: Stats }>('/me')
-      .then((r) => setServerStats(r.stats))
-      .catch(() => {});
-  }, []);
+  const { refresh: loadStats } = me;
 
   const load = useCallback(async () => {
     setLoadState('loading');
@@ -150,11 +138,10 @@ function useTodayState() {
     },
   } satisfies Record<string, GameStatus>;
 
+  // Server stats when online; computed from this phone's history otherwise.
   const local = rollCallStats(store.days, today);
-  const stats: Stats = serverStats ?? {
-    daysPlayed: local.played,
+  const stats = me.stats ?? {
     rollCallsPlayed: local.played,
-    billsVoted: 0,
     agreementPct: local.agreementPct,
     currentStreak: local.currentStreak,
     maxStreak: local.maxStreak,

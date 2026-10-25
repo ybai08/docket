@@ -1,6 +1,6 @@
 import { BILLS } from './bills';
-import { CAPTIONS_OCT24 } from './captions';
-import { LANDSLIDE_OCT24 } from './landslide';
+import { CAPTIONS_OCT24, CAPTIONS_OCT25 } from './captions';
+import { LANDSLIDE_OCT24, LANDSLIDE_OCT25 } from './landslide';
 import type { DailySet } from './types';
 
 /** Seeded sets by Central-time day. The server loads these with `npm run seed`. */
@@ -11,6 +11,14 @@ export const SEEDED_SETS: Record<string, Omit<DailySet, 'day'>> = {
     landslide: {
       prompt: 'Drag to rank by the final House vote, widest margin on top.',
       items: LANDSLIDE_OCT24,
+    },
+  },
+  '2026-10-25': {
+    rollCall: ['tx-89r-sb6', 'us-119-s331', 'tx-892-hb4', 'us-119-hr1', 'atx-26-2163'].map((id) => BILLS[id]),
+    filedOrFake: CAPTIONS_OCT25,
+    landslide: {
+      prompt: 'Drag to rank by the final House vote, widest margin on top.',
+      items: LANDSLIDE_OCT25,
     },
   },
 };
