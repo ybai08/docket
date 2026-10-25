@@ -496,15 +496,20 @@ function LawmakerItem({ row: p, local }: { row: LawmakerRow; local: boolean }) {
     : '';
   const unit = local ? 'votes' : 'bills';
   return (
-    <View
-      style={{
+    <Pressable
+      accessibilityRole="button"
+      accessibilityHint="Opens their page"
+      disabled={!p.id}
+      onPress={() => p.id && router.push({ pathname: '/lawmaker/[id]', params: { id: p.id } })}
+      style={({ pressed }) => ({
         flexDirection: 'row',
         alignItems: 'center',
         gap: 12,
         paddingVertical: 14,
         borderTopWidth: 1,
         borderTopColor: colors.hairline,
-      }}>
+        opacity: pressed ? 0.6 : 1,
+      })}>
       <View
         style={{
           width: 48,
@@ -575,7 +580,7 @@ function LawmakerItem({ row: p, local }: { row: LawmakerRow; local: boolean }) {
               : 'No votes on file'}
         </Text>
       </View>
-    </View>
+    </Pressable>
   );
 }
 
@@ -621,6 +626,7 @@ const PARTY: Record<string, string> = {
 };
 
 type LawmakerRow = {
+  id?: string;
   name: string;
   role: string;
   party?: string | null;

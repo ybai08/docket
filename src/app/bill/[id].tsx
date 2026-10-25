@@ -1,6 +1,6 @@
-import { useLocalSearchParams } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import type { ReactNode } from 'react';
-import { Linking, ScrollView, Text, View } from 'react-native';
+import { Linking, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { BillChip } from '@/components/bill-chip';
@@ -21,8 +21,12 @@ export default function BillScreen() {
   const { set, progress } = useToday();
   const bill = BILLS[id] ?? set.rollCall.find((b) => b.id === id);
   const yours = progress.rollCall.votes[id] as Vote | undefined;
-  const { data } = useRemote<{ byBill: Record<string, MemberVote[]> }>('/me/lawmakers');
+  const { data } = useRemote<{ byBill: Record<string, MemberVote[]> } & Record<'federal' | 'state' | 'local', { id: string; name: string }[]>>(
+    '/me/lawmakers',
+  );
   const members = data?.byBill[id] ?? [];
+  // byBill names each lawmaker but carries no id; find it among your lawmakers to link their page.
+  const lawmakerId = (name: string) => (data ? [...data.federal, ...data.state, ...data.local].find((r) => r.name === name)?.id : undefined);
 
   if (!bill) {
     return (
@@ -81,26 +85,33 @@ export default function BillScreen() {
         {members.length > 0 && (
           <Section title="Your lawmakers" note="How the people who represent you voted">
             <View>
-              {members.map((m, i) => (
-                <View
-                  key={m.name}
-                  accessible
-                  accessibilityLabel={`${m.label}, ${m.name}: ${m.vote === 'yea' ? 'Yea' : 'Nay'}`}
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    gap: 12,
-                    paddingVertical: 11,
-                    borderTopWidth: i ? 1 : 0,
-                    borderTopColor: colors.hairline,
-                  }}>
-                  <View style={{ flex: 1, gap: 1 }}>
-                    <Text style={{ fontSize: 15, fontWeight: '600' }}>{m.name}</Text>
-                    <Text style={{ fontSize: 12, color: colors.meta }}>{m.label}</Text>
-                  </View>
-                  <VoteBadge vote={m.vote === 'yea' ? 'yea' : 'nay'} />
-                </View>
-              ))}
+              {members.map((m, i) => {
+                const lid = lawmakerId(m.name);
+                return (
+                  <Pressable
+                    key={m.name}
+                    accessible
+                    accessibilityLabel={`${m.label}, ${m.name}: ${m.vote === 'yea' ? 'Yea' : 'Nay'}`}
+                    accessibilityHint={lid ? 'Opens their page' : undefined}
+                    disabled={!lid}
+                    onPress={() => lid && router.push({ pathname: '/lawmaker/[id]', params: { id: lid } })}
+                    style={({ pressed }) => ({
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      gap: 12,
+                      paddingVertical: 11,
+                      borderTopWidth: i ? 1 : 0,
+                      borderTopColor: colors.hairline,
+                      opacity: pressed ? 0.6 : 1,
+                    })}>
+                    <View style={{ flex: 1, gap: 1 }}>
+                      <Text style={{ fontSize: 15, fontWeight: '600' }}>{m.name}</Text>
+                      <Text style={{ fontSize: 12, color: colors.meta }}>{m.label}</Text>
+                    </View>
+                    <VoteBadge vote={m.vote === 'yea' ? 'yea' : 'nay'} />
+                  </Pressable>
+                );
+              })}
             </View>
           </Section>
         )}
