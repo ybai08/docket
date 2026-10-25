@@ -216,10 +216,7 @@ function DayBlock(props: { game: GameId; day: Day; color: string; note: string; 
         accessibilityLabel={`${formatDayLong(d.day)}: ${d.score} of ${d.outOf}, ${note}`}
         onPress={onToggle}
         style={({ pressed }) => ({ flexDirection: 'row', alignItems: 'center', gap: 12, paddingVertical: 14, opacity: pressed ? 0.6 : 1 })}>
-        <View style={{ flex: 1, gap: 1 }}>
-          <Text style={{ fontSize: 16, fontWeight: '600' }}>{formatDayLong(d.day)}</Text>
-          <Text style={{ fontSize: 12, color: colors.meta }}>{note}</Text>
-        </View>
+        <Text style={{ flex: 1, fontSize: 16, fontWeight: '600' }}>{formatDayLong(d.day)}</Text>
         <View style={{ minWidth: 56, height: 30, paddingHorizontal: 10, borderRadius: 15, backgroundColor: color, alignItems: 'center', justifyContent: 'center' }}>
           <Text style={{ fontSize: 14, fontWeight: '800', fontVariant: ['tabular-nums'] }}>
             {d.score}/{d.outOf}
