@@ -35,7 +35,7 @@
   nav .links { display: flex; align-items: center; gap: 26px; font-size: 15px; font-weight: 600; }
   nav .links a { text-decoration: none; color: var(--text2); }
   nav .links a:hover { color: var(--ink); }
-  .pill { display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 22px; border-radius: 999px; background: var(--ink); color: #fff !important; font-weight: 700; font-size: 15px; text-decoration: none; border: 2px solid var(--ink); transition: transform .15s ease; }
+  .pill { display: inline-flex; align-items: center; justify-content: center; white-space: nowrap; flex-shrink: 0; height: 44px; padding: 0 22px; border-radius: 999px; background: var(--ink); color: #fff !important; font-weight: 700; font-size: 15px; text-decoration: none; border: 2px solid var(--ink); transition: transform .15s ease; }
   .pill:hover { transform: translateY(-1px); }
   .pill.outline { background: transparent; color: var(--ink) !important; }
 
@@ -111,6 +111,7 @@
 
   @media (max-width: 860px) {
     nav .links a:not(.pill) { display: none; }
+    nav .pill { height: 40px; padding: 0 16px; font-size: 14px; }
     .hero { padding-top: 56px; }
     .games, .privacy, .built { grid-template-columns: 1fr; }
     .game { min-height: 0; }
