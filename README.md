@@ -56,11 +56,11 @@ Endpoints (all need `Authorization: Bearer <Firebase ID token>`): `GET /today`, 
 Lawmakers, their recorded votes and the districts of every Texas ZIP code live in Postgres (`lawmakers`, `lawmaker_votes`, `zip_districts`), so the API never looks up districts or representatives at request time. `server/scripts/build_civic_data.py` rebuilds the JSON in `server/data/` from public sources, and `npm run seed` loads it:
 
 - **Lawmakers:** Texas's members of Congress (unitedstates/congress-legislators, official portraits), all Texas legislators (OpenStates, with their official photos), and Austin's mayor and council (City of Austin).
-- **Votes:** Congress from Voteview; Austin from the city's council votes dataset. Texas Legislature member votes aren't machine-readable yet.
+- **Votes:** Congress from Voteview; Austin from the city's council votes dataset; the Texas Legislature from the House and Senate journals (`server/scripts/tx_journals.py`, which needs `pdftotext` from poppler). Every parsed vote must add up to the tally the app shows, or the build stops.
 - **ZIP districts:** Census 2020 relationship files for the 119th Congress, the 2024 Texas House and Senate plans, counties and cities, with the share of each ZIP in each district. Austin council districts come from the city's boundary map, by each ZIP's center point.
 
 ```bash
-python3 -I server/scripts/build_civic_data.py   # when rosters or bills change
+python3 server/scripts/build_civic_data.py   # when rosters or bills change (needs pdftotext)
 cd server && npm run seed
 ```
 

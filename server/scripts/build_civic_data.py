@@ -10,12 +10,12 @@ Sources:
   Austin council      the City of Austin's council votes dataset, headshots from austintexas.gov
   Congress votes      Voteview member roll calls (senate.gov blocks scripted downloads)
   Austin votes        the City of Austin's council votes dataset (datahub.austintexas.gov, 3c89-i35a)
+  Texas votes         the Texas House and Senate journals (see tx_journals.py; needs pdftotext)
   ZIP districts       Census 2020 ZCTA relationship files: 119th Congress, 2024 state legislative plans,
                       counties and places; Austin council districts from the city's boundary dataset
                       (w3v2-cj58), placed by each ZIP's center point from the 2020 Census Gazetteer.
 
-Run: python3 -I server/scripts/build_civic_data.py   (then `npm run seed` in server/ loads it)
-Texas Legislature member votes aren't machine-readable yet, so Texas legislators have no votes.
+Run: python3 server/scripts/build_civic_data.py   (then `npm run seed` in server/ loads it)
 """
 
 import csv
@@ -26,6 +26,9 @@ import sys
 import urllib.parse
 import urllib.request
 import zipfile
+
+sys.path.insert(0, os.path.dirname(__file__))
+from tx_journals import journal_votes  # noqa: E402
 
 DATA = os.path.join(os.path.dirname(__file__), "..", "data")
 CENSUS = "https://www2.census.gov/geo/docs/maps-data/data"
@@ -102,9 +105,9 @@ def congress_members():
     return out
 
 
-def texas_legislators():
+def texas_legislators(people):
     out = []
-    for p in csv.DictReader(io.StringIO(get("https://data.openstates.org/people/current/tx.csv"))):
+    for p in people:
         upper = p["current_chamber"] == "upper"
         links = [l for l in p["links"].split(";") if l]
         out.append({
@@ -253,7 +256,8 @@ def in_multipolygon(x, y, geom):
 
 def main():
     congress = congress_members()
-    legislators = texas_legislators()
+    people = list(csv.DictReader(io.StringIO(get("https://data.openstates.org/people/current/tx.csv"))))
+    legislators = texas_legislators(people)
     rows_by_item, atx = austin_votes()
     latest = rows_by_item[AUSTIN_VOTES[-1][1]]
     council = austin_council(latest)
@@ -266,6 +270,13 @@ def main():
             "vote": "yea" if r["vote_cast"] == "Yes" else "nay",
             "source_url": f"https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id={item_id}",
         })
+
+    tx_votes, report = journal_votes({
+        "house": [p for p in people if p["current_chamber"] == "lower"],
+        "senate": [p for p in people if p["current_chamber"] == "upper"],
+    })
+    votes += tx_votes
+    print("\n".join(report))
 
     lawmakers = congress + legislators + list(council.values())
     zips = zip_districts()

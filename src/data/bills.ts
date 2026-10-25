@@ -49,7 +49,8 @@ export const BILLS: Record<string, Bill> = {
     summary: 'Stores could no longer sell hemp products that contain THC.',
     topic: 'Health care',
     chamberVotes: [
-      { chamber: 'Texas Senate', yeas: 24, nays: 7 },
+      // The Senate's last vote: concurring in the House version, May 25 (Senate Journal p. 2641).
+      { chamber: 'Texas Senate', yeas: 25, nays: 6 },
       { chamber: 'Texas House', yeas: 87, nays: 54 },
     ],
     passed: true,
