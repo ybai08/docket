@@ -53,3 +53,6 @@ GoogleService-Info.plist
 google-services.json
 # Public CA certificate for Tiger Cloud (not a key)
 !server/certs/timescale-ca.pem
+
+# Lawmaker photos, rebuilt by server/scripts/build_civic_data.py and shipped by deploy.sh
+server/media/

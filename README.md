@@ -53,14 +53,14 @@ Endpoints (all need `Authorization: Bearer <Firebase ID token>`): `GET /today`, 
 
 ## Civic data
 
-Lawmakers, their recorded votes and the districts of every Texas ZIP code live in Postgres (`lawmakers`, `lawmaker_votes`, `zip_districts`), so the API never looks up districts or representatives at request time. `server/scripts/build_civic_data.py` rebuilds the JSON in `server/data/` from public sources, and `npm run seed` loads it:
+Every current member of Congress and state legislator in the country, their photos, their recorded votes on Docket's bills, and the districts of every U.S. ZIP code live with the API: rows in Postgres (`lawmakers`, `lawmaker_votes`, `zip_districts`) and photos in `server/media/photos`, served at `/photos/<id>.jpg`. The API never looks up districts, representatives or photos elsewhere at request time. `server/scripts/build_civic_data.py` rebuilds `server/data/` and the photos from public sources, and `npm run seed` loads the data:
 
-- **Lawmakers:** Texas's members of Congress (unitedstates/congress-legislators, official portraits), all Texas legislators (OpenStates, with their official photos), and Austin's mayor and council (City of Austin).
+- **Lawmakers:** Congress, including non-voting delegates (unitedstates/congress-legislators, official portraits); every state legislature plus the D.C. Council (OpenStates, with their official photos where the state publishes one); and Austin's mayor and council (City of Austin). Photos are resized to 240px and stored, about 6,500 of them.
 - **Votes:** Congress from Voteview; Austin from the city's council votes dataset; the Texas Legislature from the House and Senate journals (`server/scripts/tx_journals.py`, which needs `pdftotext` from poppler). Every parsed vote must add up to the tally the app shows, or the build stops.
-- **ZIP districts:** Census 2020 relationship files for the 119th Congress, the 2024 Texas House and Senate plans, counties and cities, with the share of each ZIP in each district. Austin council districts come from the city's boundary map, by each ZIP's center point.
+- **ZIP districts:** Census 2020 relationship files for the 119th Congress, the 2024 state legislative plans, counties and cities, with the share of each ZIP in each district; a ZIP that straddles districts uses the one covering most of it. Census and OpenStates name districts differently, so both are normalized to a `district_key`; the build prints how many state seats matched a ZIP (99%; the rest are New Hampshire's floterial seats, small Wyoming districts inside larger ZIPs, and Maine's non-voting tribal seats). Austin council districts come from the city's boundary map, by each ZIP's center point.
 
 ```bash
-python3 server/scripts/build_civic_data.py   # when rosters or bills change (needs pdftotext)
+python3 server/scripts/build_civic_data.py   # when rosters or bills change (needs pdftotext and macOS sips; ~20 min)
 cd server && npm run seed
 ```
 

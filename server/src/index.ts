@@ -1,3 +1,6 @@
+import { createReadStream, existsSync } from 'node:fs';
+import { join } from 'node:path';
+
 import cors from '@fastify/cors';
 import Fastify from 'fastify';
 import { ZodError } from 'zod';
@@ -19,6 +22,14 @@ app.setErrorHandler((err, _req, reply) => {
 });
 
 app.get('/health', async () => ({ ok: true }));
+
+// Lawmaker photos, stored with the API by scripts/build_civic_data.py. File names are IDs, so they never change.
+const photos = join(import.meta.dirname, '..', 'media', 'photos');
+app.get<{ Params: { file: string } }>('/photos/:file', async (req, reply) => {
+  const file = req.params.file;
+  if (!/^[A-Za-z0-9_.-]+\.jpg$/.test(file) || !existsSync(join(photos, file))) return reply.code(404).send({ error: 'No such photo.' });
+  return reply.type('image/jpeg').header('Cache-Control', 'public, max-age=604800').send(createReadStream(join(photos, file)));
+});
 await app.register(gameRoutes);
 await app.register(meRoutes);
 await app.register(socialRoutes);

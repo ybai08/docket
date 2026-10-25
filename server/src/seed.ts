@@ -2,15 +2,23 @@
 // scripts/build_civic_data.py (lawmakers, their votes, ZIP districts), into Postgres. Safe to rerun.
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { gunzipSync } from 'node:zlib';
 
 import { BILLS } from '../../src/data/bills.ts';
 import { SEEDED_SETS } from '../../src/data/daily.ts';
 import { pool } from './db.ts';
 
-const civic = <T,>(name: string): T[] => JSON.parse(readFileSync(join(import.meta.dirname, '..', 'data', `${name}.json`), 'utf8'));
-type Lawmaker = { id: string; body: string; name: string; title: string; party: string | null; district: string | null; photo_url: string | null; photo_credit: string | null; source_url: string };
+const civic = <T,>(file: string): T[] => {
+  const raw = readFileSync(join(import.meta.dirname, '..', 'data', file));
+  return JSON.parse((file.endsWith('.gz') ? gunzipSync(raw) : raw).toString('utf8'));
+};
+type Lawmaker = {
+  id: string; body: string; state: string; city: string | null; name: string; title: string; party: string | null;
+  district: string | null; district_key: string | null; photo_url: string | null; photo_source: string | null;
+  photo_credit: string | null; source_url: string;
+};
 type MemberVote = { lawmaker_id: string; bill_id: string; vote: string; source_url: string };
-type ZipDistrict = { zip: string; kind: string; code: string; name: string; share: number };
+type ZipDistrict = { zip: string; state: string; kind: string; code: string; name: string; share: number };
 
 const client = await pool.connect();
 try {
@@ -41,28 +49,35 @@ try {
   }
 
   // Civic data is replaced wholesale: rosters change, and a lawmaker who left office should disappear.
-  const lawmakers = civic<Lawmaker>('lawmakers');
-  const memberVotes = civic<MemberVote>('lawmaker-votes');
-  const zips = civic<ZipDistrict>('zip-districts');
+  const lawmakers = civic<Lawmaker>('lawmakers.json.gz');
+  const memberVotes = civic<MemberVote>('lawmaker-votes.json');
+  const zips = civic<ZipDistrict>('zip-districts.json.gz');
   await client.query('DELETE FROM lawmaker_votes');
   await client.query('DELETE FROM lawmakers');
   await client.query('DELETE FROM zip_districts');
   const col = <T, K extends keyof T>(rows: T[], k: K) => rows.map((r) => r[k]);
   await client.query(
-    `INSERT INTO lawmakers (id, body, name, title, party, district, photo_url, photo_credit, source_url)
-     SELECT * FROM unnest($1::text[], $2::text[], $3::text[], $4::text[], $5::text[], $6::text[], $7::text[], $8::text[], $9::text[])`,
-    (['id', 'body', 'name', 'title', 'party', 'district', 'photo_url', 'photo_credit', 'source_url'] as const).map((k) => col(lawmakers, k)),
+    `INSERT INTO lawmakers (id, body, state, city, name, title, party, district, district_key, photo_url, photo_source, photo_credit, source_url)
+     SELECT * FROM unnest($1::text[], $2::text[], $3::text[], $4::text[], $5::text[], $6::text[], $7::text[], $8::text[], $9::text[],
+                          $10::text[], $11::text[], $12::text[], $13::text[])`,
+    ([
+      'id', 'body', 'state', 'city', 'name', 'title', 'party', 'district', 'district_key', 'photo_url', 'photo_source', 'photo_credit', 'source_url',
+    ] as const).map((k) => col(lawmakers, k)),
   );
   await client.query(
     `INSERT INTO lawmaker_votes (lawmaker_id, bill_id, vote, source_url)
      SELECT * FROM unnest($1::text[], $2::text[], $3::text[], $4::text[])`,
     (['lawmaker_id', 'bill_id', 'vote', 'source_url'] as const).map((k) => col(memberVotes, k)),
   );
-  await client.query(
-    `INSERT INTO zip_districts (zip, kind, code, name, share)
-     SELECT * FROM unnest($1::text[], $2::text[], $3::text[], $4::text[], $5::real[])`,
-    (['zip', 'kind', 'code', 'name', 'share'] as const).map((k) => col(zips, k)),
-  );
+  // About 200k rows nationally; insert in chunks to keep each statement's parameters small.
+  for (let i = 0; i < zips.length; i += 25000) {
+    const chunk = zips.slice(i, i + 25000);
+    await client.query(
+      `INSERT INTO zip_districts (zip, state, kind, code, name, share)
+       SELECT * FROM unnest($1::text[], $2::text[], $3::text[], $4::text[], $5::text[], $6::real[])`,
+      (['zip', 'state', 'kind', 'code', 'name', 'share'] as const).map((k) => col(chunk, k)),
+    );
+  }
   console.log(`seeded ${lawmakers.length} lawmakers, ${memberVotes.length} member votes, ${zips.length} ZIP district rows`);
 
   await client.query('COMMIT');

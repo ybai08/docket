@@ -2,7 +2,7 @@ import type { FastifyInstance } from 'fastify';
 
 import { requireUser } from './auth.ts';
 import { query } from './db.ts';
-import { lookupZip } from './geo.ts';
+import { stateName, zipSeats } from './geo.ts';
 
 type LawmakerRow = {
   id: string;
@@ -11,6 +11,7 @@ type LawmakerRow = {
   title: string;
   party: string | null;
   district: string | null;
+  district_key: string | null;
   photo_url: string | null;
   photo_credit: string | null;
   recorded: string;
@@ -21,7 +22,7 @@ type LawmakerRow = {
 /** Every lawmaker matching a seat, with how they compare to this player's votes. */
 async function seats(uid: string, where: string, params: unknown[]) {
   return query<LawmakerRow>(
-    `SELECT l.id, l.body, l.name, l.title, l.party, l.district, l.photo_url, l.photo_credit,
+    `SELECT l.id, l.body, l.name, l.title, l.party, l.district, l.district_key, l.photo_url, l.photo_credit,
             count(lv.bill_id) AS recorded,
             count(v.bill_id) AS shared,
             count(v.bill_id) FILTER (WHERE v.vote = lv.vote) AS agreed
@@ -35,7 +36,7 @@ async function seats(uid: string, where: string, params: unknown[]) {
   );
 }
 
-function toRow(l: LawmakerRow, role: string) {
+function toRow(l: LawmakerRow, role: string, base: string) {
   const shared = Number(l.shared);
   return {
     id: l.id,
@@ -43,7 +44,7 @@ function toRow(l: LawmakerRow, role: string) {
     role,
     // Party appears only after the player has voted on at least one of this lawmaker's bills.
     party: shared ? l.party : null,
-    photo: l.photo_url,
+    photo: l.photo_url && base + l.photo_url,
     credit: l.photo_credit,
     recorded: Number(l.recorded),
     shared,
@@ -52,13 +53,20 @@ function toRow(l: LawmakerRow, role: string) {
   };
 }
 
-const LABELS: [string, string][] = [
-  ['U.S. Senate', 'Senator'],
-  ['U.S. House', 'Your rep'],
-  ['Texas Senate', 'State senator'],
-  ['Texas House', 'State rep'],
-  ['Mayor', 'Mayor'],
-  ['Austin', 'Council member'],
+// What each state calls its legislative chambers, where it isn't "Senate" and "House".
+const LOWER: Record<string, string> = {
+  CA: 'Assembly', NV: 'Assembly', NY: 'Assembly', WI: 'Assembly', NJ: 'General Assembly',
+  MD: 'House of Delegates', VA: 'House of Delegates', WV: 'House of Delegates',
+};
+const UPPER: Record<string, string> = { NE: 'Legislature', DC: 'Council' };
+
+const LABELS: [RegExp, string][] = [
+  [/^U\.S\. Senate/, 'Senator'],
+  [/^U\.S\. House/, 'Your rep'],
+  [/Senate|Legislature/, 'State senator'],
+  [/House|Assembly/, 'State rep'],
+  [/^Mayor/, 'Mayor'],
+  [/Council/, 'Council member'],
 ];
 
 export async function lawmakerRoutes(app: FastifyInstance) {
@@ -66,37 +74,45 @@ export async function lawmakerRoutes(app: FastifyInstance) {
 
   app.get('/me/lawmakers', async (req) => {
     const [u] = await query<{ zip: string | null }>('SELECT zip FROM users WHERE id = $1', [req.uid]);
-    const loc = u?.zip ? await lookupZip(u.zip) : null;
-    if (!loc) return { federal: [], state: [], local: [], byBill: {}, credit: null };
-    const d = loc.districts;
+    const s = u?.zip ? await zipSeats(u.zip) : null;
+    if (!s) return { stateName: null, federal: [], state: [], local: [], byBill: {}, credit: null };
+    const st = stateName(s.state)!;
+    // Photos are stored on this server (server/media/photos), never fetched from elsewhere by the app.
+    const base = process.env.PUBLIC_URL ?? `${req.protocol}://${req.host}`;
+    const row = (l: LawmakerRow, role: string) => toRow(l, role, base);
 
     const federal = [
-      ...(await seats(req.uid, `l.body = 'us-senate'`, [])).map((l) => toRow(l, 'U.S. Senate, Texas')),
-      ...(await seats(req.uid, `l.body = 'us-house' AND l.district = $2`, [d.congress])).map((l) =>
-        toRow(l, `U.S. House, Texas District ${l.district}`),
-      ),
-    ];
-    const state = [
-      ...(await seats(req.uid, `l.body = 'tx-senate' AND l.district = $2`, [d.stateSenate])).map((l) =>
-        toRow(l, `Texas Senate, District ${l.district}`),
-      ),
-      ...(await seats(req.uid, `l.body = 'tx-house' AND l.district = $2`, [d.stateHouse])).map((l) =>
-        toRow(l, `Texas House, District ${l.district}`),
+      ...(await seats(req.uid, `l.body = 'us-senate' AND l.state = $2`, [s.state])).map((l) => row(l, `U.S. Senate, ${st}`)),
+      ...(await seats(req.uid, `l.body = 'us-house' AND l.state = $2 AND l.district_key = $3`, [s.state, s.congress])).map((l) =>
+        row(l, l.title === 'Delegate' ? `U.S. House, ${st} (non-voting delegate)` : l.district_key === '0'
+          ? `U.S. House, ${st} at-large` : `U.S. House, ${st} District ${l.district}`),
       ),
     ];
 
+    // D.C.'s council sits in the state-upper slot: your ward's member plus the at-large members and the chair.
+    const upper = s.state === 'DC'
+      ? await seats(req.uid, `l.body = 'state-upper' AND l.state = 'DC' AND (l.district_key = $2 OR l.district_key IN ('atlarge', 'chairman'))`, [s.upper])
+      : await seats(req.uid, `l.body = 'state-upper' AND l.state = $2 AND l.district_key = $3`, [s.state, s.upper]);
+    const state = [
+      ...upper.map((l) => row(l, s.state === 'DC' ? `D.C. Council, ${l.district}` : `${st} ${UPPER[s.state] ?? 'Senate'}, District ${l.district}`)),
+      ...(await seats(req.uid, `l.body = 'state-lower' AND l.state = $2 AND l.district_key = $3`, [s.state, s.lower])).map((l) =>
+        row(l, `${st} ${LOWER[s.state] ?? 'House'}, District ${l.district}`),
+      ),
+    ];
+
+    // City councils we have data for (Austin, for now).
     const local: ReturnType<typeof toRow>[] = [];
-    if (loc.city === 'Austin') {
-      const council = await seats(req.uid, `l.body = 'atx-council'`, []);
+    const council = s.city ? await seats(req.uid, `l.body = 'city-council' AND l.state = $2 AND l.city = $3`, [s.state, s.city]) : [];
+    if (council.length) {
       const mayor = council.find((l) => l.district === null);
-      const mine = council.find((l) => l.district !== null && l.district === d.council);
-      if (mayor) local.push(toRow(mayor, 'Mayor of Austin'));
-      if (mine) local.push(toRow(mine, `Austin City Council, District ${mine.district}`));
+      const mine = council.find((l) => l.district !== null && l.district_key === s.council);
+      if (mayor) local.push(row(mayor, `Mayor of ${s.city}`));
+      if (mine) local.push(row(mine, `${s.city} City Council, District ${mine.district}`));
       // Also the council member you agree with most, when that isn't your own.
       const best = council
         .filter((l) => l.district !== null && Number(l.shared) > 0)
         .sort((a, b) => Number(b.agreed) / Number(b.shared) - Number(a.agreed) / Number(a.shared) || a.name.localeCompare(b.name))[0];
-      if (best && best.id !== mine?.id) local.push(toRow(best, `Austin City Council, District ${best.district} (you agree most)`));
+      if (best && best.id !== mine?.id) local.push(row(best, `${s.city} City Council, District ${best.district} (you agree most)`));
     }
 
     // How your own lawmakers voted on each bill, for the Review screen. Public record, so no guards.
@@ -108,11 +124,11 @@ export async function lawmakerRoutes(app: FastifyInstance) {
     const byBill: Record<string, { name: string; label: string; vote: string }[]> = {};
     for (const v of memberVotes) {
       const r = yours.find((x) => x.id === v.lawmaker_id)!;
-      const label = LABELS.find(([prefix]) => r.role.startsWith(prefix))?.[1] ?? 'Lawmaker';
+      const label = LABELS.find(([re]) => re.test(r.role))?.[1] ?? 'Lawmaker';
       (byBill[v.bill_id] ??= []).push({ name: r.name, label, vote: v.vote });
     }
 
     const credits = [...new Set(local.map((r) => r.credit && `${r.name}: ${r.credit}`).filter(Boolean))];
-    return { federal, state, local, byBill, credit: credits.join(' ') || null };
+    return { stateName: st, federal, state, local, byBill, credit: credits.join(' ') || null };
   });
 }

@@ -17,7 +17,7 @@ SSH=(ssh -i "$KEY" -o IdentitiesOnly=yes -o BatchMode=yes "root@$IP")
 
 # The server imports shared content and rules from the app's src/, so ship that slice too.
 rsync -az --delete -e "ssh -i $KEY -o IdentitiesOnly=yes -o BatchMode=yes" \
-  --exclude node_modules --exclude .env --exclude deploy \
+  --exclude node_modules --exclude .env --exclude deploy --exclude __pycache__ \
   "$ROOT/server/" "root@$IP:/opt/docket/server/"
 rsync -az --delete -e "ssh -i $KEY -o IdentitiesOnly=yes -o BatchMode=yes" \
   "$ROOT/src/data/" "root@$IP:/opt/docket/src/data/"
@@ -29,7 +29,7 @@ rsync -az --delete --no-owner --no-group -e "ssh -i $KEY -o IdentitiesOnly=yes -
 
 # Secrets go straight from server/.env to a root-owned file only the service can read.
 grep -E '^(DATABASE_URL|FIREBASE_PROJECT_ID)=' "$ROOT/server/.env" | "${SSH[@]}" \
-  "install -m 600 -o docket -g docket /dev/stdin /opt/docket/server/.env && echo 'PORT=8787' >> /opt/docket/server/.env"
+  "install -m 600 -o docket -g docket /dev/stdin /opt/docket/server/.env && printf 'PORT=8787\nPUBLIC_URL=https://%s\n' '$HOST' >> /opt/docket/server/.env"
 
 "${SSH[@]}" bash -s -- "$HOST" "$SITE" <<'REMOTE'
 set -euo pipefail

@@ -3,7 +3,7 @@ import { z } from 'zod';
 
 import { addDays, centralDay } from '../../src/lib/day.ts';
 import { requireUser } from './auth.ts';
-import { lookupZip } from './geo.ts';
+import { lookupZip, stateName } from './geo.ts';
 import { query } from './db.ts';
 
 /** Played days, streaks and agreement, all from finished games on the server. */
@@ -150,6 +150,7 @@ export function toProfile(u: UserRow) {
     displayName: u.display_name,
     zip: u.zip,
     state: u.state,
+    stateName: stateName(u.state),
     county: u.county,
     city: u.city,
     districts: u.districts,
@@ -177,7 +178,7 @@ export async function meRoutes(app: FastifyInstance) {
   app.get<{ Params: { zip: string } }>('/geo/:zip', async (req, reply) => {
     if (!/^\d{5}$/.test(req.params.zip)) return reply.code(400).send({ error: 'Enter a 5-digit ZIP code.' });
     const loc = await lookupZip(req.params.zip);
-    if (!loc) return reply.code(404).send({ error: "Docket covers Texas ZIP codes for now. Check the number and try again." });
+    if (!loc) return reply.code(404).send({ error: "We couldn't find that ZIP code. Check the number and try again." });
     return loc;
   });
 
@@ -185,7 +186,7 @@ export async function meRoutes(app: FastifyInstance) {
   app.post('/me/location', async (req, reply) => {
     const { zip } = z.object({ zip: z.string().regex(/^\d{5}$/, 'Enter a 5-digit ZIP code.') }).parse(req.body);
     const loc = await lookupZip(zip);
-    if (!loc) return reply.code(404).send({ error: "Docket covers Texas ZIP codes for now. Check the number and try again." });
+    if (!loc) return reply.code(404).send({ error: "We couldn't find that ZIP code. Check the number and try again." });
     const [u] = await query<UserRow>(
       `UPDATE users SET zip = $2, state = $3, county = $4, city = $5, districts = $6 WHERE id = $1 RETURNING *`,
       [req.uid, zip, loc.state, loc.county, loc.city, JSON.stringify(loc.districts)],
