@@ -1,12 +1,11 @@
 import { router } from 'expo-router';
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import { ActivityIndicator, Pressable, Text, View } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 
 import { Avatar, DemoTag } from '@/components/avatar';
-import { ChevronRight, FlameIcon } from '@/components/icons';
+import { ChevronRight } from '@/components/icons';
 import { PillButton } from '@/components/pill-button';
-import { ProgressTiles, tilesFor } from '@/components/progress-tiles';
 import { SegmentedPills } from '@/components/segmented-pills';
 import { TabScreen } from '@/components/tab-screen';
 import { api } from '@/lib/api';
@@ -92,48 +91,68 @@ function Board({ data }: { data: FriendsData }) {
   }
   const at = board.findIndex((r) => r.isYou);
   const you = at >= 0 ? board[at] : null;
-  const leader = board[0];
   const ahead = at > 0 ? board[at - 1] : null;
-  const headline =
-    you && (you.playedToday || leader.isYou) ? `You're ${ordinalOf(at + 1)} of ${board.length}` : `${leader.name} leads with ${leader.points}`;
-  const sub = !you
+  // One scale for friends and the wider averages so the bars compare.
+  const max = Math.max(1, ...board.map((r) => r.points), ...beyond.map((b) => b.points ?? 0));
+  const note = !you
     ? null
     : !you.playedToday
-      ? "Cast today's ballots to get on the board."
+      ? "Cast today's ballots to climb."
       : !ahead
-        ? 'Ahead of all your friends today.'
+        ? 'Ahead of all your friends.'
         : ahead.points === you.points
           ? `Tied with ${ahead.name}.`
           : `${ahead.points - you.points} ${ahead.points - you.points === 1 ? 'point' : 'points'} behind ${ahead.name}.`;
 
   return (
-    <View style={{ gap: 30 }}>
-      <View style={card}>
-        <View style={{ paddingHorizontal: 18, paddingTop: 16, paddingBottom: 16, gap: 4 }}>
-          <Text style={{ fontSize: 13, fontWeight: '700', color: colors.meta }}>Today, {formatDayLong(day)}</Text>
-          <Text style={{ fontFamily: fonts.serif800, fontSize: 28, lineHeight: 32, letterSpacing: -0.3 }}>{headline}</Text>
-          {sub ? <Text style={{ fontSize: 14, color: colors.text2 }}>{sub}</Text> : null}
-        </View>
+    <View style={{ gap: 28 }}>
+      <View style={{ gap: 2 }}>
+        <Text style={{ fontSize: 13, fontWeight: '700', color: colors.meta }}>Today, {formatDayLong(day)}</Text>
+        {you ? (
+          <View style={{ flexDirection: 'row', alignItems: 'flex-end', gap: 12 }}>
+            <Text style={{ fontFamily: fonts.serif800, fontSize: 64, lineHeight: 68, letterSpacing: -1 }}>
+              {at + 1}
+              <Text style={{ fontFamily: fonts.serif700, fontSize: 28 }}>{ordinalOf(at + 1).replace(/^\d+/, '')}</Text>
+            </Text>
+            <View style={{ flex: 1, paddingBottom: 10, gap: 1 }}>
+              <Text style={{ fontSize: 16, fontWeight: '700' }}>
+                of {board.length} friends, {you.points} {you.points === 1 ? 'point' : 'points'}
+              </Text>
+              {note ? <Text style={{ fontSize: 14, color: colors.text2 }}>{note}</Text> : null}
+            </View>
+          </View>
+        ) : null}
+      </View>
+
+      <View>
         {board.map((r, i) => (
-          <BoardItem key={r.id} row={r} rank={i + 1} />
+          <RaceRow
+            key={r.id}
+            rank={i + 1}
+            lead={<Avatar id={r.id} name={r.name} size={36} you={r.isYou} />}
+            name={r.isYou ? 'You' : r.name}
+            strong={r.isYou}
+            demo={r.isDemo}
+            points={r.points}
+            max={max}
+            fill={r.isYou ? colors.yellow : colors.ink}
+            detail={boardDetail(r)}
+          />
         ))}
       </View>
 
       {beyond.length > 0 && (
-        <View style={{ gap: 12 }}>
+        <View style={{ gap: 4 }}>
           <SectionTitle title="Beyond your friends" note="Average points today" />
-          <View style={{ flexDirection: 'row', paddingVertical: 14, borderRadius: 14, borderCurve: 'continuous', backgroundColor: colors.muted }}>
-            {beyond.map((b, i) => (
-              <View
+          <View style={{ marginTop: 4 }}>
+            {beyond.map((b) => (
+              <RaceRow
                 key={b.label}
-                accessible
-                accessibilityLabel={`${b.label}: ${b.points ?? 'no data'}`}
-                style={{ flex: 1, gap: 2, paddingHorizontal: 14, borderLeftWidth: i ? 1 : 0, borderLeftColor: colors.outline }}>
-                <Text style={{ fontSize: 26, lineHeight: 30, fontVariant: ['tabular-nums'] }}>{b.points ?? '–'}</Text>
-                <Text style={{ fontSize: 12, lineHeight: 15, color: colors.text2 }} numberOfLines={2}>
-                  {b.label.replace(/( players)?, average$/, '')}
-                </Text>
-              </View>
+                name={b.label.replace(/( players)?, average$/, '')}
+                points={b.points}
+                max={max}
+                fill={colors.track}
+              />
             ))}
           </View>
         </View>
@@ -142,47 +161,63 @@ function Board({ data }: { data: FriendsData }) {
   );
 }
 
-function BoardItem({ row: r, rank }: { row: BoardRow; rank: number }) {
+function boardDetail(r: BoardRow) {
+  if (!r.playedToday) return r.streak > 0 ? `${r.streak}-day streak at risk` : 'Not played yet';
+  return r.games === 3 ? 'All 3 ballots' : `${r.games} of 3 ballots`;
+}
+
+/** One lane of today's race: the bar's length is points against the day's best score. */
+function RaceRow(props: {
+  rank?: number;
+  lead?: ReactNode;
+  name: string;
+  strong?: boolean;
+  demo?: boolean;
+  points: number | null;
+  max: number;
+  fill: string;
+  detail?: string;
+}) {
+  const { rank, lead, name, strong, demo, points, max, fill, detail } = props;
+  const pct = points ? Math.max(2, Math.round((points / max) * 100)) : 0;
   return (
     <View
+      accessible
+      accessibilityLabel={`${rank ? `${ordinalOf(rank)}, ` : ''}${name}: ${points ?? 'no'} points${detail ? `. ${detail}` : ''}`}
       style={{
         flexDirection: 'row',
         alignItems: 'center',
         gap: 12,
         paddingVertical: 12,
-        paddingHorizontal: 18,
         borderTopWidth: 1,
-        borderTopColor: r.isYou ? colors.ink : colors.hairline,
-        backgroundColor: r.isYou ? colors.yellow : undefined,
+        borderTopColor: colors.hairline,
       }}>
-      <Text style={{ width: 20, fontFamily: fonts.serif800, fontSize: 20, fontVariant: ['tabular-nums'] }}>{rank}</Text>
-      <Avatar id={r.id} name={r.name} size={38} you={r.isYou} />
-      <View style={{ flex: 1, gap: 4 }}>
+      {rank ? (
+        <Text style={{ width: 18, fontFamily: fonts.serif800, fontSize: 18, color: strong ? colors.ink : colors.meta }}>{rank}</Text>
+      ) : null}
+      {lead}
+      <View style={{ flex: 1, gap: 6 }}>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-          <Text style={{ fontSize: 16, fontWeight: '600' }} numberOfLines={1}>
-            {r.name}
+          <Text style={{ flexShrink: 1, fontSize: 16, fontWeight: strong ? '800' : '600' }} numberOfLines={1}>
+            {name}
           </Text>
-          {r.isDemo && <DemoTag />}
+          {demo && <DemoTag />}
+          <Text style={{ marginLeft: 'auto', fontSize: 17, fontWeight: '700', fontVariant: ['tabular-nums'] }}>{points ?? '–'}</Text>
         </View>
-        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-          {r.playedToday ? (
-            <>
-              <ProgressTiles states={tilesFor(3, r.games)} size="sm" />
-              <Text style={[type.meta, { fontSize: 12, lineHeight: 15 }]}>{r.games === 3 ? 'All 3 ballots' : `${r.games} of 3 ballots`}</Text>
-            </>
-          ) : r.streak > 0 ? (
-            <>
-              <FlameIcon size={12} color={colors.text2} />
-              <Text style={[type.meta, { fontSize: 12, lineHeight: 15 }]}>{`${r.streak}-day streak at risk`}</Text>
-            </>
-          ) : (
-            <Text style={[type.meta, { fontSize: 12, lineHeight: 15 }]}>Not played yet</Text>
+        <View style={{ height: 8, borderRadius: 4, backgroundColor: colors.muted }}>
+          {pct > 0 && (
+            <View
+              style={{
+                width: `${pct}%`,
+                height: 8,
+                borderRadius: 4,
+                backgroundColor: fill,
+                borderWidth: fill === colors.yellow ? 1.5 : 0,
+              }}
+            />
           )}
         </View>
-      </View>
-      <View style={{ alignItems: 'flex-end' }}>
-        <Text style={{ fontSize: 24, lineHeight: 28, fontWeight: '600', fontVariant: ['tabular-nums'] }}>{r.points}</Text>
-        <Text style={{ fontSize: 11, fontWeight: '600', color: colors.meta }}>{r.points === 1 ? 'pt' : 'pts'}</Text>
+        {detail ? <Text style={{ fontSize: 12, color: colors.meta }}>{detail}</Text> : null}
       </View>
     </View>
   );
@@ -192,34 +227,43 @@ function FriendList({ data, onRespond }: { data: FriendsData; onRespond: (id: st
   return (
     <View style={{ gap: 28 }}>
       {data.requests.length > 0 && (
-        <View style={[card, { gap: 12, padding: 16, backgroundColor: colors.yellow }]}>
-          <Text style={{ fontFamily: fonts.serif700, fontSize: 20 }}>
-            {data.requests.length} friend {data.requests.length === 1 ? 'request' : 'requests'}
-          </Text>
-          {data.requests.map((r) => (
-            <View key={r.id} style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
-              <Avatar id={r.from.id} name={r.from.name} size={36} fill={colors.ground} bordered />
-              <View style={{ flex: 1 }}>
-                <Text style={{ fontSize: 15, fontWeight: '600' }}>{r.from.name}</Text>
-                <Text style={{ fontSize: 12, color: colors.text2 }}>{requestSource(r.source)}</Text>
+        <View style={{ gap: 4 }}>
+          <SectionTitle title={`${data.requests.length} friend ${data.requests.length === 1 ? 'request' : 'requests'}`} />
+          <View style={{ marginTop: 6 }}>
+            {data.requests.map((r) => (
+              <View
+                key={r.id}
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  gap: 10,
+                  paddingVertical: 12,
+                  borderTopWidth: 1,
+                  borderTopColor: colors.hairline,
+                }}>
+                <Avatar id={r.from.id} name={r.from.name} size={40} />
+                <View style={{ flex: 1 }}>
+                  <Text style={{ fontSize: 16, fontWeight: '600' }}>{r.from.name}</Text>
+                  <Text style={{ fontSize: 12, color: colors.meta }}>{requestSource(r.source)}</Text>
+                </View>
+                <SmallPill label="Ignore" onPress={() => onRespond(r.id, 'ignore')} />
+                <SmallPill label="Accept" filled onPress={() => onRespond(r.id, 'accept')} />
               </View>
-              <SmallPill label="Ignore" onPress={() => onRespond(r.id, 'ignore')} />
-              <SmallPill label="Accept" filled onPress={() => onRespond(r.id, 'accept')} />
-            </View>
-          ))}
+            ))}
+          </View>
         </View>
       )}
 
       {data.friends.length === 0 ? (
         <Empty title="No friends yet" body="Send your invite link or have a friend scan your QR code." />
       ) : (
-        <View style={{ gap: 12 }}>
+        <View style={{ gap: 4 }}>
           <SectionTitle
             title={`${data.friends.length} ${data.friends.length === 1 ? 'friend' : 'friends'}`}
             note="How often you voted the same way"
           />
-          <View style={card}>
-            {data.friends.map((f, i) => (
+          <View style={{ marginTop: 6 }}>
+            {data.friends.map((f) => (
               <Pressable
                 key={f.id}
                 accessibilityRole="button"
@@ -230,43 +274,39 @@ function FriendList({ data, onRespond }: { data: FriendsData; onRespond: (id: st
                   alignItems: 'center',
                   gap: 12,
                   paddingVertical: 14,
-                  paddingLeft: 16,
-                  paddingRight: 12,
-                  borderTopWidth: i ? 1 : 0,
+                  borderTopWidth: 1,
                   borderTopColor: colors.hairline,
-                  backgroundColor: pressed ? colors.muted : colors.ground,
+                  opacity: pressed ? 0.6 : 1,
                 })}>
                 <Avatar id={f.id} name={f.name} size={42} />
-                <View style={{ flex: 1, gap: 4 }}>
-                  <View style={{ gap: 1 }}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-                      <Text style={{ fontSize: 16, fontWeight: '600' }} numberOfLines={1}>
-                        {f.name}
-                      </Text>
-                      {f.isDemo && <DemoTag />}
-                    </View>
-                    <Text style={[type.meta, { fontSize: 12, lineHeight: 16 }]}>
-                      {f.agreementPct === null
-                        ? 'Play more days to compare'
-                        : `${f.sharedBills} ${f.sharedBills === 1 ? 'bill' : 'bills'} in common`}
+                <View style={{ flex: 1, gap: 6 }}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+                    <Text style={{ flexShrink: 1, fontSize: 16, fontWeight: '600' }} numberOfLines={1}>
+                      {f.name}
+                    </Text>
+                    {f.isDemo && <DemoTag />}
+                    <Text style={{ marginLeft: 'auto', fontSize: 17, fontWeight: '700', fontVariant: ['tabular-nums'] }}>
+                      {f.agreementPct === null ? '–' : `${f.agreementPct}%`}
                     </Text>
                   </View>
                   {f.agreementPct !== null && (
                     // Teal for agreed, lavender for disagreed: the same meaning as Roll Call results.
-                    <View style={{ flexDirection: 'row', height: 6, borderRadius: 3, overflow: 'hidden', marginTop: 2 }}>
+                    <View style={{ flexDirection: 'row', height: 8, borderRadius: 4, overflow: 'hidden' }}>
                       <View style={{ flex: f.agreementPct, backgroundColor: colors.teal }} />
                       <View style={{ flex: 100 - f.agreementPct, backgroundColor: colors.lavender }} />
                     </View>
                   )}
+                  <Text style={{ fontSize: 12, color: colors.meta }}>
+                    {f.agreementPct === null
+                      ? 'Play more days to compare'
+                      : `${f.sharedBills} ${f.sharedBills === 1 ? 'bill' : 'bills'} in common`}
+                  </Text>
                 </View>
-                <Text style={{ minWidth: 52, textAlign: 'right', fontSize: 22, fontWeight: '600', fontVariant: ['tabular-nums'] }}>
-                  {f.agreementPct === null ? '–' : `${f.agreementPct}%`}
-                </Text>
                 <ChevronRight size={14} color={colors.meta} />
               </Pressable>
             ))}
           </View>
-          <View style={{ flexDirection: 'row', gap: 16, paddingHorizontal: 2 }}>
+          <View style={{ flexDirection: 'row', gap: 16, paddingTop: 10, borderTopWidth: 1, borderTopColor: colors.hairline }}>
             <Legend color={colors.teal} label="Same vote" />
             <Legend color={colors.lavender} label="Different vote" />
           </View>
@@ -295,14 +335,6 @@ function SectionTitle({ title, note }: { title: string; note?: string }) {
     </View>
   );
 }
-
-const card = {
-  borderWidth: 2,
-  borderRadius: 14,
-  borderCurve: 'continuous' as const,
-  backgroundColor: colors.ground,
-  overflow: 'hidden' as const,
-};
 
 const GROUP_FILLS = [colors.teal, colors.lavender, colors.yellow];
 
