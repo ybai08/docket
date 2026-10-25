@@ -1,103 +1,155 @@
-import { useState } from 'react';
-import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { Image } from 'expo-image';
+import { Fragment, useState, type ReactNode } from 'react';
+import { Alert, Pressable, ScrollView, View } from 'react-native';
 
-import { Button, Logo } from '@/components/ui';
+import { ThemedText } from '@/components/themed-text';
 import { authErrorMessage, useAuth } from '@/lib/auth-context';
-import { colors, radius } from '@/lib/theme';
+import { colors, radius, spacing, useBrandColors } from '@/theme';
 
 // Placeholder stats until the game backend exists.
 const STATS = [
-  { label: 'Day streak', value: '0' },
-  { label: 'Bills voted', value: '0' },
-  { label: 'Friends', value: '0' },
+  { label: 'Day streak', value: 0 },
+  { label: 'Bills voted', value: 0 },
+  { label: 'Friends', value: 0 },
 ];
+
+const PROVIDER_NAMES: Record<string, string> = { 'google.com': 'Google', 'apple.com': 'Apple' };
 
 export default function ProfileScreen() {
   const { user, signOut } = useAuth();
+  const brand = useBrandColors();
   const [error, setError] = useState<string | null>(null);
 
   if (!user) return null;
 
-  const name = user.displayName || user.email?.split('@')[0] || 'You';
+  // Apple's "Hide My Email" gives a random relay address; don't show it as a name.
+  const hiddenEmail = user.email?.endsWith('@privaterelay.appleid.com') ?? false;
+  const name = user.displayName || (!hiddenEmail && user.email?.split('@')[0]) || 'Docket member';
+  const emailLabel = hiddenEmail ? 'Email hidden with Apple' : user.email;
   const joined = user.metadata.creationTime
     ? new Date(user.metadata.creationTime).toLocaleDateString(undefined, { month: 'long', year: 'numeric' })
     : null;
+  const provider = PROVIDER_NAMES[user.providerData[0]?.providerId ?? ''];
 
-  async function handleSignOut() {
-    try {
-      await signOut();
-    } catch (err) {
-      setError(authErrorMessage(err));
-    }
+  function confirmSignOut() {
+    Alert.alert('Sign out of Docket?', 'You can sign back in anytime with Apple or Google.', [
+      { text: 'Cancel', style: 'cancel' },
+      {
+        text: 'Sign out',
+        style: 'destructive',
+        onPress: () => signOut().catch((err) => setError(authErrorMessage(err))),
+      },
+    ]);
   }
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <ScrollView contentContainerStyle={styles.container}>
-        <Logo />
-
-        <View style={styles.header}>
-          {user.photoURL ? (
-            <Image source={{ uri: user.photoURL }} style={styles.avatar} />
-          ) : (
-            <View style={styles.avatar}>
-              <Text style={styles.avatarText}>{name.charAt(0).toUpperCase()}</Text>
-            </View>
+    <ScrollView
+      contentInsetAdjustmentBehavior="automatic"
+      contentContainerStyle={{ padding: spacing.md, gap: spacing.lg, width: '100%', maxWidth: 600, alignSelf: 'center' }}>
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.md }}>
+        {user.photoURL ? (
+          <Image
+            source={{ uri: user.photoURL }}
+            style={{ width: 72, height: 72, borderRadius: radius.full }}
+            accessibilityLabel={`${name}'s profile photo`}
+          />
+        ) : (
+          <View
+            style={{
+              width: 72,
+              height: 72,
+              borderRadius: radius.full,
+              backgroundColor: brand.ink,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <ThemedText variant="title" style={{ color: brand.onInk, fontSize: 30 }}>
+              {name.charAt(0).toUpperCase()}
+            </ThemedText>
+          </View>
+        )}
+        <View style={{ flex: 1, gap: 2 }}>
+          <ThemedText variant="title" numberOfLines={2}>
+            {name}
+          </ThemedText>
+          {emailLabel && (
+            <ThemedText variant="subhead" selectable={!hiddenEmail} numberOfLines={1}>
+              {emailLabel}
+            </ThemedText>
           )}
-          <Text style={styles.name}>{name}</Text>
-          <Text style={styles.muted}>{user.email}</Text>
-          {joined && <Text style={styles.muted}>Joined {joined}</Text>}
+          {joined && (
+            <ThemedText variant="footnote" style={{ color: colors.tertiaryLabel }}>
+              Joined {joined}
+            </ThemedText>
+          )}
         </View>
+      </View>
 
-        <View style={styles.stats}>
-          {STATS.map((s) => (
-            <View key={s.label} style={styles.stat}>
-              <Text style={styles.statValue}>{s.value}</Text>
-              <Text style={styles.statLabel}>{s.label}</Text>
-            </View>
+      <Group>
+        <View style={{ flexDirection: 'row' }}>
+          {STATS.map((s, i) => (
+            <Fragment key={s.label}>
+              {i > 0 && <View style={{ width: 0.5, backgroundColor: colors.separator, marginVertical: spacing.md }} />}
+              <View style={{ flex: 1, alignItems: 'center', paddingVertical: spacing.md, gap: 2 }}>
+                <ThemedText variant="stat">{s.value}</ThemedText>
+                <ThemedText variant="footnote">{s.label}</ThemedText>
+              </View>
+            </Fragment>
           ))}
         </View>
+      </Group>
 
-        <View style={styles.card}>
-          <Text style={styles.cardTitle}>Your issue profile</Text>
-          <Text style={styles.muted}>Vote on your first Daily 5 to see which issues you care about most.</Text>
-        </View>
+      <Group title="Issue profile">
+        <ThemedText variant="subhead" style={{ padding: spacing.md }}>
+          Vote on your first Daily 5 to see which issues you care about most.
+        </ThemedText>
+      </Group>
 
-        {error && <Text style={styles.error}>{error}</Text>}
-        <Button title="Sign out" variant="ghost" onPress={handleSignOut} />
-      </ScrollView>
-    </SafeAreaView>
+      <Group title="Account">
+        {provider && (
+          <>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: spacing.md }}>
+              <ThemedText>Signed in with</ThemedText>
+              <ThemedText style={{ color: colors.secondaryLabel }}>{provider}</ThemedText>
+            </View>
+            <View style={{ height: 0.5, backgroundColor: colors.separator, marginLeft: spacing.md }} />
+          </>
+        )}
+        <Pressable
+          accessibilityRole="button"
+          onPress={confirmSignOut}
+          style={({ pressed }) => ({ padding: spacing.md, backgroundColor: pressed ? colors.separator : 'transparent' })}>
+          <ThemedText style={{ color: colors.vetoed }}>Sign out</ThemedText>
+        </Pressable>
+      </Group>
+
+      {error && (
+        <ThemedText variant="footnote" selectable style={{ color: colors.vetoed }}>
+          {error}
+        </ThemedText>
+      )}
+    </ScrollView>
   );
 }
 
-const styles = StyleSheet.create({
-  container: { padding: 24, gap: 24, width: '100%', maxWidth: 520, alignSelf: 'center' },
-  header: { alignItems: 'center', gap: 6 },
-  avatar: {
-    width: 88,
-    height: 88,
-    borderRadius: 44,
-    backgroundColor: colors.accent,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 8,
-  },
-  avatarText: { color: colors.accentText, fontSize: 36, fontWeight: '800' },
-  name: { color: colors.text, fontSize: 24, fontWeight: '700' },
-  muted: { color: colors.muted, fontSize: 15, lineHeight: 21 },
-  stats: { flexDirection: 'row', gap: 12 },
-  stat: {
-    flex: 1,
-    backgroundColor: colors.card,
-    borderRadius: radius.md,
-    paddingVertical: 16,
-    alignItems: 'center',
-    gap: 4,
-  },
-  statValue: { color: colors.text, fontSize: 22, fontWeight: '800' },
-  statLabel: { color: colors.muted, fontSize: 13 },
-  card: { backgroundColor: colors.card, borderRadius: radius.lg, padding: 18, gap: 6 },
-  cardTitle: { color: colors.text, fontSize: 17, fontWeight: '700' },
-  error: { color: colors.danger, fontSize: 14, textAlign: 'center' },
-});
+// iOS inset-grouped section: background and hairlines instead of a card per row.
+function Group({ title, children }: { title?: string; children: ReactNode }) {
+  return (
+    <View style={{ gap: spacing.sm }}>
+      {title && (
+        <ThemedText variant="footnote" accessibilityRole="header" style={{ paddingHorizontal: spacing.md }}>
+          {title}
+        </ThemedText>
+      )}
+      <View
+        style={{
+          backgroundColor: colors.groupedSurface,
+          borderRadius: radius.md,
+          borderCurve: 'continuous',
+          overflow: 'hidden',
+        }}>
+        {children}
+      </View>
+    </View>
+  );
+}

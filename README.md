@@ -36,6 +36,8 @@ After the first build, `npx expo start` is enough until native config changes. R
 ## Layout
 
 - `src/app/` — screens (Expo Router). `sign-in.tsx` and `index.tsx` (profile) are guarded in `_layout.tsx`.
+- `src/theme/` — design tokens: semantic platform colors (light/dark), brand "ink" color, spacing, radius, type ramp. Screens import from `@/theme`; no hardcoded colors or sizes elsewhere.
+- `src/components/` — shared primitives (`ThemedText`).
 - `src/lib/auth-context.tsx` — auth state, sign-in/out, error messages.
 - `src/lib/social-auth.native.ts` / `social-auth.ts` — Google and Apple sign-in for iOS/Android and web.
 - `src/lib/firebase.native.ts` / `firebase.ts` — Firebase Auth setup for iOS/Android and web.

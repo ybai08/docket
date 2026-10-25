@@ -3,26 +3,35 @@ import { StatusBar } from 'expo-status-bar';
 import { ActivityIndicator, View } from 'react-native';
 
 import { AuthProvider, useAuth } from '@/lib/auth-context';
-import { colors } from '@/lib/theme';
+import { colors } from '@/theme';
 
 function RootStack() {
   const { user, initializing } = useAuth();
 
   if (initializing) {
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: colors.bg }}>
-        <ActivityIndicator color={colors.accent} />
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: colors.groupedBackground }}>
+        <ActivityIndicator />
       </View>
     );
   }
 
   return (
-    <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.bg } }}>
+    <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.groupedBackground } }}>
       <Stack.Protected guard={!user}>
         <Stack.Screen name="sign-in" />
       </Stack.Protected>
       <Stack.Protected guard={!!user}>
-        <Stack.Screen name="index" />
+        <Stack.Screen
+          name="index"
+          options={{
+            headerShown: true,
+            title: 'Profile',
+            headerLargeTitle: true,
+            headerShadowVisible: false,
+            headerLargeTitleShadowVisible: false,
+          }}
+        />
       </Stack.Protected>
     </Stack>
   );
@@ -31,7 +40,7 @@ function RootStack() {
 export default function RootLayout() {
   return (
     <AuthProvider>
-      <StatusBar style="light" />
+      <StatusBar style="auto" />
       <RootStack />
     </AuthProvider>
   );
