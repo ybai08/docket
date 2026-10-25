@@ -64,7 +64,7 @@ export default function TodayScreen() {
         <BallotStubCard
           color={colors.lavender}
           title="Roll Call"
-          subtitle={`Recent bills in ${places(set.rollCall)}. Which ones do you agree with?`}
+          subtitle={`Recent bills in ${places(set.rollCall)}. Do you agree?`}
           glyph={<RollCallGlyph />}
           status={
             <Status s={status.rollCall} unit="votes" result={`Agreed on ${status.rollCall.result} of ${status.rollCall.total}`} />
