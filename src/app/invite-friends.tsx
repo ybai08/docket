@@ -76,9 +76,9 @@ export default function InviteSheet() {
     <ScrollView
       style={{ flex: 1, backgroundColor: colors.ground }}
       keyboardShouldPersistTaps="handled"
-      contentContainerStyle={{ paddingHorizontal: 20, paddingTop: 20, paddingBottom: 40, gap: 16 }}>
-      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-        <Text style={{ fontFamily: fonts.serif700, fontSize: 30 }} accessibilityRole="header">
+      contentContainerStyle={{ paddingHorizontal: 20, paddingTop: 28, paddingBottom: 48, gap: 22 }}>
+      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
+        <Text style={{ fontFamily: fonts.serif700, fontSize: 32 }} accessibilityRole="header">
           Invite friends
         </Text>
         <Pressable accessibilityRole="button" onPress={() => router.back()} hitSlop={10}>
@@ -86,7 +86,7 @@ export default function InviteSheet() {
         </Pressable>
       </View>
 
-      <View style={{ gap: 10, padding: 16, borderRadius: 14, borderWidth: 2 }}>
+      <View style={{ gap: 12, padding: 18, borderRadius: 14, borderWidth: 2 }}>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline' }}>
           <Text style={{ fontFamily: fonts.serif800, fontSize: 20 }}>Docket</Text>
           <Text style={{ fontSize: 13, color: colors.text2 }}>{formatDayShort(day).replace('Oct', 'October')}</Text>
@@ -110,7 +110,7 @@ export default function InviteSheet() {
         </Text>
       </View>
 
-      <View style={{ flexDirection: 'row', gap: 10 }}>
+      <View style={{ flexDirection: 'row', gap: 10, marginTop: -8 }}>
         <PillButton
           label="Share result"
           style={{ flex: 1, height: 50 }}
@@ -121,7 +121,7 @@ export default function InviteSheet() {
       </View>
       {error && <Text style={type.meta}>{error}</Text>}
 
-      <View style={{ flexDirection: 'row', gap: 14, alignItems: 'center', padding: 14, borderRadius: 14, backgroundColor: colors.muted }}>
+      <View style={{ flexDirection: 'row', gap: 14, alignItems: 'center', padding: 16, borderRadius: 14, backgroundColor: colors.muted }}>
         <View style={{ flex: 1, gap: 4 }}>
           <Text style={{ fontSize: 16, fontWeight: '700' }}>Meeting in person?</Text>
           <Text style={{ fontSize: 14, lineHeight: 19, color: colors.text2 }}>
@@ -165,7 +165,7 @@ export default function InviteSheet() {
         </Pressable>
       </View>
 
-      <View style={{ gap: 8 }}>
+      <View style={{ gap: 10 }}>
         <Text style={type.section}>Add by username</Text>
         <View style={{ flexDirection: 'row', gap: 10 }}>
           <TextInput

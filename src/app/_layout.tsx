@@ -58,10 +58,7 @@ function RootStack() {
           options={{ presentation: 'formSheet', sheetGrabberVisible: true, sheetAllowedDetents: [0.9], sheetCornerRadius: 20 }}
         />
         <Stack.Screen name="invite/[token]" options={{ gestureEnabled: false }} />
-        <Stack.Screen
-          name="invite-friends"
-          options={{ presentation: 'formSheet', sheetGrabberVisible: true, sheetAllowedDetents: [0.92], sheetCornerRadius: 20 }}
-        />
+        <Stack.Screen name="invite-friends" options={{ presentation: 'modal' }} />
         <Stack.Screen name="group/new" options={{ presentation: 'modal' }} />
         <Stack.Screen name="group/join" options={{ presentation: 'modal' }} />
         <Stack.Screen name="group/[id]" />
