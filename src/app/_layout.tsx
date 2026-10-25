@@ -54,6 +54,10 @@ function RootStack() {
         <Stack.Screen name="person/[id]" />
         <Stack.Screen name="history/[game]" />
         <Stack.Screen
+          name="streak"
+          options={{ presentation: 'formSheet', sheetGrabberVisible: true, sheetAllowedDetents: [0.4], sheetCornerRadius: 20 }}
+        />
+        <Stack.Screen
           name="how-to-play/[game]"
           options={{ presentation: 'formSheet', sheetGrabberVisible: true, sheetAllowedDetents: [0.9], sheetCornerRadius: 20 }}
         />

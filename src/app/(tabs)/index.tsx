@@ -30,10 +30,13 @@ export default function TodayScreen() {
           <Text style={[type.display, { flexShrink: 1 }]} accessibilityRole="header">
             {"Today's ballots"}
           </Text>
-          <View
-            accessible
+          <Pressable
+            accessibilityRole="button"
             accessibilityLabel={`${streak}-day streak`}
-            style={{
+            accessibilityHint="Shows your streak and this week"
+            hitSlop={8}
+            onPress={() => router.push('/streak')}
+            style={({ pressed }) => ({
               flexDirection: 'row',
               alignItems: 'center',
               gap: 6,
@@ -41,10 +44,11 @@ export default function TodayScreen() {
               paddingVertical: 5,
               borderRadius: 999,
               borderWidth: 1,
-            }}>
+              backgroundColor: pressed ? colors.muted : colors.ground,
+            })}>
             <FlameIcon />
             <Text style={{ fontSize: 14, fontWeight: '700', fontVariant: ['tabular-nums'] }}>{streak}</Text>
-          </View>
+          </Pressable>
         </View>
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
           <Text style={{ fontSize: 14, color: colors.text2 }}>{formatDayLong(day)}</Text>

@@ -7,8 +7,8 @@ import Svg, { Line } from 'react-native-svg';
 import { stateDistrictLine } from '@/components/civic';
 import { ChevronRight, FiledOrFakeGlyph, FlameIcon, LandslideGlyph, RollCallGlyph } from '@/components/icons';
 import { TabScreen } from '@/components/tab-screen';
+import { WeekTiles } from '@/components/week-tiles';
 import { authErrorMessage, useAuth } from '@/lib/auth-context';
-import { addDays } from '@/lib/day';
 import { useMe } from '@/lib/me-context';
 import { useRemote, type FriendsData } from '@/lib/social';
 import { useToday } from '@/lib/use-today';
@@ -324,47 +324,6 @@ function Figure({ value, label, divider }: { value: string; label: string; divid
       }}>
       <Text style={{ fontSize: 30, lineHeight: 34, fontVariant: ['tabular-nums'] }}>{value}</Text>
       <Text style={{ fontSize: 12, lineHeight: 15, color: colors.text2 }}>{label}</Text>
-    </View>
-  );
-}
-
-/** Sunday through Saturday of this Central-time week. */
-function WeekTiles({ today, played }: { today: string; played: Set<string> }) {
-  const weekday = new Date(`${today}T12:00:00Z`).getUTCDay();
-  const days = Array.from({ length: 7 }, (_, i) => addDays(today, i - weekday));
-  const letters = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
-  return (
-    <View
-      style={{ flexDirection: 'row', gap: 5 }}
-      accessible
-      accessibilityLabel={`This week: played ${days.filter((d) => played.has(d)).length} of ${weekday + 1} days so far`}>
-      {days.map((d, i) => {
-        const done = played.has(d);
-        const isToday = d === today;
-        const future = d > today;
-        return (
-          <View key={d} style={{ alignItems: 'center', gap: 4 }}>
-            <Text
-              style={{
-                fontSize: 10,
-                fontWeight: '700',
-                color: isToday ? colors.ink : colors.meta,
-              }}>
-              {letters[i]}
-            </Text>
-            <View
-              style={{
-                width: 18,
-                height: 18,
-                borderRadius: 4,
-                backgroundColor: done ? colors.ink : isToday ? colors.lavender : colors.ground,
-                borderWidth: done ? 0 : 1.5,
-                borderColor: isToday ? colors.ink : future ? colors.hairline : colors.outline,
-              }}
-            />
-          </View>
-        );
-      })}
     </View>
   );
 }
