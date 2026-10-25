@@ -182,7 +182,7 @@ function Figure({ value, label, divider }: { value: string; label: string; divid
 /** The last two weeks of scores as columns, oldest on the left. */
 function Trend({ days, color }: { days: Day[]; color: string }) {
   return (
-    <View style={{ gap: 6 }} accessible accessibilityLabel={`Scores for your last ${days.length} games`}>
+    <View style={{ gap: 6, marginTop: 10 }} accessible accessibilityLabel={`Scores for your last ${days.length} games`}>
       <Text style={{ fontSize: 13, fontWeight: '700', color: colors.meta }}>Recent games</Text>
       <View style={{ flexDirection: 'row', alignItems: 'flex-end', gap: 4, height: 72 }}>
         {days.map((d) => (
