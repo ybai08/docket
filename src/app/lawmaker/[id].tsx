@@ -40,7 +40,8 @@ const PARTY: Record<string, string> = { D: 'Democrat', R: 'Republican', I: 'Inde
 /** One lawmaker: who they are, where that comes from, how often you agree, and how they voted on Docket's bills. */
 export default function LawmakerScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const { data: l, error, reload } = useRemote<Lawmaker>(`/lawmakers/${id}`);
+  // State lawmaker ids contain a slash ("ocd-person/…"), so encode it to keep one path segment.
+  const { data: l, error, reload } = useRemote<Lawmaker>(`/lawmakers/${encodeURIComponent(id)}`);
 
   if (!l) {
     return (
