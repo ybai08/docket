@@ -159,7 +159,6 @@ function Board({ data }: { data: FriendsData }) {
             {beyond.map((b) => (
               <RaceRow
                 key={b.label}
-                lead={<View style={{ width: RANK_W + 12 + 34 }} />}
                 name={b.label.replace(/( players)?, average$/, '')}
                 points={b.points}
                 max={max}

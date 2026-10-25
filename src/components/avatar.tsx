@@ -2,14 +2,8 @@ import { Text, View } from 'react-native';
 
 import { colors, fonts } from '@/theme';
 
-const FILLS = [colors.lavender, colors.teal, colors.yellow, colors.hairline];
-
-/** Stable fill per person so the same friend keeps a color across screens. */
-export function avatarFill(id: string) {
-  let h = 0;
-  for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) >>> 0;
-  return FILLS[h % FILLS.length];
-}
+/** Every other person gets the same neutral fill; only you stand out, in ink. */
+const FRIEND_FILL = colors.hairline;
 
 export function Avatar({
   id,
@@ -34,7 +28,7 @@ export function Avatar({
         width: size,
         height: size,
         borderRadius: size / 2,
-        backgroundColor: you ? colors.ink : (fill ?? avatarFill(id)),
+        backgroundColor: you ? colors.ink : (fill ?? FRIEND_FILL),
         borderWidth: bordered ? 2 : 0,
         alignItems: 'center',
         justifyContent: 'center',
