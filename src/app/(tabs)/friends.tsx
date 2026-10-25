@@ -111,10 +111,14 @@ function Board({ data }: { data: FriendsData }) {
       <View style={{ gap: 12 }}>
         <Text style={{ fontSize: 13, fontWeight: '700', color: colors.meta }}>Today, {formatDayLong(day)}</Text>
         {you ? (
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
-            <View style={{ flexDirection: 'row' }} accessible accessibilityLabel={`${ordinalOf(at + 1)} place`}>
-              <Text style={{ fontFamily: fonts.serif800, fontSize: 64, lineHeight: 66, letterSpacing: -1 }}>{at + 1}</Text>
-              <Text style={{ fontFamily: fonts.serif700, fontSize: 24, lineHeight: 28, marginTop: 6 }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 9 }}>
+            {/* Newsreader numerals sit high in their line box; nudge them down to sit level with the text beside them. */}
+            <View
+              style={{ flexDirection: 'row', transform: [{ translateY: 6 }] }}
+              accessible
+              accessibilityLabel={`${ordinalOf(at + 1)} place`}>
+              <Text style={{ fontFamily: fonts.serif800, fontSize: 56, lineHeight: 58, letterSpacing: -1 }}>{at + 1}</Text>
+              <Text style={{ fontFamily: fonts.serif700, fontSize: 20, lineHeight: 24, marginTop: 5, marginLeft: 1 }}>
                 {ordinalOf(at + 1).replace(/^\d+/, '')}
               </Text>
             </View>
@@ -136,7 +140,7 @@ function Board({ data }: { data: FriendsData }) {
           <RaceRow
             key={r.id}
             rank={i + 1}
-            lead={<Avatar id={r.id} name={r.name} size={36} you={r.isYou} />}
+            lead={<Avatar id={r.id} name={r.name} size={34} you={r.isYou} />}
             name={r.isYou ? 'You' : r.name}
             strong={r.isYou}
             demo={r.isDemo}
@@ -155,7 +159,7 @@ function Board({ data }: { data: FriendsData }) {
             {beyond.map((b) => (
               <RaceRow
                 key={b.label}
-                lead={<View style={{ width: RANK_W + 12 + 36 }} />}
+                lead={<View style={{ width: RANK_W + 12 + 34 }} />}
                 name={b.label.replace(/( players)?, average$/, '')}
                 points={b.points}
                 max={max}
@@ -199,7 +203,7 @@ function RaceRow(props: {
         flexDirection: 'row',
         alignItems: 'center',
         gap: 12,
-        paddingVertical: 13,
+        paddingVertical: 10,
         borderTopWidth: 1,
         borderTopColor: colors.hairline,
       }}>
@@ -209,7 +213,7 @@ function RaceRow(props: {
         </Text>
       ) : null}
       {lead}
-      <View style={{ flex: 1, gap: 7 }}>
+      <View style={{ flex: 1, gap: 6 }}>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
           <Text style={{ flexShrink: 1, fontSize: 16, fontWeight: strong ? '800' : '600' }} numberOfLines={1}>
             {name}
