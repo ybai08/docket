@@ -1,12 +1,14 @@
 import { router, type Href } from 'expo-router';
 import { ActivityIndicator, Pressable, Text, View } from 'react-native';
 
+import { Avatar } from '@/components/avatar';
 import { BallotStubCard } from '@/components/ballot-stub-card';
 import { CheckIcon, ChevronRight, FiledOrFakeGlyph, FlameIcon, LandslideGlyph, RollCallGlyph } from '@/components/icons';
 import { PillButton } from '@/components/pill-button';
 import { ProgressTiles, tilesFor } from '@/components/progress-tiles';
 import { TabScreen } from '@/components/tab-screen';
 import { formatDayLong } from '@/lib/day';
+import { useRemote, type Leaderboard } from '@/lib/social';
 import { useToday, type GameStatus } from '@/lib/use-today';
 import { colors, type } from '@/theme';
 
@@ -158,13 +160,27 @@ function Action({ s, play, results }: { s: GameStatus; play: Href; results: Href
   );
 }
 
-// Sample data until friends ship in Slice 6.
+const ORDINALS = ['1st', '2nd', '3rd'];
+const ordinal = (n: number) => ORDINALS[n - 1] ?? `${n}th`;
+
 function LeaderboardTeaser() {
-  const avatars = [
-    { letter: 'P', color: colors.lavender },
-    { letter: 'S', color: colors.yellow },
-    { letter: 'J', color: colors.teal },
-  ];
+  const { data } = useRemote<Leaderboard>('/leaderboard');
+  const board = data?.board ?? [];
+  const meIndex = board.findIndex((r) => r.isYou);
+  const leader = board[0];
+  let title = 'Invite friends to start a leaderboard';
+  let detail = "Race each other on today's ballots";
+  if (board.length > 1 && leader) {
+    if (leader.isYou) {
+      title = `You lead today with ${leader.points}`;
+      detail = `${board[1].name} is ${leader.points - board[1].points} points behind`;
+    } else {
+      title = `${leader.name} leads today with ${leader.points}`;
+      const gap = leader.points - (board[meIndex]?.points ?? 0);
+      detail = gap === 0 ? `You're tied for 1st` : `You're ${ordinal(meIndex + 1)}, ${gap} ${gap === 1 ? 'point' : 'points'} behind`;
+    }
+  }
+  const faces = board.filter((r) => !r.isYou).slice(0, 3);
   return (
     <Pressable
       accessibilityRole="button"
@@ -181,28 +197,18 @@ function LeaderboardTeaser() {
         borderColor: colors.ink,
         opacity: pressed ? 0.7 : 1,
       })}>
-      <View style={{ flexDirection: 'row' }}>
-        {avatars.map((a, i) => (
-          <View
-            key={a.letter}
-            style={{
-              width: 30,
-              height: 30,
-              marginLeft: i ? -9 : 0,
-              borderRadius: 15,
-              borderWidth: 2,
-              borderColor: colors.ground,
-              backgroundColor: a.color,
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-            <Text style={{ fontSize: 12, fontWeight: '700' }}>{a.letter}</Text>
-          </View>
-        ))}
-      </View>
+      {faces.length > 0 && (
+        <View style={{ flexDirection: 'row' }}>
+          {faces.map((f, i) => (
+            <View key={f.id} style={{ marginLeft: i ? -9 : 0, borderRadius: 15, borderWidth: 2, borderColor: colors.ground }}>
+              <Avatar id={f.id} name={f.name} size={26} />
+            </View>
+          ))}
+        </View>
+      )}
       <View style={{ flex: 1, gap: 1 }}>
-        <Text style={{ fontSize: 15, fontWeight: '700' }}>Priya leads today with 24</Text>
-        <Text style={{ fontSize: 13, color: colors.text2 }}>{"You're 2nd, 3 points behind"}</Text>
+        <Text style={{ fontSize: 15, fontWeight: '700' }}>{title}</Text>
+        <Text style={{ fontSize: 13, color: colors.text2 }}>{detail}</Text>
       </View>
       <ChevronRight />
     </Pressable>

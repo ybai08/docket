@@ -1,4 +1,4 @@
-import type { FastifyInstance } from 'fastify';
+import type { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
 
 import { addDays, centralDay } from '../../src/lib/day.ts';
@@ -97,6 +97,7 @@ const profilePatch = z.object({
   notifyWeeklyRecap: z.boolean().optional(),
   notifyRequests: z.boolean().optional(),
   notifyOppositeVote: z.boolean().optional(),
+  groupBoards: z.boolean().optional(),
 });
 
 const COLUMNS: Record<string, string> = {
@@ -114,6 +115,7 @@ const COLUMNS: Record<string, string> = {
   notifyWeeklyRecap: 'notify_weekly_recap',
   notifyRequests: 'notify_requests',
   notifyOppositeVote: 'notify_opposite_vote',
+  groupBoards: 'group_boards',
 };
 
 type UserRow = {
@@ -136,6 +138,8 @@ type UserRow = {
   notify_weekly_recap: boolean;
   notify_requests: boolean;
   notify_opposite_vote: boolean;
+  group_boards: boolean;
+  is_demo: boolean;
   created_at: string;
 };
 
@@ -161,6 +165,7 @@ export function toProfile(u: UserRow) {
     notifyRequests: u.notify_requests,
     // Only possible when both people share votes; the app explains that next to the switch.
     notifyOppositeVote: u.notify_opposite_vote,
+    groupBoards: u.group_boards,
     createdAt: u.created_at,
   };
 }
@@ -195,7 +200,7 @@ export async function meRoutes(app: FastifyInstance) {
     return { profile: toProfile(u), stats: await statsFor(req.uid) };
   });
 
-  app.patch('/me', async (req, reply) => {
+  const patchMe = async (req: FastifyRequest, reply: FastifyReply) => {
     const patch = profilePatch.parse(req.body);
     const entries = Object.entries(patch).filter(([, v]) => v !== undefined);
     if (entries.length) {
@@ -209,5 +214,14 @@ export async function meRoutes(app: FastifyInstance) {
     }
     const [u] = await query<UserRow>('SELECT * FROM users WHERE id = $1', [req.uid]);
     return { profile: toProfile(u) };
+  };
+  app.patch('/me', patchMe);
+
+  // Removes the account row; votes, results, friendships and memberships cascade.
+  app.delete('/me', async (req) => {
+    await query('DELETE FROM groups WHERE admin_id = $1', [req.uid]);
+    await query('DELETE FROM users WHERE id = $1', [req.uid]);
+    return { ok: true };
   });
+  app.patch('/settings', patchMe);
 }

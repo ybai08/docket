@@ -45,6 +45,16 @@ function RootStack() {
         <Stack.Screen name="roll-call/results" />
         <Stack.Screen name="filed-or-fake" />
         <Stack.Screen name="landslide" />
+        <Stack.Screen name="privacy" />
+        <Stack.Screen name="friend/[id]" />
+        <Stack.Screen name="invite/[token]" options={{ gestureEnabled: false }} />
+        <Stack.Screen
+          name="invite-friends"
+          options={{ presentation: 'formSheet', sheetGrabberVisible: true, sheetAllowedDetents: [0.92], sheetCornerRadius: 20 }}
+        />
+        <Stack.Screen name="group/new" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="group/join" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="group/[id]" />
       </Stack.Protected>
     </Stack>
   );

@@ -4,6 +4,7 @@ import { ZodError } from 'zod';
 
 import { gameRoutes } from './games.ts';
 import { meRoutes } from './me.ts';
+import { socialRoutes } from './social.ts';
 
 const app = Fastify({ logger: { level: process.env.LOG_LEVEL ?? 'info' } });
 
@@ -18,5 +19,6 @@ app.setErrorHandler((err, _req, reply) => {
 app.get('/health', async () => ({ ok: true }));
 await app.register(gameRoutes);
 await app.register(meRoutes);
+await app.register(socialRoutes);
 
 await app.listen({ port: Number(process.env.PORT ?? 8787), host: '0.0.0.0' });

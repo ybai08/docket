@@ -12,6 +12,7 @@ import type { Bill, Vote } from '@/data/types';
 import { formatCountdown, msUntilNextDay } from '@/lib/day';
 import { agreed } from '@/lib/scoring';
 import { shareText } from '@/lib/share';
+import { useRemote, type DailyAgreement } from '@/lib/social';
 import { useToday } from '@/lib/use-today';
 import { colors, type } from '@/theme';
 
@@ -91,7 +92,7 @@ export default function RollCallResultsScreen() {
           <Text style={type.section} accessibilityRole="header">
             Agreement with friends today
           </Text>
-          <Text style={type.meta}>Add friends to compare. Their results show here once they play.</Text>
+          <FriendsToday />
         </View>
 
         <Pressable
@@ -128,6 +129,50 @@ export default function RollCallResultsScreen() {
         </View>
       </ScrollView>
     </SafeAreaView>
+  );
+}
+
+// Each friend's "X of 5" today. The server hides X when it's 0 or 5, since that would reveal every vote.
+function FriendsToday() {
+  const { data } = useRemote<{ friends: (DailyAgreement & { id: string; name: string })[] }>('/friends/today');
+  const rows = data?.friends ?? [];
+  if (!rows.length) return <Text style={type.meta}>Add friends to compare. Their results show here once they play.</Text>;
+  const sorted = [...rows].sort((a, b) => ((b.played && b.agreed) || 0) - ((a.played && a.agreed) || 0));
+  return (
+    <>
+      {sorted.map((f, i) => {
+        const agreed = f.played ? f.agreed : null;
+        const total = f.played ? f.total : 5;
+        return (
+          <View key={f.id} style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+            <Text style={{ width: 64, fontSize: 14 }} numberOfLines={1}>
+              {f.name}
+            </Text>
+            {agreed === null ? (
+              <Text style={[type.meta, { flex: 1 }]}>Play more days to compare</Text>
+            ) : (
+              <View style={{ flex: 1, height: 24 }}>
+                <View
+                  accessible
+                  accessibilityLabel={`${f.name}: agreed on ${agreed} of ${total}`}
+                  style={{
+                    width: `${(agreed / total) * 100}%`,
+                    minWidth: 28,
+                    height: 24,
+                    backgroundColor: i === 0 ? colors.teal : colors.tabInactive,
+                    borderWidth: i === 0 ? 1.5 : 0,
+                    alignItems: 'flex-end',
+                    justifyContent: 'center',
+                    paddingRight: 8,
+                  }}>
+                  <Text style={{ fontSize: 14, fontWeight: '700', color: i === 0 ? colors.ink : colors.ground }}>{agreed}</Text>
+                </View>
+              </View>
+            )}
+          </View>
+        );
+      })}
+    </>
   );
 }
 

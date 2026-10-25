@@ -23,6 +23,7 @@ export type Profile = {
   notifyWeeklyRecap: boolean;
   notifyRequests: boolean;
   notifyOppositeVote: boolean;
+  groupBoards: boolean;
   createdAt: string;
 };
 
