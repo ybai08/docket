@@ -312,10 +312,10 @@ function FriendList({ data, onRespond }: { data: FriendsData; onRespond: (id: st
                     </Text>
                   </View>
                   {f.agreementPct !== null && (
-                    // Teal for agreed, lavender for disagreed: the same meaning as Roll Call results.
+                    // Teal for agreed on the same light grey track as the Leaderboard bars.
                     <View style={{ flexDirection: 'row', height: 8, borderRadius: 4, overflow: 'hidden' }}>
                       <View style={{ flex: f.agreementPct, backgroundColor: colors.teal }} />
-                      <View style={{ flex: 100 - f.agreementPct, backgroundColor: colors.lavender }} />
+                      <View style={{ flex: 100 - f.agreementPct, backgroundColor: colors.muted }} />
                     </View>
                   )}
                   <Text style={{ fontSize: 12, color: colors.meta }}>
@@ -330,7 +330,7 @@ function FriendList({ data, onRespond }: { data: FriendsData; onRespond: (id: st
           </View>
           <View style={{ flexDirection: 'row', gap: 16, paddingTop: 10, borderTopWidth: 1, borderTopColor: colors.hairline }}>
             <Legend color={colors.teal} label="Same vote" />
-            <Legend color={colors.lavender} label="Different vote" />
+            <Legend color={colors.muted} label="Different vote" />
           </View>
         </View>
       )}

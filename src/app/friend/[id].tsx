@@ -125,7 +125,7 @@ export default function FriendProfile() {
                   <Text style={{ width: 120, fontSize: 14 }} numberOfLines={1}>
                     {t.topic}
                   </Text>
-                  <View style={{ flex: 1, height: 10, borderRadius: 5, backgroundColor: colors.hairline, overflow: 'hidden' }}>
+                  <View style={{ flex: 1, height: 10, borderRadius: 5, backgroundColor: colors.muted, overflow: 'hidden' }}>
                     <View style={{ width: `${t.pct}%`, height: 10, backgroundColor: colors.teal }} />
                   </View>
                   <Text style={{ width: 40, textAlign: 'right', fontSize: 14, fontWeight: '700', fontVariant: ['tabular-nums'] }}>{t.pct}%</Text>

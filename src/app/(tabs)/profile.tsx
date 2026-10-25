@@ -544,7 +544,7 @@ function LawmakerItem({ row: p, local }: { row: LawmakerRow; local: boolean }) {
           <Text style={type.meta}>{p.role}</Text>
         </View>
         {p.real && p.pct != null ? (
-          // Teal for agreed, lavender for disagreed: the same meaning as Roll Call results.
+          // Teal for agreed on a light grey track, like the Friends bars.
           <View
             style={{
               flexDirection: 'row',
@@ -554,7 +554,7 @@ function LawmakerItem({ row: p, local }: { row: LawmakerRow; local: boolean }) {
               marginTop: 2,
             }}>
             <View style={{ flex: p.pct, backgroundColor: colors.teal }} />
-            <View style={{ flex: 100 - p.pct, backgroundColor: colors.lavender }} />
+            <View style={{ flex: 100 - p.pct, backgroundColor: colors.muted }} />
           </View>
         ) : null}
       </View>
