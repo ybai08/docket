@@ -154,13 +154,11 @@ export default function FriendProfile() {
               <View style={{ gap: 22, paddingTop: 6 }}>
                 <VoteGroup
                   label="Voted the same"
-                  color={colors.teal}
                   bills={data.recent.filter((b) => b.mine === b.theirs)}
                   name={data.name}
                 />
                 <VoteGroup
                   label="Voted differently"
-                  color={colors.lavender}
                   bills={data.recent.filter((b) => b.mine !== b.theirs)}
                   name={data.name}
                 />
@@ -201,17 +199,14 @@ const word = (v: 'yea' | 'nay') => (v === 'yea' ? 'Yea' : 'Nay');
 const CELL_W = 56;
 const CELL_GAP = 6;
 
-/** Bills you agreed or split on: a colored heading with the count, then a two-column table of your votes. */
-function VoteGroup({ label, color, bills, name }: { label: string; color: string; bills: RecentBill[]; name: string }) {
+/** Bills you agreed or split on: a heading, then a two-column table of your votes. */
+function VoteGroup({ label, bills, name }: { label: string; bills: RecentBill[]; name: string }) {
   if (!bills.length) return null;
   const head = { width: CELL_W, textAlign: 'center' as const, fontSize: 12, fontWeight: '700' as const, color: colors.meta };
   return (
     <View>
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, paddingBottom: 8 }}>
         <Text style={{ fontSize: 15, fontWeight: '800' }}>{label}</Text>
-        <View style={{ minWidth: 24, height: 22, paddingHorizontal: 7, borderRadius: 11, backgroundColor: color, alignItems: 'center', justifyContent: 'center' }}>
-          <Text style={{ fontSize: 12, fontWeight: '800', fontVariant: ['tabular-nums'] }}>{bills.length}</Text>
-        </View>
         <View style={{ flex: 1 }} />
         <View style={{ flexDirection: 'row', gap: CELL_GAP }}>
           <Text style={head}>You</Text>
@@ -238,8 +233,8 @@ function VoteGroup({ label, color, bills, name }: { label: string; color: string
             <Text style={{ fontSize: 12, color: colors.meta }}>{b.number}</Text>
           </View>
           <View style={{ flexDirection: 'row', gap: CELL_GAP }}>
-            <VoteBadge color={color} vote={word(b.mine)} />
-            <VoteBadge color={color} vote={word(b.theirs)} />
+            <VoteBadge vote={b.mine} />
+            <VoteBadge vote={b.theirs} />
           </View>
         </View>
       ))}
@@ -247,10 +242,19 @@ function VoteGroup({ label, color, bills, name }: { label: string; color: string
   );
 }
 
-function VoteBadge({ color, vote }: { color: string; vote: string }) {
+/** Yea is always teal and Nay always lavender, so a column reads at a glance. */
+function VoteBadge({ vote }: { vote: 'yea' | 'nay' }) {
   return (
-    <View style={{ width: CELL_W, height: 28, borderRadius: 14, backgroundColor: color, alignItems: 'center', justifyContent: 'center' }}>
-      <Text style={{ fontSize: 13, fontWeight: '800' }}>{vote}</Text>
+    <View
+      style={{
+        width: CELL_W,
+        height: 28,
+        borderRadius: 14,
+        backgroundColor: vote === 'yea' ? colors.teal : colors.lavender,
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}>
+      <Text style={{ fontSize: 13, fontWeight: '800' }}>{word(vote)}</Text>
     </View>
   );
 }
