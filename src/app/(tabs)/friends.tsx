@@ -4,7 +4,9 @@ import { ActivityIndicator, Pressable, Text, View } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 
 import { Avatar, DemoTag } from '@/components/avatar';
+import { ChevronRight, FlameIcon } from '@/components/icons';
 import { PillButton } from '@/components/pill-button';
+import { ProgressTiles, tilesFor } from '@/components/progress-tiles';
 import { SegmentedPills } from '@/components/segmented-pills';
 import { TabScreen } from '@/components/tab-screen';
 import { api } from '@/lib/api';
@@ -26,16 +28,8 @@ export default function FriendsScreen() {
   }
 
   return (
-    <TabScreen gap={14}>
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          paddingBottom: 12,
-          borderBottomWidth: 1,
-          borderBottomColor: colors.ink,
-        }}>
+    <TabScreen gap={20}>
+      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
         <Text style={type.title} accessibilityRole="header">
           Friends
         </Text>
@@ -96,76 +90,115 @@ function Board({ data }: { data: FriendsData }) {
   if (board.length <= 1) {
     return <Empty title="Your leaderboard is empty" body="Invite friends to race each other on today's ballots." />;
   }
+  const at = board.findIndex((r) => r.isYou);
+  const you = at >= 0 ? board[at] : null;
+  const leader = board[0];
+  const ahead = at > 0 ? board[at - 1] : null;
+  const headline =
+    you && (you.playedToday || leader.isYou) ? `You're ${ordinalOf(at + 1)} of ${board.length}` : `${leader.name} leads with ${leader.points}`;
+  const sub = !you
+    ? null
+    : !you.playedToday
+      ? "Cast today's ballots to get on the board."
+      : !ahead
+        ? 'Ahead of all your friends today.'
+        : ahead.points === you.points
+          ? `Tied with ${ahead.name}.`
+          : `${ahead.points - you.points} ${ahead.points - you.points === 1 ? 'point' : 'points'} behind ${ahead.name}.`;
+
   return (
-    <View>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 6, paddingBottom: 8 }}>
-        <Text style={{ fontSize: 12, fontWeight: '800' }}>Today, {formatDayLong(day)}</Text>
-        <Text style={{ fontSize: 12, fontWeight: '800' }}>Points</Text>
+    <View style={{ gap: 30 }}>
+      <View style={card}>
+        <View style={{ paddingHorizontal: 18, paddingTop: 16, paddingBottom: 16, gap: 4 }}>
+          <Text style={{ fontSize: 13, fontWeight: '700', color: colors.meta }}>Today, {formatDayLong(day)}</Text>
+          <Text style={{ fontFamily: fonts.serif800, fontSize: 28, lineHeight: 32, letterSpacing: -0.3 }}>{headline}</Text>
+          {sub ? <Text style={{ fontSize: 14, color: colors.text2 }}>{sub}</Text> : null}
+        </View>
+        {board.map((r, i) => (
+          <BoardItem key={r.id} row={r} rank={i + 1} />
+        ))}
       </View>
-      {board.map((r, i) => (
-        <View
-          key={r.id}
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: 12,
-            paddingVertical: 11,
-            paddingHorizontal: 6,
-            borderTopWidth: 1,
-            borderTopColor: colors.hairline,
-            backgroundColor: r.isYou ? colors.yellow : undefined,
-            borderRadius: r.isYou ? 10 : 0,
-          }}>
-          <Text style={{ width: 18, fontSize: 15, fontWeight: '800' }}>{i + 1}</Text>
-          <Avatar id={r.id} name={r.name} you={r.isYou} />
-          <View style={{ flex: 1 }}>
-            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-              <Text style={{ fontSize: 16, fontWeight: '600' }}>{r.name}</Text>
-              {r.isDemo && <DemoTag />}
-            </View>
-            <Text style={type.meta}>{boardDetail(r)}</Text>
+
+      {beyond.length > 0 && (
+        <View style={{ gap: 12 }}>
+          <SectionTitle title="Beyond your friends" note="Average points today" />
+          <View style={{ flexDirection: 'row', paddingVertical: 14, borderRadius: 14, borderCurve: 'continuous', backgroundColor: colors.muted }}>
+            {beyond.map((b, i) => (
+              <View
+                key={b.label}
+                accessible
+                accessibilityLabel={`${b.label}: ${b.points ?? 'no data'}`}
+                style={{ flex: 1, gap: 2, paddingHorizontal: 14, borderLeftWidth: i ? 1 : 0, borderLeftColor: colors.outline }}>
+                <Text style={{ fontSize: 26, lineHeight: 30, fontVariant: ['tabular-nums'] }}>{b.points ?? '–'}</Text>
+                <Text style={{ fontSize: 12, lineHeight: 15, color: colors.text2 }} numberOfLines={2}>
+                  {b.label.replace(/( players)?, average$/, '')}
+                </Text>
+              </View>
+            ))}
           </View>
-          <Text style={{ fontSize: 20, fontVariant: ['tabular-nums'] }}>{r.points}</Text>
         </View>
-      ))}
-      <Text style={{ marginTop: 16, marginBottom: 6, paddingHorizontal: 6, fontSize: 13, fontWeight: '800' }}>
-        Beyond your friends
-      </Text>
-      {beyond.map((b) => (
-        <View
-          key={b.label}
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            paddingVertical: 10,
-            paddingHorizontal: 6,
-            borderTopWidth: 1,
-            borderTopColor: colors.hairline,
-          }}>
-          <Text style={{ fontSize: 15 }}>{b.label}</Text>
-          <Text style={{ fontSize: 15, fontVariant: ['tabular-nums'] }}>{b.points ?? '–'}</Text>
-        </View>
-      ))}
+      )}
     </View>
   );
 }
 
-function boardDetail(r: BoardRow) {
-  if (!r.playedToday) return r.streak > 0 ? `Streak at risk: ${r.streak} ${r.streak === 1 ? 'day' : 'days'}` : 'Not played yet';
-  return r.games === 3 ? 'All 3 ballots' : `${r.games} of 3 ballots`;
+function BoardItem({ row: r, rank }: { row: BoardRow; rank: number }) {
+  return (
+    <View
+      style={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 12,
+        paddingVertical: 12,
+        paddingHorizontal: 18,
+        borderTopWidth: 1,
+        borderTopColor: r.isYou ? colors.ink : colors.hairline,
+        backgroundColor: r.isYou ? colors.yellow : undefined,
+      }}>
+      <Text style={{ width: 20, fontFamily: fonts.serif800, fontSize: 20, fontVariant: ['tabular-nums'] }}>{rank}</Text>
+      <Avatar id={r.id} name={r.name} size={38} you={r.isYou} />
+      <View style={{ flex: 1, gap: 4 }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+          <Text style={{ fontSize: 16, fontWeight: '600' }} numberOfLines={1}>
+            {r.name}
+          </Text>
+          {r.isDemo && <DemoTag />}
+        </View>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+          {r.playedToday ? (
+            <>
+              <ProgressTiles states={tilesFor(3, r.games)} size="sm" />
+              <Text style={[type.meta, { fontSize: 12, lineHeight: 15 }]}>{r.games === 3 ? 'All 3 ballots' : `${r.games} of 3 ballots`}</Text>
+            </>
+          ) : r.streak > 0 ? (
+            <>
+              <FlameIcon size={12} color={colors.text2} />
+              <Text style={[type.meta, { fontSize: 12, lineHeight: 15 }]}>{`${r.streak}-day streak at risk`}</Text>
+            </>
+          ) : (
+            <Text style={[type.meta, { fontSize: 12, lineHeight: 15 }]}>Not played yet</Text>
+          )}
+        </View>
+      </View>
+      <View style={{ alignItems: 'flex-end' }}>
+        <Text style={{ fontSize: 24, lineHeight: 28, fontWeight: '600', fontVariant: ['tabular-nums'] }}>{r.points}</Text>
+        <Text style={{ fontSize: 11, fontWeight: '600', color: colors.meta }}>{r.points === 1 ? 'pt' : 'pts'}</Text>
+      </View>
+    </View>
+  );
 }
 
 function FriendList({ data, onRespond }: { data: FriendsData; onRespond: (id: string, a: 'accept' | 'ignore') => void }) {
   return (
-    <View style={{ gap: 14 }}>
+    <View style={{ gap: 28 }}>
       {data.requests.length > 0 && (
-        <View style={{ gap: 8, paddingVertical: 12, paddingHorizontal: 14, borderRadius: 12, backgroundColor: colors.yellow }}>
-          <Text style={{ fontSize: 14, fontWeight: '800' }}>
+        <View style={[card, { gap: 12, padding: 16, backgroundColor: colors.yellow }]}>
+          <Text style={{ fontFamily: fonts.serif700, fontSize: 20 }}>
             {data.requests.length} friend {data.requests.length === 1 ? 'request' : 'requests'}
           </Text>
           {data.requests.map((r) => (
             <View key={r.id} style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
-              <Avatar id={r.from.id} name={r.from.name} size={32} fill={colors.ground} />
+              <Avatar id={r.from.id} name={r.from.name} size={36} fill={colors.ground} bordered />
               <View style={{ flex: 1 }}>
                 <Text style={{ fontSize: 15, fontWeight: '600' }}>{r.from.name}</Text>
                 <Text style={{ fontSize: 12, color: colors.text2 }}>{requestSource(r.source)}</Text>
@@ -180,48 +213,96 @@ function FriendList({ data, onRespond }: { data: FriendsData; onRespond: (id: st
       {data.friends.length === 0 ? (
         <Empty title="No friends yet" body="Send your invite link or have a friend scan your QR code." />
       ) : (
-        <View>
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 6, paddingBottom: 8 }}>
-            <Text style={{ fontSize: 12, fontWeight: '800' }}>
-              {data.friends.length} {data.friends.length === 1 ? 'friend' : 'friends'}
-            </Text>
-            <Text style={{ fontSize: 12, fontWeight: '800' }}>You agree</Text>
-          </View>
-          {data.friends.map((f) => (
-            <Pressable
-              key={f.id}
-              accessibilityRole="button"
-              onPress={() => router.push({ pathname: '/friend/[id]', params: { id: f.id } })}
-              style={({ pressed }) => ({
-                flexDirection: 'row',
-                alignItems: 'center',
-                gap: 12,
-                paddingVertical: 11,
-                paddingHorizontal: 6,
-                borderTopWidth: 1,
-                borderTopColor: colors.hairline,
-                opacity: pressed ? 0.6 : 1,
-              })}>
-              <Avatar id={f.id} name={f.name} />
-              <View style={{ flex: 1 }}>
-                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-                  <Text style={{ fontSize: 16, fontWeight: '600' }}>{f.name}</Text>
-                  {f.isDemo && <DemoTag />}
+        <View style={{ gap: 12 }}>
+          <SectionTitle
+            title={`${data.friends.length} ${data.friends.length === 1 ? 'friend' : 'friends'}`}
+            note="How often you voted the same way"
+          />
+          <View style={card}>
+            {data.friends.map((f, i) => (
+              <Pressable
+                key={f.id}
+                accessibilityRole="button"
+                accessibilityLabel={`${f.name}, ${f.agreementPct === null ? 'not enough votes to compare' : `${f.agreementPct}% agreement`}`}
+                onPress={() => router.push({ pathname: '/friend/[id]', params: { id: f.id } })}
+                style={({ pressed }) => ({
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  gap: 12,
+                  paddingVertical: 14,
+                  paddingLeft: 16,
+                  paddingRight: 12,
+                  borderTopWidth: i ? 1 : 0,
+                  borderTopColor: colors.hairline,
+                  backgroundColor: pressed ? colors.muted : colors.ground,
+                })}>
+                <Avatar id={f.id} name={f.name} size={42} />
+                <View style={{ flex: 1, gap: 4 }}>
+                  <View style={{ gap: 1 }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+                      <Text style={{ fontSize: 16, fontWeight: '600' }} numberOfLines={1}>
+                        {f.name}
+                      </Text>
+                      {f.isDemo && <DemoTag />}
+                    </View>
+                    <Text style={[type.meta, { fontSize: 12, lineHeight: 16 }]}>
+                      {f.agreementPct === null
+                        ? 'Play more days to compare'
+                        : `${f.sharedBills} ${f.sharedBills === 1 ? 'bill' : 'bills'} in common`}
+                    </Text>
+                  </View>
+                  {f.agreementPct !== null && (
+                    // Teal for agreed, lavender for disagreed: the same meaning as Roll Call results.
+                    <View style={{ flexDirection: 'row', height: 6, borderRadius: 3, overflow: 'hidden', marginTop: 2 }}>
+                      <View style={{ flex: f.agreementPct, backgroundColor: colors.teal }} />
+                      <View style={{ flex: 100 - f.agreementPct, backgroundColor: colors.lavender }} />
+                    </View>
+                  )}
                 </View>
-                <Text style={type.meta}>
-                  {f.agreementPct === null ? 'Play more days to compare' : f.votesShared ? 'Votes shared both ways' : 'Agreement only'}
+                <Text style={{ minWidth: 52, textAlign: 'right', fontSize: 22, fontWeight: '600', fontVariant: ['tabular-nums'] }}>
+                  {f.agreementPct === null ? '–' : `${f.agreementPct}%`}
                 </Text>
-              </View>
-              <Text style={{ fontSize: 20, fontVariant: ['tabular-nums'] }}>
-                {f.agreementPct === null ? '–' : `${f.agreementPct}%`}
-              </Text>
-            </Pressable>
-          ))}
+                <ChevronRight size={14} color={colors.meta} />
+              </Pressable>
+            ))}
+          </View>
+          <View style={{ flexDirection: 'row', gap: 16, paddingHorizontal: 2 }}>
+            <Legend color={colors.teal} label="Same vote" />
+            <Legend color={colors.lavender} label="Different vote" />
+          </View>
         </View>
       )}
     </View>
   );
 }
+
+function Legend({ color, label }: { color: string; label: string }) {
+  return (
+    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+      <View style={{ width: 10, height: 10, borderRadius: 2, backgroundColor: color }} />
+      <Text style={{ fontSize: 12, color: colors.text2 }}>{label}</Text>
+    </View>
+  );
+}
+
+function SectionTitle({ title, note }: { title: string; note?: string }) {
+  return (
+    <View style={{ gap: 2 }}>
+      <Text style={{ fontFamily: fonts.serif700, fontSize: 22, lineHeight: 26 }} accessibilityRole="header">
+        {title}
+      </Text>
+      {note ? <Text style={{ fontSize: 14, color: colors.meta }}>{note}</Text> : null}
+    </View>
+  );
+}
+
+const card = {
+  borderWidth: 2,
+  borderRadius: 14,
+  borderCurve: 'continuous' as const,
+  backgroundColor: colors.ground,
+  overflow: 'hidden' as const,
+};
 
 const GROUP_FILLS = [colors.teal, colors.lavender, colors.yellow];
 
@@ -242,7 +323,8 @@ function Groups() {
             alignItems: 'center',
             gap: 12,
             padding: 14,
-            borderRadius: 12,
+            borderRadius: 14,
+            borderCurve: 'continuous',
             backgroundColor: GROUP_FILLS[i % GROUP_FILLS.length],
             opacity: pressed ? 0.7 : 1,
           })}>
@@ -266,11 +348,17 @@ function Groups() {
                 : `${g.members} ${g.members === 1 ? 'member' : 'members'}.${g.rank ? ` You're ${ordinalOf(g.rank)} this week.` : ''}`}
             </Text>
           </View>
+          {!g.pending && <ChevronRight size={14} />}
         </Pressable>
       ))}
-      <View style={{ flexDirection: 'row', gap: 10, marginTop: 4 }}>
-        <PillButton label="Create a group" style={{ flex: 1, height: 48 }} onPress={() => router.push('/group/new')} />
-        <PillButton label="Join with a code" variant="outline" style={{ flex: 1, height: 48 }} onPress={() => router.push('/group/join')} />
+      <View style={{ gap: 10, marginTop: 6 }}>
+        <PillButton label="Create a group" style={{ alignSelf: 'stretch', height: 50 }} onPress={() => router.push('/group/new')} />
+        <PillButton
+          label="Join with a code"
+          variant="outline"
+          style={{ alignSelf: 'stretch', height: 50 }}
+          onPress={() => router.push('/group/join')}
+        />
       </View>
       <Text style={[type.meta, { textAlign: 'center' }]}>Groups hold up to 50 people. Join by link or QR code.</Text>
     </View>
@@ -285,8 +373,8 @@ function ordinalOf(n: number) {
 
 function Empty({ title, body }: { title: string; body: string }) {
   return (
-    <View style={{ gap: 4, paddingVertical: 20, paddingHorizontal: 16, borderRadius: 12, backgroundColor: colors.muted }}>
-      <Text style={{ fontSize: 16, fontWeight: '700' }}>{title}</Text>
+    <View style={{ gap: 4, paddingVertical: 20, paddingHorizontal: 18, borderRadius: 14, backgroundColor: colors.muted }}>
+      <Text style={{ fontFamily: fonts.serif700, fontSize: 20 }}>{title}</Text>
       <Text style={{ fontSize: 14, color: colors.text2 }}>{body}</Text>
     </View>
   );
