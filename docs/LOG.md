@@ -53,6 +53,7 @@ Newest first. Each commit adds a line or two here: what changed, what's live, wh
 - Re-seeded the plain-English Filed or Fake captions; deleted the test account's accidental 0/12 Landslide for today.
 
 ### UI
+- Hidden vote splits in groups and the area breakdown now all say "Hidden so no one's vote can be guessed", matching backend `dbbaa7f`, which dropped 'unanimous'. The area page's player threshold comes from the server's `minPlayers` (now 10). Live in the app now.
 - Landslide drag fix: rows used to move only after a long press, so pressing and dragging right away (as with a mouse on the simulator) did nothing. Dragging now starts on any vertical move. Also fixed the Reanimated "read during render" warning from the rows. Tested on a temporary harness, since today's test-account Landslide was locked again.
 - Filed or Fake results: a cream score card with one teal or lavender tile per bill, and rows with a check or cross, the FILED/FAKE stamp and your answer. The text is easier to read. Real bills open their bill page. Live in the app now.
 - Earlier today (`852cb4f` to `70f7551`):

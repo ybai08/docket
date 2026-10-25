@@ -184,7 +184,7 @@ function Group({ id }: { id: string }) {
             <View style={{ gap: 10 }}>
               <Text style={type.section}>How the group voted today</Text>
               {g.today.length ? (
-                g.today.map((s) => <Split key={s.billId} split={s} minVoters={g.minVoters} />)
+                g.today.map((s) => <Split key={s.billId} split={s} />)
               ) : (
                 <Text style={type.meta}>No one in the group has voted today yet.</Text>
               )}
@@ -215,7 +215,8 @@ function Group({ id }: { id: string }) {
   );
 }
 
-function Split({ split: s, minVoters }: { split: GroupSplit; minVoters: number }) {
+// Hidden splits never say why: "everyone voted alike" would give the votes away.
+function Split({ split: s }: { split: GroupSplit }) {
   return (
     <Pressable
       accessibilityHint="Opens the bill"
@@ -239,9 +240,7 @@ function Split({ split: s, minVoters }: { split: GroupSplit; minVoters: number }
             justifyContent: 'center',
           }}>
           <Text style={{ fontSize: 12, fontWeight: '600', color: colors.text2 }} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.8}>
-            {s.hiddenReason === 'unanimous'
-              ? 'Hidden: everyone voted alike, and fewer than 10 voted'
-              : `Hidden until ${minVoters} members vote, so no one's vote can be guessed`}
+            {"Hidden so no one's vote can be guessed"}
           </Text>
         </View>
       ) : (

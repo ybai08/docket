@@ -244,9 +244,7 @@ function BillSplit({ bill: b, known, first }: { bill: AreaBreakdown['bills'][num
         </View>
       ) : (
         <Text style={{ fontSize: 12, color: colors.meta }}>
-          {b.hiddenReason === 'unanimous'
-            ? 'Hidden: everyone voted alike, and too few voted to show it'
-            : "Hidden until 5 people here vote, so no one's vote can be guessed"}
+          {"Hidden so no one's vote can be guessed"}
         </Text>
       )}
     </Pressable>

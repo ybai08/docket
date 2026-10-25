@@ -35,7 +35,8 @@ export type AreaBreakdown = {
     filedOrFake: { players: number; avgCorrect: number | null; outOf: number };
     landslide: { players: number; avgPoints: number | null; outOf: number };
   };
-  bills: { billId: string; voters: number; yeaPct: number | null; hiddenReason: 'few' | 'unanimous' | null }[];
+  /** voters counts only people who finished Roll Call. */
+  bills: { billId: string; voters: number; yeaPct: number | null; hiddenReason: 'few' | null }[];
 };
 
 export type BoardRow = {
@@ -52,7 +53,7 @@ export type BoardRow = {
 export type Leaderboard = {
   day: string;
   board: BoardRow[];
-  /** points is null when fewer than 5 people played. */
+  /** points is null when fewer than 10 people played. */
   beyond: { scope: AreaScope; label: string; points: number | null }[];
 };
 
@@ -133,7 +134,7 @@ export type GroupSplit = {
   title: string;
   voters: number;
   yeaPct: number | null;
-  hiddenReason: 'few' | 'unanimous' | null;
+  hiddenReason: 'few' | null;
 };
 
 export type GroupDetail = {
