@@ -4,11 +4,20 @@ Newest first. Each commit adds a line or two here: what changed, what's live, wh
 
 ## 2026-10-25
 
+### Promo video and launch page
+- Live: the playable web app at https://app.docketapp.tech. On desktop it shows inside an iPhone frame; on a phone it runs full-screen. `promo/deploy-app.sh` exports the web build, uploads it to /var/www/docket-app and adds its Caddy block. The API wasn't restarted, and CORS needed no change. The user added the IONOS A record and the Firebase authorized domain.
+- Live: docketapp.tech now has "Try it in your browser" under the headline, "Try it" in the top bar and "Try Docket" at the end. The headline, buttons and demo video all fit on the first screen.
+- Left: server/deploy/deploy.sh rewrites the whole Caddyfile, so it has to keep the app.docketapp.tech block (asked the backend session). Tabs weren't checked past sign-in, since nothing was signed in.
+- Earlier today: `promo/` Remotion demo video (1:56, beat-synced original score), `promo/SCRIPT.md` voiceover script, and the launch page at docketapp.tech (`promo/site`, `promo/deploy-site.sh`), updated for the new privacy rules.
+
 ### QA
 - `docs/QA_REPORT.md`: break-testing the API with simulated players (cheater, races, groups, area leaderboard, spammer/fuzzer, a player who moves states). Found 1 critical, 7 high, 10 medium and 12 low issues. The worst: group and area vote splits reveal one person's vote, `/today` ships the Filed or Fake and Landslide answers, and parallel submits can un-finish and replay a game. Sent to the backend session; no server code changed.
 - `server/qa/`: rerunnable repro scripts, plus `start-local.sh`, which runs the API against its own Docker Postgres with stubbed auth. Production was never touched.
 - Re-tested the backend's fixes (`dbbaa7f`) with every script; the report now has a Status column. Fixed: replays and double submits, votes after lock-in, the group cap, splits and agreement counting unfinished votes, block-vs-accept, and Fastify 4xx errors that came back as 500. Still open: the `/today` answers, differencing when group or area membership changes, some 500s (non-uuid group ids, NUL bytes, non-numeric request ids), moving states, and no set for a new day. Added `08-groups-finished.mjs`, and updated checks the fixes made stale.
 - Re-tested `6d366ff`: malformed ids and NUL bytes now return 400, and blocking an unknown uid no longer reveals whether it exists. The spam/fuzz script has no 500s left. The report marks M3 fixed.
+
+### Deploy keeps the web app (backend)
+- `server/deploy/deploy.sh` now writes the `app.docketapp.tech` Caddy block (the playable web app from `promo/deploy-app.sh`) whenever `/var/www/docket-app` exists, so a full deploy no longer drops it. Checked after a full deploy: the launch page, the web app (including deep links), share links and the API all respond.
 
 ### More QA fixes (backend)
 - Malformed input that Postgres rejects (a non-uuid group id, a NUL byte, an out-of-range number) now gets a 400, not a 500. Blocking an unknown user id returns ok without blocking anything, so it can't be used to probe for accounts.
