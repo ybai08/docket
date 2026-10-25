@@ -4,6 +4,7 @@ import { ZodError } from 'zod';
 
 import { gameRoutes } from './games.ts';
 import { groupRoutes } from './groups.ts';
+import { lawmakerRoutes } from './lawmakers.ts';
 import { meRoutes } from './me.ts';
 import { socialRoutes } from './social.ts';
 
@@ -22,5 +23,6 @@ await app.register(gameRoutes);
 await app.register(meRoutes);
 await app.register(socialRoutes);
 await app.register(groupRoutes);
+await app.register(lawmakerRoutes);
 
 await app.listen({ port: Number(process.env.PORT ?? 8787), host: '0.0.0.0' });

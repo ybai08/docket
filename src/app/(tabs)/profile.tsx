@@ -6,6 +6,7 @@ import { TabScreen } from '@/components/tab-screen';
 import { authErrorMessage, useAuth } from '@/lib/auth-context';
 import { addDays } from '@/lib/day';
 import { useMe } from '@/lib/me-context';
+import { useRemote } from '@/lib/social';
 import { useToday } from '@/lib/use-today';
 import { colors, fonts, type } from '@/theme';
 
@@ -15,7 +16,8 @@ export default function ProfileScreen() {
   const { user, signOut } = useAuth();
   const { profile, stats: serverStats } = useMe();
   const { day, stats } = useToday();
-  const [level, setLevel] = useState<Level>('state');
+  const [level, setLevel] = useState<Level>('federal');
+  const { data: lawmakerData } = useRemote<LawmakerData>('/me/lawmakers');
   const [error, setError] = useState<string | null>(null);
 
   if (!user) return null;
@@ -147,18 +149,31 @@ export default function ProfileScreen() {
           })}
         </View>
         <View>
-          {lawmakers(level, profile).map((p, i) => (
+          {lawmakers(level, profile, lawmakerData).map((p, i) => (
             <View
               key={i}
               style={{ flexDirection: 'row', alignItems: 'center', gap: 12, paddingVertical: 12, paddingHorizontal: 2, borderTopWidth: 1, borderTopColor: colors.hairline }}>
               <View style={{ width: 40, height: 40, borderRadius: 20, backgroundColor: colors.hairline }} />
               <View style={{ flex: 1, gap: 1 }}>
-                <Text style={{ fontSize: 16, fontWeight: '600' }}>{p.name}</Text>
+                <Text style={{ fontSize: 16, fontWeight: '600' }}>
+                  {p.name}
+                  {p.party ? <Text style={{ fontWeight: '400', color: colors.meta }}>{` · ${PARTY[p.party] ?? p.party}`}</Text> : null}
+                </Text>
                 <Text style={type.meta}>{p.role}</Text>
               </View>
               <View style={{ alignItems: 'flex-end', gap: 1 }}>
-                <Text style={{ fontSize: 20, fontVariant: ['tabular-nums'] }}>[%]</Text>
-                <Text style={{ fontSize: 12, color: colors.meta }}>{level === 'local' ? '[n] votes' : '[n] bills'}</Text>
+                <Text style={{ fontSize: 20, fontVariant: ['tabular-nums'] }}>
+                  {p.real ? (p.pct === null ? '–' : `${p.pct}%`) : '[%]'}
+                </Text>
+                <Text style={{ fontSize: 12, color: colors.meta }}>
+                  {p.real
+                    ? p.shared
+                      ? `${p.shared} ${level === 'local' ? (p.shared === 1 ? 'vote' : 'votes') : p.shared === 1 ? 'bill' : 'bills'}`
+                      : 'Vote to compare'
+                    : level === 'local'
+                      ? '[n] votes'
+                      : '[n] bills'}
+                </Text>
               </View>
             </View>
           ))}
@@ -183,10 +198,22 @@ function profileStateName(state: string | null | undefined) {
   return state ? (STATE_NAMES[state] ?? state) : '';
 }
 
-// Names stay placeholders until member-level votes are loaded for each body.
-function lawmakers(level: Level, profile: ReturnType<typeof useMe>['profile']) {
+const PARTY: Record<string, string> = { D: 'Democrat', R: 'Republican', I: 'Independent' };
+
+type LawmakerRow = { name: string; role: string; party?: string | null; pct?: number | null; shared?: number; real?: boolean };
+type LawmakerData = { federal: LawmakerRow[]; local: LawmakerRow[] };
+
+// Congress (Texas) and Austin come from recorded member votes; the rest stay placeholders.
+function lawmakers(level: Level, profile: ReturnType<typeof useMe>['profile'], data: LawmakerData | null): LawmakerRow[] {
   const d = profile?.districts;
   const state = profileStateName(profile?.state) || 'State';
+  if (level === 'federal' && data?.federal.length) return data.federal.map((r) => ({ ...r, real: true }));
+  if (level === 'local' && data?.local.length) {
+    return [
+      ...data.local.map((r) => ({ ...r, real: true })),
+      { name: '[County commissioner]', role: `${profile?.county ?? '[County]'}, Precinct [#]` },
+    ];
+  }
   if (level === 'state') {
     return [
       { name: '[State senator]', role: `${state} Senate, District ${d?.stateSenate ?? '[##]'}` },
