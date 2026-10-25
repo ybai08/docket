@@ -86,5 +86,18 @@ for (const uid of real) {
     [uid],
   );
 }
-console.log(`demo accounts ready; befriended ${real.length} account(s)`);
+// A demo group with every demo account and every real account, so splits pass the 5-voter minimum.
+let [group] = await query<{ id: string }>(`SELECT id FROM groups WHERE code = 'J4DEMO'`);
+if (!group) {
+  [group] = await query<{ id: string }>(
+    `INSERT INTO groups (name, admin_id, code) VALUES ('Jester West, 4th floor', 'demo-priya', 'J4DEMO') RETURNING id`,
+  );
+}
+for (const id of [...DEMOS.map((d) => d.id), ...real]) {
+  await query(
+    `INSERT INTO group_members (group_id, user_id, role) VALUES ($1, $2, $3) ON CONFLICT DO NOTHING`,
+    [group.id, id, id === 'demo-priya' ? 'admin' : 'member'],
+  );
+}
+console.log(`demo accounts ready; befriended ${real.length} account(s); demo group code J4DEMO`);
 await pool.end();

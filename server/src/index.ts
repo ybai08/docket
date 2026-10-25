@@ -3,6 +3,7 @@ import Fastify from 'fastify';
 import { ZodError } from 'zod';
 
 import { gameRoutes } from './games.ts';
+import { groupRoutes } from './groups.ts';
 import { meRoutes } from './me.ts';
 import { socialRoutes } from './social.ts';
 
@@ -20,5 +21,6 @@ app.get('/health', async () => ({ ok: true }));
 await app.register(gameRoutes);
 await app.register(meRoutes);
 await app.register(socialRoutes);
+await app.register(groupRoutes);
 
 await app.listen({ port: Number(process.env.PORT ?? 8787), host: '0.0.0.0' });

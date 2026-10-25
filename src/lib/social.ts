@@ -88,3 +88,44 @@ const SOURCE_LABELS: Record<string, string> = {
 export function requestSource(source: string) {
   return SOURCE_LABELS[source] ?? 'Wants to be friends';
 }
+
+export type GroupSummary = { id: string; name: string; badge: string; members: number; pending: boolean; rank: number | null };
+
+export type GroupPreview = {
+  id: string;
+  name: string;
+  badge: string;
+  members: number;
+  full: boolean;
+  adminName: string;
+  approvalRequired: boolean;
+  status: 'active' | 'pending' | null;
+};
+
+export type GroupSplit = {
+  billId: string;
+  number: string;
+  title: string;
+  voters: number;
+  yeaPct: number | null;
+  hiddenReason: 'few' | 'unanimous' | null;
+};
+
+export type GroupDetail = {
+  id: string;
+  name: string;
+  badge: string;
+  members: number;
+  playedToday: number;
+  code: string;
+  approvalRequired: boolean;
+  isAdmin: boolean;
+  includeInSplits: boolean;
+  board: { id: string; name: string; points: number; isYou: boolean }[];
+  today: GroupSplit[];
+  recap: string | null;
+  minVoters: number;
+  people: { id: string; name: string; status: 'active' | 'pending'; role: string; isYou: boolean }[];
+};
+
+export const groupLink = (code: string) => `docket://group/${code}`;

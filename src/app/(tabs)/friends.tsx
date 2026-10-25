@@ -9,8 +9,8 @@ import { SegmentedPills } from '@/components/segmented-pills';
 import { TabScreen } from '@/components/tab-screen';
 import { api } from '@/lib/api';
 import { formatDayLong } from '@/lib/day';
-import { requestSource, useRemote, type BoardRow, type FriendsData } from '@/lib/social';
-import { colors, type } from '@/theme';
+import { requestSource, useRemote, type BoardRow, type FriendsData, type GroupSummary } from '@/lib/social';
+import { colors, fonts, type } from '@/theme';
 
 type Tab = 'board' | 'friends' | 'groups';
 
@@ -223,10 +223,51 @@ function FriendList({ data, onRespond }: { data: FriendsData; onRespond: (id: st
   );
 }
 
+const GROUP_FILLS = [colors.teal, colors.lavender, colors.yellow];
+
 function Groups() {
+  const { data } = useRemote<{ groups: GroupSummary[] }>('/groups');
+  const groups = data?.groups ?? [];
   return (
     <View style={{ gap: 10 }}>
-      <Empty title="No groups yet" body="Make one for your dorm floor, class or club." />
+      {groups.length === 0 && <Empty title="No groups yet" body="Make one for your dorm floor, class or club." />}
+      {groups.map((g, i) => (
+        <Pressable
+          key={g.id}
+          accessibilityRole="button"
+          disabled={g.pending}
+          onPress={() => router.push({ pathname: '/group/[id]', params: { id: g.id } })}
+          style={({ pressed }) => ({
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: 12,
+            padding: 14,
+            borderRadius: 12,
+            backgroundColor: GROUP_FILLS[i % GROUP_FILLS.length],
+            opacity: pressed ? 0.7 : 1,
+          })}>
+          <View
+            style={{
+              width: 44,
+              height: 44,
+              borderRadius: 10,
+              backgroundColor: colors.ground,
+              borderWidth: 1.5,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <Text style={{ fontFamily: fonts.serif800, fontSize: g.badge.length > 2 ? 17 : 20 }}>{g.badge}</Text>
+          </View>
+          <View style={{ flex: 1, gap: 1 }}>
+            <Text style={{ fontFamily: fonts.serif700, fontSize: 19 }}>{g.name}</Text>
+            <Text style={{ fontSize: 13 }}>
+              {g.pending
+                ? 'Waiting for the admin to approve you'
+                : `${g.members} ${g.members === 1 ? 'member' : 'members'}.${g.rank ? ` You're ${ordinalOf(g.rank)} this week.` : ''}`}
+            </Text>
+          </View>
+        </Pressable>
+      ))}
       <View style={{ flexDirection: 'row', gap: 10, marginTop: 4 }}>
         <PillButton label="Create a group" style={{ flex: 1, height: 48 }} onPress={() => router.push('/group/new')} />
         <PillButton label="Join with a code" variant="outline" style={{ flex: 1, height: 48 }} onPress={() => router.push('/group/join')} />
@@ -234,6 +275,12 @@ function Groups() {
       <Text style={[type.meta, { textAlign: 'center' }]}>Groups hold up to 50 people. Join by link or QR code.</Text>
     </View>
   );
+}
+
+function ordinalOf(n: number) {
+  const s = ['th', 'st', 'nd', 'rd'];
+  const v = n % 100;
+  return n + (s[(v - 20) % 10] || s[v] || s[0]);
 }
 
 function Empty({ title, body }: { title: string; body: string }) {
