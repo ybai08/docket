@@ -1,22 +1,24 @@
 export const spacing = {
   xs: 4,
   sm: 8,
-  md: 16,
-  lg: 24,
-  xl: 32,
-  xxl: 48,
+  md: 12,
+  lg: 16,
+  xl: 24,
+  xxl: 32,
 } as const;
 
 export const radius = {
+  tile: 3,
   sm: 8,
-  md: 12,
-  lg: 16,
-  full: 9999,
+  card: 12,
+  bill: 14,
+  pill: 999,
 } as const;
 
-export const shadows = {
-  card: '0 1px 2px rgba(0, 0, 0, 0.06)',
-  raised: '0 6px 18px rgba(0, 0, 0, 0.12)',
+export const border = {
+  hair: 1,
+  thin: 1.5,
+  card: 2,
 } as const;
 
 export const motion = {

@@ -1,46 +1,27 @@
-import { Color } from 'expo-router';
-import { Platform, useColorScheme } from 'react-native';
-
-// Semantic platform colors: resolve on-device and follow light/dark automatically.
+// Docket palette. Light only for the hackathon: the design has no dark mode.
+// Never use red or blue for agree/disagree: teal = agreed, lavender = disagreed.
 export const colors = {
-  label: Platform.select({ ios: Color.ios.label, android: Color.android.dynamic.onSurface, default: '#000000' })!,
-  secondaryLabel: Platform.select({
-    ios: Color.ios.secondaryLabel,
-    android: Color.android.dynamic.onSurfaceVariant,
-    default: '#3c3c43',
-  })!,
-  tertiaryLabel: Platform.select({
-    ios: Color.ios.tertiaryLabel,
-    android: Color.android.dynamic.outline,
-    default: '#8e8e93',
-  })!,
-  separator: Platform.select({
-    ios: Color.ios.separator,
-    android: Color.android.dynamic.outlineVariant,
-    default: '#c6c6c8',
-  })!,
-  groupedBackground: Platform.select({
-    ios: Color.ios.systemGroupedBackground,
-    android: Color.android.dynamic.surface,
-    default: '#f2f2f7',
-  })!,
-  groupedSurface: Platform.select({
-    ios: Color.ios.secondarySystemGroupedBackground,
-    android: Color.android.dynamic.surfaceContainer,
-    default: '#ffffff',
-  })!,
-  // Bill outcomes reuse the platform's own red/green so they match system UI.
-  vetoed: Platform.select({ ios: Color.ios.systemRed, android: Color.android.dynamic.error, default: '#ff3b30' })!,
-  passed: Platform.select({ ios: Color.ios.systemGreen, android: Color.android.dynamic.tertiary, default: '#34c759' })!,
-};
-
-// Brand "docket ink": the one color the platform doesn't provide.
-const brandPalette = {
-  light: { ink: '#2A3A9E', onInk: '#FFFFFF' },
-  dark: { ink: '#A7B2FF', onInk: '#14194A' },
+  ground: '#FFFFFF',
+  ink: '#000000',
+  text2: '#3A3A3C', // body
+  meta: '#5A5A5E', // meta lines
+  tabInactive: '#6B6B70',
+  hairline: '#E4E4E7',
+  outline: '#D4D4D8', // inactive outlines
+  track: '#A1A1AA', // 50% tick on vote sliders
+  muted: '#F4F4F5',
+  lavender: '#C9D0F5', // Roll Call, state bills, "disagreed"
+  yellow: '#F8D08A', // Filed or Fake, Congress bills, small highlights only
+  teal: '#A8DDD5', // Landslide, local items, "agreed"
+  fakeInk: '#2A3A9E', // the FAKE stamp only
+  vetoRed: '#C62828', // the VETOED stamp on sign-in only
+  dashed: 'rgba(0, 0, 0, 0.35)',
 } as const;
 
-export function useBrandColors() {
-  const scheme = useColorScheme();
-  return brandPalette[scheme === 'dark' ? 'dark' : 'light'];
-}
+export type Level = 'federal' | 'state' | 'local';
+
+export const levelColor: Record<Level, string> = {
+  state: colors.lavender,
+  federal: colors.yellow,
+  local: colors.teal,
+};

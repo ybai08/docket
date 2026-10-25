@@ -1,19 +1,21 @@
 import * as AppleAuthentication from 'expo-apple-authentication';
-import { useEffect, useRef, useState } from 'react';
-import { AccessibilityInfo, ActivityIndicator, Animated, Pressable, useColorScheme, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { ThemedText } from '@/components/themed-text';
+import { BillChip } from '@/components/bill-chip';
+import { GoogleG } from '@/components/icons';
+import { PillButton } from '@/components/pill-button';
+import { Stamp } from '@/components/stamp';
 import { authErrorMessage, isCancelled, useAuth } from '@/lib/auth-context';
 import { isFirebaseConfigured } from '@/lib/firebaseConfig';
 import { isAppleSignInAvailable, isGoogleConfigured } from '@/lib/social-auth';
-import { colors, radius, shadows, spacing, type, useBrandColors } from '@/theme';
+import { colors, fonts, radius, type } from '@/theme';
 
 type Provider = 'google' | 'apple';
 
 export default function SignInScreen() {
   const { signInWithGoogle, signInWithApple } = useAuth();
-  const scheme = useColorScheme();
   const [appleAvailable, setAppleAvailable] = useState(false);
   const [busy, setBusy] = useState<Provider | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -42,179 +44,104 @@ export default function SignInScreen() {
   const locked = busy !== null || !isFirebaseConfigured;
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: colors.groupedBackground }}>
-      <View style={{ flex: 1, padding: spacing.lg, gap: spacing.xl, width: '100%', maxWidth: 480, alignSelf: 'center' }}>
-        <View style={{ gap: spacing.sm, paddingTop: spacing.md }}>
-          <ThemedText variant="wordmark" accessibilityRole="header">
+    <SafeAreaView style={{ flex: 1, backgroundColor: colors.ground }}>
+      <View style={{ flex: 1, paddingHorizontal: 24, paddingTop: 24, paddingBottom: 16, gap: 28, width: '100%', maxWidth: 480, alignSelf: 'center' }}>
+        <View style={{ gap: 10 }}>
+          <Text style={type.wordmark} accessibilityRole="header">
             Docket
-          </ThemedText>
-          <ThemedText variant="callout" style={{ maxWidth: 320 }}>
-            Vote on real Texas bills, then see how your friends and lawmakers voted.
-          </ThemedText>
+          </Text>
+          <Text style={{ fontSize: 18, lineHeight: 25, color: colors.text2, maxWidth: 310 }}>
+            Daily ballots on real bills from Congress and your state. Vote, guess, rank, then see how your friends and
+            lawmakers voted.
+          </Text>
         </View>
 
         <View style={{ flex: 1, justifyContent: 'center' }}>
           <BillStack />
         </View>
 
-        <View style={{ gap: spacing.md }}>
+        <View style={{ gap: 12 }}>
           {setupMessage && (
-            <ThemedText
-              variant="footnote"
+            <Text
               selectable
-              style={{
-                backgroundColor: colors.groupedSurface,
-                borderRadius: radius.md,
-                borderCurve: 'continuous',
-                padding: spacing.md,
-              }}>
+              style={[type.meta, { backgroundColor: colors.muted, borderRadius: radius.card, padding: 12, color: colors.text2 }]}>
               {setupMessage}
-            </ThemedText>
+            </Text>
           )}
 
           {appleAvailable && (
             <AppleAuthentication.AppleAuthenticationButton
               buttonType={AppleAuthentication.AppleAuthenticationButtonType.CONTINUE}
-              buttonStyle={
-                scheme === 'dark'
-                  ? AppleAuthentication.AppleAuthenticationButtonStyle.WHITE
-                  : AppleAuthentication.AppleAuthenticationButtonStyle.BLACK
-              }
-              cornerRadius={radius.md}
-              style={{ height: 50, width: '100%', opacity: locked ? 0.5 : 1 }}
+              buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}
+              cornerRadius={27}
+              style={{ height: 54, width: '100%', opacity: locked ? 0.5 : 1 }}
               onPress={() => !locked && run('apple')}
             />
           )}
 
-          <GoogleButton
+          <PillButton
+            label="Continue with Google"
+            variant="outline"
+            icon={<GoogleG />}
             busy={busy === 'google'}
             disabled={locked || !isGoogleConfigured}
             onPress={() => run('google')}
           />
 
           {error && (
-            <ThemedText variant="footnote" selectable style={{ color: colors.vetoed }}>
+            <Text selectable style={[type.meta, { color: colors.ink, textAlign: 'center' }]}>
               {error}
-            </ThemedText>
+            </Text>
           )}
 
-          <ThemedText variant="footnote" style={{ color: colors.tertiaryLabel }}>
-            We use your name and email only to set up your profile.
-          </ThemedText>
+          <Text style={[type.meta, { marginTop: 4, textAlign: 'center' }]}>
+            We use your name and email only for your profile. We never ask for your party.
+          </Text>
         </View>
       </View>
     </SafeAreaView>
   );
 }
 
-function GoogleButton({ busy, disabled, onPress }: { busy: boolean; disabled: boolean; onPress: () => void }) {
-  return (
-    <Pressable
-      accessibilityRole="button"
-      accessibilityLabel="Continue with Google"
-      accessibilityState={{ disabled, busy }}
-      disabled={disabled}
-      onPress={onPress}
-      style={({ pressed }) => ({
-        height: 50,
-        borderRadius: radius.md,
-        borderCurve: 'continuous',
-        borderWidth: 1,
-        borderColor: colors.separator,
-        backgroundColor: colors.groupedSurface,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: spacing.sm,
-        opacity: disabled && !busy ? 0.5 : pressed ? 0.7 : 1,
-      })}>
-      {busy ? (
-        <ActivityIndicator color={colors.label} />
-      ) : (
-        <>
-          {/* Google's brand blue for the "G" mark; not a theme color. */}
-          <ThemedText style={{ ...type.headline, fontSize: 19, fontWeight: '800', color: '#4285F4' }}>G</ThemedText>
-          <ThemedText variant="headline" style={{ fontSize: 19 }}>
-            Continue with Google
-          </ThemedText>
-        </>
-      )}
-    </Pressable>
-  );
-}
-
 // A real 2025 bill as a game card: the one bold element on this screen.
 function BillStack() {
-  const brand = useBrandColors();
-  const stamp = useRef(new Animated.Value(0)).current;
-
-  useEffect(() => {
-    let cancelled = false;
-    AccessibilityInfo.isReduceMotionEnabled().then((reduce) => {
-      if (cancelled) return;
-      if (reduce) return stamp.setValue(1);
-      Animated.spring(stamp, { toValue: 1, delay: 500, friction: 5, tension: 120, useNativeDriver: true }).start();
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, [stamp]);
-
-  const card = {
+  const back = {
     position: 'absolute' as const,
-    left: 0,
-    right: 0,
-    height: 224,
-    borderRadius: radius.lg,
-    borderCurve: 'continuous' as const,
-    backgroundColor: colors.groupedSurface,
-    borderWidth: 1,
-    borderColor: colors.separator,
+    top: 0,
+    height: 220,
+    borderRadius: radius.bill,
+    borderWidth: 2,
+    borderColor: colors.ink,
   };
 
   return (
     <View
-      style={{ height: 258, marginHorizontal: spacing.sm }}
+      style={{ height: 252 }}
       accessible
       accessibilityLabel="Example card: Senate Bill 3, ban hemp-derived THC products in Texas. Passed the House and Senate, then vetoed.">
-      <View style={[card, { top: 22, transform: [{ rotate: '4deg' }], opacity: 0.55 }]} />
-      <View style={[card, { top: 12, transform: [{ rotate: '-3deg' }], opacity: 0.8 }]} />
-      <View style={[card, { top: 0, padding: spacing.lg, gap: spacing.sm, boxShadow: shadows.raised }]}>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-          <ThemedText variant="billNumber" style={{ color: brand.ink }}>
-            SB 3
-          </ThemedText>
-          <ThemedText variant="billNumber" style={{ fontWeight: '500' }}>
-            Texas Senate, 2025
-          </ThemedText>
+      <View style={[back, { left: 16, right: 0, top: 20, backgroundColor: colors.teal, transform: [{ rotate: '4deg' }] }]} />
+      <View style={[back, { left: 8, right: 8, top: 10, backgroundColor: colors.yellow, transform: [{ rotate: '-3deg' }] }]} />
+      <View
+        style={[
+          back,
+          { left: 0, right: 16, padding: 20, gap: 10, backgroundColor: colors.ground },
+        ]}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+          <BillChip number="SB 3" level="state" />
+          <Text style={type.meta}>Texas Senate, 2025</Text>
         </View>
-        <ThemedText variant="title" style={{ fontSize: 24, lineHeight: 29, maxWidth: 300 }}>
+        <Text style={{ fontFamily: fonts.serif700, fontSize: 27, lineHeight: 31, maxWidth: 260 }}>
           Ban hemp-derived THC products in Texas
-        </ThemedText>
-        <ThemedText variant="subhead">Passed the House and Senate.</ThemedText>
-
-        <Animated.View
-          style={{
-            position: 'absolute',
-            right: spacing.lg,
-            bottom: spacing.lg,
-            borderWidth: 3,
-            borderColor: colors.vetoed,
-            borderRadius: radius.sm,
-            borderCurve: 'continuous',
-            paddingHorizontal: spacing.sm,
-            paddingVertical: 2,
-            opacity: stamp,
-            transform: [
-              { rotate: '-11deg' },
-              { scale: stamp.interpolate({ inputRange: [0, 1], outputRange: [1.8, 1] }) },
-            ],
-          }}>
-          {/* Uppercase on purpose: it imitates a real rubber stamp. */}
-          <ThemedText style={{ fontSize: 20, fontWeight: '900', letterSpacing: 2, color: colors.vetoed }}>
-            VETOED
-          </ThemedText>
-        </Animated.View>
+        </Text>
+        <Text style={{ fontSize: 14, color: colors.meta }}>Passed the House and Senate.</Text>
+        <Stamp
+          label="VETOED"
+          color={colors.vetoRed}
+          fontSize={22}
+          rotate={-10}
+          delay={500}
+          style={{ position: 'absolute', right: 18, bottom: 16 }}
+        />
       </View>
     </View>
   );
