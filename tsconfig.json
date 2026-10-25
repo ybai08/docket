@@ -16,6 +16,7 @@
   ],
   "exclude": [
     "server",
+    "promo",
     "node_modules"
   ]
 }

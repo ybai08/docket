@@ -1,0 +1,25 @@
+{
+  "name": "docket-promo",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Hackathon demo video for Docket, built with Remotion.",
+  "scripts": {
+    "studio": "remotion studio",
+    "render": "remotion render DocketDemo out/docket-demo.mp4",
+    "still": "remotion still DocketDemo out/frame.png --frame=60",
+    "typecheck": "tsc --noEmit",
+    "render:safe": "remotion render DocketDemo out/docket-demo-safezone.mp4 --props={\"showSafeZone\":true}"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.538",
+    "@remotion/google-fonts": "^4.0.538",
+    "@remotion/transitions": "^4.0.538",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "remotion": "^4.0.538"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.8",
+    "typescript": "^5.8.3"
+  }
+}
