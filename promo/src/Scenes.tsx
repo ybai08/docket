@@ -74,11 +74,18 @@ export function Today() {
   return (
     <AbsoluteFill>
       <Background tint={C.yellow} />
-      <Copy label="Today's ballot" color={C.yellow} title="A ballot a day." body="Three quick games, all built on real bills. Play daily to keep your streak alive." />
+      <Copy label="Today's ballot" color={C.yellow} title="A ballot a day." body="Three quick games, all built on real bills. Tap your streak to see your week." />
       <Phone>
-        <Screens shots={[{ src: 'today', at: 0 }]} />
+        <Screens
+          shots={[
+            { src: 'today', at: 0 },
+            { src: 'streak', at: 128 },
+          ]}
+        />
+        <Tap x={pt(0.9, SCREEN_W)} y={pt(0.118, 870)} at={112} />
       </Phone>
-      <Callout label="Today's ballot" value="3 games" sub="Roll Call, Filed or Fake and Landslide" color={C.yellow} at={30} />
+      <Callout label="Today's ballot" value="3 games" sub="Roll Call, Filed or Fake and Landslide" color={C.yellow} at={30} outAt={118} />
+      <Callout label="Your streak" value="4 days" sub="Play every day to keep it going. Best: 10" color={C.yellow} at={140} />
     </AbsoluteFill>
   );
 }
@@ -418,8 +425,8 @@ export function Records() {
           ]}
         />
       </Phone>
-      <Callout label="HB 1481 · Phones in classrooms" value="128–17" sub="Texas House. Signed into law." color={C.yellow} at={30} outAt={168} />
-      <Callout label="Lloyd Doggett" value="Since 1995" sub="Background from Wikipedia, credited in the app" color={C.lavender} at={194} />
+      <Callout label="HB 1481 · Phones in classrooms" value="128–17" sub="Texas House. Your state rep voted Yea." color={C.yellow} at={30} outAt={168} />
+      <Callout label="Gina Hinojosa · Texas House" value="67%" sub="You agree on 4 of the 6 bills you've both voted on" color={C.teal} at={194} />
     </AbsoluteFill>
   );
 }
