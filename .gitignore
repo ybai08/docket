@@ -51,3 +51,5 @@ firebase-debug.log
 # Firebase native config (client IDs go in .env)
 GoogleService-Info.plist
 google-services.json
+# Public CA certificate for Tiger Cloud (not a key)
+!server/certs/timescale-ca.pem

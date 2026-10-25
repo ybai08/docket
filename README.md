@@ -47,7 +47,7 @@ npm run seed            # loads the verified bills and daily sets from src/data
 npm run dev             # http://localhost:8787, reloads on change
 ```
 
-The iOS Simulator reaches `localhost` directly. For a phone, set `EXPO_PUBLIC_API_URL` in the app's `.env` to an address it can reach. Hosted Postgres (Tiger Cloud) works the same: put its connection string in `DATABASE_URL`; TLS is turned on for any non-local host.
+The iOS Simulator reaches `localhost` directly. For a phone, set `EXPO_PUBLIC_API_URL` in the app's `.env` to an address it can reach. Hosted Postgres (Tiger Cloud) works the same: put its connection string in `DATABASE_URL`. Tiger Cloud signs with its own CA, so `server/certs/timescale-ca.pem` is pinned and TLS stays fully verified; other hosts must present a publicly trusted certificate.
 
 Endpoints (all need `Authorization: Bearer <Firebase ID token>`): `GET /today`, `POST /votes`, `POST /votes/reset`, `POST /results/:game`, `GET /results/today`, `GET /me`, `PATCH /me`.
 
