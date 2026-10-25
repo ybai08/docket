@@ -4,6 +4,10 @@ Newest first. Each commit adds a line or two here: what changed, what's live, wh
 
 ## 2026-10-25
 
+### QA
+- `docs/QA_REPORT.md`: break-testing the API with simulated players (cheater, races, groups, area leaderboard, spammer/fuzzer, a player who moves states). Found 1 critical, 7 high, 10 medium and 12 low issues. The worst: group and area vote splits reveal one person's vote, `/today` ships the Filed or Fake and Landslide answers, and parallel submits can un-finish and replay a game. Sent to the backend session; no server code changed.
+- `server/qa/`: rerunnable repro scripts, plus `start-local.sh`, which runs the API against its own Docker Postgres with stubbed auth. Production was never touched.
+
 ### Every state's bills: 48 of 50 states live (backend)
 - Added Virginia, Washington and Wyoming (LIS data files, the Washington Legislature web services, the Wyoming LSO API) and Arkansas, Kansas and New Mexico (arkleg.state.ar.us, the Kansas KLISS API, nmlegis.gov). Each has 11 bills, with every tally checked against the official record. 520 state bills in all; seeded and live.
 - All 50 states except Wisconsin and West Virginia now get their own bills; Texas keeps its curated set. Those two, and a better Georgia Landslide, are being gathered from their legislatures' sites. Puerto Rico still uses the default set: its bill titles are in Spanish and don't have plain-English text yet.
