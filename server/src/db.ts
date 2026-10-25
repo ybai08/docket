@@ -29,3 +29,25 @@ export async function query<T extends pg.QueryResultRow>(text: string, params: u
   const res = await pool.query<T>(text, params);
   return res.rows;
 }
+
+export type Query = <T extends pg.QueryResultRow>(text: string, params?: unknown[]) => Promise<T[]>;
+
+/**
+ * Runs fn in one transaction holding an advisory lock on key, so concurrent requests about the same
+ * thing (a pair of people, say) happen one after another instead of interleaving.
+ */
+export async function withLock<T>(key: string, fn: (q: Query) => Promise<T>) {
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+    await client.query('SELECT pg_advisory_xact_lock(hashtext($1))', [key]);
+    const out = await fn(async (text, params = []) => (await client.query(text, params)).rows);
+    await client.query('COMMIT');
+    return out;
+  } catch (err) {
+    await client.query('ROLLBACK');
+    throw err;
+  } finally {
+    client.release();
+  }
+}

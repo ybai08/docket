@@ -635,6 +635,72 @@
   "title": "Change property tax administration rules",
   "topic": "Housing and property tax"
  },
+ "ga-20252026-hb1030": {
+  "shortTitle": "Advanced math courses",
+  "summary": "Require state standards for advanced math courses, require middle and high schools to offer them, and require teacher certification programs to cover math teaching skills.",
+  "title": "Require advanced math courses in schools",
+  "topic": "Public schools"
+ },
+ "ga-20252026-hb111": {
+  "shortTitle": "Income tax rate",
+  "summary": "Reduce the rate of the state income tax.",
+  "title": "Reduce the state income tax rate",
+  "topic": "Taxes and budget"
+ },
+ "ga-20252026-hb117": {
+  "shortTitle": "Seafood origin notice",
+  "summary": "Require food service establishments to give notice of the country of origin of seafood items.",
+  "title": "Require seafood country-of-origin notice at restaurants",
+  "topic": "Health care"
+ },
+ "ga-20252026-hb1324": {
+  "shortTitle": "Silencer possession",
+  "summary": "Repeal the prohibition on possessing a silencer and make conforming changes.",
+  "title": "Repeal the ban on possessing a silencer",
+  "topic": "Guns"
+ },
+ "ga-20252026-hb14": {
+  "shortTitle": "State bread",
+  "summary": "Designate cornbread as the official state bread of Georgia.",
+  "title": "Name cornbread the official state bread",
+  "topic": "Arts and culture"
+ },
+ "ga-20252026-hb233": {
+  "shortTitle": "State stew",
+  "summary": "Designate Brunswick stew as the official state stew.",
+  "title": "Name Brunswick stew the official state stew",
+  "topic": "Arts and culture"
+ },
+ "ga-20252026-hb340": {
+  "shortTitle": "Devices in K-8",
+  "summary": "Require local school systems and public schools to set policies on personal electronic devices for students in kindergarten through eighth grade.",
+  "title": "Require school policies on student electronic devices",
+  "topic": "Public schools"
+ },
+ "ga-20252026-hb369": {
+  "shortTitle": "Food vehicle standards",
+  "summary": "Set vehicle equipment standards for motor vehicles that primarily sell food or beverages upon roadways.",
+  "title": "Set equipment standards for food and beverage vehicles",
+  "topic": "Taxes and budget"
+ },
+ "ga-20252026-sb1": {
+  "shortTitle": "Fair athletic opportunities",
+  "summary": "Designate school and college sports teams, bar males from teams designated female, and bar females from intercollegiate teams designated male, with exceptions.",
+  "title": "Limit male participation on female-designated sports teams",
+  "topic": "Public schools"
+ },
+ "ga-20252026-sb241": {
+  "shortTitle": "Organic human reduction",
+  "summary": "Provide for organic human reduction as a means of disposing of deceased bodies and require a disposition permit for it.",
+  "title": "Allow organic human reduction for disposing of bodies",
+  "topic": "Health care"
+ },
+ "ga-20252026-sb33": {
+  "shortTitle": "Hemp THC limits",
+  "summary": "Set limits on the total THC concentration of consumable hemp products and revise the certificate of analysis provisions that apply to them.",
+  "title": "Set limits on THC in consumable hemp products",
+  "topic": "Health care"
+ },
  "ga-2026_ss-hb13": {
   "shortTitle": "Mitchell County exemption",
   "summary": "Provide a homestead exemption from Mitchell County property taxes based on proceeds of a new local sales tax, subject to a referendum.",
@@ -3052,6 +3118,138 @@
   "summary": "Establish a new state tax that would apply to millionaires.",
   "title": "Create a tax on millionaires",
   "topic": "Taxes and budget"
+ },
+ "wi-2025-ab130": {
+  "shortTitle": "PFAS enforcement exemption",
+  "summary": "Exempt certain persons from PFAS enforcement actions under the spills law.",
+  "title": "Exempt certain persons from PFAS spills-law enforcement",
+  "topic": "Water and environment"
+ },
+ "wi-2025-ab2": {
+  "shortTitle": "Devices during class",
+  "summary": "Require school boards to adopt policies that prohibit the use of wireless communication devices during instructional time.",
+  "title": "Require school policies banning wireless devices in class",
+  "topic": "Public schools"
+ },
+ "wi-2025-ab373": {
+  "shortTitle": "Stillbirth tax credit",
+  "summary": "Create a refundable individual income tax credit for the parent of a stillbirth and make an appropriation.",
+  "title": "Create an income tax credit for stillbirth parents",
+  "topic": "Taxes and budget"
+ },
+ "wi-2025-ab443": {
+  "shortTitle": "Municipal court costs",
+  "summary": "Increase the maximum fee for court costs that can be collected in a municipal court action.",
+  "title": "Raise the maximum court cost fee in municipal courts",
+  "topic": "Criminal justice"
+ },
+ "wi-2025-ab598": {
+  "shortTitle": "Admission consent",
+  "summary": "Allow patient representatives to consent to admission to certain health care facilities without requiring a petition for guardianship or protective placement.",
+  "title": "Let patient representatives consent to facility admissions",
+  "topic": "Health care"
+ },
+ "wi-2025-ab685": {
+  "shortTitle": "Theft loss subtraction",
+  "summary": "Create an individual income tax subtraction for certain theft losses.",
+  "title": "Allow an income tax subtraction for theft losses",
+  "topic": "Taxes and budget"
+ },
+ "wi-2025-ab737": {
+  "shortTitle": "Neighborhood district charges",
+  "summary": "Allow certain infrastructure to be financed by a special charge approved by a neighborhood improvement district.",
+  "title": "Let neighborhood districts fund infrastructure by special charge",
+  "topic": "Housing and property tax"
+ },
+ "wi-2025-sb182": {
+  "shortTitle": "EMS education and 911",
+  "summary": "Provide emergency medical services education, tuition and materials reimbursement for responders and practitioners, and create a live 911 pilot program.",
+  "title": "Fund emergency medical education and a live 911 pilot",
+  "topic": "Health care"
+ },
+ "wi-2025-sb264": {
+  "shortTitle": "Breast cancer screenings",
+  "summary": "Require Medical Assistance and health insurance policies and plans to cover breast cancer screenings.",
+  "title": "Require coverage of breast cancer screenings",
+  "topic": "Health care"
+ },
+ "wi-2025-sb533": {
+  "shortTitle": "Disarming correctional officers",
+  "summary": "Prohibit intentionally disarming a correctional officer and provide a penalty for doing so.",
+  "title": "Make intentionally disarming a correctional officer a crime",
+  "topic": "Criminal justice"
+ },
+ "wi-2025-sb96": {
+  "shortTitle": "Home EV charging tax",
+  "summary": "Exempt electricity delivered by electric vehicle charging stations at a residence from the electric vehicle charging tax and make technical changes to the tax's administration.",
+  "title": "Exempt home EV chargers from the charging tax",
+  "topic": "Taxes and budget"
+ },
+ "wv-2026-hb4106": {
+  "shortTitle": "Carry at 18-20",
+  "summary": "Allow constitutional carry for people who are 18 to 20 years old.",
+  "title": "Allow constitutional carry for ages 18 to 20",
+  "topic": "Guns"
+ },
+ "wv-2026-hb4425": {
+  "shortTitle": "Transfer eligibility",
+  "summary": "Repeal the provision that allows students to transfer from one school to another without losing eligibility.",
+  "title": "End eligibility protection for transferring students",
+  "topic": "Public schools"
+ },
+ "wv-2026-hb4433": {
+  "shortTitle": "Smuggling and trafficking",
+  "summary": "Prohibit the acts of human smuggling and human trafficking.",
+  "title": "Prohibit human smuggling and trafficking",
+  "topic": "Criminal justice"
+ },
+ "wv-2026-hb4437": {
+  "shortTitle": "Gold Star registration",
+  "summary": "Allow Gold Star parents to receive one free Gold Star vehicle registration for personal use.",
+  "title": "Give Gold Star parents one free vehicle registration",
+  "topic": "Taxes and budget"
+ },
+ "wv-2026-hb4951": {
+  "shortTitle": "Doctor continuing education",
+  "summary": "Require MDs and DOs to complete continuing education.",
+  "title": "Require continuing education for MDs and DOs",
+  "topic": "Health care"
+ },
+ "wv-2026-hb5074": {
+  "shortTitle": "Medical cannabis fund",
+  "summary": "Change the allocation of proceeds in the Medical Cannabis Program Fund.",
+  "title": "Change how Medical Cannabis Program Fund money is allocated",
+  "topic": "Taxes and budget"
+ },
+ "wv-2026-hb5323": {
+  "shortTitle": "License and stamp fees",
+  "summary": "Address the indexing of license and stamp fees.",
+  "title": "Index license and stamp fees",
+  "topic": "Taxes and budget"
+ },
+ "wv-2026-hb5652": {
+  "shortTitle": "Hotel occupancy tax",
+  "summary": "Make changes relating to the hotel occupancy tax.",
+  "title": "Change the hotel occupancy tax",
+  "topic": "Taxes and budget"
+ },
+ "wv-2026-sb502": {
+  "shortTitle": "Women's collegiate sports",
+  "summary": "Enact a law called the Women's Collegiate Sports Protection Act.",
+  "title": "Enact the Women's Collegiate Sports Protection Act",
+  "topic": "Colleges and tuition"
+ },
+ "wv-2026-sb586": {
+  "shortTitle": "Public water systems",
+  "summary": "Modify the requirements that apply to public water systems.",
+  "title": "Change requirements for public water systems",
+  "topic": "Water and environment"
+ },
+ "wv-2026-sb649": {
+  "shortTitle": "Home blood pressure monitors",
+  "summary": "Require coverage of home blood pressure monitoring devices for certain Medicaid recipients.",
+  "title": "Require Medicaid coverage of home blood pressure monitors",
+  "topic": "Health care"
  },
  "wy-2026-hb0003": {
   "shortTitle": "Pregnancy center rights",

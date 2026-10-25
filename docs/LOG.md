@@ -8,6 +8,19 @@ Newest first. Each commit adds a line or two here: what changed, what's live, wh
 - `docs/QA_REPORT.md`: break-testing the API with simulated players (cheater, races, groups, area leaderboard, spammer/fuzzer, a player who moves states). Found 1 critical, 7 high, 10 medium and 12 low issues. The worst: group and area vote splits reveal one person's vote, `/today` ships the Filed or Fake and Landslide answers, and parallel submits can un-finish and replay a game. Sent to the backend session; no server code changed.
 - `server/qa/`: rerunnable repro scripts, plus `start-local.sh`, which runs the API against its own Docker Postgres with stubbed auth. Production was never touched.
 
+### All 50 states live, and QA fixes (backend)
+- Wisconsin, West Virginia and Georgia added from their legislatures' sites (Georgia's Landslide too). Every state now gets its own bills: 49 from state data plus Texas's curated set, 546 state bills in all. Only D.C.'s Landslide and Puerto Rico still use the default.
+- Fixed from the QA report (`docs/QA_REPORT.md`):
+  - A finished game can't be un-finished, replayed or double-submitted: the upsert only touches unfinished rows, and each player-day's writes are serialized.
+  - Votes and resets can't slip past a locked Roll Call; reset only works on today's ballot.
+  - Group and area vote splits, and friend agreement, count only finished Roll Calls. Hidden splits give one neutral reason. Area stats need 10 players.
+  - Group joins and approvals can't overfill a group; a double-tapped join no longer 500s.
+  - Friend accept, ignore and block are atomic per pair, so a block can't lose to an accept; crossing requests make friends.
+  - Fastify's 4xx errors (bad JSON, too large) stay 4xx; bad dates are 400s, not 500s.
+  - Invisible and control characters are stripped from names and issues, "You" can't be a display name, and admin-like usernames are reserved.
+  - A Landslide order must be exactly the four bills.
+- Not changed yet: `/today` still sends Filed or Fake answers and Landslide tallies before you play, so a script can get a perfect score. Hiding them needs matching app changes.
+
 ### Every state's bills: 48 of 50 states live (backend)
 - Added Virginia, Washington and Wyoming (LIS data files, the Washington Legislature web services, the Wyoming LSO API) and Arkansas, Kansas and New Mexico (arkleg.state.ar.us, the Kansas KLISS API, nmlegis.gov). Each has 11 bills, with every tally checked against the official record. 520 state bills in all; seeded and live.
 - All 50 states except Wisconsin and West Virginia now get their own bills; Texas keeps its curated set. Those two, and a better Georgia Landslide, are being gathered from their legislatures' sites. Puerto Rico still uses the default set: its bill titles are in Spanish and don't have plain-English text yet.

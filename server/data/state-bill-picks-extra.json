@@ -3958,5 +3958,1556 @@
     "memberVotes": []
    }
   ]
+ },
+ "WI": {
+  "stateName": "Wisconsin",
+  "unicameral": false,
+  "roll-call": [
+   {
+    "id": "wi-2025-ab2",
+    "state": "WI",
+    "stateName": "Wisconsin",
+    "session": "2025",
+    "year": "2025",
+    "number": "AB 2",
+    "officialTitle": "Relating to: requiring school boards to adopt policies to prohibit the use of wireless communication devices during instructional time.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "Assembly",
+    "chamberVotes": [
+     {
+      "chamber": "Assembly",
+      "yeas": 53,
+      "nays": 45,
+      "date": "2025-02-19",
+      "motion": "Read a third time and passed"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 29,
+      "nays": 4,
+      "date": "2025-10-14",
+      "motion": "Read a third time and concurred in"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "Assembly",
+      "yeas": 53,
+      "nays": 45
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 29,
+      "nays": 4
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://docs.legis.wisconsin.gov/2025/proposals/reg/asm/bill/ab2",
+    "openstatesUrl": "https://docs.legis.wisconsin.gov/2025/proposals/reg/asm/bill/ab2",
+    "memberVotes": []
+   },
+   {
+    "id": "wi-2025-sb182",
+    "state": "WI",
+    "stateName": "Wisconsin",
+    "session": "2025",
+    "year": "2025",
+    "number": "SB 182",
+    "officialTitle": "Relating to: emergency medical services education, tuition and materials reimbursement for emergency medical responders and emergency medical services practitioners, and a live 911 pilot program.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 18,
+      "nays": 14,
+      "date": "2025-06-18",
+      "motion": "Read a third time and passed"
+     },
+     {
+      "chamber": "Assembly",
+      "yeas": 90,
+      "nays": 6,
+      "date": "2025-10-14",
+      "motion": "Read a third time and concurred in"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "Assembly",
+      "yeas": 90,
+      "nays": 6
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 18,
+      "nays": 14
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://docs.legis.wisconsin.gov/2025/proposals/reg/sen/bill/sb182",
+    "openstatesUrl": "https://docs.legis.wisconsin.gov/2025/proposals/reg/sen/bill/sb182",
+    "memberVotes": []
+   },
+   {
+    "id": "wi-2025-sb533",
+    "state": "WI",
+    "stateName": "Wisconsin",
+    "session": "2025",
+    "year": "2026",
+    "number": "SB 533",
+    "officialTitle": "Relating to: intentionally disarming a correctional officer and providing a penalty.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 29,
+      "nays": 4,
+      "date": "2025-11-18",
+      "motion": "Read a third time and passed"
+     },
+     {
+      "chamber": "Assembly",
+      "yeas": 81,
+      "nays": 15,
+      "date": "2026-01-20",
+      "motion": "Read a third time and concurred in"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "Assembly",
+      "yeas": 81,
+      "nays": 15
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 29,
+      "nays": 4
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://docs.legis.wisconsin.gov/2025/proposals/reg/sen/bill/sb533",
+    "openstatesUrl": "https://docs.legis.wisconsin.gov/2025/proposals/reg/sen/bill/sb533",
+    "memberVotes": []
+   }
+  ],
+  "landslide": [
+   {
+    "id": "wi-2025-ab685",
+    "state": "WI",
+    "stateName": "Wisconsin",
+    "session": "2025",
+    "year": "2026",
+    "number": "AB 685",
+    "officialTitle": "Relating to: individual income tax subtraction for certain theft losses.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "Assembly",
+    "chamberVotes": [
+     {
+      "chamber": "Assembly",
+      "yeas": 99,
+      "nays": 0,
+      "date": "2026-02-17",
+      "motion": "Read a third time and passed"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 33,
+      "nays": 0,
+      "date": "2026-03-17",
+      "motion": "Read a third time and concurred in"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "Assembly",
+      "yeas": 99,
+      "nays": 0
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 33,
+      "nays": 0
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://docs.legis.wisconsin.gov/2025/proposals/reg/asm/bill/ab685",
+    "openstatesUrl": "https://docs.legis.wisconsin.gov/2025/proposals/reg/asm/bill/ab685",
+    "memberVotes": [],
+    "rankVote": {
+     "chamber": "Assembly",
+     "yeas": 99,
+     "nays": 0
+    }
+   },
+   {
+    "id": "wi-2025-ab443",
+    "state": "WI",
+    "stateName": "Wisconsin",
+    "session": "2025",
+    "year": "2026",
+    "number": "AB 443",
+    "officialTitle": "Relating to: increasing the maximum fee for court costs collectible in a municipal court action.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "Assembly",
+    "chamberVotes": [
+     {
+      "chamber": "Assembly",
+      "yeas": 88,
+      "nays": 11,
+      "date": "2026-01-13",
+      "motion": "Read a third time and passed"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 32,
+      "nays": 1,
+      "date": "2026-02-11",
+      "motion": "Read a third time and concurred in"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "Assembly",
+      "yeas": 88,
+      "nays": 11
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 32,
+      "nays": 1
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://docs.legis.wisconsin.gov/2025/proposals/reg/asm/bill/ab443",
+    "openstatesUrl": "https://docs.legis.wisconsin.gov/2025/proposals/reg/asm/bill/ab443",
+    "memberVotes": [],
+    "rankVote": {
+     "chamber": "Assembly",
+     "yeas": 88,
+     "nays": 11
+    }
+   },
+   {
+    "id": "wi-2025-ab598",
+    "state": "WI",
+    "stateName": "Wisconsin",
+    "session": "2025",
+    "year": "2026",
+    "number": "AB 598",
+    "officialTitle": "Relating to: consent to admissions to certain health care facilities by patient representatives without requiring a petition for guardianship or protective placement.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "Assembly",
+    "chamberVotes": [
+     {
+      "chamber": "Assembly",
+      "yeas": 77,
+      "nays": 18,
+      "date": "2026-02-19",
+      "motion": "Read a third time and passed"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 28,
+      "nays": 5,
+      "date": "2026-03-17",
+      "motion": "Read a third time and concurred in"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "Assembly",
+      "yeas": 77,
+      "nays": 18
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 28,
+      "nays": 5
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://docs.legis.wisconsin.gov/2025/proposals/reg/asm/bill/ab598",
+    "openstatesUrl": "https://docs.legis.wisconsin.gov/2025/proposals/reg/asm/bill/ab598",
+    "memberVotes": [],
+    "rankVote": {
+     "chamber": "Assembly",
+     "yeas": 77,
+     "nays": 18
+    }
+   },
+   {
+    "id": "wi-2025-ab737",
+    "state": "WI",
+    "stateName": "Wisconsin",
+    "session": "2025",
+    "year": "2026",
+    "number": "AB 737",
+    "officialTitle": "Relating to: financing certain infrastructure by special charge approved by a neighborhood improvement district.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "Assembly",
+    "chamberVotes": [
+     {
+      "chamber": "Assembly",
+      "yeas": 64,
+      "nays": 35,
+      "date": "2026-02-17",
+      "motion": "Read a third time and passed"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 32,
+      "nays": 1,
+      "date": "2026-02-18",
+      "motion": "Read a third time and concurred in"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "Assembly",
+      "yeas": 64,
+      "nays": 35
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 32,
+      "nays": 1
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://docs.legis.wisconsin.gov/2025/proposals/reg/asm/bill/ab737",
+    "openstatesUrl": "https://docs.legis.wisconsin.gov/2025/proposals/reg/asm/bill/ab737",
+    "memberVotes": [],
+    "rankVote": {
+     "chamber": "Assembly",
+     "yeas": 64,
+     "nays": 35
+    }
+   }
+  ],
+  "filed-or-fake": [
+   {
+    "id": "wi-2025-ab373",
+    "state": "WI",
+    "stateName": "Wisconsin",
+    "session": "2025",
+    "year": "2026",
+    "number": "AB 373",
+    "officialTitle": "Relating to: creating a refundable individual income tax credit for the parent of a stillbirth and making an appropriation.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "Assembly",
+    "chamberVotes": [
+     {
+      "chamber": "Assembly",
+      "yeas": 98,
+      "nays": 0,
+      "date": "2026-02-17",
+      "motion": "Read a third time and passed"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 32,
+      "nays": 1,
+      "date": "2026-03-17",
+      "motion": "Read a third time and concurred in"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "Assembly",
+      "yeas": 98,
+      "nays": 0
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 32,
+      "nays": 1
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://docs.legis.wisconsin.gov/2025/proposals/reg/asm/bill/ab373",
+    "openstatesUrl": "https://docs.legis.wisconsin.gov/2025/proposals/reg/asm/bill/ab373",
+    "memberVotes": []
+   },
+   {
+    "id": "wi-2025-sb264",
+    "state": "WI",
+    "stateName": "Wisconsin",
+    "session": "2025",
+    "year": "2026",
+    "number": "SB 264",
+    "officialTitle": "Relating to: coverage of breast cancer screenings by the Medical Assistance program and health insurance policies and plans.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 32,
+      "nays": 1,
+      "date": "2025-10-14",
+      "motion": "Read a third time and passed"
+     },
+     {
+      "chamber": "Assembly",
+      "yeas": 96,
+      "nays": 0,
+      "date": "2026-02-19",
+      "motion": "Read a third time and concurred in"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "Assembly",
+      "yeas": 96,
+      "nays": 0
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 32,
+      "nays": 1
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://docs.legis.wisconsin.gov/2025/proposals/reg/sen/bill/sb264",
+    "openstatesUrl": "https://docs.legis.wisconsin.gov/2025/proposals/reg/sen/bill/sb264",
+    "memberVotes": []
+   },
+   {
+    "id": "wi-2025-sb96",
+    "state": "WI",
+    "stateName": "Wisconsin",
+    "session": "2025",
+    "year": "2026",
+    "number": "SB 96",
+    "officialTitle": "Relating to: exempting certain electric vehicle charging stations located at a residence from the electric vehicle charging tax.",
+    "abstract": "This bill exempts from the electric vehicle charging tax electricity delivered or placed by any charger of an electric vehicle charging station located at a residence. Generally under current law, beginning on January 1, 2025, an electric vehicle charging tax is imposed at the rate of 3 cents per kilowatt-hour on electricity delivered or placed by certain electric vehicle charging stations. Current law exempts electricity delivered or placed by a residential Level 3 charger of an electric vehicle charging station from the tax. The bill also makes several technical changes involving the administration of the electric vehicle charging tax. Because this bill relates to an exemption from state or local taxes, it may be referred to the Joint Survey Committee on Tax Exemptions for a report to be printed as an appendix to the bill.",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 33,
+      "nays": 0,
+      "date": "2025-05-15",
+      "motion": "Read a third time and passed"
+     },
+     {
+      "chamber": "Assembly",
+      "yeas": 96,
+      "nays": 0,
+      "date": "2026-01-15",
+      "motion": "Read a third time and concurred in"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "Assembly",
+      "yeas": 96,
+      "nays": 0
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 33,
+      "nays": 0
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://docs.legis.wisconsin.gov/2025/proposals/reg/sen/bill/sb96",
+    "openstatesUrl": "https://docs.legis.wisconsin.gov/2025/proposals/reg/sen/bill/sb96",
+    "memberVotes": []
+   },
+   {
+    "id": "wi-2025-ab130",
+    "state": "WI",
+    "stateName": "Wisconsin",
+    "session": "2025",
+    "year": "2026",
+    "number": "AB 130",
+    "officialTitle": "Relating to: exempting certain persons from PFAS enforcement actions under the spills law.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "Assembly",
+    "chamberVotes": [
+     {
+      "chamber": "Assembly",
+      "yeas": 93,
+      "nays": 0,
+      "date": "2026-02-19",
+      "motion": "Read a third time and passed"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 33,
+      "nays": 0,
+      "date": "2026-03-17",
+      "motion": "Read a third time and concurred in"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "Assembly",
+      "yeas": 93,
+      "nays": 0
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 33,
+      "nays": 0
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://docs.legis.wisconsin.gov/2025/proposals/reg/asm/bill/ab130",
+    "openstatesUrl": "https://docs.legis.wisconsin.gov/2025/proposals/reg/asm/bill/ab130",
+    "memberVotes": []
+   }
+  ]
+ },
+ "WV": {
+  "stateName": "West Virginia",
+  "unicameral": false,
+  "roll-call": [
+   {
+    "id": "wv-2026-hb4425",
+    "state": "WV",
+    "stateName": "West Virginia",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 4425",
+    "officialTitle": "To repeal the provision allowing for students to transfer from one school to another without losing eligibility.",
+    "abstract": "To repeal the provision allowing for students to transfer from one school to another without losing eligibility.",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 78,
+      "nays": 19,
+      "date": "2026-03-03",
+      "motion": "Passed House (Roll No. 257)"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 20,
+      "nays": 14,
+      "date": "2026-03-13",
+      "motion": "Passed Senate (Roll No. 536)"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 78,
+      "nays": 19
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 20,
+      "nays": 14
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://www.wvlegislature.gov/Bill_Status/Bills_history.cfm?input=4425&year=2026&sessiontype=RS&btype=bill",
+    "openstatesUrl": "https://www.wvlegislature.gov/Bill_Status/Bills_history.cfm?input=4425&year=2026&sessiontype=RS&btype=bill",
+    "memberVotes": []
+   },
+   {
+    "id": "wv-2026-hb4951",
+    "state": "WV",
+    "stateName": "West Virginia",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 4951",
+    "officialTitle": "Requiring MDs and DOs to complete continuing education",
+    "abstract": "Requiring MDs and DOs to complete continuing education",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 58,
+      "nays": 35,
+      "date": "2026-02-03",
+      "motion": "Passed House (Roll No. 42)"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 27,
+      "nays": 6,
+      "date": "2026-03-14",
+      "motion": "Senate receded and passed (Roll No. 688)"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 58,
+      "nays": 35
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 27,
+      "nays": 6
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://www.wvlegislature.gov/Bill_Status/Bills_history.cfm?input=4951&year=2026&sessiontype=RS&btype=bill",
+    "openstatesUrl": "https://www.wvlegislature.gov/Bill_Status/Bills_history.cfm?input=4951&year=2026&sessiontype=RS&btype=bill",
+    "memberVotes": []
+   },
+   {
+    "id": "wv-2026-hb4106",
+    "state": "WV",
+    "stateName": "West Virginia",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 4106",
+    "officialTitle": "Allowing constitutional carry for 18- to 20-year-olds",
+    "abstract": "Allowing constitutional carry for 18- to 20-year-olds",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 85,
+      "nays": 8,
+      "date": "2026-03-14",
+      "motion": "House concurred in Senate amendment with amendment (Roll No. 688)"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 31,
+      "nays": 3,
+      "date": "2026-03-14",
+      "motion": "Senate concurred in House amendments and passed bill (Roll No. 701)"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 85,
+      "nays": 8
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 31,
+      "nays": 3
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://www.wvlegislature.gov/Bill_Status/Bills_history.cfm?input=4106&year=2026&sessiontype=RS&btype=bill",
+    "openstatesUrl": "https://www.wvlegislature.gov/Bill_Status/Bills_history.cfm?input=4106&year=2026&sessiontype=RS&btype=bill",
+    "memberVotes": []
+   }
+  ],
+  "landslide": [
+   {
+    "id": "wv-2026-hb4437",
+    "state": "WV",
+    "stateName": "West Virginia",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 4437",
+    "officialTitle": "To allow Gold Star parents to receive one free Gold Star vehicle registration for personal use.",
+    "abstract": "To allow Gold Star parents to receive one free Gold Star vehicle registration for personal use.",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 34,
+      "nays": 0,
+      "date": "2026-03-10",
+      "motion": "Passed Senate (Roll No. 398)"
+     },
+     {
+      "chamber": "House",
+      "yeas": 97,
+      "nays": 0,
+      "date": "2026-03-14",
+      "motion": "House concurred in Senate amendment and title amendment and passed bill (Roll No. 632)"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 97,
+      "nays": 0
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 34,
+      "nays": 0
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://www.wvlegislature.gov/Bill_Status/Bills_history.cfm?input=4437&year=2026&sessiontype=RS&btype=bill",
+    "openstatesUrl": "https://www.wvlegislature.gov/Bill_Status/Bills_history.cfm?input=4437&year=2026&sessiontype=RS&btype=bill",
+    "memberVotes": [],
+    "rankVote": {
+     "chamber": "House",
+     "yeas": 97,
+     "nays": 0
+    }
+   },
+   {
+    "id": "wv-2026-hb4433",
+    "state": "WV",
+    "stateName": "West Virginia",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 4433",
+    "officialTitle": "Prohibiting Human Smuggling and Trafficking",
+    "abstract": "Prohibiting Human Smuggling and Trafficking",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 87,
+      "nays": 8,
+      "date": "2026-02-27",
+      "motion": "House concurred in Senate amendment with amendment (Roll No. 215)"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 32,
+      "nays": 2,
+      "date": "2026-03-06",
+      "motion": "Senate concurred in House amendments and passed bill (Roll No. 364)"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 87,
+      "nays": 8
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 32,
+      "nays": 2
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://www.wvlegislature.gov/Bill_Status/Bills_history.cfm?input=4433&year=2026&sessiontype=RS&btype=bill",
+    "openstatesUrl": "https://www.wvlegislature.gov/Bill_Status/Bills_history.cfm?input=4433&year=2026&sessiontype=RS&btype=bill",
+    "memberVotes": [],
+    "rankVote": {
+     "chamber": "House",
+     "yeas": 87,
+     "nays": 8
+    }
+   },
+   {
+    "id": "wv-2026-sb586",
+    "state": "WV",
+    "stateName": "West Virginia",
+    "session": "2026",
+    "year": "2026",
+    "number": "SB 586",
+    "officialTitle": "Modifying requirements for public water systems",
+    "abstract": "Modifying requirements for public water systems",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 33,
+      "nays": 0,
+      "date": "2026-02-06",
+      "motion": "Passed Senate (Roll No. 51)"
+     },
+     {
+      "chamber": "House",
+      "yeas": 68,
+      "nays": 27,
+      "date": "2026-03-12",
+      "motion": "Passed House (Roll No. 430)"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 68,
+      "nays": 27
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 33,
+      "nays": 0
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://www.wvlegislature.gov/Bill_Status/Bills_history.cfm?input=586&year=2026&sessiontype=RS&btype=bill",
+    "openstatesUrl": "https://www.wvlegislature.gov/Bill_Status/Bills_history.cfm?input=586&year=2026&sessiontype=RS&btype=bill",
+    "memberVotes": [],
+    "rankVote": {
+     "chamber": "House",
+     "yeas": 68,
+     "nays": 27
+    }
+   },
+   {
+    "id": "wv-2026-hb5323",
+    "state": "WV",
+    "stateName": "West Virginia",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 5323",
+    "officialTitle": "Relating to indexing of license and stamp fees",
+    "abstract": "Relating to indexing of license and stamp fees",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 61,
+      "nays": 32,
+      "date": "2026-03-04",
+      "motion": "Passed House (Roll No. 304)"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 29,
+      "nays": 5,
+      "date": "2026-03-12",
+      "motion": "Passed Senate (Roll No. 505)"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 61,
+      "nays": 32
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 29,
+      "nays": 5
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://www.wvlegislature.gov/Bill_Status/Bills_history.cfm?input=5323&year=2026&sessiontype=RS&btype=bill",
+    "openstatesUrl": "https://www.wvlegislature.gov/Bill_Status/Bills_history.cfm?input=5323&year=2026&sessiontype=RS&btype=bill",
+    "memberVotes": [],
+    "rankVote": {
+     "chamber": "House",
+     "yeas": 61,
+     "nays": 32
+    }
+   }
+  ],
+  "filed-or-fake": [
+   {
+    "id": "wv-2026-hb5652",
+    "state": "WV",
+    "stateName": "West Virginia",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 5652",
+    "officialTitle": "Relating to the hotel occupancy tax",
+    "abstract": "Relating to the hotel occupancy tax",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 28,
+      "nays": 62,
+      "date": "2026-03-04",
+      "motion": "House rejected (Roll No. 337)"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 28,
+      "nays": 62
+     }
+    },
+    "passed": false,
+    "outcome": "Failed in the House",
+    "sourceUrl": "https://www.wvlegislature.gov/Bill_Status/Bills_history.cfm?input=5652&year=2026&sessiontype=RS&btype=bill",
+    "openstatesUrl": "https://www.wvlegislature.gov/Bill_Status/Bills_history.cfm?input=5652&year=2026&sessiontype=RS&btype=bill",
+    "memberVotes": []
+   },
+   {
+    "id": "wv-2026-sb649",
+    "state": "WV",
+    "stateName": "West Virginia",
+    "session": "2026",
+    "year": "2026",
+    "number": "SB 649",
+    "officialTitle": "Requiring coverage of home blood pressure monitoring devices for certain Medicaid recipients",
+    "abstract": "Requiring coverage of home blood pressure monitoring devices for certain Medicaid recipients",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 30,
+      "nays": 3,
+      "date": "2026-03-04",
+      "motion": "Passed Senate (Roll No. 335)"
+     },
+     {
+      "chamber": "House",
+      "yeas": 95,
+      "nays": 0,
+      "date": "2026-03-12",
+      "motion": "Passed House (Roll No. 436)"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 95,
+      "nays": 0
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 30,
+      "nays": 3
+     }
+    },
+    "passed": true,
+    "outcome": "Vetoed by the governor",
+    "sourceUrl": "https://www.wvlegislature.gov/Bill_Status/Bills_history.cfm?input=649&year=2026&sessiontype=RS&btype=bill",
+    "openstatesUrl": "https://www.wvlegislature.gov/Bill_Status/Bills_history.cfm?input=649&year=2026&sessiontype=RS&btype=bill",
+    "memberVotes": []
+   },
+   {
+    "id": "wv-2026-hb5074",
+    "state": "WV",
+    "stateName": "West Virginia",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 5074",
+    "officialTitle": "Relating to changing the allocation of proceeds in the Medical Cannabis Program Fund.",
+    "abstract": "Relating to changing the allocation of proceeds in the Medical Cannabis Program Fund.",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 29,
+      "nays": 5,
+      "date": "2026-03-13",
+      "motion": "Passed Senate (Roll No. 556)"
+     },
+     {
+      "chamber": "House",
+      "yeas": 86,
+      "nays": 10,
+      "date": "2026-03-14",
+      "motion": "House concurred in Senate amendment and passed bill (Roll No. 659)"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 86,
+      "nays": 10
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 29,
+      "nays": 5
+     }
+    },
+    "passed": true,
+    "outcome": "Vetoed by the governor",
+    "sourceUrl": "https://www.wvlegislature.gov/Bill_Status/Bills_history.cfm?input=5074&year=2026&sessiontype=RS&btype=bill",
+    "openstatesUrl": "https://www.wvlegislature.gov/Bill_Status/Bills_history.cfm?input=5074&year=2026&sessiontype=RS&btype=bill",
+    "memberVotes": []
+   },
+   {
+    "id": "wv-2026-sb502",
+    "state": "WV",
+    "stateName": "West Virginia",
+    "session": "2026",
+    "year": "2026",
+    "number": "SB 502",
+    "officialTitle": "Women’s Collegiate Sports Protection Act",
+    "abstract": "Women’s Collegiate Sports Protection Act",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 96,
+      "nays": 0,
+      "date": "2026-03-13",
+      "motion": "Passed House (Roll No. 532)"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 34,
+      "nays": 0,
+      "date": "2026-03-14",
+      "motion": "Senate concurred in House amendments and passed bill (Roll No. 664)"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 96,
+      "nays": 0
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 34,
+      "nays": 0
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://www.wvlegislature.gov/Bill_Status/Bills_history.cfm?input=502&year=2026&sessiontype=RS&btype=bill",
+    "openstatesUrl": "https://www.wvlegislature.gov/Bill_Status/Bills_history.cfm?input=502&year=2026&sessiontype=RS&btype=bill",
+    "memberVotes": []
+   }
+  ]
+ },
+ "GA": {
+  "stateName": "Georgia",
+  "unicameral": false,
+  "roll-call": [
+   {
+    "id": "ga-20252026-sb1",
+    "state": "GA",
+    "stateName": "Georgia",
+    "session": "20252026",
+    "year": "2025",
+    "number": "SB 1",
+    "officialTitle": "'Fair and Safe Athletic Opportunities Act'; enact",
+    "abstract": "A BILL to be entitled an Act to amend Title 20 of the O.C.G.A., relating to education, so as to provide generally for competitively fair and safe student participation in middle school, high school, and college sports; to promote fair and safe competition; to provide for equal athletic opportunities and safety; to provide for specific designations of teams operated or sponsored by local school systems, public schools, participating private schools, and postsecondary educational institutions in this state; to prohibit males from participating in interscholastic and intercollegiate competitions on teams designated as female; to prohibit females from participating in competition on intercollegiate teams designated as male, subject to exceptions; to provide for related matters; to repeal conflicting laws; and for other purposes.",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 100,
+      "nays": 64,
+      "date": "2025-03-31",
+      "motion": "PASSAGE (House Vote #350)"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 34,
+      "nays": 20,
+      "date": "2025-03-31",
+      "motion": "AGREE TO HOUSE SUBSTITUTE (Senate Vote #373)"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 100,
+      "nays": 64
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 34,
+      "nays": 20
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://www.legis.ga.gov/legislation/69274",
+    "openstatesUrl": "https://www.legis.ga.gov/legislation/69274",
+    "memberVotes": []
+   },
+   {
+    "id": "ga-20252026-hb111",
+    "state": "GA",
+    "stateName": "Georgia",
+    "session": "20252026",
+    "year": "2025",
+    "number": "HB 111",
+    "officialTitle": "Income tax; reduce rate of tax",
+    "abstract": "A BILL to be entitled an Act to amend Article 2 of Chapter 7 of Title 48 of the Official Code of Georgia Annotated, relating to the imposition, rate, computation, exemptions, and credits relative to income taxes, so as to reduce the rate of the tax; to provide for related matters; to provide for an effective date and applicability; to repeal conflicting laws; and for other purposes.",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 110,
+      "nays": 60,
+      "date": "2025-03-06",
+      "motion": "PASSAGE (House Vote #196)"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 30,
+      "nays": 23,
+      "date": "2025-03-20",
+      "motion": "PASSAGE (Senate Vote #256)"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 110,
+      "nays": 60
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 30,
+      "nays": 23
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://www.legis.ga.gov/legislation/69464",
+    "openstatesUrl": "https://www.legis.ga.gov/legislation/69464",
+    "memberVotes": []
+   },
+   {
+    "id": "ga-20252026-sb33",
+    "state": "GA",
+    "stateName": "Georgia",
+    "session": "20252026",
+    "year": "2026",
+    "number": "SB 33",
+    "officialTitle": "\"Georgia Hemp Farming Act\"; total THC concentration of consumable hemp products; provide limits",
+    "abstract": "A BILL to be entitled an Act to amend Chapter 23 of Title 2 of the Official Code of Georgia Annotated, the \"Georgia Hemp Farming Act,\" so as to provide limits on the total THC concentration of consumable hemp products; to revise provisions concerning the certificate of analysis applicable to consumable hemp products; to revise and provide for definitions; to provide for related matters; to repeal conflicting laws; and for other purposes.",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 32,
+      "nays": 21,
+      "date": "2026-04-02",
+      "motion": "AGREE TO HOUSE SUBSTITUTE AS AMENDED (Senate Vote #980)"
+     },
+     {
+      "chamber": "House",
+      "yeas": 97,
+      "nays": 72,
+      "date": "2026-04-03",
+      "motion": "Agree to Senate Amend to House Sub (House Vote #879)"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 97,
+      "nays": 72
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 32,
+      "nays": 21
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://www.legis.ga.gov/legislation/69550",
+    "openstatesUrl": "https://www.legis.ga.gov/legislation/69550",
+    "memberVotes": []
+   }
+  ],
+  "landslide": [
+   {
+    "id": "ga-20252026-hb1030",
+    "state": "GA",
+    "stateName": "Georgia",
+    "session": "20252026",
+    "year": "2026",
+    "number": "HB 1030",
+    "officialTitle": "Math Matters Act; enact",
+    "abstract": "A BILL to be entitled an Act to amend Chapter 2 Title 20 of the Official Code of Georgia Annotated, relating to elementary and secondary education, so as to enact the \"Math Matters Act\"; to require the State Board of Education to adopt content standards for middle and high school advanced math courses; to require local education agencies to establish advance math courses in middle school and high school; to require the Professional Standards Commission to ensure students completing teacher certification programs have the knowledge and skills to teach math including the four strands of mathematical proficiency; to provide for definitions; to provide for related matters; to provide for an effective date; to repeal conflicting laws; and for other purposes.",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 51,
+      "nays": 0,
+      "date": "2026-03-23",
+      "motion": "PASSAGE BY SUBSTITUTE (Senate Vote #785)"
+     },
+     {
+      "chamber": "House",
+      "yeas": 158,
+      "nays": 0,
+      "date": "2026-03-27",
+      "motion": "Agree to Senate Substitute (House Vote #778)"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 158,
+      "nays": 0
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 51,
+      "nays": 0
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://www.legis.ga.gov/legislation/72360",
+    "openstatesUrl": "https://www.legis.ga.gov/legislation/72360",
+    "memberVotes": [],
+    "rankVote": {
+     "chamber": "House",
+     "yeas": 158,
+     "nays": 0
+    }
+   },
+   {
+    "id": "ga-20252026-hb340",
+    "state": "GA",
+    "stateName": "Georgia",
+    "session": "20252026",
+    "year": "2025",
+    "number": "HB 340",
+    "officialTitle": "Distraction-Free Education Act; enact",
+    "abstract": "A BILL to be entitled an Act to amend Chapter 2 of Title 20 of the Official Code of Georgia Annotated, relating to elementary and secondary education, so as to enact the \"Distraction-Free Education Act\"; to require local school systems and public schools to enact policies and procedures for use of personal electronic devices at school and school sponsored events by students in kindergarten through eighth grade; to provide for permissible student use of personal electronic devices; to authorize the Department of Education to provide guidance and technical assistance; to prohibit certain waivers; to provide for definitions; to provide for related matters; to repeal conflicting laws; and for other purposes.",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 143,
+      "nays": 29,
+      "date": "2025-03-04",
+      "motion": "PASSAGE (House Vote #185)"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 54,
+      "nays": 2,
+      "date": "2025-03-25",
+      "motion": "PASSAGE (Senate Vote #289)"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 143,
+      "nays": 29
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 54,
+      "nays": 2
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://www.legis.ga.gov/legislation/70072",
+    "openstatesUrl": "https://www.legis.ga.gov/legislation/70072",
+    "memberVotes": [],
+    "rankVote": {
+     "chamber": "House",
+     "yeas": 143,
+     "nays": 29
+    }
+   },
+   {
+    "id": "ga-20252026-hb233",
+    "state": "GA",
+    "stateName": "Georgia",
+    "session": "20252026",
+    "year": "2025",
+    "number": "HB 233",
+    "officialTitle": "State symbols; Brunswick stew as the official state stew; designate",
+    "abstract": "A BILL to be entitled an Act to amend Article 3 of Chapter 3 of Title 50 of the Official Code of Georgia Annotated, relating to other state symbols, so as to designate Brunswick stew as the official state stew; to provide for legislative findings; to provide for related matters; to repeal conflicting laws; and for other purposes.",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 52,
+      "nays": 1,
+      "date": "2025-04-02",
+      "motion": "PASSAGE BY SUBSTITUTE (Senate Vote #403)"
+     },
+     {
+      "chamber": "House",
+      "yeas": 113,
+      "nays": 51,
+      "date": "2025-04-04",
+      "motion": "Agree to Senate Substitute (House Vote #442)"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 113,
+      "nays": 51
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 52,
+      "nays": 1
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://www.legis.ga.gov/legislation/69838",
+    "openstatesUrl": "https://www.legis.ga.gov/legislation/69838",
+    "memberVotes": [],
+    "rankVote": {
+     "chamber": "House",
+     "yeas": 113,
+     "nays": 51
+    }
+   },
+   {
+    "id": "ga-20252026-hb369",
+    "state": "GA",
+    "stateName": "Georgia",
+    "session": "20252026",
+    "year": "2026",
+    "number": "HB 369",
+    "officialTitle": "Motor vehicles; sale of food or beverages; provide vehicle equipment standards",
+    "abstract": "A BILL to be entitled an Act to amend Part 1 of Article 1 of Chapter 8 of Title 40 of the Official Code of Georgia Annotated, relating to general provisions relative to equipment of motor vehicles, so as to provide for vehicle equipment standards for motor vehicles used for the sale of food or beverages that primarily conduct such sales upon roadways; to provide for related matters; to repeal conflicting laws; and for other purposes.",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 32,
+      "nays": 21,
+      "date": "2026-03-25",
+      "motion": "PASSAGE BY SUBSTITUTE (Senate Vote #803)"
+     },
+     {
+      "chamber": "House",
+      "yeas": 93,
+      "nays": 64,
+      "date": "2026-03-27",
+      "motion": "Agree to Senate Substitute (House Vote #790)"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 93,
+      "nays": 64
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 32,
+      "nays": 21
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://www.legis.ga.gov/legislation/70131",
+    "openstatesUrl": "https://www.legis.ga.gov/legislation/70131",
+    "memberVotes": [],
+    "rankVote": {
+     "chamber": "House",
+     "yeas": 93,
+     "nays": 64
+    }
+   }
+  ],
+  "filed-or-fake": [
+   {
+    "id": "ga-20252026-hb14",
+    "state": "GA",
+    "stateName": "Georgia",
+    "session": "20252026",
+    "year": "2026",
+    "number": "HB 14",
+    "officialTitle": "State symbols; cornbread as official state bread; designate",
+    "abstract": "A BILL to be entitled an Act to amend Article 3 of Chapter 3 of Title 50 of the Official Code of Georgia Annotated, relating to other state symbols, so as to designate cornbread as the official state bread of Georgia; to provide legislative findings and declarations; to provide for related matters; to repeal conflicting laws; and for other purposes.",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 47,
+      "nays": 9,
+      "date": "2025-04-02",
+      "motion": "PASSAGE BY SUBSTITUTE (Senate Vote #401)"
+     },
+     {
+      "chamber": "House",
+      "yeas": 161,
+      "nays": 5,
+      "date": "2026-03-31",
+      "motion": "Agree to Senate Substitute (House Vote #797)"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 161,
+      "nays": 5
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 47,
+      "nays": 9
+     }
+    },
+    "passed": true,
+    "outcome": "Vetoed by the governor",
+    "sourceUrl": "https://www.legis.ga.gov/legislation/69294",
+    "openstatesUrl": "https://www.legis.ga.gov/legislation/69294",
+    "memberVotes": []
+   },
+   {
+    "id": "ga-20252026-hb1324",
+    "state": "GA",
+    "stateName": "Georgia",
+    "session": "20252026",
+    "year": "2026",
+    "number": "HB 1324",
+    "officialTitle": "Crimes and offenses; possessing a silencer; repeal prohibition",
+    "abstract": "A BILL to be entitled an Act to amend Article 4 of Chapter 11 of Title 16 of the Official Code of Georgia Annotated, relating to dangerous instrumentalities and practices, so as to repeal the prohibition on possessing a silencer; to provide for conforming changes; to provide for related matters; to repeal conflicting laws; and for other purposes.",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 87,
+      "nays": 76,
+      "date": "2026-03-06",
+      "motion": "PASSAGE (House Vote #665)"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 87,
+      "nays": 76
+     }
+    },
+    "passed": false,
+    "outcome": "Failed in the House",
+    "sourceUrl": "https://www.legis.ga.gov/legislation/73253",
+    "openstatesUrl": "https://www.legis.ga.gov/legislation/73253",
+    "memberVotes": []
+   },
+   {
+    "id": "ga-20252026-sb241",
+    "state": "GA",
+    "stateName": "Georgia",
+    "session": "20252026",
+    "year": "2025",
+    "number": "SB 241",
+    "officialTitle": "Funeral Directors; organic human reduction as a means of disposing of deceased human bodies; provide",
+    "abstract": "A BILL to be entitled an Act to amend Chapter 18 of Title 43 of the O.C.G.A., relating to funeral directors and establishments, embalmers, and crematories, so as to provide for the organic human reduction as a means of disposing of deceased human bodies; to amend Titles 10, 31, and 36 of the O.C.G.A., relating to commerce and trade, health, and local government, respectively, so as to require a disposition permit for the organic human reduction of a dead human body or fetus; to provide for related matters; to provide an effective date; to repeal conflicting laws; and for other purposes.",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 52,
+      "nays": 1,
+      "date": "2025-03-04",
+      "motion": "PASSAGE (Senate Vote #150)"
+     },
+     {
+      "chamber": "House",
+      "yeas": 157,
+      "nays": 4,
+      "date": "2025-03-31",
+      "motion": "PASSAGE (House Vote #372)"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 157,
+      "nays": 4
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 52,
+      "nays": 1
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://www.legis.ga.gov/legislation/70673",
+    "openstatesUrl": "https://www.legis.ga.gov/legislation/70673",
+    "memberVotes": []
+   },
+   {
+    "id": "ga-20252026-hb117",
+    "state": "GA",
+    "stateName": "Georgia",
+    "session": "20252026",
+    "year": "2026",
+    "number": "HB 117",
+    "officialTitle": "Food service establishments; require notification of the country of origin of seafood items",
+    "abstract": "A BILL to be entitled an Act to amend Article 13 of Chapter 2 of Title 26 of the Official Code of Georgia Annotated, relating to food service establishments, so as to require notification of the country of origin of seafood items; to provide for a definition; to provide for related matters; to repeal conflicting laws; and for other purposes.",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 43,
+      "nays": 8,
+      "date": "2026-02-02",
+      "motion": "PASSAGE BY SUBSTITUTE (Senate Vote #508)"
+     },
+     {
+      "chamber": "House",
+      "yeas": 159,
+      "nays": 8,
+      "date": "2026-02-11",
+      "motion": "Agree to Senate Substitute (House Vote #500)"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 159,
+      "nays": 8
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 43,
+      "nays": 8
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://www.legis.ga.gov/legislation/69470",
+    "openstatesUrl": "https://www.legis.ga.gov/legislation/69470",
+    "memberVotes": []
+   }
+  ]
  }
 }

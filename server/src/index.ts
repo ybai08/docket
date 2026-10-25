@@ -17,6 +17,9 @@ await app.register(cors, { origin: true });
 
 app.setErrorHandler((err, _req, reply) => {
   if (err instanceof ZodError) return reply.code(400).send({ error: err.issues[0]?.message ?? 'Invalid request.' });
+  // Fastify's own client errors (bad JSON, body too large, wrong content type) keep their 4xx.
+  const status = (err as { statusCode?: number }).statusCode;
+  if (status && status >= 400 && status < 500) return reply.code(status).send({ error: (err as Error).message });
   app.log.error(err);
   return reply.code(500).send({ error: 'Something went wrong on our end.' });
 });

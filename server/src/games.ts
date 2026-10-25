@@ -5,9 +5,20 @@ import { centralDay } from '../../src/lib/day.ts';
 import { agreed, filedOrFakeScore, landslideAnswer, landslidePoints } from '../../src/lib/rules.ts';
 import { requireUser } from './auth.ts';
 import { setForUser, toBill, type BillRow, type DaySet } from './content.ts';
-import { query } from './db.ts';
+import { query, withLock } from './db.ts';
 
 const HISTORY_PAGE = 60;
+const playKey = (uid: string, day: string) => `play:${uid}:${day}`;
+// A real calendar day, so a bad value is a 400 and never reaches Postgres.
+export const Day = z
+  .string()
+  .regex(/^\d{4}-\d{2}-\d{2}$/, 'Use a YYYY-MM-DD day.')
+  .refine((d) => {
+    const t = Date.parse(`${d}T00:00:00Z`);
+    return !Number.isNaN(t) && new Date(t).toISOString().startsWith(d);
+  }, 'Use a real date.');
+// $1 = user, $3 = day: their Roll Call for that day is locked in.
+const FINISHED_ROLL_CALL = `SELECT 1 FROM game_results g WHERE g.user_id = $1 AND g.day = $3 AND g.game = 'roll-call' AND g.finished_at IS NOT NULL`;
 // Items per game in a daily set, for days whose set isn't stored. Landslide is out of 3 points per item.
 const SET_SIZE = { 'roll-call': 5, 'filed-or-fake': 8, landslide: 12 } as const;
 
@@ -157,49 +168,65 @@ export async function gameRoutes(app: FastifyInstance) {
     };
   });
 
-  const voteBody = z.object({ day: z.string(), billId: z.string(), vote: z.enum(['yea', 'nay']) });
+  const voteBody = z.object({ day: Day, billId: z.string(), vote: z.enum(['yea', 'nay']) });
   app.post('/votes', async (req, reply) => {
     const body = voteBody.parse(req.body);
     const set = await currentSet(req.uid, body.day);
     if (!set) return reply.code(409).send({ error: "That ballot is closed. Today's is ready." });
     if (!set.rollCall.some((b) => b.id === body.billId)) return reply.code(400).send({ error: 'Not on this ballot.' });
-    if (await finished(req.uid, body.day, 'roll-call')) return reply.code(409).send({ error: 'Your Roll Call is already in.' });
-    await query(
-      `INSERT INTO votes (user_id, bill_id, day, vote) VALUES ($1, $2, $3, $4)
-       ON CONFLICT (user_id, bill_id) DO UPDATE SET vote = EXCLUDED.vote, created_at = now()`,
+    // One statement, so a vote can't slip in after the Roll Call is locked in. A bill seen on an earlier
+    // day moves to this day, or this day's Roll Call could never be finished.
+    const saved = await withLock(playKey(req.uid, body.day), (q) => q(
+      `INSERT INTO votes (user_id, bill_id, day, vote)
+       SELECT $1, $2, $3, $4
+       WHERE NOT EXISTS (${FINISHED_ROLL_CALL})
+       ON CONFLICT (user_id, bill_id) DO UPDATE SET vote = EXCLUDED.vote, day = EXCLUDED.day, created_at = now()
+       RETURNING 1`,
       [req.uid, body.billId, body.day, body.vote],
-    );
+    ));
+    if (!saved.length) return reply.code(409).send({ error: 'Your Roll Call is already in.' });
     return { ok: true };
   });
 
   // "Vote again" before seeing results.
   app.post('/votes/reset', async (req, reply) => {
-    const { day } = z.object({ day: z.string() }).parse(req.body);
+    const { day } = z.object({ day: Day }).parse(req.body);
+    if (!(await currentSet(req.uid, day))) return reply.code(409).send({ error: "That ballot is closed. Today's is ready." });
     if (await finished(req.uid, day, 'roll-call')) return reply.code(409).send({ error: 'Your Roll Call is already in.' });
-    await query('DELETE FROM votes WHERE user_id = $1 AND day = $2', [req.uid, day]);
+    await withLock(playKey(req.uid, day), (q) => q(
+      `DELETE FROM votes WHERE user_id = $1 AND day = $2
+       AND NOT EXISTS (SELECT 1 FROM game_results g WHERE g.user_id = $1 AND g.day = $2 AND g.game = 'roll-call' AND g.finished_at IS NOT NULL)`,
+      [req.uid, day],
+    ));
     return { ok: true };
   });
 
   const resultBody = z.object({
-    day: z.string(),
+    day: Day,
     answers: z.record(z.string(), z.boolean()).optional(),
     done: z.boolean().optional(),
     order: z.array(z.string()).optional(),
   });
 
   app.post<{ Params: { game: string } }>('/results/:game', async (req, reply) => {
-    const { game } = req.params;
+    const game = z.enum(['roll-call', 'filed-or-fake', 'landslide']).parse(req.params.game);
     const body = resultBody.parse(req.body);
     const set = await currentSet(req.uid, body.day);
     if (!set) return reply.code(409).send({ error: "That ballot is closed. Today's is ready." });
-    if (await finished(req.uid, body.day, game)) return { ok: true, alreadyFinished: true };
+    // One write at a time per player and day, so a reset, a vote and a finish can't interleave.
+    return withLock(playKey(req.uid, body.day), async (q) => {
+    const [done0] = await q<{ finished_at: string | null }>(
+      'SELECT finished_at FROM game_results WHERE user_id = $1 AND day = $2 AND game = $3',
+      [req.uid, body.day, game],
+    );
+    if (done0?.finished_at) return { ok: true, alreadyFinished: true };
 
     let score: number | null = null;
     let detail: Record<string, unknown> = {};
     let done = true;
 
     if (game === 'roll-call') {
-      const votes = await query<{ bill_id: string; vote: 'yea' | 'nay' }>(
+      const votes = await q<{ bill_id: string; vote: 'yea' | 'nay' }>(
         'SELECT bill_id, vote FROM votes WHERE user_id = $1 AND day = $2',
         [req.uid, body.day],
       );
@@ -208,27 +235,39 @@ export async function gameRoutes(app: FastifyInstance) {
       score = set.rollCall.filter((b) => agreed(b, byBill[b.id])).length;
     } else if (game === 'filed-or-fake') {
       const ids = new Set(set.filedOrFake.map((c) => c.id));
-      const answers = Object.fromEntries(Object.entries(body.answers ?? {}).filter(([id]) => ids.has(id)));
+      // Answers already saved stay as they were: each caption is answered once.
+      const [prev] = await q<{ detail: { answers?: Record<string, boolean> } }>(
+        `SELECT detail FROM game_results WHERE user_id = $1 AND day = $2 AND game = 'filed-or-fake'`,
+        [req.uid, body.day],
+      );
+      const answers = { ...Object.fromEntries(Object.entries(body.answers ?? {}).filter(([id]) => ids.has(id))), ...(prev?.detail.answers ?? {}) };
       done = !!body.done && set.filedOrFake.every((c) => answers[c.id] !== undefined);
       detail = { answers };
       score = done ? filedOrFakeScore(set.filedOrFake, answers) : null;
     } else if (game === 'landslide') {
       const order = body.order ?? [];
-      const expected = set.landslide.items.map((i) => i.billId).sort();
-      if ([...order].sort().join() !== expected.join()) return reply.code(400).send({ error: 'Rank all four bills.' });
+      const expected = set.landslide.items.map((i) => i.billId);
+      if (order.length !== expected.length || new Set(order).size !== order.length || !order.every((id) => expected.includes(id))) {
+        return reply.code(400).send({ error: 'Rank all four bills.' });
+      }
       score = landslidePoints(order, landslideAnswer(set.landslide.items)).reduce((a, b) => a + b, 0);
       detail = { order };
     } else {
       return reply.code(404).send({ error: 'Unknown game.' });
     }
 
-    await query(
+    const saved = await q<{ score: number | null }>(
       `INSERT INTO game_results (user_id, day, game, score, detail, finished_at)
        VALUES ($1, $2, $3, $4, $5, CASE WHEN $6 THEN now() END)
        ON CONFLICT (user_id, day, game) DO UPDATE
-       SET score = EXCLUDED.score, detail = EXCLUDED.detail, finished_at = EXCLUDED.finished_at`,
+       SET score = EXCLUDED.score, detail = EXCLUDED.detail, finished_at = EXCLUDED.finished_at
+       WHERE game_results.finished_at IS NULL
+       RETURNING score`,
       [req.uid, body.day, game, score, JSON.stringify(detail), done],
     );
+    // A finished game never changes: a parallel or replayed submit loses.
+    if (!saved.length) return { ok: true, alreadyFinished: true };
     return { ok: true, score };
+    });
   });
 }

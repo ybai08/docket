@@ -6,7 +6,8 @@ import { z } from 'zod';
 import { centralDay } from '../../src/lib/day.ts';
 import { requireUser } from './auth.ts';
 import { setFor, setForUser } from './content.ts';
-import { query } from './db.ts';
+import { Day } from './games.ts';
+import { query, withLock, type Query } from './db.ts';
 import { stateName } from './geo.ts';
 import { MIN_SPLIT_VOTERS, MIN_UNANIMOUS_VOTERS } from './groups.ts';
 
@@ -15,7 +16,7 @@ export const MIN_SHARED_OVERALL = 10;
 export const MIN_SHARED_TOPIC = 5;
 const REQUEST_TTL_DAYS = 30;
 // Area averages, ranks and score spreads stay hidden below this many players, so one person's score can't be read off.
-export const MIN_AREA_PLAYERS = 5;
+export const MIN_AREA_PLAYERS = 10;
 
 const pair = (a: string, b: string) => (a < b ? [a, b] : [b, a]);
 
@@ -33,10 +34,19 @@ export async function isBlocked(a: string, b: string) {
   return rows.length > 0;
 }
 
+/** Everything that changes a pair's relationship runs under this lock, so a block can't lose a race to an accept. */
+const forPair = <T,>(a: string, b: string, fn: (q: Query) => Promise<T>) => withLock(`pair:${pair(a, b).join('|')}`, fn);
+
+/** Friends now, unless either has blocked the other. Returns whether this call made them friends. */
 async function befriend(a: string, b: string, source: string) {
   const [x, y] = pair(a, b);
-  await query('INSERT INTO friendships (user_a, user_b, source) VALUES ($1, $2, $3) ON CONFLICT DO NOTHING', [x, y, source]);
-  await query(`UPDATE friend_requests SET status = 'accepted' WHERE status = 'pending' AND ((from_id = $1 AND to_id = $2) OR (from_id = $2 AND to_id = $1))`, [a, b]);
+  return forPair(a, b, async (q) => {
+    const blocked = await q('SELECT 1 FROM blocks WHERE (blocker_id = $1 AND blocked_id = $2) OR (blocker_id = $2 AND blocked_id = $1)', [a, b]);
+    if (blocked.length) return false;
+    const made = await q('INSERT INTO friendships (user_a, user_b, source) VALUES ($1, $2, $3) ON CONFLICT DO NOTHING RETURNING 1', [x, y, source]);
+    await q(`UPDATE friend_requests SET status = 'accepted' WHERE status = 'pending' AND ((from_id = $1 AND to_id = $2) OR (from_id = $2 AND to_id = $1))`, [a, b]);
+    return made.length > 0;
+  });
 }
 
 async function unfriend(a: string, b: string) {
@@ -58,7 +68,10 @@ export async function mutualSharing(a: string, b: string) {
 export async function agreementBetween(a: string, b: string) {
   const [overall] = await query<{ agreed: string; shared: string }>(
     `SELECT count(*) FILTER (WHERE x.vote = y.vote) AS agreed, count(*) AS shared
-     FROM votes x JOIN votes y ON x.bill_id = y.bill_id WHERE x.user_id = $1 AND y.user_id = $2`,
+     FROM votes x JOIN votes y ON x.bill_id = y.bill_id
+     JOIN game_results rx ON rx.user_id = x.user_id AND rx.day = x.day AND rx.game = 'roll-call' AND rx.finished_at IS NOT NULL
+     JOIN game_results ry ON ry.user_id = y.user_id AND ry.day = y.day AND ry.game = 'roll-call' AND ry.finished_at IS NOT NULL
+     WHERE x.user_id = $1 AND y.user_id = $2`,
     [a, b],
   );
   const shared = Number(overall.shared);
@@ -66,6 +79,8 @@ export async function agreementBetween(a: string, b: string) {
   const topics = await query<{ topic: string; agreed: string; shared: string }>(
     `SELECT bl.topic, count(*) FILTER (WHERE x.vote = y.vote) AS agreed, count(*) AS shared
      FROM votes x JOIN votes y ON x.bill_id = y.bill_id JOIN bills bl ON bl.id = x.bill_id
+     JOIN game_results rx ON rx.user_id = x.user_id AND rx.day = x.day AND rx.game = 'roll-call' AND rx.finished_at IS NOT NULL
+     JOIN game_results ry ON ry.user_id = y.user_id AND ry.day = y.day AND ry.game = 'roll-call' AND ry.finished_at IS NOT NULL
      WHERE x.user_id = $1 AND y.user_id = $2 GROUP BY bl.topic ORDER BY count(*) DESC`,
     [a, b],
   );
@@ -209,6 +224,7 @@ async function areaBreakdown(uid: string, scope: Scope, day: string) {
   const votes = await query<{ bill_id: string; voters: string; yea: string }>(
     `SELECT v.bill_id, count(*) AS voters, count(*) FILTER (WHERE v.vote = 'yea') AS yea
      FROM votes v JOIN users u ON u.id = v.user_id
+     JOIN game_results g ON g.user_id = v.user_id AND g.day = v.day AND g.game = 'roll-call' AND g.finished_at IS NOT NULL
      WHERE v.day = $1 AND v.bill_id = ANY($${n + 2}) ${area.where.replace('WHERE', 'AND')}
      GROUP BY v.bill_id`,
     [set.day, ...area.params, set.rollCall.map((b) => b.id)],
@@ -223,7 +239,8 @@ async function areaBreakdown(uid: string, scope: Scope, day: string) {
       billId: b.id,
       voters,
       yeaPct: visible ? Math.round(share * 100) : null,
-      hiddenReason: visible ? null : voters < MIN_SPLIT_VOTERS ? ('few' as const) : ('unanimous' as const),
+      // One reason for every hidden split: "everyone voted alike" would itself give the votes away.
+      hiddenReason: visible ? null : ('few' as const),
     };
   });
 
@@ -328,7 +345,7 @@ export async function socialRoutes(app: FastifyInstance) {
 
   app.get<{ Params: { scope: string }; Querystring: { day?: string } }>('/leaderboard/area/:scope', async (req, reply) => {
     const scope = z.enum(['city', 'state', 'all']).parse(req.params.scope);
-    const day = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Use a YYYY-MM-DD day.').optional().parse(req.query.day) ?? centralDay();
+    const day = Day.optional().parse(req.query.day) ?? centralDay();
     const out = await areaBreakdown(req.uid, scope, day);
     if (!out) return reply.code(404).send({ error: scope === 'all' ? 'No games that day.' : 'Add your ZIP code to see your area.' });
     return out;
@@ -386,9 +403,12 @@ export async function socialRoutes(app: FastifyInstance) {
   // Block is silent too, and also stops future requests.
   app.post('/blocks', async (req) => {
     const { userId } = z.object({ userId: z.string() }).parse(req.body);
-    await unfriend(req.uid, userId);
-    await query('INSERT INTO blocks (blocker_id, blocked_id) VALUES ($1, $2) ON CONFLICT DO NOTHING', [req.uid, userId]);
-    await query(`UPDATE friend_requests SET status = 'ignored' WHERE status = 'pending' AND ((from_id = $1 AND to_id = $2) OR (from_id = $2 AND to_id = $1))`, [req.uid, userId]);
+    const [x, y] = pair(req.uid, userId);
+    await forPair(req.uid, userId, async (q) => {
+      await q('DELETE FROM friendships WHERE user_a = $1 AND user_b = $2', [x, y]);
+      await q('INSERT INTO blocks (blocker_id, blocked_id) VALUES ($1, $2) ON CONFLICT DO NOTHING', [req.uid, userId]);
+      await q(`UPDATE friend_requests SET status = 'ignored' WHERE status = 'pending' AND ((from_id = $1 AND to_id = $2) OR (from_id = $2 AND to_id = $1))`, [req.uid, userId]);
+    });
     return { ok: true };
   });
 
@@ -415,11 +435,21 @@ export async function socialRoutes(app: FastifyInstance) {
     if (!target || !target.allow_username || target.id === req.uid) return notFound();
     if (await isBlocked(req.uid, target.id)) return notFound();
     if (await areFriends(req.uid, target.id)) return { ok: true, alreadyFriends: true };
-    await query(
-      `INSERT INTO friend_requests (from_id, to_id, source) VALUES ($1, $2, 'username')
-       ON CONFLICT (from_id, to_id) WHERE status = 'pending' DO NOTHING`,
-      [req.uid, target.id],
-    );
+    // If they already asked us, two crossing requests mean both want it: friends now.
+    const crossing = await forPair(req.uid, target.id, async (q) => {
+      const theirs = await q(`SELECT 1 FROM friend_requests WHERE from_id = $1 AND to_id = $2 AND status = 'pending'`, [target.id, req.uid]);
+      if (theirs.length) return true;
+      await q(
+        `INSERT INTO friend_requests (from_id, to_id, source) VALUES ($1, $2, 'username')
+         ON CONFLICT (from_id, to_id) WHERE status = 'pending' DO NOTHING`,
+        [req.uid, target.id],
+      );
+      return false;
+    });
+    if (crossing) {
+      await befriend(req.uid, target.id, 'username');
+      return { ok: true, alreadyFriends: true };
+    }
     return { ok: true };
   });
 
@@ -431,8 +461,20 @@ export async function socialRoutes(app: FastifyInstance) {
       [id, req.uid],
     );
     if (!r) return reply.code(404).send({ error: 'That request is gone.' });
-    if (action === 'accept') await befriend(req.uid, r.from_id, r.source);
-    else await query(`UPDATE friend_requests SET status = 'ignored' WHERE id = $1`, [id]);
+    if (action === 'accept') {
+      // Still pending at the moment we take it, or an ignore got there first.
+      const taken = await forPair(req.uid, r.from_id, (q) =>
+        q(`SELECT 1 FROM friend_requests WHERE id = $1 AND status = 'pending' FOR UPDATE`, [id]),
+      );
+      if (!taken.length) return reply.code(404).send({ error: 'That request is gone.' });
+      await befriend(req.uid, r.from_id, r.source);
+      return { ok: true };
+    }
+    // Only a still-pending request can be ignored, so a racing accept and ignore can't both win.
+    const ignored = await forPair(req.uid, r.from_id, (q) =>
+      q(`UPDATE friend_requests SET status = 'ignored' WHERE id = $1 AND status = 'pending' RETURNING 1`, [id]),
+    );
+    if (!ignored.length) return reply.code(404).send({ error: 'That request is gone.' });
     return { ok: true };
   });
 
@@ -456,8 +498,9 @@ export async function socialRoutes(app: FastifyInstance) {
     if (!inv) return reply.code(404).send({ error: 'That invite link has expired.' });
     if (inv.inviter_id === req.uid) return reply.code(400).send({ error: "That's your own invite." });
     if (await isBlocked(req.uid, inv.inviter_id)) return reply.code(404).send({ error: 'That invite link has expired.' });
-    const already = await areFriends(req.uid, inv.inviter_id);
-    await befriend(req.uid, inv.inviter_id, via === 'qr' ? 'qr' : 'invite');
+    const made = await befriend(req.uid, inv.inviter_id, via === 'qr' ? 'qr' : 'invite');
+    const already = !made && (await areFriends(req.uid, inv.inviter_id));
+    if (!made && !already) return reply.code(404).send({ error: 'That invite link has expired.' });
     const today = (await setFor(centralDay()))?.day ?? centralDay();
     const [p] = await query<Person>('SELECT id, display_name, username, is_demo FROM users WHERE id = $1', [inv.inviter_id]);
     return { inviter: { id: p.id, name: nameOf(p) }, alreadyFriends: already, today: await dailyAgreement(req.uid, inv.inviter_id, today) };

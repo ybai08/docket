@@ -6,9 +6,33 @@ import { z } from 'zod';
 import { addDays, centralDay } from '../../src/lib/day.ts';
 import { requireUser } from './auth.ts';
 import { setFor } from './content.ts';
-import { query } from './db.ts';
+import { pool, query } from './db.ts';
 
 export const MAX_MEMBERS = 50;
+
+type Q = <T extends Record<string, unknown>>(text: string, params?: unknown[]) => Promise<T[]>;
+
+/** Runs fn with the group's row locked, so two joins or approvals can't both take the last seat. */
+async function withGroupLocked<T>(groupId: string, fn: (q: Q) => Promise<T>) {
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+    await client.query('SELECT 1 FROM groups WHERE id = $1 FOR UPDATE', [groupId]);
+    const out = await fn(async (text, params = []) => (await client.query(text, params)).rows);
+    await client.query('COMMIT');
+    return out;
+  } catch (err) {
+    await client.query('ROLLBACK');
+    throw err;
+  } finally {
+    client.release();
+  }
+}
+
+async function activeCount(q: Q, groupId: string) {
+  const [{ n }] = await q<{ n: string }>(`SELECT count(*) AS n FROM group_members WHERE group_id = $1 AND status = 'active'`, [groupId]);
+  return Number(n);
+}
 export const MIN_SPLIT_VOTERS = 5;
 export const MIN_UNANIMOUS_VOTERS = 10;
 const CODE_CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
@@ -70,6 +94,7 @@ async function splits(groupId: string, from: string, to: string) {
   const rows = await query<{ bill_id: string; number: string; short_title: string; topic: string; voters: string; yea: string; day: string }>(
     `SELECT v.bill_id, b.number, b.short_title, b.topic, v.day, count(*) AS voters, count(*) FILTER (WHERE v.vote = 'yea') AS yea
      FROM votes v JOIN group_members m ON m.user_id = v.user_id JOIN bills b ON b.id = v.bill_id
+     JOIN game_results g ON g.user_id = v.user_id AND g.day = v.day AND g.game = 'roll-call' AND g.finished_at IS NOT NULL
      WHERE m.group_id = $1 AND m.status = 'active' AND m.include_in_splits AND v.day BETWEEN $2 AND $3
      GROUP BY v.bill_id, b.number, b.short_title, b.topic, v.day`,
     [groupId, from, to],
@@ -87,7 +112,8 @@ async function splits(groupId: string, from: string, to: string) {
       day: r.day,
       voters,
       yeaPct: visible ? Math.round(share * 100) : null,
-      hiddenReason: visible ? null : voters < MIN_SPLIT_VOTERS ? 'few' : 'unanimous',
+      // One reason for every hidden split: "everyone voted alike" would itself give the votes away.
+      hiddenReason: visible ? null : ('few' as const),
     };
   });
 }
@@ -170,11 +196,16 @@ export async function groupRoutes(app: FastifyInstance) {
     if (!g) return reply.code(404).send({ error: 'No group has that code. Check it and try again.' });
     const existing = await membership(g.id, req.uid);
     if (existing) return { id: g.id, status: existing.status };
-    const [{ n }] = await query<{ n: string }>(`SELECT count(*) AS n FROM group_members WHERE group_id = $1 AND status = 'active'`, [g.id]);
-    if (Number(n) >= MAX_MEMBERS) return reply.code(409).send({ error: `This group is full (${MAX_MEMBERS} members).` });
     const status = g.approval_required ? 'pending' : 'active';
-    await query('INSERT INTO group_members (group_id, user_id, status) VALUES ($1, $2, $3)', [g.id, req.uid, status]);
-    return { id: g.id, status };
+    const joined = await withGroupLocked(g.id, async (q) => {
+      if (status === 'active' && (await activeCount(q, g.id)) >= MAX_MEMBERS) return null;
+      // A double-tapped join finds the row the first tap made.
+      await q('INSERT INTO group_members (group_id, user_id, status) VALUES ($1, $2, $3) ON CONFLICT DO NOTHING', [g.id, req.uid, status]);
+      const [m] = await q<{ status: string }>('SELECT status FROM group_members WHERE group_id = $1 AND user_id = $2', [g.id, req.uid]);
+      return m.status;
+    });
+    if (!joined) return reply.code(409).send({ error: `This group is full (${MAX_MEMBERS} members).` });
+    return { id: g.id, status: joined };
   });
 
   app.get<{ Params: { id: string } }>('/groups/:id', async (req, reply) => {
@@ -246,9 +277,12 @@ export async function groupRoutes(app: FastifyInstance) {
 
   app.post<{ Params: { id: string; uid: string } }>('/groups/:id/members/:uid/approve', async (req, reply) => {
     if (!(await requireAdmin(req.params.id, req.uid, reply))) return;
-    const [{ n }] = await query<{ n: string }>(`SELECT count(*) AS n FROM group_members WHERE group_id = $1 AND status = 'active'`, [req.params.id]);
-    if (Number(n) >= MAX_MEMBERS) return reply.code(409).send({ error: `This group is full (${MAX_MEMBERS} members).` });
-    await query(`UPDATE group_members SET status = 'active' WHERE group_id = $1 AND user_id = $2`, [req.params.id, req.params.uid]);
+    const approved = await withGroupLocked(req.params.id, async (q) => {
+      if ((await activeCount(q, req.params.id)) >= MAX_MEMBERS) return false;
+      await q(`UPDATE group_members SET status = 'active' WHERE group_id = $1 AND user_id = $2`, [req.params.id, req.params.uid]);
+      return true;
+    });
+    if (!approved) return reply.code(409).send({ error: `This group is full (${MAX_MEMBERS} members).` });
     return { ok: true };
   });
 
