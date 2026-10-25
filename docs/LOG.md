@@ -8,6 +8,9 @@ Newest first. Each commit adds a line or two here: what changed, what's live, wh
 - `docs/QA_REPORT.md`: break-testing the API with simulated players (cheater, races, groups, area leaderboard, spammer/fuzzer, a player who moves states). Found 1 critical, 7 high, 10 medium and 12 low issues. The worst: group and area vote splits reveal one person's vote, `/today` ships the Filed or Fake and Landslide answers, and parallel submits can un-finish and replay a game. Sent to the backend session; no server code changed.
 - `server/qa/`: rerunnable repro scripts, plus `start-local.sh`, which runs the API against its own Docker Postgres with stubbed auth. Production was never touched.
 
+### Web demo CORS (backend)
+- The API now allows PATCH, PUT and DELETE from browsers, so the web demo at yangbai-docket.expo.app can save profile changes after sign-in. Before this, the cors plugin allowed only GET, HEAD and POST.
+
 ### All 50 states live, and QA fixes (backend)
 - Wisconsin, West Virginia and Georgia added from their legislatures' sites (Georgia's Landslide too). Every state now gets its own bills: 49 from state data plus Texas's curated set, 546 state bills in all. Only D.C.'s Landslide and Puerto Rico still use the default.
 - Fixed from the QA report (`docs/QA_REPORT.md`):

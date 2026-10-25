@@ -13,7 +13,8 @@ import { socialRoutes } from './social.ts';
 
 const app = Fastify({ logger: { level: process.env.LOG_LEVEL ?? 'info' } });
 
-await app.register(cors, { origin: true });
+// The web demo (EAS Hosting) also sends PATCH, PUT and DELETE; the plugin allows only GET, HEAD and POST by default.
+await app.register(cors, { origin: true, methods: ['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE'] });
 
 app.setErrorHandler((err, _req, reply) => {
   if (err instanceof ZodError) return reply.code(400).send({ error: err.issues[0]?.message ?? 'Invalid request.' });
