@@ -34,7 +34,10 @@ export default function ProfileScreen() {
     ] as [Level, string][]
   ).filter(([id]) => lawmakers(id, lawmakerData).length > 0);
   const current = levels.some(([id]) => id === level) ? level : (levels[0]?.[0] ?? level);
-  const shown = lawmakers(current, lawmakerData);
+  // Most agreed first; ties go to the one compared on more bills. Lawmakers with no shared votes go last.
+  const shown = lawmakers(current, lawmakerData).sort(
+    (a, b) => (b.pct ?? -1) - (a.pct ?? -1) || (b.shared ?? 0) - (a.shared ?? 0) || a.name.localeCompare(b.name),
+  );
   const [error, setError] = useState<string | null>(null);
 
   if (!user) return null;
