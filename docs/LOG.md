@@ -5,6 +5,7 @@ Newest first. Each commit adds a line or two here: what changed, what's live, wh
 ## 2026-10-25
 
 ### Promo video and launch page
+- Live: links to the public repo (https://github.com/ybai08/docket) on docketapp.tech: "GitHub" in the top bar, "View the code" next to the hero buttons, the repo URL in How we built it, and "Code on GitHub" in the footer (user request).
 - Live: the hero's "See how it works" button now scrolls smoothly to "Three quick games. All real bills." instead of playing the demo (user request).
 - Live on docketapp.tech, at the user's request: the "Built at HackTX 2026" badge and footer text are gone. The second hero button is now "See how it works" and plays the demo; the duplicate button below the video is removed. A note under the buttons says Docket runs in the browser for now, because Apple's TestFlight review for outside testers didn't finish before judging.
 - Fixed since: deploy.sh now keeps the app.docketapp.tech block on full deploys (backend).
