@@ -32,7 +32,7 @@ export function showRollCallHelp() {
 }
 
 export default function RollCallScreen() {
-  const { day, set, progress, update } = useToday();
+  const { set, progress, actions } = useToday();
   const deck = useRef<DeckHandle>(null);
   const votes = progress.rollCall.votes;
   const index = set.rollCall.findIndex((b) => !votes[b.id]);
@@ -42,7 +42,7 @@ export default function RollCallScreen() {
   if (progress.rollCall.revealed) return <Redirect href="/roll-call/results" />;
 
   function cast(b: Bill, vote: Vote) {
-    update(day, (p) => ({ ...p, rollCall: { ...p.rollCall, votes: { ...p.rollCall.votes, [b.id]: vote } } }));
+    actions.vote(b.id, vote);
   }
 
   return (
@@ -87,7 +87,7 @@ export default function RollCallScreen() {
               <PillButton label="See results" style={{ alignSelf: 'stretch' }} onPress={() => router.replace('/roll-call/results')} />
               <Pressable
                 accessibilityRole="button"
-                onPress={() => update(day, (p) => ({ ...p, rollCall: { votes: {} } }))}
+                onPress={actions.resetVotes}
                 style={{ height: 44, paddingHorizontal: 16, justifyContent: 'center' }}>
                 <Text style={{ fontSize: 16, fontWeight: '600', textDecorationLine: 'underline' }}>Vote again</Text>
               </Pressable>

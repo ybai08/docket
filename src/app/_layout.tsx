@@ -12,6 +12,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import { AuthProvider, useAuth } from '@/lib/auth-context';
 import { GameStoreProvider } from '@/lib/game-store';
+import { TodayProvider } from '@/lib/use-today';
 import { colors } from '@/theme';
 
 function RootStack() {
@@ -53,8 +54,10 @@ export default function RootLayout() {
     <GestureHandlerRootView style={{ flex: 1, backgroundColor: colors.ground }}>
       <AuthProvider>
         <GameStoreProvider>
-          <StatusBar style="dark" />
-          {fontsLoaded ? <RootStack /> : null}
+          <TodayProvider>
+            <StatusBar style="dark" />
+            {fontsLoaded ? <RootStack /> : null}
+          </TodayProvider>
         </GameStoreProvider>
       </AuthProvider>
     </GestureHandlerRootView>

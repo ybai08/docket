@@ -41,6 +41,8 @@ type Store = {
   days: Stored;
   get: (day: string) => DayProgress;
   update: (day: string, fn: (p: DayProgress) => DayProgress) => void;
+  /** Overwrite a day with the server's copy. */
+  replace: (day: string, progress: DayProgress) => void;
 };
 
 const GameStoreContext = createContext<Store | null>(null);
@@ -76,7 +78,9 @@ export function GameStoreProvider({ children }: { children: ReactNode }) {
     setLoaded((prev) => (prev ? { ...prev, days: { ...prev.days, [day]: fn(prev.days[day] ?? empty()) } } : prev));
   }, []);
 
-  const value = useMemo(() => ({ ready, days, get, update }), [ready, days, get, update]);
+  const replace = useCallback((day: string, progress: DayProgress) => update(day, () => progress), [update]);
+
+  const value = useMemo(() => ({ ready, days, get, update, replace }), [ready, days, get, update, replace]);
   return <GameStoreContext.Provider value={value}>{children}</GameStoreContext.Provider>;
 }
 

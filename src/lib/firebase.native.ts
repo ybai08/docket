@@ -6,12 +6,19 @@ import { authEmulatorUrl, getFirebaseApp, isFirebaseConfigured } from './firebas
 
 // Firebase's react-native build exports getReactNativePersistence, but its
 // published types (picked before the react-native condition) leave it out.
-const { connectAuthEmulator, getReactNativePersistence, initializeAuth } = FirebaseAuth as typeof FirebaseAuth & {
+const { connectAuthEmulator, getAuth, getReactNativePersistence, initializeAuth } = FirebaseAuth as typeof FirebaseAuth & {
   getReactNativePersistence: (storage: typeof AsyncStorage) => FirebaseAuth.Persistence;
 };
 
-export const auth: FirebaseAuth.Auth | null = isFirebaseConfigured
-  ? initializeAuth(getFirebaseApp(), { persistence: getReactNativePersistence(AsyncStorage) })
-  : null;
+function createAuth() {
+  const app = getFirebaseApp();
+  try {
+    return initializeAuth(app, { persistence: getReactNativePersistence(AsyncStorage) });
+  } catch {
+    // Fast Refresh re-runs this module; Auth already exists for the app.
+    return getAuth(app);
+  }
+}
 
+export const auth: FirebaseAuth.Auth | null = isFirebaseConfigured ? createAuth() : null;
 if (auth && authEmulatorUrl) connectAuthEmulator(auth, authEmulatorUrl, { disableWarnings: true });

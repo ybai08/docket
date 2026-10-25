@@ -2,7 +2,7 @@
 
 Swipe through real Texas and Austin bills, play quick daily games, and see how your friends voted. Built at HackTX 2026.
 
-Stack: Expo (React Native, Expo Router) + Firebase Auth. Sign-in is Google (iOS, Android, web) and Apple (iOS only).
+Stack: Expo (React Native, Expo Router) + Firebase Auth, and a Fastify + Postgres API in `server/`. Sign-in is Google (iOS, Android, web) and Apple (iOS only).
 
 ## Run it
 
@@ -33,11 +33,32 @@ After the first build, `npx expo start` is enough until native config changes. R
 3. **Project settings > Your apps > Add app > iOS**: bundle ID `com.ybai08.docket`. Download `GoogleService-Info.plist` and copy its `CLIENT_ID` into `EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID`. Do not commit the plist.
 4. **Apple** needs a paid Apple Developer account: in developer.apple.com, enable **Sign in with Apple** on the App ID `com.ybai08.docket`. For iOS-only sign-in, Firebase's Apple provider needs no Services ID or key.
 
+## Run the API locally
+
+The app talks to `server/` with the signed-in user's Firebase ID token. Votes, results, streaks and stats live in Postgres; the app keeps a local copy so it still works offline.
+
+```bash
+docker run -d --name docket-pg -e POSTGRES_USER=docket -e POSTGRES_PASSWORD=docket -e POSTGRES_DB=docket -p 5432:5432 postgres:16
+cd server
+npm install
+cp .env.example .env    # DATABASE_URL, and FIREBASE_PROJECT_ID (same as the app's)
+npm run migrate         # applies migrations/*.sql once each
+npm run seed            # loads the verified bills and daily sets from src/data
+npm run dev             # http://localhost:8787, reloads on change
+```
+
+The iOS Simulator reaches `localhost` directly. For a phone, set `EXPO_PUBLIC_API_URL` in the app's `.env` to an address it can reach. Hosted Postgres (Tiger Cloud) works the same: put its connection string in `DATABASE_URL`; TLS is turned on for any non-local host.
+
+Endpoints (all need `Authorization: Bearer <Firebase ID token>`): `GET /today`, `POST /votes`, `POST /votes/reset`, `POST /results/:game`, `GET /results/today`, `GET /me`, `PATCH /me`.
+
 ## Layout
 
-- `src/app/` — screens (Expo Router). `sign-in.tsx` and `index.tsx` (profile) are guarded in `_layout.tsx`.
-- `src/theme/` — design tokens: semantic platform colors (light/dark), brand "ink" color, spacing, radius, type ramp. Screens import from `@/theme`; no hardcoded colors or sizes elsewhere.
-- `src/components/` — shared primitives (`ThemedText`).
+- `src/app/` — screens (Expo Router). `sign-in.tsx` and the `(tabs)` group (Today, Friends, Profile) plus the game screens are guarded in `_layout.tsx`.
+- `src/theme/` — design tokens from `design/`: palette, Newsreader + system type, spacing, radius. Light only.
+- `src/components/` — shared pieces: pill buttons, bill chip and card, ballot stub card, progress tiles, stamp, vote slider.
+- `src/data/` — verified seed content (bills, captions, Landslide tallies) and the daily sets.
+- `src/lib/use-today.tsx` — today's set and progress, synced with the API; `rules.ts` holds the scoring shared with the server.
+- `server/` — Fastify API, SQL migrations and the seed script.
 - `src/lib/auth-context.tsx` — auth state, sign-in/out, error messages.
 - `src/lib/social-auth.native.ts` / `social-auth.ts` — Google and Apple sign-in for iOS/Android and web.
 - `src/lib/firebase.native.ts` / `firebase.ts` — Firebase Auth setup for iOS/Android and web.

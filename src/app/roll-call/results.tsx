@@ -10,30 +10,26 @@ import { ScreenHeader } from '@/components/screen-header';
 import { VoteSlider } from '@/components/vote-slider';
 import type { Bill, Vote } from '@/data/types';
 import { formatCountdown, msUntilNextDay } from '@/lib/day';
-import { useGameStore } from '@/lib/game-store';
-import { agreed, rollCallStats } from '@/lib/scoring';
+import { agreed } from '@/lib/scoring';
 import { shareText } from '@/lib/share';
 import { useToday } from '@/lib/use-today';
 import { colors, type } from '@/theme';
 
 export default function RollCallResultsScreen() {
-  const today = useToday();
-  const { day, set, progress, update, status } = today;
-  const { days } = useGameStore();
+  const { day, set, progress, status, stats, actions } = useToday();
   const votes = progress.rollCall.votes;
   const complete = set.rollCall.every((b) => votes[b.id]);
   const results = set.rollCall.map((b) => (votes[b.id] ? agreed(b, votes[b.id]) : false));
   const agreedCount = results.filter(Boolean).length;
 
   // Seeing results makes today's ballot final.
+  const revealed = progress.rollCall.revealed;
+  const { revealRollCall } = actions;
   useEffect(() => {
-    if (!complete || progress.rollCall.revealed) return;
-    update(day, (p) => ({ ...p, rollCall: { ...p.rollCall, revealed: true }, rollCallAgreed: agreedCount }));
-  }, [complete, progress.rollCall.revealed, day, agreedCount, update]);
+    if (complete && !revealed) revealRollCall();
+  }, [complete, revealed, revealRollCall]);
 
   if (!complete) return <Redirect href="/roll-call" />;
-
-  const stats = rollCallStats(days, day);
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.ground }} edges={['top']}>
@@ -84,7 +80,7 @@ export default function RollCallResultsScreen() {
             Statistics
           </Text>
           <View style={{ flexDirection: 'row', gap: 4 }}>
-            <Stat value={stats.played} label="Played" />
+            <Stat value={stats.rollCallsPlayed} label="Played" />
             <Stat value={stats.agreementPct} label="Agreement %" />
             <Stat value={stats.currentStreak} label="Current streak" />
             <Stat value={stats.maxStreak} label="Max streak" />
@@ -126,7 +122,7 @@ export default function RollCallResultsScreen() {
             <PillButton
               label="Share"
               style={{ height: 48, paddingHorizontal: 26 }}
-              onPress={() => Share.share({ message: shareText(day, set, today.progress, status) })}
+              onPress={() => Share.share({ message: shareText(day, set, progress, status) })}
             />
           </View>
         </View>

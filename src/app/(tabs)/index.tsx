@@ -1,5 +1,5 @@
 import { router, type Href } from 'expo-router';
-import { Pressable, Text, View } from 'react-native';
+import { ActivityIndicator, Pressable, Text, View } from 'react-native';
 
 import { BallotStubCard } from '@/components/ballot-stub-card';
 import { CheckIcon, ChevronRight, FiledOrFakeGlyph, FlameIcon, LandslideGlyph, RollCallGlyph } from '@/components/icons';
@@ -7,15 +7,12 @@ import { PillButton } from '@/components/pill-button';
 import { ProgressTiles, tilesFor } from '@/components/progress-tiles';
 import { TabScreen } from '@/components/tab-screen';
 import { formatDayLong } from '@/lib/day';
-import { useGameStore } from '@/lib/game-store';
-import { streaks } from '@/lib/scoring';
 import { useToday, type GameStatus } from '@/lib/use-today';
 import { colors, type } from '@/theme';
 
 export default function TodayScreen() {
-  const { day, status, cast } = useToday();
-  const { days } = useGameStore();
-  const streak = streaks(days, day).current;
+  const { day, status, cast, stats, loadState, error, reload } = useToday();
+  const streak = stats.currentStreak;
 
   return (
     <TabScreen>
@@ -52,6 +49,14 @@ export default function TodayScreen() {
           </View>
         </View>
       </View>
+
+      {loadState === 'loading' && (
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }} accessibilityLiveRegion="polite">
+          <ActivityIndicator color={colors.ink} />
+          <Text style={type.meta}>{"Loading today's ballots"}</Text>
+        </View>
+      )}
+      {error && loadState !== 'loading' && <SyncError message={error} onRetry={reload} />}
 
       <View style={{ gap: 10 }}>
         <BallotStubCard
@@ -90,6 +95,26 @@ export default function TodayScreen() {
 
       <LeaderboardTeaser />
     </TabScreen>
+  );
+}
+
+function SyncError({ message, onRetry }: { message: string; onRetry: () => void }) {
+  return (
+    <View
+      accessibilityRole="alert"
+      style={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 12,
+        padding: 12,
+        borderRadius: 12,
+        backgroundColor: colors.muted,
+      }}>
+      <Text style={[type.meta, { flex: 1, color: colors.text2 }]}>
+        {message} Your ballots are saved on this phone until it syncs.
+      </Text>
+      <PillButton size="md" variant="outline" label="Retry" onPress={onRetry} />
+    </View>
   );
 }
 

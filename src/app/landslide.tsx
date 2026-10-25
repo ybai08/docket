@@ -35,7 +35,7 @@ function showHelp() {
 }
 
 export default function LandslideScreen() {
-  const { day, set, progress, status, update } = useToday();
+  const { day, set, progress, status, actions } = useToday();
   const items = set.landslide.items;
 
   if (progress.landslide.done && progress.landslide.order) {
@@ -53,9 +53,8 @@ export default function LandslideScreen() {
       items={items}
       prompt={set.landslide.prompt}
       onLock={(order) => {
-        const score = landslidePoints(order, landslideAnswer(items)).reduce((a, b) => a + b, 0);
         Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-        update(day, (p) => ({ ...p, landslide: { order, score, done: true } }));
+        actions.lockLandslide(order);
       }}
     />
   );

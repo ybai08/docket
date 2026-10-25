@@ -22,7 +22,7 @@ function showHelp() {
 }
 
 export default function FiledOrFakeScreen() {
-  const { day, set, progress, status, update } = useToday();
+  const { day, set, progress, status, actions } = useToday();
   const captions = set.filedOrFake;
   const answers = progress.filedOrFake.answers;
   // The caption just answered stays on screen with its stamp until "Next caption".
@@ -32,13 +32,11 @@ export default function FiledOrFakeScreen() {
   const allAnswered = nextIndex === -1;
   const finished = progress.filedOrFake.done || (allAnswered && !showing);
 
+  const doneOnServer = progress.filedOrFake.done;
+  const { finishFiledOrFake } = actions;
   useEffect(() => {
-    if (!allAnswered || showing || progress.filedOrFake.done) return;
-    update(day, (p) => ({
-      ...p,
-      filedOrFake: { ...p.filedOrFake, done: true, score: filedOrFakeScore(captions, p.filedOrFake.answers) },
-    }));
-  }, [allAnswered, showing, progress.filedOrFake.done, captions, day, update]);
+    if (allAnswered && !showing && !doneOnServer) finishFiledOrFake();
+  }, [allAnswered, showing, doneOnServer, finishFiledOrFake]);
 
   if (finished) {
     return (
@@ -64,7 +62,7 @@ export default function FiledOrFakeScreen() {
       filed === caption.real ? Haptics.NotificationFeedbackType.Success : Haptics.NotificationFeedbackType.Warning,
     );
     setShowing(caption.id);
-    update(day, (p) => ({ ...p, filedOrFake: { ...p.filedOrFake, answers: { ...p.filedOrFake.answers, [caption.id]: filed } } }));
+    actions.answerCaption(caption.id, filed);
   }
 
   const last = captions.every((c) => c.id === caption.id || answers[c.id] !== undefined);
