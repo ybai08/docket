@@ -7,13 +7,14 @@ import { CheckIcon, ChevronRight, FiledOrFakeGlyph, FlameIcon, LandslideGlyph, R
 import { PillButton } from '@/components/pill-button';
 import { ProgressTiles, tilesFor } from '@/components/progress-tiles';
 import { TabScreen } from '@/components/tab-screen';
+import type { Bill } from '@/data/types';
 import { formatDayLong } from '@/lib/day';
 import { useRemote, type Leaderboard } from '@/lib/social';
 import { useToday, type GameStatus } from '@/lib/use-today';
 import { colors, type } from '@/theme';
 
 export default function TodayScreen() {
-  const { day, status, cast, stats, loadState, error, reload } = useToday();
+  const { day, set, status, cast, stats, loadState, error, reload } = useToday();
   const streak = stats.currentStreak;
 
   return (
@@ -63,7 +64,7 @@ export default function TodayScreen() {
         <BallotStubCard
           color={colors.lavender}
           title="Roll Call"
-          subtitle="Congress, Texas and Austin. See who agreed."
+          subtitle={`Recent bills in ${places(set.rollCall)}. Which ones do you agree with?`}
           glyph={<RollCallGlyph />}
           status={
             <Status s={status.rollCall} unit="votes" result={`Agreed on ${status.rollCall.result} of ${status.rollCall.total}`} />
@@ -117,6 +118,17 @@ function SyncError({ message, onRetry }: { message: string; onRetry: () => void 
       <PillButton size="md" variant="outline" label="Retry" onPress={onRetry} />
     </View>
   );
+}
+
+const STATE_NAMES: Record<string, string> = { TX: 'Texas' };
+
+/** "Congress, Texas, and Austin": where today's Roll Call bills come from, in that order. */
+function places(bills: Bill[]) {
+  const name = (b: Bill) =>
+    b.level === 'federal' ? 'Congress' : b.level === 'state' ? (STATE_NAMES[b.jurisdiction] ?? b.jurisdiction) : b.jurisdiction.split(',')[0];
+  const order = { federal: 0, state: 1, local: 2 } as const;
+  const list = [...new Set([...bills].sort((a, b) => order[a.level] - order[b.level]).map(name))];
+  return list.length > 2 ? `${list.slice(0, -1).join(', ')}, and ${list.at(-1)}` : list.join(' and ');
 }
 
 function Status({ s, unit, result }: { s: GameStatus; unit: string; result: string }) {
