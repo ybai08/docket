@@ -15,7 +15,8 @@ export const TOPICS = [
   'Taxes and budget',
 ] as const;
 
-export type Topic = (typeof TOPICS)[number];
+// Onboarding offers TOPICS; a few local items (public art, say) fit none of them.
+export type Topic = (typeof TOPICS)[number] | 'Arts and culture';
 
 export type ChamberVote = {
   /** e.g. "Texas House", "U.S. Senate", "City Council" */

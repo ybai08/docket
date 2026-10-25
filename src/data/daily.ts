@@ -5,6 +5,12 @@ import type { DailySet } from './types';
 
 /** Seeded sets by Central-time day. The server loads these with `npm run seed`. */
 export const SEEDED_SETS: Record<string, Omit<DailySet, 'day'>> = {
+  // History only, so test and demo accounts share enough bills for agreement to show.
+  '2026-10-23': {
+    rollCall: ['tx-89r-hb2', 'tx-89r-sb2', 'tx-89r-sb984', 'tx-89r-sb1498', 'atx-26-2274'].map((id) => BILLS[id]),
+    filedOrFake: [],
+    landslide: { prompt: '', items: [] },
+  },
   '2026-10-24': {
     rollCall: ['tx-89r-hb1481', 'us-119-s146', 'tx-89r-sb3', 'us-119-s5', 'atx-c14-2026-0020'].map((id) => BILLS[id]),
     filedOrFake: CAPTIONS_OCT24,

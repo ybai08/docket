@@ -1750,5 +1750,126 @@
   "district": "9",
   "vote": "yea",
   "source": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_011"
+ },
+ {
+  "billId": "atx-26-2274",
+  "body": "atx-council",
+  "memberId": "Kirk Watson",
+  "name": "Kirk Watson",
+  "title": "Mayor",
+  "party": null,
+  "district": "0",
+  "vote": "yea",
+  "source": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_004"
+ },
+ {
+  "billId": "atx-26-2274",
+  "body": "atx-council",
+  "memberId": "Natasha Harper-Madison",
+  "name": "Natasha Harper-Madison",
+  "title": "Council Member",
+  "party": null,
+  "district": "1",
+  "vote": "yea",
+  "source": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_004"
+ },
+ {
+  "billId": "atx-26-2274",
+  "body": "atx-council",
+  "memberId": "Marc Duchen",
+  "name": "Marc Duchen",
+  "title": "Council Member",
+  "party": null,
+  "district": "10",
+  "vote": "yea",
+  "source": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_004"
+ },
+ {
+  "billId": "atx-26-2274",
+  "body": "atx-council",
+  "memberId": "Vanessa Fuentes",
+  "name": "Vanessa Fuentes",
+  "title": "Council Member",
+  "party": null,
+  "district": "2",
+  "vote": "nay",
+  "source": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_004"
+ },
+ {
+  "billId": "atx-26-2274",
+  "body": "atx-council",
+  "memberId": "José Velásquez",
+  "name": "José Velásquez",
+  "title": "Council Member",
+  "party": null,
+  "district": "3",
+  "vote": "yea",
+  "source": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_004"
+ },
+ {
+  "billId": "atx-26-2274",
+  "body": "atx-council",
+  "memberId": "José \"Chito\" Vela",
+  "name": "José \"Chito\" Vela",
+  "title": "Mayor Pro Tem",
+  "party": null,
+  "district": "4",
+  "vote": "yea",
+  "source": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_004"
+ },
+ {
+  "billId": "atx-26-2274",
+  "body": "atx-council",
+  "memberId": "Ryan Alter",
+  "name": "Ryan Alter",
+  "title": "Council Member",
+  "party": null,
+  "district": "5",
+  "vote": "yea",
+  "source": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_004"
+ },
+ {
+  "billId": "atx-26-2274",
+  "body": "atx-council",
+  "memberId": "Krista Laine",
+  "name": "Krista Laine",
+  "title": "Council Member",
+  "party": null,
+  "district": "6",
+  "vote": "yea",
+  "source": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_004"
+ },
+ {
+  "billId": "atx-26-2274",
+  "body": "atx-council",
+  "memberId": "Mike Siegel",
+  "name": "Mike Siegel",
+  "title": "Council Member",
+  "party": null,
+  "district": "7",
+  "vote": "yea",
+  "source": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_004"
+ },
+ {
+  "billId": "atx-26-2274",
+  "body": "atx-council",
+  "memberId": "Paige Ellis",
+  "name": "Paige Ellis",
+  "title": "Council Member",
+  "party": null,
+  "district": "8",
+  "vote": "nay",
+  "source": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_004"
+ },
+ {
+  "billId": "atx-26-2274",
+  "body": "atx-council",
+  "memberId": "Zohaib \"Zo\" Qadri",
+  "name": "Zohaib \"Zo\" Qadri",
+  "title": "Council Member",
+  "party": null,
+  "district": "9",
+  "vote": "yea",
+  "source": "https://datahub.austintexas.gov/resource/3c89-i35a.json?item_id=260827_RG_004"
  }
 ]
