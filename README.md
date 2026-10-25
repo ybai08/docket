@@ -51,6 +51,17 @@ The iOS Simulator reaches `localhost` directly. For a phone, set `EXPO_PUBLIC_AP
 
 Endpoints (all need `Authorization: Bearer <Firebase ID token>`): `GET /today`, `POST /votes`, `POST /votes/reset`, `POST /results/:game`, `GET /results/today`, `GET /me`, `PATCH /me`.
 
+## Deploy the API
+
+The API runs on a Vultr VM (Ubuntu 24.04) behind Caddy, which gets HTTPS certificates from Let's Encrypt. Until there's a domain, the host is `<ip-with-dashes>.sslip.io`, which resolves to the VM's IP.
+
+```bash
+ssh root@<ip> 'bash -s' < server/deploy/provision.sh       # once: Node 22, Caddy, firewall (22/80/443), swap
+server/deploy/deploy.sh <ip> <ip-with-dashes>.sslip.io      # every release: code, .env, npm ci, restart
+```
+
+`deploy.sh` copies `DATABASE_URL` and `FIREBASE_PROJECT_ID` from `server/.env` to the VM (mode 600) and runs the API as the `docket` systemd service on localhost:8787. It uses `~/.ssh/docket_vultr` unless `DOCKET_SSH_KEY` says otherwise. Point the app at it with `EXPO_PUBLIC_API_URL=https://<host>` in `.env`, then restart Metro. Once a domain points at the VM, rerun `deploy.sh` with that hostname.
+
 ## Layout
 
 - `src/app/` — screens (Expo Router). `sign-in.tsx` and the `(tabs)` group (Today, Friends, Profile) plus the game screens are guarded in `_layout.tsx`.
