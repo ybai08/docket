@@ -38,6 +38,7 @@ export default function RollCallScreen() {
   const index = set.rollCall.findIndex((b) => !votes[b.id]);
   const done = index === -1;
   const bill = done ? null : set.rollCall[index];
+  const next = done ? null : (set.rollCall[index + 1] ?? null);
 
   if (progress.rollCall.revealed) return <Redirect href="/roll-call/results" />;
 
@@ -62,6 +63,8 @@ export default function RollCallScreen() {
               <View style={{ height: CARD_HEIGHT + 30 }}>
                 {index < set.rollCall.length - 2 && <BackPlate inset={14} top={20} />}
                 {index < set.rollCall.length - 1 && <BackPlate inset={7} top={10} />}
+                {/* The next bill sits right under the top card, so its text shows as the top card leaves. */}
+                {next && <NextCard key={next.id} bill={next} />}
                 <SwipeCard key={bill.id} ref={deck} bill={bill} onVote={(v) => cast(bill, v)} />
               </View>
             </View>
@@ -176,19 +179,32 @@ function SwipeCard({ bill, onVote, ref }: { bill: Bill; onVote: (v: Vote) => voi
           { name: 'nay', label: 'Vote Nay' },
         ]}
         onAccessibilityAction={(e) => flyOut(e.nativeEvent.actionName === 'yea' ? 'yea' : 'nay')}>
-        <BillCard
-          number={bill.number}
-          level={bill.level}
-          chamber={bill.origin}
-          title={bill.title}
-          summary={bill.summary}
-          style={{ flex: 1 }}>
-          <View style={{ flex: 1 }} />
-          <Pressable accessibilityRole="link" onPress={() => Linking.openURL(bill.sourceUrl)} hitSlop={8}>
-            <Text style={{ fontSize: 15, fontWeight: '600', textDecorationLine: 'underline' }}>Read the bill</Text>
-          </Pressable>
-        </BillCard>
+        <BillFace bill={bill} />
       </Animated.View>
     </GestureDetector>
+  );
+}
+
+/** Same position as the top card, hidden from VoiceOver and touches until it's on top. */
+function NextCard({ bill }: { bill: Bill }) {
+  return (
+    <View
+      pointerEvents="none"
+      accessibilityElementsHidden
+      importantForAccessibility="no-hide-descendants"
+      style={{ position: 'absolute', left: 0, right: 0, top: 0, height: CARD_HEIGHT }}>
+      <BillFace bill={bill} />
+    </View>
+  );
+}
+
+function BillFace({ bill }: { bill: Bill }) {
+  return (
+    <BillCard number={bill.number} level={bill.level} chamber={bill.origin} title={bill.title} summary={bill.summary} style={{ flex: 1 }}>
+      <View style={{ flex: 1 }} />
+      <Pressable accessibilityRole="link" onPress={() => Linking.openURL(bill.sourceUrl)} hitSlop={8}>
+        <Text style={{ fontSize: 15, fontWeight: '600', textDecorationLine: 'underline' }}>Read the bill</Text>
+      </Pressable>
+    </BillCard>
   );
 }
