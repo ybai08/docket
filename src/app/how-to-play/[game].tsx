@@ -43,7 +43,7 @@ function guides(rollCall: number, filedOrFake: number, landslide: number): Recor
     glyph: <LandslideGlyph size={40} />,
     intro: `${countWord(landslide)} bills that passed. Which one won by the widest margin?`,
     steps: [
-      ['Rank them', 'Press and hold a bill, then drag it. Put the widest win on top and the closest vote at the bottom.'],
+      ['Rank them', 'Drag a bill up or down. Put the widest win on top and the closest vote at the bottom.'],
       ['Lock it in', 'When the order looks right, tap Lock in ranking.'],
       ['See the real order', 'Each bill shows its final vote and how much it won by.'],
     ],

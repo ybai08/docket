@@ -76,10 +76,11 @@ function Ranking({ items, prompt, onLock }: { items: LandslideItem[]; prompt: st
         <View style={{ gap: 8 }}>
           <Text style={{ fontSize: 12, fontWeight: '800', letterSpacing: 0.2 }}>Widest margin</Text>
           <View style={{ height: items.length * SLOT - GAP }}>
-            {items.map((it) => (
+            {items.map((it, i) => (
               <DraggableRow
                 key={it.billId}
                 item={it}
+                initialSlot={i}
                 count={items.length}
                 positions={positions}
                 onDrop={setOrder}
@@ -107,12 +108,15 @@ function Ranking({ items, prompt, onLock }: { items: LandslideItem[]; prompt: st
 
 function DraggableRow({
   item,
+  initialSlot,
   count,
   positions,
   onDrop,
   onMove,
 }: {
   item: LandslideItem;
+  /** Where the row starts; positions takes over once it's dragged. */
+  initialSlot: number;
   count: number;
   positions: SharedValue<Record<string, number>>;
   onDrop: (order: string[]) => void;
@@ -121,10 +125,10 @@ function DraggableRow({
 }) {
   const id = item.billId;
   const reduceMotion = useReducedMotion();
-  const top = useSharedValue(positions.get()[id] * SLOT);
+  const top = useSharedValue(initialSlot * SLOT);
   const lifted = useSharedValue(false);
   const start = useSharedValue(0);
-  const [rank, setRank] = useState(positions.get()[id] + 1);
+  const [rank, setRank] = useState(initialSlot + 1);
   const [isLifted, setIsLifted] = useState(false);
 
   // Follow slot changes caused by other rows (or by accessibility moves).
@@ -148,8 +152,11 @@ function DraggableRow({
     onDrop(Object.keys(next).sort((a, b) => next[a] - next[b]));
   }
 
+  // Starts on any vertical move, with no long press first: a press-and-drag with a mouse or finger just works.
+  // The screen doesn't scroll, so nothing else needs the vertical drag.
   const pan = usePanGesture({
-    activateAfterLongPress: 220,
+    activeOffsetY: [-6, 6],
+    failOffsetX: [-24, 24],
     onActivate: () => {
       lifted.set(true);
       start.set(top.get());
@@ -198,7 +205,7 @@ function DraggableRow({
       <Animated.View
         accessible
         accessibilityLabel={`${item.number}, ${item.title}. Ranked ${rank} of ${count}.`}
-        accessibilityHint="Long-press and drag to reorder."
+        accessibilityHint="Drag up or down to reorder."
         accessibilityActions={[
           { name: 'up', label: 'Move up' },
           { name: 'down', label: 'Move down' },
