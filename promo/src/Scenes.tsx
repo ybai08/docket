@@ -103,7 +103,7 @@ export function RollCall() {
         label="01 · Roll Call"
         color={C.lavender}
         title="Vote on real bills."
-        body="Five recent bills from Congress, your state and your city. Yea or Nay?"
+        body="Five recent bills from Congress and your state legislature. Yea or Nay?"
         outAt={swap - 12}
       />
       {frame >= swap - 4 && (
@@ -367,18 +367,13 @@ export function Area() {
         label="Beyond your friends"
         color={C.teal}
         title="See your whole state."
-        body="How your city, your state and everyone on Docket played today, and how they voted."
+        body="How your city, your state and everyone on Docket voted today. Scores appear once 10 people there have played."
       />
       <Phone>
-        <Screens
-          shots={[
-            { src: 'area', at: 0 },
-            { src: 'area-votes', at: 150 },
-          ]}
-        />
+        <Screens shots={[{ src: 'area', at: 0 }]} />
       </Phone>
-      <Callout label="Texas today" value="7 players" sub="Average 15 points, top score 25" color={C.teal} at={30} outAt={138} />
-      <Callout label="Large loads on the grid" value="67% Yea" sub="How Texas players voted today" color={C.teal} at={164} />
+      <Callout label="Texas today" value="7 players" sub="Scores stay hidden until 10 have played" color={C.teal} at={30} outAt={138} />
+      <Callout label="Large loads on the grid" value="67% Yea" sub="6 Texas players voted, so the split shows" color={C.teal} at={164} />
     </AbsoluteFill>
   );
 }
@@ -449,7 +444,7 @@ export function Nationwide() {
         </Rise>
         <Rise delay={70}>
           <div style={{ marginTop: 30, fontFamily: sans, fontSize: 36, color: C.text2 }}>
-            Congress and every state legislature, in all 50 states and D.C.
+            Every member of Congress and every state legislator. Daily bills in all 50 states.
           </div>
         </Rise>
       </AbsoluteFill>
@@ -491,13 +486,13 @@ export function Privacy() {
           <div style={{ fontFamily: serif, fontWeight: 800, fontSize: 84, letterSpacing: -1.5, lineHeight: 1.02 }}>Private by design.</div>
         </Rise>
         <Rule n={1} text="Party stays hidden until you've voted." delay={22} />
-        <Rule n={2} text="Group results stay hidden until 5 people vote." delay={40} />
+        <Rule n={2} text="Vote splits stay hidden until 5 people vote, or 10 if everyone agreed." delay={40} />
         <Rule n={3} text="Your votes are shared only if you both opt in." delay={58} />
       </div>
       <Phone>
         <Screens shots={[{ src: 'group', at: 0 }]} />
       </Phone>
-      <Callout label="Group splits" value="5+ voters" sub="before anyone sees how the group voted" color={C.teal} at={70} />
+      <Callout label="Group splits" value="5+ voters" sub="10 if everyone voted the same way" color={C.teal} at={70} />
     </AbsoluteFill>
   );
 }
