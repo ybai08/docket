@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Docket: Privacy and notifications</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,700;6..72,800&amp;display=swap">
+<style>
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,"Helvetica Neue",sans-serif;color:#000000}
+a{color:#000000}a:hover{color:#333333}
+button{font-family:inherit}
+</style>
+</helmet>
+<div style="width: 390px; height: 1140px; box-sizing: border-box; background: #FFFFFF; display: flex; flex-direction: column; padding: 52px 16px 28px; gap: 18px; overflow: hidden">
+
+  <div style="display: flex; align-items: center; justify-content: space-between; height: 44px; border-bottom: 1px solid #E4E4E7; margin: 0 -16px; padding: 0 8px 8px">
+    <a href="Friends.dc.html" aria-label="Back to Friends" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+    </a>
+    <span style="font-family: 'Newsreader', Georgia, serif; font-size: 20px; font-weight: 700">Privacy</span>
+    <div style="width: 44px; height: 44px"></div>
+  </div>
+
+  <section style="display: flex; flex-direction: column; gap: 10px">
+    <h2 style="margin: 0; font-family: 'Newsreader', Georgia, serif; font-size: 22px; font-weight: 700">What friends see</h2>
+    <div style="padding: 12px 14px; border-radius: 12px; background: #F4F4F5; display: flex; flex-direction: column; gap: 6px">
+      <span style="font-size: 13px; font-weight: 800">Always</span>
+      <span style="font-size: 14px">Your streak, scores and leaderboard rank</span>
+      <span style="font-size: 14px">How often you agree, overall and by topic</span>
+    </div>
+  </section>
+
+  <sc-for list="{{sections}}" as="section" hint-placeholder-count="3">
+    <section style="display: flex; flex-direction: column; gap: 8px">
+      <h2 style="margin: 0; font-size: 15px; font-weight: 800">{{section.title}}</h2>
+      <div style="border: 1.5px solid #000000; border-radius: 12px; overflow: hidden">
+        <sc-for list="{{section.rows}}" as="row" hint-placeholder-count="2">
+          <div style="{{row.divider}}"></div>
+          <div style="display: flex; align-items: center; gap: 12px; padding: 12px 14px">
+            <span style="flex: 1; display: flex; flex-direction: column; gap: 2px">
+              <span style="font-size: 15px; font-weight: 700">{{row.label}}</span>
+              <span style="font-size: 13px; line-height: 17px; color: #3A3A3C">{{row.detail}}</span>
+            </span>
+            <button type="button" role="switch" aria-label="{{row.label}}" aria-checked="{{row.checked}}" onClick="{{row.toggle}}" style="{{row.track}}"><span style="{{row.knob}}"></span></button>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </sc-for>
+
+  <section style="display: flex; flex-direction: column; gap: 8px">
+    <h2 style="margin: 0; font-size: 15px; font-weight: 800">Your data</h2>
+    <div style="border: 1.5px solid #000000; border-radius: 12px; overflow: hidden">
+      <a href="#blocked" style="display: flex; justify-content: space-between; padding: 12px 14px; font-size: 15px; font-weight: 600; text-decoration: none"><span>Blocked people</span><span style="color: #3A3A3C">0</span></a>
+      <div style="height: 1px; background: #E4E4E7; margin-left: 14px"></div>
+      <a href="#delete" style="display: block; padding: 12px 14px; font-size: 15px; font-weight: 600">Delete my account and all my votes</a>
+    </div>
+    <p style="margin: 0; font-size: 13px; line-height: 18px; color: #3A3A3C">There are no public profiles and no search by name. Docket never sells or shares your votes.</p>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1140}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      shareVotes: false, groupBoards: true, username: true, contacts: false,
+      passed: true, streak: true, recap: true, opposite: false
+    };
+  }
+  renderVals() {
+    var self = this;
+    var st = this.state;
+    var track = function (on) {
+      return 'position: relative; width: 52px; height: 32px; flex-shrink: 0; border-radius: 16px; border: none; padding: 0; cursor: pointer; background: ' + (on ? '#000000' : '#D4D4D8');
+    };
+    var knob = function (on) {
+      return 'position: absolute; top: 3px; left: ' + (on ? '23px' : '3px') + '; width: 26px; height: 26px; border-radius: 13px; background: #FFFFFF; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25)';
+    };
+    var row = function (key, label, detail, i) {
+      var on = !!st[key];
+      return {
+        label: label,
+        detail: detail,
+        checked: on ? 'true' : 'false',
+        toggle: function () { var next = {}; next[key] = !on; self.setState(next); },
+        track: track(on),
+        knob: knob(on),
+        divider: i === 0 ? 'display: none' : 'height: 1px; background: #E4E4E7; margin-left: 14px'
+      };
+    };
+    return {
+      sections: [
+        { title: 'Your votes', rows: [
+          row('shareVotes', 'Share my vote on each bill', st.shareVotes ? 'Friends who also share can see how you voted' : 'Off. Friends see agreement, never your votes', 0)
+        ] },
+        { title: 'Groups and discovery', rows: [
+          row('groupBoards', 'Show me on group leaderboards', 'Group splits only appear once 5 members vote', 0),
+          row('username', 'Let people add me by username', '@alexr', 1),
+          row('contacts', 'Match me from contacts', 'Only with people already on Docket', 2)
+        ] },
+        { title: 'Notifications', rows: [
+          row('passed', 'A friend passes you', 'On the daily or group leaderboard', 0),
+          row('streak', "A friend's streak is at risk", 'So you can nudge them', 1),
+          row('recap', 'Weekly recap', 'Where you and your groups agreed and split', 2),
+          row('opposite', 'A friend votes the opposite way', 'Only if you both share votes', 3)
+        ] }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

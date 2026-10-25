@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Docket: Pick your issues</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,700;6..72,800&amp;display=swap">
+<style>
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,"Helvetica Neue",sans-serif;color:#000000}
+a{color:#000000}a:hover{color:#333333}
+button{font-family:inherit}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #FFFFFF; display: flex; flex-direction: column; padding: 56px 20px 36px; gap: 22px; overflow: hidden">
+
+  <div style="display: flex; align-items: center; gap: 12px">
+    <a href="OnboardLocation.dc.html" aria-label="Back" style="width: 44px; height: 44px; margin-left: -12px; display: flex; align-items: center; justify-content: center">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+    </a>
+    <div style="flex: 1; display: flex; gap: 6px" role="img" aria-label="Step 2 of 3">
+      <span style="flex: 1; height: 6px; border-radius: 3px; background: #000000"></span>
+      <span style="flex: 1; height: 6px; border-radius: 3px; background: #000000"></span>
+      <span style="flex: 1; height: 6px; border-radius: 3px; background: #E4E4E7"></span>
+    </div>
+    <span style="font-size: 13px; font-weight: 600; color: #5A5A5E">2 of 3</span>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 8px">
+    <h1 style="margin: 0; font-family: 'Newsreader', Georgia, serif; font-size: 36px; line-height: 40px; font-weight: 700; letter-spacing: -0.4px">What do you care about?</h1>
+    <p style="margin: 0; font-size: 16px; line-height: 22px; color: #3A3A3C">Pick at least 3. We'll put more of these bills on your daily ballots. You'll still see every side.</p>
+  </div>
+
+  <div style="display: flex; flex-wrap: wrap; gap: 10px">
+    <sc-for list="{{topics}}" as="topic" hint-placeholder-count="12">
+      <button type="button" aria-pressed="{{topic.pressed}}" onClick="{{topic.toggle}}" style="{{topic.style}}">{{topic.label}}</button>
+    </sc-for>
+  </div>
+
+  <div style="flex: 1"></div>
+
+  <div style="display: flex; flex-direction: column; gap: 10px; align-items: center">
+    <p style="margin: 0; font-size: 14px; font-weight: 600">{{countLabel}}</p>
+    <a href="OnboardFriends.dc.html" style="{{continueStyle}}">Continue</a>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { picked: { 'Public schools': true, 'Housing and property tax': true, 'Tech and privacy': true } };
+  }
+  renderVals() {
+    var self = this;
+    var labels = [
+      'Public schools', 'Colleges and tuition', 'Housing and property tax', 'Criminal justice',
+      'Guns', 'Immigration and border', 'Energy and the grid', 'Water and environment',
+      'Health care', 'Elections and voting', 'Tech and privacy', 'Taxes and budget'
+    ];
+    var picked = this.state.picked;
+    var count = labels.filter(function (l) { return picked[l]; }).length;
+    var base = 'height: 44px; padding: 0 16px; border-radius: 999px; font-size: 15px; font-weight: 600; cursor: pointer; ';
+    return {
+      topics: labels.map(function (l) {
+        var on = !!picked[l];
+        return {
+          label: on ? '✓ ' + l : l,
+          pressed: on ? 'true' : 'false',
+          toggle: function () {
+            var next = Object.assign({}, self.state.picked);
+            next[l] = !on;
+            self.setState({ picked: next });
+          },
+          style: base + (on ? 'background: #C9D0F5; color: #000000; border: 2px solid #000000' : 'background: #FFFFFF; color: #000000; border: 1.5px solid #D4D4D8')
+        };
+      }),
+      countLabel: count >= 3 ? count + ' picked' : 'Pick ' + (3 - count) + ' more',
+      continueStyle: 'width: 100%; height: 54px; border-radius: 999px; font-size: 18px; font-weight: 600; text-decoration: none; display: flex; align-items: center; justify-content: center; ' + (count >= 3 ? 'background: #000000; color: #FFFFFF' : 'background: #E4E4E7; color: #6B6B70; pointer-events: none')
+    };
+  }
+}
+</script>
+</body>
+</html>

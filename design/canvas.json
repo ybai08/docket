@@ -1,0 +1,202 @@
+{
+  "v": 3,
+  "attachments": {},
+  "boards": {
+    "FiledOrFake.dc.html": {
+      "h": 844,
+      "radius": 44,
+      "title": "Filed or Fake: answered",
+      "w": 390,
+      "x": 1410,
+      "y": 0
+    },
+    "FriendProfile.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 44,
+      "title": "Friend profile",
+      "w": 390,
+      "x": 0,
+      "y": 3100
+    },
+    "Friends.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 44,
+      "title": "Friends: leaderboard, friends, groups",
+      "w": 390,
+      "x": 2350,
+      "y": 0
+    },
+    "Group.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 44,
+      "title": "Group",
+      "w": 390,
+      "x": 470,
+      "y": 3100
+    },
+    "Invite.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 44,
+      "title": "Invite sheet",
+      "w": 390,
+      "x": 940,
+      "y": 3100
+    },
+    "InviteLanding.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 44,
+      "title": "Invite link: after playing",
+      "w": 390,
+      "x": 1410,
+      "y": 3100
+    },
+    "Landslide.dc.html": {
+      "h": 844,
+      "radius": 44,
+      "title": "Landslide: ranking",
+      "w": 390,
+      "x": 1880,
+      "y": 0
+    },
+    "Main.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 44,
+      "title": "Today",
+      "w": 390,
+      "x": 0,
+      "y": 0
+    },
+    "OnboardFriends.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 44,
+      "title": "Onboarding 3: friends and reminders",
+      "w": 390,
+      "x": 1410,
+      "y": 1820
+    },
+    "OnboardIssues.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 44,
+      "title": "Onboarding 2: issues",
+      "w": 390,
+      "x": 940,
+      "y": 1820
+    },
+    "OnboardLocation.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 44,
+      "title": "Onboarding 1: where you vote",
+      "w": 390,
+      "x": 470,
+      "y": 1820
+    },
+    "Privacy.dc.html": {
+      "h": 1140,
+      "is_interactive": true,
+      "radius": 44,
+      "title": "Privacy and notifications",
+      "w": 390,
+      "x": 1880,
+      "y": 3100
+    },
+    "Profile.dc.html": {
+      "h": 1480,
+      "is_interactive": true,
+      "radius": 44,
+      "title": "Profile (full scroll)",
+      "w": 390,
+      "x": 2820,
+      "y": 0
+    },
+    "RollCall.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 44,
+      "title": "Roll Call: voting",
+      "w": 390,
+      "x": 470,
+      "y": 0
+    },
+    "RollCallResults.dc.html": {
+      "h": 1380,
+      "is_interactive": true,
+      "radius": 44,
+      "title": "Roll Call: results (full scroll)",
+      "w": 390,
+      "x": 940,
+      "y": 0
+    },
+    "SignIn.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 44,
+      "title": "Sign in",
+      "w": 390,
+      "x": 0,
+      "y": 1820
+    }
+  },
+  "createdOnFiles": {
+    "at": "2026-10-24T20:05:00Z",
+    "v": 1
+  },
+  "designSystems": [],
+  "launch": {
+    "view": "canvas"
+  },
+  "notes": {
+    "onboardtitle": {
+      "kind": "title1",
+      "maxW": 1800,
+      "text": "Sign in and onboarding",
+      "w": 240,
+      "x": 0,
+      "y": 1520
+    },
+    "rowtitle": {
+      "kind": "title1",
+      "maxW": 3210,
+      "text": "Docket: daily ballots on real bills, from Congress to your statehouse",
+      "w": 240,
+      "x": 0,
+      "y": -300
+    },
+    "socialtitle": {
+      "kind": "title1",
+      "maxW": 2270,
+      "text": "Friends and groups",
+      "w": 240,
+      "x": 0,
+      "y": 2800
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "RollCall.dc.html",
+    "RollCallResults.dc.html",
+    "FiledOrFake.dc.html",
+    "Landslide.dc.html",
+    "Friends.dc.html",
+    "Profile.dc.html",
+    "SignIn.dc.html",
+    "OnboardLocation.dc.html",
+    "OnboardIssues.dc.html",
+    "OnboardFriends.dc.html",
+    "FriendProfile.dc.html",
+    "Group.dc.html",
+    "Invite.dc.html",
+    "InviteLanding.dc.html",
+    "Privacy.dc.html"
+  ],
+  "pages": [],
+  "title": "Docket game screens"
+}

@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Docket: Profile</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,700;6..72,800&amp;display=swap">
+<style>
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,"Helvetica Neue",sans-serif;color:#000000}
+a{color:#000000}a:hover{color:#333333}
+button{font-family:inherit}
+</style>
+</helmet>
+<div style="width: 390px; height: 1480px; box-sizing: border-box; background: #FFFFFF; display: flex; flex-direction: column; overflow: hidden">
+  <div style="flex: 1; padding: 58px 16px 24px; display: flex; flex-direction: column; gap: 26px">
+
+    <div style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 12px; border-bottom: 1px solid #000000">
+      <h1 style="margin: 0; font-family: 'Newsreader', Georgia, serif; font-size: 34px; line-height: 38px; font-weight: 700; letter-spacing: -0.4px">Profile</h1>
+      <a href="#settings" aria-label="Settings" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"></path></svg>
+      </a>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 14px">
+      <div style="width: 68px; height: 68px; flex-shrink: 0; border-radius: 34px; background: #C9D0F5; border: 2px solid #000000; box-sizing: border-box; display: flex; align-items: center; justify-content: center; font-family: 'Newsreader', Georgia, serif; font-size: 30px; font-weight: 700">A</div>
+      <div style="display: flex; flex-direction: column; gap: 2px">
+        <span style="font-family: 'Newsreader', Georgia, serif; font-size: 26px; line-height: 30px; font-weight: 700">Alex Rivera</span>
+        <span style="font-size: 14px; color: #3A3A3C">Austin, Texas House District [##]</span>
+        <span style="font-size: 13px; color: #5A5A5E">Playing since October 2026</span>
+      </div>
+    </div>
+
+    <section style="display: flex; flex-direction: column; gap: 14px">
+      <h2 style="margin: 0; font-size: 15px; font-weight: 800">Statistics</h2>
+      <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; text-align: center">
+        <div style="display: flex; flex-direction: column; gap: 2px">
+          <span style="font-size: 30px; font-variant-numeric: tabular-nums">23</span>
+          <span style="font-size: 12px; line-height: 15px">Days played</span>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 2px">
+          <span style="font-size: 30px; font-variant-numeric: tabular-nums">115</span>
+          <span style="font-size: 12px; line-height: 15px">Bills voted</span>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 2px">
+          <span style="font-size: 30px; font-variant-numeric: tabular-nums">12</span>
+          <span style="font-size: 12px; line-height: 15px">Current streak</span>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 2px">
+          <span style="font-size: 30px; font-variant-numeric: tabular-nums">15</span>
+          <span style="font-size: 12px; line-height: 15px">Max streak</span>
+        </div>
+      </div>
+      <div style="display: flex; justify-content: space-between; padding: 12px 14px; border-radius: 12px; border: 1.5px solid #000000" role="img" aria-label="This week: played Sunday through Saturday, all 7 days">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 6px"><span style="font-size: 12px; font-weight: 700">S</span><span style="width: 30px; height: 30px; border-radius: 6px; background: #000000"></span></div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 6px"><span style="font-size: 12px; font-weight: 700">M</span><span style="width: 30px; height: 30px; border-radius: 6px; background: #000000"></span></div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 6px"><span style="font-size: 12px; font-weight: 700">T</span><span style="width: 30px; height: 30px; border-radius: 6px; background: #000000"></span></div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 6px"><span style="font-size: 12px; font-weight: 700">W</span><span style="width: 30px; height: 30px; border-radius: 6px; background: #000000"></span></div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 6px"><span style="font-size: 12px; font-weight: 700">T</span><span style="width: 30px; height: 30px; border-radius: 6px; background: #000000"></span></div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 6px"><span style="font-size: 12px; font-weight: 700">F</span><span style="width: 30px; height: 30px; border-radius: 6px; background: #000000"></span></div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 6px"><span style="font-size: 12px; font-weight: 700">S</span><span style="width: 30px; height: 30px; border-radius: 6px; background: #C9D0F5; border: 2px solid #000000; box-sizing: border-box"></span></div>
+      </div>
+    </section>
+
+    <section style="display: flex; flex-direction: column; gap: 10px">
+      <h2 style="margin: 0; font-size: 15px; font-weight: 800">By game</h2>
+      <div style="display: flex; flex-direction: column; gap: 8px">
+        <div style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 12px; background: #C9D0F5">
+          <span style="flex: 1; font-family: 'Newsreader', Georgia, serif; font-size: 19px; font-weight: 700">Roll Call</span>
+          <span style="font-size: 14px">Agreed with the final vote <b>78%</b></span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 12px; background: #F8D08A">
+          <span style="flex: 1; font-family: 'Newsreader', Georgia, serif; font-size: 19px; font-weight: 700">Filed or Fake</span>
+          <span style="font-size: 14px">Spotted <b>86%</b> correctly</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 12px; background: #A8DDD5">
+          <span style="flex: 1; font-family: 'Newsreader', Georgia, serif; font-size: 19px; font-weight: 700">Landslide</span>
+          <span style="font-size: 14px">Average <b>7 of 12</b> points</span>
+        </div>
+      </div>
+    </section>
+
+    <section style="display: flex; flex-direction: column; gap: 12px">
+      <div style="display: flex; flex-direction: column; gap: 2px">
+        <h2 style="margin: 0; font-family: 'Newsreader', Georgia, serif; font-size: 24px; font-weight: 700">Issues you care about</h2>
+        <p style="margin: 0; font-size: 14px; color: #5A5A5E">From your Roll Call votes, most-voted topics first</p>
+      </div>
+      <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; padding: 0 2px">
+        <span>Mostly Nay</span>
+        <span>Mostly Yea</span>
+      </div>
+      <sc-for list="{{issues}}" as="issue" hint-placeholder-count="5">
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <div style="display: flex; justify-content: space-between; align-items: baseline">
+            <span style="font-size: 16px; font-weight: 600">{{issue.name}}</span>
+            <span style="font-size: 13px; color: #5A5A5E; font-variant-numeric: tabular-nums">{{issue.detail}}</span>
+          </div>
+          <div style="position: relative; height: 10px; border-radius: 5px; background: #E4E4E7">
+            <div style="position: absolute; left: 50%; top: -3px; width: 2px; height: 16px; background: #A1A1AA"></div>
+            <div style="{{issue.marker}}"></div>
+          </div>
+        </div>
+      </sc-for>
+    </section>
+
+    <section style="display: flex; flex-direction: column; gap: 12px">
+      <div style="display: flex; flex-direction: column; gap: 2px">
+        <h2 style="margin: 0; font-family: 'Newsreader', Georgia, serif; font-size: 24px; font-weight: 700">Lawmakers you agree with</h2>
+        <p style="margin: 0; font-size: 14px; color: #5A5A5E">Compared on the bills you both voted on</p>
+      </div>
+      <div role="tablist" aria-label="Level of government" style="display: flex; gap: 8px">
+        <sc-for list="{{levels}}" as="level" hint-placeholder-count="3">
+          <button type="button" role="tab" aria-selected="{{level.selected}}" onClick="{{level.pick}}" style="{{level.style}}">{{level.label}}</button>
+        </sc-for>
+      </div>
+      <div style="display: flex; flex-direction: column">
+        <sc-for list="{{lawmakers}}" as="person" hint-placeholder-count="3">
+          <div style="display: flex; align-items: center; gap: 12px; padding: 12px 2px; border-top: 1px solid #E4E4E7">
+            <div style="width: 40px; height: 40px; flex-shrink: 0; border-radius: 20px; background: #E4E4E7; display: flex; align-items: center; justify-content: center">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3A3A3C" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c1-4 4.2-6 8-6s7 2 8 6"></path></svg>
+            </div>
+            <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px">
+              <span style="font-size: 16px; font-weight: 600">{{person.name}}</span>
+              <span style="font-size: 13px; color: #5A5A5E">{{person.role}}</span>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 1px">
+              <span style="font-size: 20px; font-variant-numeric: tabular-nums">{{person.score}}</span>
+              <span style="font-size: 12px; color: #5A5A5E">{{person.basis}}</span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <p style="margin: 0; font-size: 13px; line-height: 18px; color: #5A5A5E">Party is never shown on bill cards. It appears here only after you have voted.</p>
+    </section>
+  </div>
+
+  <nav aria-label="Tabs" style="height: 83px; flex-shrink: 0; box-sizing: border-box; padding-top: 8px; background: #FFFFFF; border-top: 1px solid #E4E4E7; display: flex; justify-content: space-around; align-items: flex-start">
+    <a href="Main.dc.html" style="display: flex; flex-direction: column; align-items: center; gap: 2px; color: #6B6B70; text-decoration: none; font-size: 10px; font-weight: 600; min-width: 64px">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"></rect><path d="M4 10h16M9 3v4M15 3v4"></path></svg>
+      Today
+    </a>
+    <a href="Friends.dc.html" style="display: flex; flex-direction: column; align-items: center; gap: 2px; color: #6B6B70; text-decoration: none; font-size: 10px; font-weight: 600; min-width: 64px">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"></circle><path d="M2.5 20c.8-3.5 3.3-5.5 6.5-5.5s5.7 2 6.5 5.5"></path><circle cx="17" cy="9" r="2.5"></circle><path d="M17 14.5c2.4 0 4 1.6 4.5 4.5"></path></svg>
+      Friends
+    </a>
+    <a href="Profile.dc.html" aria-current="page" style="display: flex; flex-direction: column; align-items: center; gap: 2px; color: #000000; text-decoration: none; font-size: 10px; font-weight: 700; min-width: 64px">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c1-4 4.2-6 8-6s7 2 8 6"></path></svg>
+      Profile
+    </a>
+  </nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1480}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { level: 'state' };
+  }
+  renderVals() {
+    var self = this;
+    // yea = share of Yea votes on that topic, 0 to 100.
+    var issues = [
+      { name: 'Public schools', votes: 18, yea: 72 },
+      { name: 'Criminal justice', votes: 11, yea: 36 },
+      { name: 'Energy and water', votes: 9, yea: 67 },
+      { name: 'Housing and property tax', votes: 7, yea: 57 },
+      { name: 'Health care', votes: 5, yea: 80 }
+    ];
+    var lawmakerSets = {
+      state: [
+        { name: '[State senator]', role: 'Texas Senate, District [##]', score: '[%]', basis: '[n] bills' },
+        { name: '[State representative]', role: 'Texas House, District [##]', score: '[%]', basis: '[n] bills' },
+        { name: '[Lawmaker you agree with most]', role: 'Texas House, any district', score: '[%]', basis: '[n] bills' }
+      ],
+      federal: [
+        { name: '[U.S. senator]', role: 'U.S. Senate, Texas', score: '[%]', basis: '[n] bills' },
+        { name: '[U.S. senator]', role: 'U.S. Senate, Texas', score: '[%]', basis: '[n] bills' },
+        { name: '[U.S. representative]', role: 'U.S. House, Texas District [##]', score: '[%]', basis: '[n] bills' }
+      ],
+      local: [
+        { name: '[Council member]', role: 'Austin City Council, District [#]', score: '[%]', basis: '[n] votes' },
+        { name: '[Mayor]', role: 'Mayor of Austin', score: '[%]', basis: '[n] votes' },
+        { name: '[County commissioner]', role: 'Travis County, Precinct [#]', score: '[%]', basis: '[n] votes' },
+        { name: '[School board trustee]', role: 'Austin ISD, District [#]', score: '[%]', basis: '[n] votes' }
+      ]
+    };
+    var options = [
+      { id: 'state', label: 'Texas' },
+      { id: 'federal', label: 'Congress' },
+      { id: 'local', label: 'Local' }
+    ];
+    var pill = 'height: 36px; padding: 0 18px; border-radius: 999px; font-size: 14px; font-weight: 700; cursor: pointer; ';
+    return {
+      issues: issues.map(function (it) {
+        return {
+          name: it.name,
+          detail: it.yea + '% Yea, ' + it.votes + ' bills',
+          marker: 'position: absolute; top: -4px; width: 18px; height: 18px; border-radius: 9px; background: #000000; border: 2px solid #FFFFFF; box-sizing: border-box; box-shadow: 0 0 0 1.5px #000000; left: calc(' + it.yea + '% - 9px)'
+        };
+      }),
+      levels: options.map(function (o) {
+        var on = self.state.level === o.id;
+        return {
+          label: o.label,
+          selected: on ? 'true' : 'false',
+          pick: function () { self.setState({ level: o.id }); },
+          style: pill + (on ? 'background: #000000; color: #FFFFFF; border: 1.5px solid #000000' : 'background: #FFFFFF; color: #000000; border: 1.5px solid #D4D4D8')
+        };
+      }),
+      lawmakers: lawmakerSets[this.state.level]
+    };
+  }
+}
+</script>
+</body>
+</html>
