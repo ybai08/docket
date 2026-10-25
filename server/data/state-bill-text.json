@@ -131,6 +131,72 @@
   "title": "Require training for municipal officials",
   "topic": "Taxes and budget"
  },
+ "ar-2025-hb1173": {
+  "shortTitle": "Definition of beer",
+  "summary": "Change the allowable alcohol content in the definition of beer and include malt beverages.",
+  "title": "Change the legal definition of beer",
+  "topic": "Taxes and budget"
+ },
+ "ar-2025-hb1193": {
+  "shortTitle": "Insurance lienholder payments",
+  "summary": "Require an insurer to include a lienholder on payments made under an insurance policy.",
+  "title": "Require insurers to list lienholders on payments",
+  "topic": "Taxes and budget"
+ },
+ "ar-2025-hb1422": {
+  "shortTitle": "Only Citizens Vote",
+  "summary": "Create the Only Citizens Vote Act, change rules on driver's licenses and ID cards for certain noncitizens, and amend a state constitutional section.",
+  "title": "Create the Only Citizens Vote Act",
+  "topic": "Elections and voting"
+ },
+ "ar-2025-hb1824": {
+  "shortTitle": "Daisy's Law",
+  "summary": "Create the Dog and Cat Rescue Act, known as Daisy's Law.",
+  "title": "Create Daisy's Law on dog and cat rescue",
+  "topic": "Arts and culture"
+ },
+ "ar-2025-hb1878": {
+  "shortTitle": "Early voting access",
+  "summary": "Require a county board of election commissioners to conduct early voting in a city in certain instances.",
+  "title": "Require early voting in large population centers",
+  "topic": "Elections and voting"
+ },
+ "ar-2025-sb142": {
+  "shortTitle": "Bell to Bell",
+  "summary": "Create the Bell to Bell, No Cell Act and change public school discipline policies on student use of personal electronic devices.",
+  "title": "Change school rules on student personal devices",
+  "topic": "Public schools"
+ },
+ "ar-2025-sb217": {
+  "shortTitle": "SNAP candy and soda",
+  "summary": "Require the Department of Human Services to request a waiver to exclude candy and soft drinks from foods eligible under SNAP.",
+  "title": "Seek to exclude candy and soft drinks from SNAP",
+  "topic": "Health care"
+ },
+ "ar-2025-sb263": {
+  "shortTitle": "Homestead tax credit",
+  "summary": "Increase the size of the homestead property tax credit available to eligible homeowners.",
+  "title": "Increase the homestead property tax credit",
+  "topic": "Housing and property tax"
+ },
+ "ar-2025-sb433": {
+  "shortTitle": "Motto and Ten Commandments",
+  "summary": "Set rules for displaying the national motto and the Ten Commandments.",
+  "title": "Set rules to display the national motto and Ten Commandments",
+  "topic": "Arts and culture"
+ },
+ "ar-2025-sb446": {
+  "shortTitle": "License plate readers",
+  "summary": "Amend the automatic license plate reader law to allow private landowners, private leaseholders, and commercial businesses to use license plate readers.",
+  "title": "Allow private use of license plate readers",
+  "topic": "Tech and privacy"
+ },
+ "ar-2025-sb98": {
+  "shortTitle": "Alcohol delivery",
+  "summary": "Authorize third-party delivery of alcoholic beverages from certain retailers and create a third-party delivery permit.",
+  "title": "Allow third-party delivery of alcoholic beverages",
+  "topic": "Taxes and budget"
+ },
  "az-57th-2nd-regular-hb2257": {
   "shortTitle": "Blood vehicle HOV",
   "summary": "Change rules on high-occupancy vehicle (HOV) lanes as they apply to blood transport vehicles.",
@@ -940,6 +1006,72 @@
   "summary": "Let the attorney general defend officers, governments and colleges sued over certain immigration matters, and change rules on limiting enforcement of federal immigration law.",
   "title": "Let the attorney general defend officials in immigration lawsuits",
   "topic": "Immigration and border"
+ },
+ "ks-2026-hb2124": {
+  "shortTitle": "Golf carts on sidewalks",
+  "summary": "Let cities allow golf carts on sidewalks and let local authorities lower residential speed limits from 30 to 25 miles per hour.",
+  "title": "Let cities allow golf carts on sidewalks",
+  "topic": "Criminal justice"
+ },
+ "ks-2026-hb2366": {
+  "shortTitle": "Naturopathic doctor scope",
+  "summary": "Expand the scope of practice of naturopathic doctors, set continuing education rules, and raise required professional liability insurance.",
+  "title": "Expand what naturopathic doctors may practice",
+  "topic": "Health care"
+ },
+ "ks-2026-hb2402": {
+  "shortTitle": "School meals option",
+  "summary": "Require school boards to consider the community eligibility provision, and move the public innovative district application deadline from December 1 to May 1.",
+  "title": "Have school boards consider community eligibility meals",
+  "topic": "Public schools"
+ },
+ "ks-2026-hb2412": {
+  "shortTitle": "Civics exam to graduate",
+  "summary": "Require instruction on communist, fascist and socialist regimes and ideologies, and require students to pass an American civics exam to graduate high school.",
+  "title": "Require civics exam and teaching on political ideologies",
+  "topic": "Public schools"
+ },
+ "ks-2026-hb2466": {
+  "shortTitle": "Sports authority, STAR bonds",
+  "summary": "Enact the Kansas sports authority act, authorize STAR bond projects in major amusement park areas, and extend the STAR bonds financing act's expiration date.",
+  "title": "Create a sports authority and expand STAR bonds",
+  "topic": "Taxes and budget"
+ },
+ "ks-2026-hb2481": {
+  "shortTitle": "World Cup rentals",
+  "summary": "During the 2026 World Cup, limit city restrictions on short-term rentals, speed up rental permits, and allow expanded alcohol sales by cities and counties.",
+  "title": "Limit city rental rules during the 2026 World Cup",
+  "topic": "Taxes and budget"
+ },
+ "ks-2026-hb2537": {
+  "shortTitle": "Sexual extortion penalties",
+  "summary": "Increase penalties for sexual extortion when the offender is 18 or older and the victim is a minor or dependent adult, and create aggravated offenses.",
+  "title": "Increase penalties for sexual extortion of minors",
+  "topic": "Criminal justice"
+ },
+ "ks-2026-hb2736": {
+  "shortTitle": "Hospital financial aid screening",
+  "summary": "Require hospitals to screen all patients for eligibility for the hospital's financial assistance program or charity care policy.",
+  "title": "Require hospitals to screen for financial assistance",
+  "topic": "Health care"
+ },
+ "ks-2026-hb2745": {
+  "shortTitle": "Property tax protest petition",
+  "summary": "Provide a protest petition to contest certain increases in property tax revenues and continue taxpayer notification cost reimbursements for five more years.",
+  "title": "Allow petitions to contest property tax revenue increases",
+  "topic": "Housing and property tax"
+ },
+ "ks-2026-sb254": {
+  "shortTitle": "Benefits and immigration status",
+  "summary": "Prohibit people unlawfully present in the United States from receiving state or local public benefits, in accordance with federal law.",
+  "title": "Bar public benefits for people unlawfully present",
+  "topic": "Immigration and border"
+ },
+ "ks-2026-sb436": {
+  "shortTitle": "County bidding threshold",
+  "summary": "Increase the cost threshold above which a county must use public bidding to award a construction contract.",
+  "title": "Raise the county public bidding cost threshold",
+  "topic": "Taxes and budget"
  },
  "ky-2025rs-hb188": {
   "shortTitle": "Driveaway plates",
@@ -1931,6 +2063,72 @@
   "title": "Allow medical cannabis for sickle cell anemia",
   "topic": "Health care"
  },
+ "nm-2026-hb103": {
+  "shortTitle": "Valuation limits after rezoning",
+  "summary": "Allow a limit on increases in the valuation of residential property if the property's zoning has changed.",
+  "title": "Limit home value increases after rezoning",
+  "topic": "Housing and property tax"
+ },
+ "nm-2026-hb153": {
+  "shortTitle": "Low-carbon construction",
+  "summary": "Enact the Low-Carbon Construction Material Rebate Act, the Environmental Product Declaration Act, and the Industrial Carbon Reduction Act.",
+  "title": "Create low-carbon construction and industry programs",
+  "topic": "Water and environment"
+ },
+ "nm-2026-hb164": {
+  "shortTitle": "Lobbying activity reports",
+  "summary": "Require lobbying reports to list the legislation lobbied and the position taken by the lobbyist's employer, and keep the reports at least ten years.",
+  "title": "Require more detail in lobbying reports",
+  "topic": "Elections and voting"
+ },
+ "nm-2026-hb200": {
+  "shortTitle": "New Homes program",
+  "summary": "Create the New Homes for New Mexico program, run by the Mortgage Finance Authority, to give repayable loans to eligible home buyers.",
+  "title": "Create loans for eligible new home buyers",
+  "topic": "Housing and property tax"
+ },
+ "nm-2026-hb306": {
+  "shortTitle": "Facility fees",
+  "summary": "Prohibit health care facility fees for certain services, require disclosing them to patients, and require reporting them to the all-payer claims database.",
+  "title": "Limit health care facility fees and require disclosure",
+  "topic": "Health care"
+ },
+ "nm-2026-hb61": {
+  "shortTitle": "Battery on peace officers",
+  "summary": "Increase the penalty for aggravated battery upon a peace officer.",
+  "title": "Increase penalty for aggravated battery on officers",
+  "topic": "Criminal justice"
+ },
+ "nm-2026-hb9": {
+  "shortTitle": "Immigrant Safety Act",
+  "summary": "Prohibit public bodies from agreements used to detain people for federal civil immigration violations, end existing ones, and bar using public property for such detention.",
+  "title": "Bar public bodies from immigration detention agreements",
+  "topic": "Immigration and border"
+ },
+ "nm-2026-sb21": {
+  "shortTitle": "Medicare supplement enrollment",
+  "summary": "Require issuers of Medicare supplement health insurance policies to provide open enrollment periods.",
+  "title": "Require open enrollment for Medicare supplement policies",
+  "topic": "Health care"
+ },
+ "nm-2026-sb264": {
+  "shortTitle": "Troops and elections",
+  "summary": "Prohibit ordering troops to where an election is held except to repel armed enemies, bar interference with voting, and set election procedures after emergency declarations.",
+  "title": "Bar troops at polling places and protect voting",
+  "topic": "Elections and voting"
+ },
+ "nm-2026-sb40": {
+  "shortTitle": "Plate reader privacy",
+  "summary": "Enact the Driver Privacy and Safety Act, limiting sharing of automated license plate reader information and requiring reporting, with enforcement and penalties.",
+  "title": "Limit sharing of license plate reader data",
+  "topic": "Tech and privacy"
+ },
+ "nm-2026-sb96": {
+  "shortTitle": "Child care zoning",
+  "summary": "Treat licensed and registered child care homes as residential uses, limit local fees and parking rules, and permit child care centers in commercial zones.",
+  "title": "Treat child care homes as residential uses",
+  "topic": "Housing and property tax"
+ },
  "nv-2025special36-ab4": {
   "shortTitle": "Public safety changes",
   "summary": "Revise provisions relating to public safety.",
@@ -2657,6 +2855,72 @@
   "title": "Fund state agency and higher education compensation",
   "topic": "Taxes and budget"
  },
+ "va-2026-hb1": {
+  "shortTitle": "Minimum wage increase",
+  "summary": "Raise the minimum wage step by step until it reaches $15.00 per hour on January 1, 2028.",
+  "title": "Raise the minimum wage to $15 by 2028",
+  "topic": "Taxes and budget"
+ },
+ "va-2026-hb1524": {
+  "shortTitle": "Assault firearms in public",
+  "summary": "Prohibit carrying assault firearms in public areas, with exceptions and a penalty.",
+  "title": "Ban carrying assault firearms in public areas",
+  "topic": "Guns"
+ },
+ "va-2026-hb380": {
+  "shortTitle": "Celiac training in restaurants",
+  "summary": "Require training materials about celiac disease for restaurant personnel.",
+  "title": "Require celiac disease training for restaurant staff",
+  "topic": "Health care"
+ },
+ "va-2026-hb483": {
+  "shortTitle": "Drug Affordability Board",
+  "summary": "Establish a Prescription Drug Affordability Board in state government.",
+  "title": "Create a Prescription Drug Affordability Board",
+  "topic": "Health care"
+ },
+ "va-2026-hb682": {
+  "shortTitle": "Fire Programs Fund",
+  "summary": "Change how the Fire Programs Fund gives aid to localities, including how funds are redistributed.",
+  "title": "Change aid to localities from the Fire Programs Fund",
+  "topic": "Taxes and budget"
+ },
+ "va-2026-hb684": {
+  "shortTitle": "Photo traffic cameras",
+  "summary": "Set rules for photo speed monitoring devices and photo-monitoring systems at traffic signals, including proof of a violation.",
+  "title": "Set rules for photo speed and traffic signal cameras",
+  "topic": "Criminal justice"
+ },
+ "va-2026-hb812": {
+  "shortTitle": "Bicycle traffic rules",
+  "summary": "Change traffic regulations for bicycles and certain other devices, including bicycle signals.",
+  "title": "Change traffic rules for bicycles and bicycle signals",
+  "topic": "Criminal justice"
+ },
+ "va-2026-hb845": {
+  "shortTitle": "Eviction case rules",
+  "summary": "Change how unlawful detainer cases are split up and handled when rent and damages are contested.",
+  "title": "Change eviction case rules on rent and damages",
+  "topic": "Housing and property tax"
+ },
+ "va-2026-hb998": {
+  "shortTitle": "Menstrual product labels",
+  "summary": "Require ingredient labeling on menstrual products and restrict certain substances, with a delayed effective date.",
+  "title": "Require ingredient labels on menstrual products",
+  "topic": "Health care"
+ },
+ "va-2026-sb663": {
+  "shortTitle": "Emergency vehicle exemptions",
+  "summary": "Exempt emergency vehicles from certain traffic regulations that apply to other drivers.",
+  "title": "Exempt emergency vehicles from some traffic rules",
+  "topic": "Criminal justice"
+ },
+ "va-2026-sb815": {
+  "shortTitle": "School year schedules",
+  "summary": "Allow school boards to use certain alternative schedules and more flexibility when opening the school year.",
+  "title": "Allow flexible school year start and schedules",
+  "topic": "Public schools"
+ },
  "vt-2023-2024-h121": {
   "shortTitle": "Privacy and design code",
   "summary": "Enhances consumer privacy and sets an age-appropriate design code.",
@@ -2722,5 +2986,137 @@
   "summary": "Set rules on consumer data privacy and online surveillance.",
   "title": "Set rules on consumer data privacy and online surveillance",
   "topic": "Tech and privacy"
+ },
+ "wa-2025-hb1108": {
+  "shortTitle": "Housing cost task force",
+  "summary": "Create a task force to analyze what drives housing costs.",
+  "title": "Create a task force on housing costs",
+  "topic": "Housing and property tax"
+ },
+ "wa-2026-hb2266": {
+  "shortTitle": "Supportive and emergency housing",
+  "summary": "Encourage permanent supportive housing, transitional housing, indoor emergency housing, and indoor emergency shelters.",
+  "title": "Encourage supportive housing and emergency shelters",
+  "topic": "Housing and property tax"
+ },
+ "wa-2026-hb2334": {
+  "shortTitle": "Cash sales and pennies",
+  "summary": "Adjust the price of a cash transaction so that pennies are no longer needed.",
+  "title": "Adjust cash prices to eliminate pennies",
+  "topic": "Taxes and budget"
+ },
+ "wa-2026-hb2664": {
+  "shortTitle": "Eviction notice service",
+  "summary": "Change the requirements for serving unlawful detainer notices and other notices served in the same manner.",
+  "title": "Change how eviction notices must be served",
+  "topic": "Housing and property tax"
+ },
+ "wa-2026-sb5855": {
+  "shortTitle": "Officer face coverings",
+  "summary": "Set rules on the use of face coverings by law enforcement officers.",
+  "title": "Set rules on face coverings for law enforcement",
+  "topic": "Criminal justice"
+ },
+ "wa-2026-sb5963": {
+  "shortTitle": "Passport to Careers",
+  "summary": "Change funding for the Passport to Careers program and who is eligible for the Washington College Grant.",
+  "title": "Change Passport to Careers and college grant funding",
+  "topic": "Colleges and tuition"
+ },
+ "wa-2026-sb5982": {
+  "shortTitle": "Consumer-owned utilities",
+  "summary": "Update provisions for consumer-owned utilities, including port districts, and affected market customers under the clean energy transformation act.",
+  "title": "Update rules for consumer-owned utilities",
+  "topic": "Energy and the grid"
+ },
+ "wa-2026-sb6200": {
+  "shortTitle": "Tenant cooling devices",
+  "summary": "Allow renters and mobile home occupants to install portable cooling devices.",
+  "title": "Let renters install portable cooling devices",
+  "topic": "Housing and property tax"
+ },
+ "wa-2026-sb6231": {
+  "shortTitle": "Data center tax breaks",
+  "summary": "End tax exemptions for data centers, including the exemption for replacing data center equipment.",
+  "title": "End tax exemptions for data centers",
+  "topic": "Taxes and budget"
+ },
+ "wa-2026-sb6260": {
+  "shortTitle": "Public education funding",
+  "summary": "Make efficiency and programming changes in public education.",
+  "title": "Change public education programs and efficiencies",
+  "topic": "Public schools"
+ },
+ "wa-2026-sb6346": {
+  "shortTitle": "Tax on millionaires",
+  "summary": "Establish a new state tax that would apply to millionaires.",
+  "title": "Create a tax on millionaires",
+  "topic": "Taxes and budget"
+ },
+ "wy-2026-hb0003": {
+  "shortTitle": "Pregnancy center rights",
+  "summary": "Prohibit the state from adopting rules that target pregnancy centers for oversight based on their stance against abortion, and allow civil lawsuits over violations.",
+  "title": "Bar targeting pregnancy centers for oversight",
+  "topic": "Health care"
+ },
+ "wy-2026-hb0008": {
+  "shortTitle": "Stalking of minors",
+  "summary": "Make stalking a minor a felony for people 18 or older, punishable by up to ten years in prison.",
+  "title": "Make stalking a minor a felony for adults",
+  "topic": "Criminal justice"
+ },
+ "wy-2026-hb0025": {
+  "shortTitle": "Tomorrow Scholarship changes",
+  "summary": "Eliminate the continuous enrollment requirement for keeping eligibility in the Wyoming's Tomorrow Scholarship Program.",
+  "title": "Drop the continuous enrollment scholarship requirement",
+  "topic": "Colleges and tuition"
+ },
+ "wy-2026-hb0178": {
+  "shortTitle": "Public union transparency",
+  "summary": "Add transparency requirements for public unions and limits on withdrawing union dues.",
+  "title": "Add public union transparency and dues limits",
+  "topic": "Taxes and budget"
+ },
+ "wy-2026-sf0004": {
+  "shortTitle": "Ambulance Medicaid rates",
+  "summary": "Raise the Medicaid rate for ground ambulance services to 100 percent of the Medicare rate, with new rural fee schedules and a cost report.",
+  "title": "Raise Medicaid pay for ambulance services",
+  "topic": "Health care"
+ },
+ "wy-2026-sf0024": {
+  "shortTitle": "Lottery debit cards",
+  "summary": "Allow debit cards to be used to buy lottery tickets, while other payment forms besides cash stay prohibited.",
+  "title": "Allow debit cards for lottery ticket purchases",
+  "topic": "Taxes and budget"
+ },
+ "wy-2026-sf0035": {
+  "shortTitle": "School phone policies",
+  "summary": "Require each school district board to adopt policies on student possession and use of cell phones and smart devices, and submit them.",
+  "title": "Require school policies on phones and smart devices",
+  "topic": "Public schools"
+ },
+ "wy-2026-sf0096": {
+  "shortTitle": "Tobacco sales and taxes",
+  "summary": "Change state rules covering how tobacco products are sold and how they are taxed.",
+  "title": "Change rules on tobacco sales and taxes",
+  "topic": "Taxes and budget"
+ },
+ "wy-2026-sf0101": {
+  "shortTitle": "Second Amendment protection",
+  "summary": "Amend the state's existing Second Amendment protection act to change its provisions.",
+  "title": "Amend the Second Amendment Protection Act",
+  "topic": "Guns"
+ },
+ "wy-2026-sf0106": {
+  "shortTitle": "SNAP and Medicaid checks",
+  "summary": "Shorten recertification intervals, ban self-attestation, require more verification checks, and set citizenship and benefit period limits for SNAP, Medicaid and other public assistance programs.",
+  "title": "Tighten eligibility checks for SNAP and Medicaid",
+  "topic": "Health care"
+ },
+ "wy-2026-sf0110": {
+  "shortTitle": "Residential property tax",
+  "summary": "Revise state rules that apply to property taxes on residential property.",
+  "title": "Revise residential property tax rules",
+  "topic": "Housing and property tax"
  }
 }

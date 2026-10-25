@@ -1,932 +1,3962 @@
 {
-  "MA": {
+ "MA": {
+  "stateName": "Massachusetts",
+  "unicameral": false,
+  "roll-call": [
+   {
+    "id": "ma-194th-s2543",
+    "state": "MA",
     "stateName": "Massachusetts",
-    "unicameral": false,
-    "roll-call": [
-      {
-        "id": "ma-194th-s2543",
-        "state": "MA",
-        "stateName": "Massachusetts",
-        "session": "194th",
-        "year": "2025",
-        "number": "S 2543",
-        "officialTitle": "An Act strengthening health care protections in the Commonwealth",
-        "abstract": "",
-        "subjects": [],
-        "originChamber": "House",
-        "chamberVotes": [
-          {
-            "chamber": "House",
-            "yeas": 132,
-            "nays": 24,
-            "date": "2025-07-31",
-            "motion": "Enacted - 132 YEAS to 24 NAYS (See YEA and NAY No. 72)"
-          },
-          {
-            "chamber": "Senate",
-            "yeas": 37,
-            "nays": 3,
-            "date": "2025-07-31",
-            "motion": "Enacted -see Roll Call #68 (Yeas 37 to Nays 3)"
-          }
-        ],
-        "floor": {
-          "lower": {
-            "chamber": "House",
-            "yeas": 132,
-            "nays": 24
-          },
-          "upper": {
-            "chamber": "Senate",
-            "yeas": 37,
-            "nays": 3
-          }
-        },
-        "passed": true,
-        "outcome": "Signed into law",
-        "sourceUrl": "https://malegislature.gov/Bills/194/S2543",
-        "openstatesUrl": "https://malegislature.gov/Bills/194/S2543",
-        "memberVotes": []
-      },
-      {
-        "id": "ma-194th-h5350",
-        "state": "MA",
-        "stateName": "Massachusetts",
-        "session": "194th",
-        "year": "2026",
-        "number": "H 5350",
-        "officialTitle": "An Act modernizing the commonwealth’s cannabis laws",
-        "abstract": "",
-        "subjects": [],
-        "originChamber": "Senate",
-        "chamberVotes": [
-          {
-            "chamber": "Senate",
-            "yeas": 33,
-            "nays": 6,
-            "date": "2026-04-09",
-            "motion": "Enacted -see Roll Call #146 (Yeas 33 to Nays 6)"
-          }
-        ],
-        "floor": {
-          "upper": {
-            "chamber": "Senate",
-            "yeas": 33,
-            "nays": 6
-          }
-        },
-        "passed": true,
-        "outcome": "Signed into law",
-        "sourceUrl": "https://malegislature.gov/Bills/194/H5350",
-        "openstatesUrl": "https://malegislature.gov/Bills/194/H5350",
-        "memberVotes": []
-      },
-      {
-        "id": "ma-194th-h5620",
-        "state": "MA",
-        "stateName": "Massachusetts",
-        "session": "194th",
-        "year": "2026",
-        "number": "H 5620",
-        "officialTitle": "An Act promoting rule of law, oversight, trust and equal constitutional treatment",
-        "abstract": "",
-        "subjects": [],
-        "originChamber": "House",
-        "chamberVotes": [
-          {
-            "chamber": "House",
-            "yeas": 137,
-            "nays": 21,
-            "date": "2026-07-30",
-            "motion": "Enacted - 137 YEAS to 21 NAYS (See YEA and NAY No. 251)"
-          }
-        ],
-        "floor": {
-          "lower": {
-            "chamber": "House",
-            "yeas": 137,
-            "nays": 21
-          }
-        },
-        "passed": true,
-        "outcome": "Signed into law",
-        "sourceUrl": "https://malegislature.gov/Bills/194/H5620",
-        "openstatesUrl": "https://malegislature.gov/Bills/194/H5620",
-        "memberVotes": []
-      }
+    "session": "194th",
+    "year": "2025",
+    "number": "S 2543",
+    "officialTitle": "An Act strengthening health care protections in the Commonwealth",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 132,
+      "nays": 24,
+      "date": "2025-07-31",
+      "motion": "Enacted - 132 YEAS to 24 NAYS (See YEA and NAY No. 72)"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 37,
+      "nays": 3,
+      "date": "2025-07-31",
+      "motion": "Enacted -see Roll Call #68 (Yeas 37 to Nays 3)"
+     }
     ],
-    "landslide": [
-      {
-        "id": "ma-194th-h5595",
-        "state": "MA",
-        "stateName": "Massachusetts",
-        "session": "194th",
-        "year": "2026",
-        "number": "H 5595",
-        "officialTitle": "An Act prioritizing patient access to care",
-        "abstract": "",
-        "subjects": [],
-        "originChamber": "House",
-        "chamberVotes": [
-          {
-            "chamber": "House",
-            "yeas": 121,
-            "nays": 35,
-            "date": "2026-07-31",
-            "motion": "Enacted - 121 YEAS to 35 NAYS (See YEA and NAY No. 262)"
-          }
-        ],
-        "floor": {
-          "lower": {
-            "chamber": "House",
-            "yeas": 121,
-            "nays": 35
-          }
-        },
-        "passed": true,
-        "outcome": "Signed into law",
-        "sourceUrl": "https://malegislature.gov/Bills/194/H5595",
-        "openstatesUrl": "https://malegislature.gov/Bills/194/H5595",
-        "memberVotes": [],
-        "rankVote": {
-          "chamber": "House",
-          "yeas": 121,
-          "nays": 35
-        }
-      },
-      {
-        "id": "ma-194th-h58",
-        "state": "MA",
-        "stateName": "Massachusetts",
-        "session": "194th",
-        "year": "2025",
-        "number": "H 58",
-        "officialTitle": "An Act making appropriations for fiscal year 2025 to provide for supplementing certain existing appropriations and for certain other activities and projects",
-        "abstract": "",
-        "subjects": [],
-        "originChamber": "House",
-        "chamberVotes": [
-          {
-            "chamber": "House",
-            "yeas": 127,
-            "nays": 23,
-            "date": "2025-02-26",
-            "motion": "Enacted - 127 YEAS to 23 NAYS (See YEA and NAY No. 25)"
-          },
-          {
-            "chamber": "Senate",
-            "yeas": 32,
-            "nays": 7,
-            "date": "2025-02-26",
-            "motion": "Enacted - see Roll Call #25 (Yeas 32 to Nays 7)"
-          }
-        ],
-        "floor": {
-          "lower": {
-            "chamber": "House",
-            "yeas": 127,
-            "nays": 23
-          },
-          "upper": {
-            "chamber": "Senate",
-            "yeas": 32,
-            "nays": 7
-          }
-        },
-        "passed": true,
-        "outcome": "Signed into law",
-        "sourceUrl": "https://malegislature.gov/Bills/194/H58",
-        "openstatesUrl": "https://malegislature.gov/Bills/194/H58",
-        "memberVotes": [],
-        "rankVote": {
-          "chamber": "House",
-          "yeas": 127,
-          "nays": 23
-        }
-      },
-      {
-        "id": "ma-194th-h5555",
-        "state": "MA",
-        "stateName": "Massachusetts",
-        "session": "194th",
-        "year": "2026",
-        "number": "H 5555",
-        "officialTitle": "An Act making appropriations for the fiscal year 2027 for the maintenance of the departments, boards, commissions, institutions, and certain activities of the commonwealth, for interest, sinking fund, and serial bond requirements, and for certain permanent improvements",
-        "abstract": "",
-        "subjects": [],
-        "originChamber": "House",
-        "chamberVotes": [
-          {
-            "chamber": "House",
-            "yeas": 142,
-            "nays": 6,
-            "date": "2026-07-01",
-            "motion": "Enacted - 142 YEAS to 6 NAYS (See YEA and NAY No. 224)"
-          },
-          {
-            "chamber": "Senate",
-            "yeas": 39,
-            "nays": 1,
-            "date": "2026-07-01",
-            "motion": "Enacted -see Roll Call #200 (Yeas 39 to Nays 1)"
-          }
-        ],
-        "floor": {
-          "lower": {
-            "chamber": "House",
-            "yeas": 142,
-            "nays": 6
-          },
-          "upper": {
-            "chamber": "Senate",
-            "yeas": 39,
-            "nays": 1
-          }
-        },
-        "passed": true,
-        "outcome": "Signed into law",
-        "sourceUrl": "https://malegislature.gov/Bills/194/H5555",
-        "openstatesUrl": "https://malegislature.gov/Bills/194/H5555",
-        "memberVotes": [],
-        "rankVote": {
-          "chamber": "House",
-          "yeas": 142,
-          "nays": 6
-        }
-      },
-      {
-        "id": "ma-194th-h4307",
-        "state": "MA",
-        "stateName": "Massachusetts",
-        "session": "194th",
-        "year": "2025",
-        "number": "H 4307",
-        "officialTitle": "An Act financing long-term improvements to municipal roads and bridges",
-        "abstract": "",
-        "subjects": [],
-        "originChamber": "House",
-        "chamberVotes": [
-          {
-            "chamber": "House",
-            "yeas": 156,
-            "nays": 0,
-            "date": "2025-07-31",
-            "motion": "Enacted - 156 YEAS to 0 NAYS (See YEA and NAY No. 69)"
-          },
-          {
-            "chamber": "Senate",
-            "yeas": 39,
-            "nays": 0,
-            "date": "2025-07-31",
-            "motion": "Enacted -see Roll Call #67 (Yeas 39 to Nays 0)"
-          }
-        ],
-        "floor": {
-          "lower": {
-            "chamber": "House",
-            "yeas": 156,
-            "nays": 0
-          },
-          "upper": {
-            "chamber": "Senate",
-            "yeas": 39,
-            "nays": 0
-          }
-        },
-        "passed": true,
-        "outcome": "Signed into law",
-        "sourceUrl": "https://malegislature.gov/Bills/194/H4307",
-        "openstatesUrl": "https://malegislature.gov/Bills/194/H4307",
-        "memberVotes": [],
-        "rankVote": {
-          "chamber": "House",
-          "yeas": 156,
-          "nays": 0
-        }
-      }
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 132,
+      "nays": 24
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 37,
+      "nays": 3
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://malegislature.gov/Bills/194/S2543",
+    "openstatesUrl": "https://malegislature.gov/Bills/194/S2543",
+    "memberVotes": []
+   },
+   {
+    "id": "ma-194th-h5350",
+    "state": "MA",
+    "stateName": "Massachusetts",
+    "session": "194th",
+    "year": "2026",
+    "number": "H 5350",
+    "officialTitle": "An Act modernizing the commonwealth’s cannabis laws",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 33,
+      "nays": 6,
+      "date": "2026-04-09",
+      "motion": "Enacted -see Roll Call #146 (Yeas 33 to Nays 6)"
+     }
     ],
-    "filed-or-fake": [
-      {
-        "id": "ma-194th-s2726",
-        "state": "MA",
-        "stateName": "Massachusetts",
-        "session": "194th",
-        "year": "2026",
-        "number": "S 2726",
-        "officialTitle": "An Act regarding free expression",
-        "abstract": "",
-        "subjects": [],
-        "originChamber": "House",
-        "chamberVotes": [
-          {
-            "chamber": "House",
-            "yeas": 156,
-            "nays": 1,
-            "date": "2026-07-31",
-            "motion": "Enacted - 156 YEAS to 1 NAYS (See YEA and NAY No. 254)"
-          }
-        ],
-        "floor": {
-          "lower": {
-            "chamber": "House",
-            "yeas": 156,
-            "nays": 1
-          }
-        },
-        "passed": true,
-        "outcome": "Signed into law",
-        "sourceUrl": "https://malegislature.gov/Bills/194/S2726",
-        "openstatesUrl": "https://malegislature.gov/Bills/194/S2726",
-        "memberVotes": []
-      },
-      {
-        "id": "ma-194th-h5511",
-        "state": "MA",
-        "stateName": "Massachusetts",
-        "session": "194th",
-        "year": "2026",
-        "number": "H 5511",
-        "officialTitle": "An Act relative to teacher preparation and student literacy",
-        "abstract": "",
-        "subjects": [],
-        "originChamber": "Senate",
-        "chamberVotes": [
-          {
-            "chamber": "Senate",
-            "yeas": 39,
-            "nays": 0,
-            "date": "2026-06-18",
-            "motion": "Enacted -see Roll Call #195 (Yeas 39 to Nays 0)"
-          }
-        ],
-        "floor": {
-          "upper": {
-            "chamber": "Senate",
-            "yeas": 39,
-            "nays": 0
-          }
-        },
-        "passed": true,
-        "outcome": "Signed into law",
-        "sourceUrl": "https://malegislature.gov/Bills/194/H5511",
-        "openstatesUrl": "https://malegislature.gov/Bills/194/H5511",
-        "memberVotes": []
-      },
-      {
-        "id": "ma-194th-h5627",
-        "state": "MA",
-        "stateName": "Massachusetts",
-        "session": "194th",
-        "year": "2026",
-        "number": "H 5627",
-        "officialTitle": "An Act to improve Massachusetts home care",
-        "abstract": "",
-        "subjects": [],
-        "originChamber": "House",
-        "chamberVotes": [
-          {
-            "chamber": "House",
-            "yeas": 157,
-            "nays": 0,
-            "date": "2026-07-31",
-            "motion": "Enacted - 157 YEAS to 0 NAYS (See YEA and NAY No. 260)"
-          }
-        ],
-        "floor": {
-          "lower": {
-            "chamber": "House",
-            "yeas": 157,
-            "nays": 0
-          }
-        },
-        "passed": true,
-        "outcome": "Signed into law",
-        "sourceUrl": "https://malegislature.gov/Bills/194/H5627",
-        "openstatesUrl": "https://malegislature.gov/Bills/194/H5627",
-        "memberVotes": []
-      },
-      {
-        "id": "ma-194th-h5375",
-        "state": "MA",
-        "stateName": "Massachusetts",
-        "session": "194th",
-        "year": "2026",
-        "number": "H 5375",
-        "officialTitle": "An Act financing long-term improvements to municipal roads and bridges",
-        "abstract": "",
-        "subjects": [],
-        "originChamber": "House",
-        "chamberVotes": [
-          {
-            "chamber": "House",
-            "yeas": 152,
-            "nays": 0,
-            "date": "2026-06-03",
-            "motion": "Enacted - 152 YEAS to 0 NAYS (See YEA and NAY No. 200)"
-          },
-          {
-            "chamber": "Senate",
-            "yeas": 39,
-            "nays": 0,
-            "date": "2026-06-04",
-            "motion": "Enacted -see Roll Call #191 (Yeas 39 to Nays 0)"
-          }
-        ],
-        "floor": {
-          "lower": {
-            "chamber": "House",
-            "yeas": 152,
-            "nays": 0
-          },
-          "upper": {
-            "chamber": "Senate",
-            "yeas": 39,
-            "nays": 0
-          }
-        },
-        "passed": true,
-        "outcome": "Signed into law",
-        "sourceUrl": "https://malegislature.gov/Bills/194/H5375",
-        "openstatesUrl": "https://malegislature.gov/Bills/194/H5375",
-        "memberVotes": []
-      }
-    ]
-  },
-  "NH": {
+    "floor": {
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 33,
+      "nays": 6
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://malegislature.gov/Bills/194/H5350",
+    "openstatesUrl": "https://malegislature.gov/Bills/194/H5350",
+    "memberVotes": []
+   },
+   {
+    "id": "ma-194th-h5620",
+    "state": "MA",
+    "stateName": "Massachusetts",
+    "session": "194th",
+    "year": "2026",
+    "number": "H 5620",
+    "officialTitle": "An Act promoting rule of law, oversight, trust and equal constitutional treatment",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 137,
+      "nays": 21,
+      "date": "2026-07-30",
+      "motion": "Enacted - 137 YEAS to 21 NAYS (See YEA and NAY No. 251)"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 137,
+      "nays": 21
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://malegislature.gov/Bills/194/H5620",
+    "openstatesUrl": "https://malegislature.gov/Bills/194/H5620",
+    "memberVotes": []
+   }
+  ],
+  "landslide": [
+   {
+    "id": "ma-194th-h5595",
+    "state": "MA",
+    "stateName": "Massachusetts",
+    "session": "194th",
+    "year": "2026",
+    "number": "H 5595",
+    "officialTitle": "An Act prioritizing patient access to care",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 121,
+      "nays": 35,
+      "date": "2026-07-31",
+      "motion": "Enacted - 121 YEAS to 35 NAYS (See YEA and NAY No. 262)"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 121,
+      "nays": 35
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://malegislature.gov/Bills/194/H5595",
+    "openstatesUrl": "https://malegislature.gov/Bills/194/H5595",
+    "memberVotes": [],
+    "rankVote": {
+     "chamber": "House",
+     "yeas": 121,
+     "nays": 35
+    }
+   },
+   {
+    "id": "ma-194th-h58",
+    "state": "MA",
+    "stateName": "Massachusetts",
+    "session": "194th",
+    "year": "2025",
+    "number": "H 58",
+    "officialTitle": "An Act making appropriations for fiscal year 2025 to provide for supplementing certain existing appropriations and for certain other activities and projects",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 127,
+      "nays": 23,
+      "date": "2025-02-26",
+      "motion": "Enacted - 127 YEAS to 23 NAYS (See YEA and NAY No. 25)"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 32,
+      "nays": 7,
+      "date": "2025-02-26",
+      "motion": "Enacted - see Roll Call #25 (Yeas 32 to Nays 7)"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 127,
+      "nays": 23
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 32,
+      "nays": 7
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://malegislature.gov/Bills/194/H58",
+    "openstatesUrl": "https://malegislature.gov/Bills/194/H58",
+    "memberVotes": [],
+    "rankVote": {
+     "chamber": "House",
+     "yeas": 127,
+     "nays": 23
+    }
+   },
+   {
+    "id": "ma-194th-h5555",
+    "state": "MA",
+    "stateName": "Massachusetts",
+    "session": "194th",
+    "year": "2026",
+    "number": "H 5555",
+    "officialTitle": "An Act making appropriations for the fiscal year 2027 for the maintenance of the departments, boards, commissions, institutions, and certain activities of the commonwealth, for interest, sinking fund, and serial bond requirements, and for certain permanent improvements",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 142,
+      "nays": 6,
+      "date": "2026-07-01",
+      "motion": "Enacted - 142 YEAS to 6 NAYS (See YEA and NAY No. 224)"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 39,
+      "nays": 1,
+      "date": "2026-07-01",
+      "motion": "Enacted -see Roll Call #200 (Yeas 39 to Nays 1)"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 142,
+      "nays": 6
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 39,
+      "nays": 1
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://malegislature.gov/Bills/194/H5555",
+    "openstatesUrl": "https://malegislature.gov/Bills/194/H5555",
+    "memberVotes": [],
+    "rankVote": {
+     "chamber": "House",
+     "yeas": 142,
+     "nays": 6
+    }
+   },
+   {
+    "id": "ma-194th-h4307",
+    "state": "MA",
+    "stateName": "Massachusetts",
+    "session": "194th",
+    "year": "2025",
+    "number": "H 4307",
+    "officialTitle": "An Act financing long-term improvements to municipal roads and bridges",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 156,
+      "nays": 0,
+      "date": "2025-07-31",
+      "motion": "Enacted - 156 YEAS to 0 NAYS (See YEA and NAY No. 69)"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 39,
+      "nays": 0,
+      "date": "2025-07-31",
+      "motion": "Enacted -see Roll Call #67 (Yeas 39 to Nays 0)"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 156,
+      "nays": 0
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 39,
+      "nays": 0
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://malegislature.gov/Bills/194/H4307",
+    "openstatesUrl": "https://malegislature.gov/Bills/194/H4307",
+    "memberVotes": [],
+    "rankVote": {
+     "chamber": "House",
+     "yeas": 156,
+     "nays": 0
+    }
+   }
+  ],
+  "filed-or-fake": [
+   {
+    "id": "ma-194th-s2726",
+    "state": "MA",
+    "stateName": "Massachusetts",
+    "session": "194th",
+    "year": "2026",
+    "number": "S 2726",
+    "officialTitle": "An Act regarding free expression",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 156,
+      "nays": 1,
+      "date": "2026-07-31",
+      "motion": "Enacted - 156 YEAS to 1 NAYS (See YEA and NAY No. 254)"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 156,
+      "nays": 1
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://malegislature.gov/Bills/194/S2726",
+    "openstatesUrl": "https://malegislature.gov/Bills/194/S2726",
+    "memberVotes": []
+   },
+   {
+    "id": "ma-194th-h5511",
+    "state": "MA",
+    "stateName": "Massachusetts",
+    "session": "194th",
+    "year": "2026",
+    "number": "H 5511",
+    "officialTitle": "An Act relative to teacher preparation and student literacy",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 39,
+      "nays": 0,
+      "date": "2026-06-18",
+      "motion": "Enacted -see Roll Call #195 (Yeas 39 to Nays 0)"
+     }
+    ],
+    "floor": {
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 39,
+      "nays": 0
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://malegislature.gov/Bills/194/H5511",
+    "openstatesUrl": "https://malegislature.gov/Bills/194/H5511",
+    "memberVotes": []
+   },
+   {
+    "id": "ma-194th-h5627",
+    "state": "MA",
+    "stateName": "Massachusetts",
+    "session": "194th",
+    "year": "2026",
+    "number": "H 5627",
+    "officialTitle": "An Act to improve Massachusetts home care",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 157,
+      "nays": 0,
+      "date": "2026-07-31",
+      "motion": "Enacted - 157 YEAS to 0 NAYS (See YEA and NAY No. 260)"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 157,
+      "nays": 0
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://malegislature.gov/Bills/194/H5627",
+    "openstatesUrl": "https://malegislature.gov/Bills/194/H5627",
+    "memberVotes": []
+   },
+   {
+    "id": "ma-194th-h5375",
+    "state": "MA",
+    "stateName": "Massachusetts",
+    "session": "194th",
+    "year": "2026",
+    "number": "H 5375",
+    "officialTitle": "An Act financing long-term improvements to municipal roads and bridges",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 152,
+      "nays": 0,
+      "date": "2026-06-03",
+      "motion": "Enacted - 152 YEAS to 0 NAYS (See YEA and NAY No. 200)"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 39,
+      "nays": 0,
+      "date": "2026-06-04",
+      "motion": "Enacted -see Roll Call #191 (Yeas 39 to Nays 0)"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 152,
+      "nays": 0
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 39,
+      "nays": 0
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://malegislature.gov/Bills/194/H5375",
+    "openstatesUrl": "https://malegislature.gov/Bills/194/H5375",
+    "memberVotes": []
+   }
+  ]
+ },
+ "NH": {
+  "stateName": "New Hampshire",
+  "unicameral": false,
+  "roll-call": [
+   {
+    "id": "nh-2026-sb134",
+    "state": "NH",
     "stateName": "New Hampshire",
-    "unicameral": false,
-    "roll-call": [
-      {
-        "id": "nh-2026-sb134",
-        "state": "NH",
-        "stateName": "New Hampshire",
-        "session": "2026",
-        "year": "2026",
-        "number": "SB 134",
-        "officialTitle": "relative to work requirements under the state Medicaid program.",
-        "abstract": "",
-        "subjects": [],
-        "originChamber": "House",
-        "chamberVotes": [
-          {
-            "chamber": "House",
-            "yeas": 204,
-            "nays": 150,
-            "date": "2026-01-08",
-            "motion": "Ought to Pass with Amendment 2025-3093h: MA RC 204-150 01/08/2026 HJ 2 P. 43"
-          },
-          {
-            "chamber": "Senate",
-            "yeas": 15,
-            "nays": 9,
-            "date": "2026-02-05",
-            "motion": "Sen. Rochefort Moved to Concur with the House Amendment, RC 15Y-9N, MA; 02/05/2026; SJ 3"
-          }
-        ],
-        "floor": {
-          "lower": {
-            "chamber": "House",
-            "yeas": 204,
-            "nays": 150
-          },
-          "upper": {
-            "chamber": "Senate",
-            "yeas": 15,
-            "nays": 9
-          }
-        },
-        "passed": true,
-        "outcome": "Signed into law",
-        "sourceUrl": "https://gc.nh.gov/bill_status/legacy/bs2016/Roll_calls/Billstatus_billrollcalls.aspx?lsr=1122&sy=2026&txtsessionyear=2026&txtbillnumber=SB134",
-        "openstatesUrl": "https://gc.nh.gov/bill_status/legacy/bs2016/Roll_calls/Billstatus_billrollcalls.aspx?lsr=1122&sy=2026&txtsessionyear=2026&txtbillnumber=SB134",
-        "memberVotes": []
-      },
-      {
-        "id": "nh-2026-hb323",
-        "state": "NH",
-        "stateName": "New Hampshire",
-        "session": "2026",
-        "year": "2026",
-        "number": "HB 323",
-        "officialTitle": "requiring the presentation of a government-issued photographic means of identification in order to vote.",
-        "abstract": "",
-        "subjects": [],
-        "originChamber": "House",
-        "chamberVotes": [
-          {
-            "chamber": "House",
-            "yeas": 190,
-            "nays": 148,
-            "date": "2026-01-07",
-            "motion": "Ought to Pass with Amendment 2025-2940h: MA RC 190-148 01/07/2026 HJ 1 P. 160"
-          },
-          {
-            "chamber": "Senate",
-            "yeas": 16,
-            "nays": 8,
-            "date": "2026-03-05",
-            "motion": "Ought to Pass: RC 16Y-8N, MA; OT3rdg; 03/05/2026; SJ 5"
-          }
-        ],
-        "floor": {
-          "lower": {
-            "chamber": "House",
-            "yeas": 190,
-            "nays": 148
-          },
-          "upper": {
-            "chamber": "Senate",
-            "yeas": 16,
-            "nays": 8
-          }
-        },
-        "passed": true,
-        "outcome": "Signed into law",
-        "sourceUrl": "https://gc.nh.gov/bill_status/legacy/bs2016/Roll_calls/Billstatus_billrollcalls.aspx?lsr=0406&sy=2026&txtsessionyear=2026&txtbillnumber=HB323",
-        "openstatesUrl": "https://gc.nh.gov/bill_status/legacy/bs2016/Roll_calls/Billstatus_billrollcalls.aspx?lsr=0406&sy=2026&txtsessionyear=2026&txtbillnumber=HB323",
-        "memberVotes": []
-      },
-      {
-        "id": "nh-2026-hb1448",
-        "state": "NH",
-        "stateName": "New Hampshire",
-        "session": "2026",
-        "year": "2026",
-        "number": "HB 1448",
-        "officialTitle": "prohibiting the use of the World Economic Forum materials within state curriculum.",
-        "abstract": "",
-        "subjects": [],
-        "originChamber": "House",
-        "chamberVotes": [
-          {
-            "chamber": "House",
-            "yeas": 184,
-            "nays": 167,
-            "date": "2026-02-05",
-            "motion": "Ought to Pass: MA RC 184-167 02/05/2026 HJ 3 P. 34"
-          },
-          {
-            "chamber": "Senate",
-            "yeas": 14,
-            "nays": 8,
-            "date": "2026-05-07",
-            "motion": "Ought to Pass: RC 14Y-8N, MA; OT3rdg; 05/07/2026; SJ 11"
-          }
-        ],
-        "floor": {
-          "lower": {
-            "chamber": "House",
-            "yeas": 184,
-            "nays": 167
-          },
-          "upper": {
-            "chamber": "Senate",
-            "yeas": 14,
-            "nays": 8
-          }
-        },
-        "passed": true,
-        "outcome": "Became law",
-        "sourceUrl": "https://gc.nh.gov/bill_status/legacy/bs2016/Roll_calls/Billstatus_billrollcalls.aspx?lsr=2761&sy=2026&txtsessionyear=2026&txtbillnumber=HB1448",
-        "openstatesUrl": "https://gc.nh.gov/bill_status/legacy/bs2016/Roll_calls/Billstatus_billrollcalls.aspx?lsr=2761&sy=2026&txtsessionyear=2026&txtbillnumber=HB1448",
-        "memberVotes": []
-      }
+    "session": "2026",
+    "year": "2026",
+    "number": "SB 134",
+    "officialTitle": "relative to work requirements under the state Medicaid program.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 204,
+      "nays": 150,
+      "date": "2026-01-08",
+      "motion": "Ought to Pass with Amendment 2025-3093h: MA RC 204-150 01/08/2026 HJ 2 P. 43"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 15,
+      "nays": 9,
+      "date": "2026-02-05",
+      "motion": "Sen. Rochefort Moved to Concur with the House Amendment, RC 15Y-9N, MA; 02/05/2026; SJ 3"
+     }
     ],
-    "landslide": [
-      {
-        "id": "nh-2026-hb1300",
-        "state": "NH",
-        "stateName": "New Hampshire",
-        "session": "2026",
-        "year": "2026",
-        "number": "HB 1300",
-        "officialTitle": "(Third New Title) establishing a school district local tax cap question for the state general elections of 2026 and 2028 and related limitations on central office administrative expenses in school districts.",
-        "abstract": "",
-        "subjects": [],
-        "originChamber": "House",
-        "chamberVotes": [
-          {
-            "chamber": "House",
-            "yeas": 183,
-            "nays": 170,
-            "date": "2026-06-04",
-            "motion": "Conference Committee Report 2026-2109c: Adopted, RC 183-170 06/04/2026 HJ 15 P. 24"
-          },
-          {
-            "chamber": "Senate",
-            "yeas": 15,
-            "nays": 8,
-            "date": "2026-06-04",
-            "motion": "Conference Committee Report # 2026-2109c; RC 15Y-8N, Adopted; 06/04/2026; SJ 14"
-          }
-        ],
-        "floor": {
-          "lower": {
-            "chamber": "House",
-            "yeas": 183,
-            "nays": 170
-          },
-          "upper": {
-            "chamber": "Senate",
-            "yeas": 15,
-            "nays": 8
-          }
-        },
-        "passed": true,
-        "outcome": "Signed into law",
-        "sourceUrl": "https://gc.nh.gov/bill_status/legacy/bs2016/Roll_calls/Billstatus_billrollcalls.aspx?lsr=2870&sy=2026&txtsessionyear=2026&txtbillnumber=HB1300",
-        "openstatesUrl": "https://gc.nh.gov/bill_status/legacy/bs2016/Roll_calls/Billstatus_billrollcalls.aspx?lsr=2870&sy=2026&txtsessionyear=2026&txtbillnumber=HB1300",
-        "memberVotes": [],
-        "rankVote": {
-          "chamber": "House",
-          "yeas": 183,
-          "nays": 170
-        }
-      },
-      {
-        "id": "nh-2026-hb1279",
-        "state": "NH",
-        "stateName": "New Hampshire",
-        "session": "2026",
-        "year": "2026",
-        "number": "HB 1279",
-        "officialTitle": "(Second New Title) relative to the use of physical force in defense of a person.",
-        "abstract": "",
-        "subjects": [],
-        "originChamber": "House",
-        "chamberVotes": [
-          {
-            "chamber": "House",
-            "yeas": 208,
-            "nays": 140,
-            "date": "2026-06-04",
-            "motion": "Conference Committee Report 2026-2115c: Adopted, RC 208-140 06/04/2026 HJ 15 P. 19"
-          }
-        ],
-        "floor": {
-          "lower": {
-            "chamber": "House",
-            "yeas": 208,
-            "nays": 140
-          }
-        },
-        "passed": true,
-        "outcome": "Signed into law",
-        "sourceUrl": "https://gc.nh.gov/bill_status/legacy/bs2016/Roll_calls/Billstatus_billrollcalls.aspx?lsr=2855&sy=2026&txtsessionyear=2026&txtbillnumber=HB1279",
-        "openstatesUrl": "https://gc.nh.gov/bill_status/legacy/bs2016/Roll_calls/Billstatus_billrollcalls.aspx?lsr=2855&sy=2026&txtsessionyear=2026&txtbillnumber=HB1279",
-        "memberVotes": [],
-        "rankVote": {
-          "chamber": "House",
-          "yeas": 208,
-          "nays": 140
-        }
-      },
-      {
-        "id": "nh-2026-hb1681",
-        "state": "NH",
-        "stateName": "New Hampshire",
-        "session": "2026",
-        "year": "2026",
-        "number": "HB 1681",
-        "officialTitle": "relative to the definition, inspection, and local approval of tiny houses and yurts as innovative housing structures.",
-        "abstract": "",
-        "subjects": [],
-        "originChamber": "House",
-        "chamberVotes": [
-          {
-            "chamber": "House",
-            "yeas": 242,
-            "nays": 102,
-            "date": "2026-05-21",
-            "motion": "House Concurs with Senate Amendment 2026-1709s (Rep. Alexander Jr.): MA RC 242-102 05/21/2026 HJ 14 P. 14"
-          }
-        ],
-        "floor": {
-          "lower": {
-            "chamber": "House",
-            "yeas": 242,
-            "nays": 102
-          }
-        },
-        "passed": true,
-        "outcome": "Signed into law",
-        "sourceUrl": "https://gc.nh.gov/bill_status/legacy/bs2016/Roll_calls/Billstatus_billrollcalls.aspx?lsr=3110&sy=2026&txtsessionyear=2026&txtbillnumber=HB1681",
-        "openstatesUrl": "https://gc.nh.gov/bill_status/legacy/bs2016/Roll_calls/Billstatus_billrollcalls.aspx?lsr=3110&sy=2026&txtsessionyear=2026&txtbillnumber=HB1681",
-        "memberVotes": [],
-        "rankVote": {
-          "chamber": "House",
-          "yeas": 242,
-          "nays": 102
-        }
-      },
-      {
-        "id": "nh-2026-hb1267",
-        "state": "NH",
-        "stateName": "New Hampshire",
-        "session": "2026",
-        "year": "2026",
-        "number": "HB 1267",
-        "officialTitle": "prohibiting school district attorneys and non-school personnel from questioning students without their parent or guardian present.",
-        "abstract": "",
-        "subjects": [],
-        "originChamber": "House",
-        "chamberVotes": [
-          {
-            "chamber": "House",
-            "yeas": 311,
-            "nays": 6,
-            "date": "2026-08-19",
-            "motion": "Veto Overridden 08/19/2026: RC 311-6 by Required Two-Thirds Vote HJ 16 P. 25"
-          },
-          {
-            "chamber": "Senate",
-            "yeas": 24,
-            "nays": 0,
-            "date": "2026-08-19",
-            "motion": "Notwithstanding the Governor's Veto, Shall HB 1267 Become Law: RC 24Y-0N, Veto Overridden by necessary two-thirds vote; 08/19/2026; SJ 15"
-          }
-        ],
-        "floor": {
-          "lower": {
-            "chamber": "House",
-            "yeas": 311,
-            "nays": 6
-          },
-          "upper": {
-            "chamber": "Senate",
-            "yeas": 24,
-            "nays": 0
-          }
-        },
-        "passed": true,
-        "outcome": "Became law",
-        "sourceUrl": "https://gc.nh.gov/bill_status/legacy/bs2016/Roll_calls/Billstatus_billrollcalls.aspx?lsr=2504&sy=2026&txtsessionyear=2026&txtbillnumber=HB1267",
-        "openstatesUrl": "https://gc.nh.gov/bill_status/legacy/bs2016/Roll_calls/Billstatus_billrollcalls.aspx?lsr=2504&sy=2026&txtsessionyear=2026&txtbillnumber=HB1267",
-        "memberVotes": [],
-        "rankVote": {
-          "chamber": "House",
-          "yeas": 311,
-          "nays": 6
-        }
-      }
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 204,
+      "nays": 150
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 15,
+      "nays": 9
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://gc.nh.gov/bill_status/legacy/bs2016/Roll_calls/Billstatus_billrollcalls.aspx?lsr=1122&sy=2026&txtsessionyear=2026&txtbillnumber=SB134",
+    "openstatesUrl": "https://gc.nh.gov/bill_status/legacy/bs2016/Roll_calls/Billstatus_billrollcalls.aspx?lsr=1122&sy=2026&txtsessionyear=2026&txtbillnumber=SB134",
+    "memberVotes": []
+   },
+   {
+    "id": "nh-2026-hb323",
+    "state": "NH",
+    "stateName": "New Hampshire",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 323",
+    "officialTitle": "requiring the presentation of a government-issued photographic means of identification in order to vote.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 190,
+      "nays": 148,
+      "date": "2026-01-07",
+      "motion": "Ought to Pass with Amendment 2025-2940h: MA RC 190-148 01/07/2026 HJ 1 P. 160"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 16,
+      "nays": 8,
+      "date": "2026-03-05",
+      "motion": "Ought to Pass: RC 16Y-8N, MA; OT3rdg; 03/05/2026; SJ 5"
+     }
     ],
-    "filed-or-fake": [
-      {
-        "id": "nh-2026-sb101",
-        "state": "NH",
-        "stateName": "New Hampshire",
-        "session": "2026",
-        "year": "2026",
-        "number": "SB 101",
-        "officialTitle": "(Second New Title) authorizing parents to enroll their children in any public school in the state.",
-        "abstract": "",
-        "subjects": [],
-        "originChamber": "Senate",
-        "chamberVotes": [
-          {
-            "chamber": "Senate",
-            "yeas": 14,
-            "nays": 10,
-            "date": "2026-01-29",
-            "motion": "Ought to Pass with Amendment #2026-0194s, RC 14Y-10N, MA; OT3rdg; 01/29/2026; SJ 2"
-          },
-          {
-            "chamber": "House",
-            "yeas": 168,
-            "nays": 184,
-            "date": "2026-04-23",
-            "motion": "Ought to Pass with Amendment 2026-1451h: MF RC 168-184 04/23/2026 HJ 11 P. 45"
-          }
-        ],
-        "floor": {
-          "upper": {
-            "chamber": "Senate",
-            "yeas": 14,
-            "nays": 10
-          },
-          "lower": {
-            "chamber": "House",
-            "yeas": 168,
-            "nays": 184
-          }
-        },
-        "passed": false,
-        "outcome": "Failed in the House",
-        "sourceUrl": "https://gc.nh.gov/bill_status/legacy/bs2016/Roll_calls/Billstatus_billrollcalls.aspx?lsr=1042&sy=2026&txtsessionyear=2026&txtbillnumber=SB101",
-        "openstatesUrl": "https://gc.nh.gov/bill_status/legacy/bs2016/Roll_calls/Billstatus_billrollcalls.aspx?lsr=1042&sy=2026&txtsessionyear=2026&txtbillnumber=SB101",
-        "memberVotes": []
-      },
-      {
-        "id": "nh-2026-hb1336",
-        "state": "NH",
-        "stateName": "New Hampshire",
-        "session": "2026",
-        "year": "2026",
-        "number": "HB 1336",
-        "officialTitle": "(New Title) relative to regulated conditional deposits.",
-        "abstract": "",
-        "subjects": [],
-        "originChamber": "Senate",
-        "chamberVotes": [
-          {
-            "chamber": "Senate",
-            "yeas": 14,
-            "nays": 9,
-            "date": "2026-05-14",
-            "motion": "Ought to Pass with Amendment # 2026-1724s, RC 14Y-9N, MA; OT3rdg; 05/14/2026; SJ 12"
-          },
-          {
-            "chamber": "House",
-            "yeas": 159,
-            "nays": 155,
-            "date": "2026-08-19",
-            "motion": "Veto Sustained 08/19/2026: RC 159-155 Lacking Necessary Two-Thirds Vote HJ 16 P. 27"
-          }
-        ],
-        "floor": {
-          "upper": {
-            "chamber": "Senate",
-            "yeas": 14,
-            "nays": 9
-          },
-          "lower": {
-            "chamber": "House",
-            "yeas": 159,
-            "nays": 155
-          }
-        },
-        "passed": true,
-        "outcome": "Vetoed by the governor",
-        "sourceUrl": "https://gc.nh.gov/bill_status/legacy/bs2016/Roll_calls/Billstatus_billrollcalls.aspx?lsr=2931&sy=2026&txtsessionyear=2026&txtbillnumber=HB1336",
-        "openstatesUrl": "https://gc.nh.gov/bill_status/legacy/bs2016/Roll_calls/Billstatus_billrollcalls.aspx?lsr=2931&sy=2026&txtsessionyear=2026&txtbillnumber=HB1336",
-        "memberVotes": []
-      },
-      {
-        "id": "nh-2026-sb482",
-        "state": "NH",
-        "stateName": "New Hampshire",
-        "session": "2026",
-        "year": "2026",
-        "number": "SB 482",
-        "officialTitle": "establishing consumer protections for digital access transaction kiosks.",
-        "abstract": "",
-        "subjects": [],
-        "originChamber": "House",
-        "chamberVotes": [
-          {
-            "chamber": "House",
-            "yeas": 214,
-            "nays": 140,
-            "date": "2026-04-23",
-            "motion": "Ought to Pass: MA RC 214-140 04/23/2026 HJ 11 P. 18"
-          }
-        ],
-        "floor": {
-          "lower": {
-            "chamber": "House",
-            "yeas": 214,
-            "nays": 140
-          }
-        },
-        "passed": true,
-        "outcome": "Signed into law",
-        "sourceUrl": "https://gc.nh.gov/bill_status/legacy/bs2016/Roll_calls/Billstatus_billrollcalls.aspx?lsr=2043&sy=2026&txtsessionyear=2026&txtbillnumber=SB482",
-        "openstatesUrl": "https://gc.nh.gov/bill_status/legacy/bs2016/Roll_calls/Billstatus_billrollcalls.aspx?lsr=2043&sy=2026&txtsessionyear=2026&txtbillnumber=SB482",
-        "memberVotes": []
-      },
-      {
-        "id": "nh-2026-sb620",
-        "state": "NH",
-        "stateName": "New Hampshire",
-        "session": "2026",
-        "year": "2026",
-        "number": "SB 620",
-        "officialTitle": "relative to refusal of consent to testing to determine alcohol concentration and penalties for aggravated driving while intoxicated.",
-        "abstract": "",
-        "subjects": [],
-        "originChamber": "House",
-        "chamberVotes": [
-          {
-            "chamber": "House",
-            "yeas": 259,
-            "nays": 94,
-            "date": "2026-04-09",
-            "motion": "Ought to Pass with Amendment 2026-1229h: MA RC 259-94 04/09/2026 HJ 10 P. 18"
-          }
-        ],
-        "floor": {
-          "lower": {
-            "chamber": "House",
-            "yeas": 259,
-            "nays": 94
-          }
-        },
-        "passed": true,
-        "outcome": "Signed into law",
-        "sourceUrl": "https://gc.nh.gov/bill_status/legacy/bs2016/Roll_calls/Billstatus_billrollcalls.aspx?lsr=2179&sy=2026&txtsessionyear=2026&txtbillnumber=SB620",
-        "openstatesUrl": "https://gc.nh.gov/bill_status/legacy/bs2016/Roll_calls/Billstatus_billrollcalls.aspx?lsr=2179&sy=2026&txtsessionyear=2026&txtbillnumber=SB620",
-        "memberVotes": []
-      }
-    ]
-  }
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 190,
+      "nays": 148
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 16,
+      "nays": 8
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://gc.nh.gov/bill_status/legacy/bs2016/Roll_calls/Billstatus_billrollcalls.aspx?lsr=0406&sy=2026&txtsessionyear=2026&txtbillnumber=HB323",
+    "openstatesUrl": "https://gc.nh.gov/bill_status/legacy/bs2016/Roll_calls/Billstatus_billrollcalls.aspx?lsr=0406&sy=2026&txtsessionyear=2026&txtbillnumber=HB323",
+    "memberVotes": []
+   },
+   {
+    "id": "nh-2026-hb1448",
+    "state": "NH",
+    "stateName": "New Hampshire",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 1448",
+    "officialTitle": "prohibiting the use of the World Economic Forum materials within state curriculum.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 184,
+      "nays": 167,
+      "date": "2026-02-05",
+      "motion": "Ought to Pass: MA RC 184-167 02/05/2026 HJ 3 P. 34"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 14,
+      "nays": 8,
+      "date": "2026-05-07",
+      "motion": "Ought to Pass: RC 14Y-8N, MA; OT3rdg; 05/07/2026; SJ 11"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 184,
+      "nays": 167
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 14,
+      "nays": 8
+     }
+    },
+    "passed": true,
+    "outcome": "Became law",
+    "sourceUrl": "https://gc.nh.gov/bill_status/legacy/bs2016/Roll_calls/Billstatus_billrollcalls.aspx?lsr=2761&sy=2026&txtsessionyear=2026&txtbillnumber=HB1448",
+    "openstatesUrl": "https://gc.nh.gov/bill_status/legacy/bs2016/Roll_calls/Billstatus_billrollcalls.aspx?lsr=2761&sy=2026&txtsessionyear=2026&txtbillnumber=HB1448",
+    "memberVotes": []
+   }
+  ],
+  "landslide": [
+   {
+    "id": "nh-2026-hb1300",
+    "state": "NH",
+    "stateName": "New Hampshire",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 1300",
+    "officialTitle": "(Third New Title) establishing a school district local tax cap question for the state general elections of 2026 and 2028 and related limitations on central office administrative expenses in school districts.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 183,
+      "nays": 170,
+      "date": "2026-06-04",
+      "motion": "Conference Committee Report 2026-2109c: Adopted, RC 183-170 06/04/2026 HJ 15 P. 24"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 15,
+      "nays": 8,
+      "date": "2026-06-04",
+      "motion": "Conference Committee Report # 2026-2109c; RC 15Y-8N, Adopted; 06/04/2026; SJ 14"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 183,
+      "nays": 170
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 15,
+      "nays": 8
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://gc.nh.gov/bill_status/legacy/bs2016/Roll_calls/Billstatus_billrollcalls.aspx?lsr=2870&sy=2026&txtsessionyear=2026&txtbillnumber=HB1300",
+    "openstatesUrl": "https://gc.nh.gov/bill_status/legacy/bs2016/Roll_calls/Billstatus_billrollcalls.aspx?lsr=2870&sy=2026&txtsessionyear=2026&txtbillnumber=HB1300",
+    "memberVotes": [],
+    "rankVote": {
+     "chamber": "House",
+     "yeas": 183,
+     "nays": 170
+    }
+   },
+   {
+    "id": "nh-2026-hb1279",
+    "state": "NH",
+    "stateName": "New Hampshire",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 1279",
+    "officialTitle": "(Second New Title) relative to the use of physical force in defense of a person.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 208,
+      "nays": 140,
+      "date": "2026-06-04",
+      "motion": "Conference Committee Report 2026-2115c: Adopted, RC 208-140 06/04/2026 HJ 15 P. 19"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 208,
+      "nays": 140
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://gc.nh.gov/bill_status/legacy/bs2016/Roll_calls/Billstatus_billrollcalls.aspx?lsr=2855&sy=2026&txtsessionyear=2026&txtbillnumber=HB1279",
+    "openstatesUrl": "https://gc.nh.gov/bill_status/legacy/bs2016/Roll_calls/Billstatus_billrollcalls.aspx?lsr=2855&sy=2026&txtsessionyear=2026&txtbillnumber=HB1279",
+    "memberVotes": [],
+    "rankVote": {
+     "chamber": "House",
+     "yeas": 208,
+     "nays": 140
+    }
+   },
+   {
+    "id": "nh-2026-hb1681",
+    "state": "NH",
+    "stateName": "New Hampshire",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 1681",
+    "officialTitle": "relative to the definition, inspection, and local approval of tiny houses and yurts as innovative housing structures.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 242,
+      "nays": 102,
+      "date": "2026-05-21",
+      "motion": "House Concurs with Senate Amendment 2026-1709s (Rep. Alexander Jr.): MA RC 242-102 05/21/2026 HJ 14 P. 14"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 242,
+      "nays": 102
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://gc.nh.gov/bill_status/legacy/bs2016/Roll_calls/Billstatus_billrollcalls.aspx?lsr=3110&sy=2026&txtsessionyear=2026&txtbillnumber=HB1681",
+    "openstatesUrl": "https://gc.nh.gov/bill_status/legacy/bs2016/Roll_calls/Billstatus_billrollcalls.aspx?lsr=3110&sy=2026&txtsessionyear=2026&txtbillnumber=HB1681",
+    "memberVotes": [],
+    "rankVote": {
+     "chamber": "House",
+     "yeas": 242,
+     "nays": 102
+    }
+   },
+   {
+    "id": "nh-2026-hb1267",
+    "state": "NH",
+    "stateName": "New Hampshire",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 1267",
+    "officialTitle": "prohibiting school district attorneys and non-school personnel from questioning students without their parent or guardian present.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 311,
+      "nays": 6,
+      "date": "2026-08-19",
+      "motion": "Veto Overridden 08/19/2026: RC 311-6 by Required Two-Thirds Vote HJ 16 P. 25"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 24,
+      "nays": 0,
+      "date": "2026-08-19",
+      "motion": "Notwithstanding the Governor's Veto, Shall HB 1267 Become Law: RC 24Y-0N, Veto Overridden by necessary two-thirds vote; 08/19/2026; SJ 15"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 311,
+      "nays": 6
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 24,
+      "nays": 0
+     }
+    },
+    "passed": true,
+    "outcome": "Became law",
+    "sourceUrl": "https://gc.nh.gov/bill_status/legacy/bs2016/Roll_calls/Billstatus_billrollcalls.aspx?lsr=2504&sy=2026&txtsessionyear=2026&txtbillnumber=HB1267",
+    "openstatesUrl": "https://gc.nh.gov/bill_status/legacy/bs2016/Roll_calls/Billstatus_billrollcalls.aspx?lsr=2504&sy=2026&txtsessionyear=2026&txtbillnumber=HB1267",
+    "memberVotes": [],
+    "rankVote": {
+     "chamber": "House",
+     "yeas": 311,
+     "nays": 6
+    }
+   }
+  ],
+  "filed-or-fake": [
+   {
+    "id": "nh-2026-sb101",
+    "state": "NH",
+    "stateName": "New Hampshire",
+    "session": "2026",
+    "year": "2026",
+    "number": "SB 101",
+    "officialTitle": "(Second New Title) authorizing parents to enroll their children in any public school in the state.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 14,
+      "nays": 10,
+      "date": "2026-01-29",
+      "motion": "Ought to Pass with Amendment #2026-0194s, RC 14Y-10N, MA; OT3rdg; 01/29/2026; SJ 2"
+     },
+     {
+      "chamber": "House",
+      "yeas": 168,
+      "nays": 184,
+      "date": "2026-04-23",
+      "motion": "Ought to Pass with Amendment 2026-1451h: MF RC 168-184 04/23/2026 HJ 11 P. 45"
+     }
+    ],
+    "floor": {
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 14,
+      "nays": 10
+     },
+     "lower": {
+      "chamber": "House",
+      "yeas": 168,
+      "nays": 184
+     }
+    },
+    "passed": false,
+    "outcome": "Failed in the House",
+    "sourceUrl": "https://gc.nh.gov/bill_status/legacy/bs2016/Roll_calls/Billstatus_billrollcalls.aspx?lsr=1042&sy=2026&txtsessionyear=2026&txtbillnumber=SB101",
+    "openstatesUrl": "https://gc.nh.gov/bill_status/legacy/bs2016/Roll_calls/Billstatus_billrollcalls.aspx?lsr=1042&sy=2026&txtsessionyear=2026&txtbillnumber=SB101",
+    "memberVotes": []
+   },
+   {
+    "id": "nh-2026-hb1336",
+    "state": "NH",
+    "stateName": "New Hampshire",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 1336",
+    "officialTitle": "(New Title) relative to regulated conditional deposits.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 14,
+      "nays": 9,
+      "date": "2026-05-14",
+      "motion": "Ought to Pass with Amendment # 2026-1724s, RC 14Y-9N, MA; OT3rdg; 05/14/2026; SJ 12"
+     },
+     {
+      "chamber": "House",
+      "yeas": 159,
+      "nays": 155,
+      "date": "2026-08-19",
+      "motion": "Veto Sustained 08/19/2026: RC 159-155 Lacking Necessary Two-Thirds Vote HJ 16 P. 27"
+     }
+    ],
+    "floor": {
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 14,
+      "nays": 9
+     },
+     "lower": {
+      "chamber": "House",
+      "yeas": 159,
+      "nays": 155
+     }
+    },
+    "passed": true,
+    "outcome": "Vetoed by the governor",
+    "sourceUrl": "https://gc.nh.gov/bill_status/legacy/bs2016/Roll_calls/Billstatus_billrollcalls.aspx?lsr=2931&sy=2026&txtsessionyear=2026&txtbillnumber=HB1336",
+    "openstatesUrl": "https://gc.nh.gov/bill_status/legacy/bs2016/Roll_calls/Billstatus_billrollcalls.aspx?lsr=2931&sy=2026&txtsessionyear=2026&txtbillnumber=HB1336",
+    "memberVotes": []
+   },
+   {
+    "id": "nh-2026-sb482",
+    "state": "NH",
+    "stateName": "New Hampshire",
+    "session": "2026",
+    "year": "2026",
+    "number": "SB 482",
+    "officialTitle": "establishing consumer protections for digital access transaction kiosks.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 214,
+      "nays": 140,
+      "date": "2026-04-23",
+      "motion": "Ought to Pass: MA RC 214-140 04/23/2026 HJ 11 P. 18"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 214,
+      "nays": 140
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://gc.nh.gov/bill_status/legacy/bs2016/Roll_calls/Billstatus_billrollcalls.aspx?lsr=2043&sy=2026&txtsessionyear=2026&txtbillnumber=SB482",
+    "openstatesUrl": "https://gc.nh.gov/bill_status/legacy/bs2016/Roll_calls/Billstatus_billrollcalls.aspx?lsr=2043&sy=2026&txtsessionyear=2026&txtbillnumber=SB482",
+    "memberVotes": []
+   },
+   {
+    "id": "nh-2026-sb620",
+    "state": "NH",
+    "stateName": "New Hampshire",
+    "session": "2026",
+    "year": "2026",
+    "number": "SB 620",
+    "officialTitle": "relative to refusal of consent to testing to determine alcohol concentration and penalties for aggravated driving while intoxicated.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 259,
+      "nays": 94,
+      "date": "2026-04-09",
+      "motion": "Ought to Pass with Amendment 2026-1229h: MA RC 259-94 04/09/2026 HJ 10 P. 18"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 259,
+      "nays": 94
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://gc.nh.gov/bill_status/legacy/bs2016/Roll_calls/Billstatus_billrollcalls.aspx?lsr=2179&sy=2026&txtsessionyear=2026&txtbillnumber=SB620",
+    "openstatesUrl": "https://gc.nh.gov/bill_status/legacy/bs2016/Roll_calls/Billstatus_billrollcalls.aspx?lsr=2179&sy=2026&txtsessionyear=2026&txtbillnumber=SB620",
+    "memberVotes": []
+   }
+  ]
+ },
+ "VA": {
+  "stateName": "Virginia",
+  "unicameral": false,
+  "roll-call": [
+   {
+    "id": "va-2026-hb1",
+    "state": "VA",
+    "stateName": "Virginia",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 1",
+    "officialTitle": "Minimum wage; increases incrementally to $15.00 per hour by January 1, 2028.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House of Delegates",
+    "chamberVotes": [
+     {
+      "chamber": "House of Delegates",
+      "yeas": 64,
+      "nays": 34,
+      "date": "2026-02-03",
+      "motion": "Read third time and passed House"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 21,
+      "nays": 19,
+      "date": "2026-03-04",
+      "motion": "Passed Senate"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House of Delegates",
+      "yeas": 64,
+      "nays": 34
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 21,
+      "nays": 19
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://lis.virginia.gov/bill-details/20261/HB1",
+    "memberVotes": [],
+    "openstatesUrl": "https://lis.virginia.gov/bill-details/20261/HB1"
+   },
+   {
+    "id": "va-2026-hb845",
+    "state": "VA",
+    "stateName": "Virginia",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 845",
+    "officialTitle": "Unlawful detainer; bifurcation of case, contested rent and damages.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House of Delegates",
+    "chamberVotes": [
+     {
+      "chamber": "House of Delegates",
+      "yeas": 74,
+      "nays": 23,
+      "date": "2026-02-17",
+      "motion": "Read third time and passed House"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 21,
+      "nays": 19,
+      "date": "2026-03-11",
+      "motion": "Passed Senate"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House of Delegates",
+      "yeas": 74,
+      "nays": 23
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 21,
+      "nays": 19
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://lis.virginia.gov/bill-details/20261/HB845",
+    "memberVotes": [],
+    "openstatesUrl": "https://lis.virginia.gov/bill-details/20261/HB845"
+   },
+   {
+    "id": "va-2026-hb684",
+    "state": "VA",
+    "stateName": "Virginia",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 684",
+    "officialTitle": "Photo speed monitoring devices; photo-monitoring systems for traffic signals, proof of violation.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House of Delegates",
+    "chamberVotes": [
+     {
+      "chamber": "House of Delegates",
+      "yeas": 59,
+      "nays": 38,
+      "date": "2026-03-14",
+      "motion": "Conference report agreed to by House"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 26,
+      "nays": 13,
+      "date": "2026-03-14",
+      "motion": "Conference report agreed to by Senate"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House of Delegates",
+      "yeas": 59,
+      "nays": 38
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 26,
+      "nays": 13
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://lis.virginia.gov/bill-details/20261/HB684",
+    "memberVotes": [],
+    "openstatesUrl": "https://lis.virginia.gov/bill-details/20261/HB684"
+   }
+  ],
+  "landslide": [
+   {
+    "id": "va-2026-sb815",
+    "state": "VA",
+    "stateName": "Virginia",
+    "session": "2026",
+    "year": "2026",
+    "number": "SB 815",
+    "officialTitle": "School bds.; opening of school year, certain alternative schedules & schedule flexibility permitted.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House of Delegates",
+    "chamberVotes": [
+     {
+      "chamber": "House of Delegates",
+      "yeas": 96,
+      "nays": 0,
+      "date": "2026-03-09",
+      "motion": "Passed House"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House of Delegates",
+      "yeas": 96,
+      "nays": 0
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://lis.virginia.gov/bill-details/20261/SB815",
+    "memberVotes": [],
+    "openstatesUrl": "https://lis.virginia.gov/bill-details/20261/SB815",
+    "rankVote": {
+     "chamber": "House of Delegates",
+     "yeas": 96,
+     "nays": 0
+    }
+   },
+   {
+    "id": "va-2026-hb380",
+    "state": "VA",
+    "stateName": "Virginia",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 380",
+    "officialTitle": "Celiac disease; training materials for restaurant personnel.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House of Delegates",
+    "chamberVotes": [
+     {
+      "chamber": "House of Delegates",
+      "yeas": 86,
+      "nays": 10,
+      "date": "2026-01-28",
+      "motion": "Read third time and passed House"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 26,
+      "nays": 14,
+      "date": "2026-03-02",
+      "motion": "Passed Senate"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House of Delegates",
+      "yeas": 86,
+      "nays": 10
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 26,
+      "nays": 14
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://lis.virginia.gov/bill-details/20261/HB380",
+    "memberVotes": [],
+    "openstatesUrl": "https://lis.virginia.gov/bill-details/20261/HB380",
+    "rankVote": {
+     "chamber": "House of Delegates",
+     "yeas": 86,
+     "nays": 10
+    }
+   },
+   {
+    "id": "va-2026-hb998",
+    "state": "VA",
+    "stateName": "Virginia",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 998",
+    "officialTitle": "Menstrual products ingredient labeling; restriction of substances, delayed effective date.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House of Delegates",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 24,
+      "nays": 16,
+      "date": "2026-03-02",
+      "motion": "Passed Senate with amendment"
+     },
+     {
+      "chamber": "House of Delegates",
+      "yeas": 69,
+      "nays": 25,
+      "date": "2026-03-04",
+      "motion": "Senate amendment agreed to by House"
+     }
+    ],
+    "floor": {
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 24,
+      "nays": 16
+     },
+     "lower": {
+      "chamber": "House of Delegates",
+      "yeas": 69,
+      "nays": 25
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://lis.virginia.gov/bill-details/20261/HB998",
+    "memberVotes": [],
+    "openstatesUrl": "https://lis.virginia.gov/bill-details/20261/HB998",
+    "rankVote": {
+     "chamber": "House of Delegates",
+     "yeas": 69,
+     "nays": 25
+    }
+   },
+   {
+    "id": "va-2026-hb1524",
+    "state": "VA",
+    "stateName": "Virginia",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 1524",
+    "officialTitle": "Assault firearms; carrying in public areas prohibited, exceptions, penalty.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House of Delegates",
+    "chamberVotes": [
+     {
+      "chamber": "House of Delegates",
+      "yeas": 59,
+      "nays": 40,
+      "date": "2026-04-22",
+      "motion": "House concurred in Governor's recommendation"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 21,
+      "nays": 18,
+      "date": "2026-04-22",
+      "motion": "Senate concurred in Governor's recommendation"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House of Delegates",
+      "yeas": 59,
+      "nays": 40
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 21,
+      "nays": 18
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://lis.virginia.gov/bill-details/20261/HB1524",
+    "memberVotes": [],
+    "openstatesUrl": "https://lis.virginia.gov/bill-details/20261/HB1524",
+    "rankVote": {
+     "chamber": "House of Delegates",
+     "yeas": 59,
+     "nays": 40
+    }
+   }
+  ],
+  "filed-or-fake": [
+   {
+    "id": "va-2026-hb483",
+    "state": "VA",
+    "stateName": "Virginia",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 483",
+    "officialTitle": "Prescription Drug Affordability Board; established.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House of Delegates",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 34,
+      "nays": 6,
+      "date": "2026-03-11",
+      "motion": "Passed Senate with substitute"
+     },
+     {
+      "chamber": "House of Delegates",
+      "yeas": 87,
+      "nays": 11,
+      "date": "2026-03-12",
+      "motion": "Senate substitute agreed to by House"
+     }
+    ],
+    "floor": {
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 34,
+      "nays": 6
+     },
+     "lower": {
+      "chamber": "House of Delegates",
+      "yeas": 87,
+      "nays": 11
+     }
+    },
+    "passed": true,
+    "outcome": "Vetoed by the governor",
+    "sourceUrl": "https://lis.virginia.gov/bill-details/20261/HB483",
+    "memberVotes": [],
+    "openstatesUrl": "https://lis.virginia.gov/bill-details/20261/HB483"
+   },
+   {
+    "id": "va-2026-sb663",
+    "state": "VA",
+    "stateName": "Virginia",
+    "session": "2026",
+    "year": "2026",
+    "number": "SB 663",
+    "officialTitle": "Emergency vehicles; exempt from certain traffic regulations.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 16,
+      "nays": 24,
+      "date": "2026-02-04",
+      "motion": "Read third time and defeated by Senate"
+     }
+    ],
+    "floor": {
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 16,
+      "nays": 24
+     }
+    },
+    "passed": false,
+    "outcome": "Failed in the Senate",
+    "sourceUrl": "https://lis.virginia.gov/bill-details/20261/SB663",
+    "memberVotes": [],
+    "openstatesUrl": "https://lis.virginia.gov/bill-details/20261/SB663"
+   },
+   {
+    "id": "va-2026-hb682",
+    "state": "VA",
+    "stateName": "Virginia",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 682",
+    "officialTitle": "Fire Programs Fund; aid to localities, redistribution of funds.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House of Delegates",
+    "chamberVotes": [
+     {
+      "chamber": "House of Delegates",
+      "yeas": 33,
+      "nays": 65,
+      "date": "2026-02-05",
+      "motion": "Read third time and defeated by House"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House of Delegates",
+      "yeas": 33,
+      "nays": 65
+     }
+    },
+    "passed": false,
+    "outcome": "Failed in the House of Delegates",
+    "sourceUrl": "https://lis.virginia.gov/bill-details/20261/HB682",
+    "memberVotes": [],
+    "openstatesUrl": "https://lis.virginia.gov/bill-details/20261/HB682"
+   },
+   {
+    "id": "va-2026-hb812",
+    "state": "VA",
+    "stateName": "Virginia",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 812",
+    "officialTitle": "Traffic regulation; bicycles, and certain other devices, bicycle signals.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House of Delegates",
+    "chamberVotes": [
+     {
+      "chamber": "House of Delegates",
+      "yeas": 84,
+      "nays": 13,
+      "date": "2026-02-09",
+      "motion": "Read third time and passed House"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 40,
+      "nays": 0,
+      "date": "2026-03-03",
+      "motion": "Passed Senate"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House of Delegates",
+      "yeas": 84,
+      "nays": 13
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 40,
+      "nays": 0
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://lis.virginia.gov/bill-details/20261/HB812",
+    "memberVotes": [],
+    "openstatesUrl": "https://lis.virginia.gov/bill-details/20261/HB812"
+   }
+  ]
+ },
+ "WA": {
+  "stateName": "Washington",
+  "unicameral": false,
+  "roll-call": [
+   {
+    "id": "wa-2026-sb6346",
+    "state": "WA",
+    "stateName": "Washington",
+    "session": "2026",
+    "year": "2026",
+    "number": "SB 6346",
+    "officialTitle": "Tax on millionaires",
+    "abstract": "Establishing a tax on millionaires.",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "House of Representatives",
+      "yeas": 51,
+      "nays": 46,
+      "date": "2026-03-09",
+      "motion": "Final Passage as Amended by the House"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 27,
+      "nays": 21,
+      "date": "2026-03-11",
+      "motion": "Final Passage As Amended by the House"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House of Representatives",
+      "yeas": 51,
+      "nays": 46
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 27,
+      "nays": 21
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://app.leg.wa.gov/billsummary?BillNumber=6346&Year=2026&Initiative=false",
+    "memberVotes": [],
+    "openstatesUrl": "https://app.leg.wa.gov/billsummary?BillNumber=6346&Year=2026&Initiative=false"
+   },
+   {
+    "id": "wa-2026-sb5855",
+    "state": "WA",
+    "stateName": "Washington",
+    "session": "2026",
+    "year": "2026",
+    "number": "SB 5855",
+    "officialTitle": "Law enf. face coverings",
+    "abstract": "Concerning the use of face coverings by law enforcement officers.",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "House of Representatives",
+      "yeas": 56,
+      "nays": 37,
+      "date": "2026-03-03",
+      "motion": "Final Passage as Amended by the House"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 30,
+      "nays": 19,
+      "date": "2026-03-09",
+      "motion": "Final Passage as Amended by the House"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House of Representatives",
+      "yeas": 56,
+      "nays": 37
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 30,
+      "nays": 19
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://app.leg.wa.gov/billsummary?BillNumber=5855&Year=2026&Initiative=false",
+    "memberVotes": [],
+    "openstatesUrl": "https://app.leg.wa.gov/billsummary?BillNumber=5855&Year=2026&Initiative=false"
+   },
+   {
+    "id": "wa-2026-hb2266",
+    "state": "WA",
+    "stateName": "Washington",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 2266",
+    "officialTitle": "Supportive & emerg. housing",
+    "abstract": "Encouraging permanent supportive housing, transitional housing, indoor emergency housing, and indoor emergency shelters.",
+    "subjects": [],
+    "originChamber": "House of Representatives",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 29,
+      "nays": 20,
+      "date": "2026-03-04",
+      "motion": "3rd Reading & Final Passage as Amended by the Senate"
+     },
+     {
+      "chamber": "House of Representatives",
+      "yeas": 56,
+      "nays": 39,
+      "date": "2026-03-09",
+      "motion": "Final Passage as Amended by the Senate"
+     }
+    ],
+    "floor": {
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 29,
+      "nays": 20
+     },
+     "lower": {
+      "chamber": "House of Representatives",
+      "yeas": 56,
+      "nays": 39
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://app.leg.wa.gov/billsummary?BillNumber=2266&Year=2026&Initiative=false",
+    "memberVotes": [],
+    "openstatesUrl": "https://app.leg.wa.gov/billsummary?BillNumber=2266&Year=2026&Initiative=false"
+   }
+  ],
+  "landslide": [
+   {
+    "id": "wa-2026-hb2664",
+    "state": "WA",
+    "stateName": "Washington",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 2664",
+    "officialTitle": "Unlawful detainer notices",
+    "abstract": "Modifying requirements for service of unlawful detainer notices and other notices served in the same manner.",
+    "subjects": [],
+    "originChamber": "House of Representatives",
+    "chamberVotes": [
+     {
+      "chamber": "House of Representatives",
+      "yeas": 96,
+      "nays": 0,
+      "date": "2026-02-10",
+      "motion": "3rd Reading & Final Passage"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 48,
+      "nays": 0,
+      "date": "2026-03-05",
+      "motion": "3rd Reading & Final Passage"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House of Representatives",
+      "yeas": 96,
+      "nays": 0
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 48,
+      "nays": 0
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://app.leg.wa.gov/billsummary?BillNumber=2664&Year=2026&Initiative=false",
+    "memberVotes": [],
+    "openstatesUrl": "https://app.leg.wa.gov/billsummary?BillNumber=2664&Year=2026&Initiative=false",
+    "rankVote": {
+     "chamber": "House of Representatives",
+     "yeas": 96,
+     "nays": 0
+    }
+   },
+   {
+    "id": "wa-2026-hb2334",
+    "state": "WA",
+    "stateName": "Washington",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 2334",
+    "officialTitle": "Cash transactions/pennies",
+    "abstract": "Adjusting the price of a cash transaction to eliminate the need for pennies.",
+    "subjects": [],
+    "originChamber": "House of Representatives",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 45,
+      "nays": 2,
+      "date": "2026-03-05",
+      "motion": "3rd Reading & Final Passage as Amended by the Senate"
+     },
+     {
+      "chamber": "House of Representatives",
+      "yeas": 80,
+      "nays": 15,
+      "date": "2026-03-11",
+      "motion": "Final Passage as Amended by the Senate"
+     }
+    ],
+    "floor": {
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 45,
+      "nays": 2
+     },
+     "lower": {
+      "chamber": "House of Representatives",
+      "yeas": 80,
+      "nays": 15
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://app.leg.wa.gov/billsummary?BillNumber=2334&Year=2026&Initiative=false",
+    "memberVotes": [],
+    "openstatesUrl": "https://app.leg.wa.gov/billsummary?BillNumber=2334&Year=2026&Initiative=false",
+    "rankVote": {
+     "chamber": "House of Representatives",
+     "yeas": 80,
+     "nays": 15
+    }
+   },
+   {
+    "id": "wa-2026-sb6200",
+    "state": "WA",
+    "stateName": "Washington",
+    "session": "2026",
+    "year": "2026",
+    "number": "SB 6200",
+    "officialTitle": "Tenant cooling devices",
+    "abstract": "Concerning renters' and mobile home occupants' ability to install portable cooling devices.",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "House of Representatives",
+      "yeas": 65,
+      "nays": 28,
+      "date": "2026-03-03",
+      "motion": "Final Passage as Amended by the House"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 37,
+      "nays": 12,
+      "date": "2026-03-10",
+      "motion": "Final Passage as Amended by the House"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House of Representatives",
+      "yeas": 65,
+      "nays": 28
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 37,
+      "nays": 12
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://app.leg.wa.gov/billsummary?BillNumber=6200&Year=2026&Initiative=false",
+    "memberVotes": [],
+    "openstatesUrl": "https://app.leg.wa.gov/billsummary?BillNumber=6200&Year=2026&Initiative=false",
+    "rankVote": {
+     "chamber": "House of Representatives",
+     "yeas": 65,
+     "nays": 28
+    }
+   },
+   {
+    "id": "wa-2026-sb5982",
+    "state": "WA",
+    "stateName": "Washington",
+    "session": "2026",
+    "year": "2026",
+    "number": "SB 5982",
+    "officialTitle": "Consumer-owned utilities",
+    "abstract": "Updating provisions for consumer-owned utilities, including port districts, and affected market customers under the clean energy transformation act.",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "House of Representatives",
+      "yeas": 57,
+      "nays": 37,
+      "date": "2026-02-28",
+      "motion": "Final Passage as Amended by the House"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 30,
+      "nays": 19,
+      "date": "2026-03-10",
+      "motion": "Final Passage as Amended by the House"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House of Representatives",
+      "yeas": 57,
+      "nays": 37
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 30,
+      "nays": 19
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://app.leg.wa.gov/billsummary?BillNumber=5982&Year=2026&Initiative=false",
+    "memberVotes": [],
+    "openstatesUrl": "https://app.leg.wa.gov/billsummary?BillNumber=5982&Year=2026&Initiative=false",
+    "rankVote": {
+     "chamber": "House of Representatives",
+     "yeas": 57,
+     "nays": 37
+    }
+   }
+  ],
+  "filed-or-fake": [
+   {
+    "id": "wa-2025-hb1108",
+    "state": "WA",
+    "stateName": "Washington",
+    "session": "2025",
+    "year": "2025",
+    "number": "HB 1108",
+    "officialTitle": "Housing cost task force",
+    "abstract": "Creating a task force on housing cost driver analysis.",
+    "subjects": [],
+    "originChamber": "House of Representatives",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 44,
+      "nays": 5,
+      "date": "2025-04-09",
+      "motion": "3rd Reading & Final Passage as Amended by the Senate"
+     },
+     {
+      "chamber": "House of Representatives",
+      "yeas": 94,
+      "nays": 4,
+      "date": "2025-04-27",
+      "motion": "Final Passage as Amended by the Senate"
+     }
+    ],
+    "floor": {
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 44,
+      "nays": 5
+     },
+     "lower": {
+      "chamber": "House of Representatives",
+      "yeas": 94,
+      "nays": 4
+     }
+    },
+    "passed": true,
+    "outcome": "Vetoed by the governor",
+    "sourceUrl": "https://app.leg.wa.gov/billsummary?BillNumber=1108&Year=2025&Initiative=false",
+    "memberVotes": [],
+    "openstatesUrl": "https://app.leg.wa.gov/billsummary?BillNumber=1108&Year=2025&Initiative=false"
+   },
+   {
+    "id": "wa-2026-sb6260",
+    "state": "WA",
+    "stateName": "Washington",
+    "session": "2026",
+    "year": "2026",
+    "number": "SB 6260",
+    "officialTitle": "Public education funding",
+    "abstract": "Implementing efficiencies and programming changes in public education.",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "House of Representatives",
+      "yeas": 50,
+      "nays": 47,
+      "date": "2026-03-11",
+      "motion": "Final Passage as Amended by the House"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 26,
+      "nays": 23,
+      "date": "2026-03-12",
+      "motion": "Final Passage as Amended by the House"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House of Representatives",
+      "yeas": 50,
+      "nays": 47
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 26,
+      "nays": 23
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://app.leg.wa.gov/billsummary?BillNumber=6260&Year=2026&Initiative=false",
+    "memberVotes": [],
+    "openstatesUrl": "https://app.leg.wa.gov/billsummary?BillNumber=6260&Year=2026&Initiative=false"
+   },
+   {
+    "id": "wa-2026-sb6231",
+    "state": "WA",
+    "stateName": "Washington",
+    "session": "2026",
+    "year": "2026",
+    "number": "SB 6231",
+    "officialTitle": "Data center tax exemptions",
+    "abstract": "Expiring tax exemptions for data centers. (REVISED FOR ENGROSSED: Removing a tax exemption for the replacement of equipment for data centers.)",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 26,
+      "nays": 23,
+      "date": "2026-02-28",
+      "motion": "3rd Reading & Final Passage"
+     },
+     {
+      "chamber": "House of Representatives",
+      "yeas": 51,
+      "nays": 46,
+      "date": "2026-03-12",
+      "motion": "3rd Reading & Final Passage"
+     }
+    ],
+    "floor": {
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 26,
+      "nays": 23
+     },
+     "lower": {
+      "chamber": "House of Representatives",
+      "yeas": 51,
+      "nays": 46
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://app.leg.wa.gov/billsummary?BillNumber=6231&Year=2026&Initiative=false",
+    "memberVotes": [],
+    "openstatesUrl": "https://app.leg.wa.gov/billsummary?BillNumber=6231&Year=2026&Initiative=false"
+   },
+   {
+    "id": "wa-2026-sb5963",
+    "state": "WA",
+    "stateName": "Washington",
+    "session": "2026",
+    "year": "2026",
+    "number": "SB 5963",
+    "officialTitle": "Passport to careers program",
+    "abstract": "Modifying funding for the passport to careers program and eligibility for the Washington college grant.",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 48,
+      "nays": 0,
+      "date": "2026-02-13",
+      "motion": "3rd Reading & Final Passage"
+     },
+     {
+      "chamber": "House of Representatives",
+      "yeas": 92,
+      "nays": 1,
+      "date": "2026-03-03",
+      "motion": "3rd Reading & Final Passage"
+     }
+    ],
+    "floor": {
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 48,
+      "nays": 0
+     },
+     "lower": {
+      "chamber": "House of Representatives",
+      "yeas": 92,
+      "nays": 1
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://app.leg.wa.gov/billsummary?BillNumber=5963&Year=2026&Initiative=false",
+    "memberVotes": [],
+    "openstatesUrl": "https://app.leg.wa.gov/billsummary?BillNumber=5963&Year=2026&Initiative=false"
+   }
+  ]
+ },
+ "WY": {
+  "stateName": "Wyoming",
+  "unicameral": false,
+  "roll-call": [
+   {
+    "id": "wy-2026-hb0003",
+    "state": "WY",
+    "stateName": "Wyoming",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 3",
+    "officialTitle": "Wyoming pregnancy centers-autonomy and rights.",
+    "abstract": "This act prohibits the State and specified governmental entities from adopting any law, rule or policy that targets pregnancy centers for oversight or regulation based on the centers' stance against abortion. This act authorizes pregnancy centers or any person aggrieved by a violation of this act to commence a civil action.",
+    "subjects": [],
+    "originChamber": "House of Representatives",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 26,
+      "nays": 5,
+      "date": "2026-03-03",
+      "motion": "3rd Reading:Passed"
+     },
+     {
+      "chamber": "House of Representatives",
+      "yeas": 52,
+      "nays": 7,
+      "date": "2026-03-04",
+      "motion": "Concur:Passed"
+     }
+    ],
+    "floor": {
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 26,
+      "nays": 5
+     },
+     "lower": {
+      "chamber": "House of Representatives",
+      "yeas": 52,
+      "nays": 7
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://wyoleg.gov/Legislation/2026/HB0003",
+    "memberVotes": [],
+    "openstatesUrl": "https://wyoleg.gov/Legislation/2026/HB0003"
+   },
+   {
+    "id": "wy-2026-hb0025",
+    "state": "WY",
+    "stateName": "Wyoming",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 25",
+    "officialTitle": "Wyoming's tomorrow scholarship program amendments.",
+    "abstract": "Eliminates the continuous enrollment requirement for maintaining eligibility in the Wyoming's Tomorrow Scholarship Program.",
+    "subjects": [],
+    "originChamber": "House of Representatives",
+    "chamberVotes": [
+     {
+      "chamber": "House of Representatives",
+      "yeas": 36,
+      "nays": 25,
+      "date": "2026-02-21",
+      "motion": "3rd Reading:Passed"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 28,
+      "nays": 3,
+      "date": "2026-03-02",
+      "motion": "3rd Reading:Passed"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House of Representatives",
+      "yeas": 36,
+      "nays": 25
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 28,
+      "nays": 3
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://wyoleg.gov/Legislation/2026/HB0025",
+    "memberVotes": [],
+    "openstatesUrl": "https://wyoleg.gov/Legislation/2026/HB0025"
+   },
+   {
+    "id": "wy-2026-sf0004",
+    "state": "WY",
+    "stateName": "Wyoming",
+    "session": "2026",
+    "year": "2026",
+    "number": "SF 4",
+    "officialTitle": "Medicaid rate increase-EMS services.",
+    "abstract": "This act increases the Medicaid reimbursement rate for emergency medical services provided by ground ambulance service providers to one hundred percent (100%) of the current Medicare rate. The Department of Health is required to develop enhanced Medicaid rural and super-rural fee schedules for emergency medical services provided by ground ambulance service providers. This act requires the Department of Health to report to the Joint Appropriations Committee and the Joint Labor, Health and Social Services Interim Committee regarding the additional costs incurred by the increased reimbursement rates. This act provides an appropriation for purposes of increasing the reimbursement rates. Comments: Requires a report to the Joint Appropriations Committee and the Joint Labor, Health and Social Services Interim Committee on or before October 31, 2027.",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "House of Representatives",
+      "yeas": 34,
+      "nays": 23,
+      "date": "2026-03-02",
+      "motion": "3rd Reading:Passed"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 28,
+      "nays": 1,
+      "date": "2026-03-02",
+      "motion": "Concur:Passed"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House of Representatives",
+      "yeas": 34,
+      "nays": 23
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 28,
+      "nays": 1
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://wyoleg.gov/Legislation/2026/SF0004",
+    "memberVotes": [],
+    "openstatesUrl": "https://wyoleg.gov/Legislation/2026/SF0004"
+   }
+  ],
+  "landslide": [
+   {
+    "id": "wy-2026-hb0008",
+    "state": "WY",
+    "stateName": "Wyoming",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 8",
+    "officialTitle": "Stalking of minors.",
+    "abstract": "This act provides that a person who is at least age eighteen (18) and commits the offense of stalking against a minor is guilty of felony stalking, which is punishable by imprisonment for not more than ten (10) years.",
+    "subjects": [],
+    "originChamber": "House of Representatives",
+    "chamberVotes": [
+     {
+      "chamber": "House of Representatives",
+      "yeas": 61,
+      "nays": 0,
+      "date": "2026-02-13",
+      "motion": "3rd Reading:Passed"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 31,
+      "nays": 0,
+      "date": "2026-02-27",
+      "motion": "3rd Reading:Passed"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House of Representatives",
+      "yeas": 61,
+      "nays": 0
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 31,
+      "nays": 0
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://wyoleg.gov/Legislation/2026/HB0008",
+    "memberVotes": [],
+    "openstatesUrl": "https://wyoleg.gov/Legislation/2026/HB0008",
+    "rankVote": {
+     "chamber": "House of Representatives",
+     "yeas": 61,
+     "nays": 0
+    }
+   },
+   {
+    "id": "wy-2026-sf0106",
+    "state": "WY",
+    "stateName": "Wyoming",
+    "session": "2026",
+    "year": "2026",
+    "number": "SF 106",
+    "officialTitle": "Welfare Fraud Prevention Act Amendments.",
+    "abstract": "This bill amends (shortens) the intervals for eligibility recertification for the Supplemental Nutrition Assistance Program (SNAP) and Medicaid. The bill prohibits self-attestation for all Medicaid eligibility factors, unless required by federal law. The act mandates at least monthly residency verification, multistate enrollment checks and death record reviews for Medicaid recipients. The act limits initial retroactive Medicaid eligibility to two months prior to application submission and requires annual reporting on its fiscal impact. The act prohibits waivers of work requirements for SNAP benefits without legislative authorization and limits exemptions to family caregivers. The act establishes citizenship and qualified alien requirements, and limited benefit periods, for public assistance programs, including SNAP, Medicaid and POWER.",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "House of Representatives",
+      "yeas": 55,
+      "nays": 6,
+      "date": "2026-03-05",
+      "motion": "3rd Reading:Passed"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 27,
+      "nays": 2,
+      "date": "2026-03-06",
+      "motion": "Concur:Passed"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House of Representatives",
+      "yeas": 55,
+      "nays": 6
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 27,
+      "nays": 2
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://wyoleg.gov/Legislation/2026/SF0106",
+    "memberVotes": [],
+    "openstatesUrl": "https://wyoleg.gov/Legislation/2026/SF0106",
+    "rankVote": {
+     "chamber": "House of Representatives",
+     "yeas": 55,
+     "nays": 6
+    }
+   },
+   {
+    "id": "wy-2026-sf0024",
+    "state": "WY",
+    "stateName": "Wyoming",
+    "session": "2026",
+    "year": "2026",
+    "number": "SF 24",
+    "officialTitle": "Lottery tickets-acceptance of debit card payments.",
+    "abstract": "Under current law, only cash may be used to purchase lottery tickets. This act provides that debit cards may be used to purchase lottery tickets in Wyoming. Any other form of payment besides cash and debit cards is still prohibited.",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 22,
+      "nays": 9,
+      "date": "2026-02-12",
+      "motion": "3rd Reading:Passed"
+     },
+     {
+      "chamber": "House of Representatives",
+      "yeas": 49,
+      "nays": 10,
+      "date": "2026-02-25",
+      "motion": "3rd Reading:Passed"
+     }
+    ],
+    "floor": {
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 22,
+      "nays": 9
+     },
+     "lower": {
+      "chamber": "House of Representatives",
+      "yeas": 49,
+      "nays": 10
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://wyoleg.gov/Legislation/2026/SF0024",
+    "memberVotes": [],
+    "openstatesUrl": "https://wyoleg.gov/Legislation/2026/SF0024",
+    "rankVote": {
+     "chamber": "House of Representatives",
+     "yeas": 49,
+     "nays": 10
+    }
+   },
+   {
+    "id": "wy-2026-sf0035",
+    "state": "WY",
+    "stateName": "Wyoming",
+    "session": "2026",
+    "year": "2026",
+    "number": "SF 35",
+    "officialTitle": "School district-cell phone and smart watch policies.",
+    "abstract": "This act requires each school district board of trustees to adopt policies governing student possession and use of cellular telephones and smart devices in schools. This act requires each school district to submit a copy of its adopted policy as soon as practicable after initial adoption and upon any substantial revision. This act clarifies that a \"smart device\" does not include a wearable device limited to telling time, monitoring a person's health information, or tracking a person's location.",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 25,
+      "nays": 6,
+      "date": "2026-02-23",
+      "motion": "3rd Reading:Passed"
+     },
+     {
+      "chamber": "House of Representatives",
+      "yeas": 40,
+      "nays": 20,
+      "date": "2026-03-04",
+      "motion": "3rd Reading:Passed"
+     }
+    ],
+    "floor": {
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 25,
+      "nays": 6
+     },
+     "lower": {
+      "chamber": "House of Representatives",
+      "yeas": 40,
+      "nays": 20
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://wyoleg.gov/Legislation/2026/SF0035",
+    "memberVotes": [],
+    "openstatesUrl": "https://wyoleg.gov/Legislation/2026/SF0035",
+    "rankVote": {
+     "chamber": "House of Representatives",
+     "yeas": 40,
+     "nays": 20
+    }
+   }
+  ],
+  "filed-or-fake": [
+   {
+    "id": "wy-2026-sf0101",
+    "state": "WY",
+    "stateName": "Wyoming",
+    "session": "2026",
+    "year": "2026",
+    "number": "SF 101",
+    "officialTitle": "Second amendment protection act amendments-3.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "House of Representatives",
+      "yeas": 40,
+      "nays": 21,
+      "date": "2026-03-05",
+      "motion": "3rd Reading:Passed"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 12,
+      "nays": 18,
+      "date": "2026-03-11",
+      "motion": "Did Not Override Veto"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House of Representatives",
+      "yeas": 40,
+      "nays": 21
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 12,
+      "nays": 18
+     }
+    },
+    "passed": true,
+    "outcome": "Vetoed by the governor",
+    "sourceUrl": "https://wyoleg.gov/Legislation/2026/SF0101",
+    "memberVotes": [],
+    "openstatesUrl": "https://wyoleg.gov/Legislation/2026/SF0101"
+   },
+   {
+    "id": "wy-2026-sf0096",
+    "state": "WY",
+    "stateName": "Wyoming",
+    "session": "2026",
+    "year": "2026",
+    "number": "SF 96",
+    "officialTitle": "Tobacco sales and taxation.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 13,
+      "nays": 18,
+      "date": "2026-02-23",
+      "motion": "3rd Reading:Failed"
+     }
+    ],
+    "floor": {
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 13,
+      "nays": 18
+     }
+    },
+    "passed": false,
+    "outcome": "Failed in the Senate",
+    "sourceUrl": "https://wyoleg.gov/Legislation/2026/SF0096",
+    "memberVotes": [],
+    "openstatesUrl": "https://wyoleg.gov/Legislation/2026/SF0096"
+   },
+   {
+    "id": "wy-2026-sf0110",
+    "state": "WY",
+    "stateName": "Wyoming",
+    "session": "2026",
+    "year": "2026",
+    "number": "SF 110",
+    "officialTitle": "Residential property tax revisions.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 29,
+      "nays": 2,
+      "date": "2026-02-24",
+      "motion": "3rd Reading:Passed"
+     },
+     {
+      "chamber": "House of Representatives",
+      "yeas": 30,
+      "nays": 31,
+      "date": "2026-03-05",
+      "motion": "3rd Reading:Failed"
+     }
+    ],
+    "floor": {
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 29,
+      "nays": 2
+     },
+     "lower": {
+      "chamber": "House of Representatives",
+      "yeas": 30,
+      "nays": 31
+     }
+    },
+    "passed": false,
+    "outcome": "Failed in the House of Representatives",
+    "sourceUrl": "https://wyoleg.gov/Legislation/2026/SF0110",
+    "memberVotes": [],
+    "openstatesUrl": "https://wyoleg.gov/Legislation/2026/SF0110"
+   },
+   {
+    "id": "wy-2026-hb0178",
+    "state": "WY",
+    "stateName": "Wyoming",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 178",
+    "officialTitle": "Public unions-transparency and dues withdrawal limitations.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House of Representatives",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 21,
+      "nays": 10,
+      "date": "2026-03-05",
+      "motion": "3rd Reading:Passed"
+     },
+     {
+      "chamber": "House of Representatives",
+      "yeas": 36,
+      "nays": 21,
+      "date": "2026-03-11",
+      "motion": "Did Not Override Veto"
+     }
+    ],
+    "floor": {
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 21,
+      "nays": 10
+     },
+     "lower": {
+      "chamber": "House of Representatives",
+      "yeas": 36,
+      "nays": 21
+     }
+    },
+    "passed": true,
+    "outcome": "Vetoed by the governor",
+    "sourceUrl": "https://wyoleg.gov/Legislation/2026/HB0178",
+    "memberVotes": [],
+    "openstatesUrl": "https://wyoleg.gov/Legislation/2026/HB0178"
+   }
+  ]
+ },
+ "AR": {
+  "stateName": "Arkansas",
+  "unicameral": false,
+  "roll-call": [
+   {
+    "id": "ar-2025-hb1824",
+    "state": "AR",
+    "stateName": "Arkansas",
+    "session": "2025",
+    "year": "2025",
+    "number": "HB 1824",
+    "officialTitle": "TO CREATE THE DOG AND CAT RESCUE ACT: DAISY'S LAW.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 73,
+      "nays": 8,
+      "date": "2025-04-02",
+      "motion": "Read the third time and passed and ordered transmitted to the Senate"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 18,
+      "nays": 14,
+      "date": "2025-04-09",
+      "motion": "Read the third time and passed"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 73,
+      "nays": 8
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 18,
+      "nays": 14
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://arkleg.state.ar.us/Bills/Detail?id=HB1824&ddBienniumSession=2025%2F2025R",
+    "openstatesUrl": "https://arkleg.state.ar.us/Bills/Detail?id=HB1824&ddBienniumSession=2025%2F2025R",
+    "memberVotes": []
+   },
+   {
+    "id": "ar-2025-sb433",
+    "state": "AR",
+    "stateName": "Arkansas",
+    "session": "2025",
+    "year": "2025",
+    "number": "SB 433",
+    "officialTitle": "REGARDING THE DISPLAY OF THE NATIONAL MOTTO AND THE TEN COMMANDMENTS.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 27,
+      "nays": 4,
+      "date": "2025-03-19",
+      "motion": "Read the third time and passed"
+     },
+     {
+      "chamber": "House",
+      "yeas": 71,
+      "nays": 20,
+      "date": "2025-04-07",
+      "motion": "Read the third time and passed and ordered transmitted to the Senate"
+     }
+    ],
+    "floor": {
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 27,
+      "nays": 4
+     },
+     "lower": {
+      "chamber": "House",
+      "yeas": 71,
+      "nays": 20
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://arkleg.state.ar.us/Bills/Detail?id=SB433&ddBienniumSession=2025%2F2025R",
+    "openstatesUrl": "https://arkleg.state.ar.us/Bills/Detail?id=SB433&ddBienniumSession=2025%2F2025R",
+    "memberVotes": []
+   },
+   {
+    "id": "ar-2025-sb446",
+    "state": "AR",
+    "stateName": "Arkansas",
+    "session": "2025",
+    "year": "2025",
+    "number": "SB 446",
+    "officialTitle": "TO AMEND THE AUTOMATIC LICENSE PLATE READER SYSTEM ACT; AND TO PROVIDE FOR THE USE OF AUTOMATIC LICENSE PLATE READERS BY PRIVATE LANDOWNERS, PRIVATE LEASEHOLDER, AND COMMERCIAL BUSINESSES.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 32,
+      "nays": 0,
+      "date": "2025-03-18",
+      "motion": "Read the third time and passed"
+     },
+     {
+      "chamber": "House",
+      "yeas": 56,
+      "nays": 27,
+      "date": "2025-04-09",
+      "motion": "Read the third time and passed and ordered transmitted to the Senate"
+     }
+    ],
+    "floor": {
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 32,
+      "nays": 0
+     },
+     "lower": {
+      "chamber": "House",
+      "yeas": 56,
+      "nays": 27
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://arkleg.state.ar.us/Bills/Detail?id=SB446&ddBienniumSession=2025%2F2025R",
+    "openstatesUrl": "https://arkleg.state.ar.us/Bills/Detail?id=SB446&ddBienniumSession=2025%2F2025R",
+    "memberVotes": []
+   }
+  ],
+  "landslide": [
+   {
+    "id": "ar-2025-hb1878",
+    "state": "AR",
+    "stateName": "Arkansas",
+    "session": "2025",
+    "year": "2025",
+    "number": "HB 1878",
+    "officialTitle": "TO ENSURE EARLY VOTING ACCESS FOR ARKANSANS RESIDING IN POPULATION CENTERS; AND TO REQUIRE A COUNTY BOARD OF ELECTION COMMISSIONERS TO CONDUCT EARLY VOTING IN A CITY IN CERTAIN INSTANCES.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 75,
+      "nays": 15,
+      "date": "2025-04-15",
+      "motion": "Read the third time and passed and ordered transmitted to the Senate"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 18,
+      "nays": 16,
+      "date": "2025-04-16",
+      "motion": "Read the third time and passed"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 75,
+      "nays": 15
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 18,
+      "nays": 16
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://arkleg.state.ar.us/Bills/Detail?id=HB1878&ddBienniumSession=2025%2F2025R",
+    "openstatesUrl": "https://arkleg.state.ar.us/Bills/Detail?id=HB1878&ddBienniumSession=2025%2F2025R",
+    "memberVotes": [],
+    "rankVote": {
+     "chamber": "Senate",
+     "yeas": 18,
+     "nays": 16
+    }
+   },
+   {
+    "id": "ar-2025-sb98",
+    "state": "AR",
+    "stateName": "Arkansas",
+    "session": "2025",
+    "year": "2025",
+    "number": "SB 98",
+    "officialTitle": "TO AMEND THE LAW REGARDING ALCOHOLIC BEVERAGES; TO AUTHORIZE THE THIRD-PARTY DELIVERY OF ALCOHOLIC BEVERAGES FROM CERTAIN RETAILERS; AND TO CREATE A THIRD-PARTY DELIVERY PERMIT.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 18,
+      "nays": 7,
+      "date": "2025-02-12",
+      "motion": "Read the third time and passed"
+     },
+     {
+      "chamber": "House",
+      "yeas": 56,
+      "nays": 33,
+      "date": "2025-02-20",
+      "motion": "Read the third time and passed and ordered transmitted to the Senate"
+     }
+    ],
+    "floor": {
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 18,
+      "nays": 7
+     },
+     "lower": {
+      "chamber": "House",
+      "yeas": 56,
+      "nays": 33
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://arkleg.state.ar.us/Bills/Detail?id=SB98&ddBienniumSession=2025%2F2025R",
+    "openstatesUrl": "https://arkleg.state.ar.us/Bills/Detail?id=SB98&ddBienniumSession=2025%2F2025R",
+    "memberVotes": [],
+    "rankVote": {
+     "chamber": "Senate",
+     "yeas": 18,
+     "nays": 7
+    }
+   },
+   {
+    "id": "ar-2025-sb217",
+    "state": "AR",
+    "stateName": "Arkansas",
+    "session": "2025",
+    "year": "2025",
+    "number": "SB 217",
+    "officialTitle": "TO REQUIRE THE DEPARTMENT OF HUMAN SERVICES TO REQUEST A WAIVER TO EXCLUDE CANDY AND SOFT DRINKS FROM ELIGIBLE FOODS UNDER THE SUPPLEMENTAL NUTRITION ASSISTANCE PROGRAM.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 29,
+      "nays": 4,
+      "date": "2025-04-08",
+      "motion": "Read the third time and passed"
+     },
+     {
+      "chamber": "House",
+      "yeas": 78,
+      "nays": 17,
+      "date": "2025-04-16",
+      "motion": "Read the third time and passed and ordered transmitted to the Senate"
+     }
+    ],
+    "floor": {
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 29,
+      "nays": 4
+     },
+     "lower": {
+      "chamber": "House",
+      "yeas": 78,
+      "nays": 17
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://arkleg.state.ar.us/Bills/Detail?id=SB217&ddBienniumSession=2025%2F2025R",
+    "openstatesUrl": "https://arkleg.state.ar.us/Bills/Detail?id=SB217&ddBienniumSession=2025%2F2025R",
+    "memberVotes": [],
+    "rankVote": {
+     "chamber": "Senate",
+     "yeas": 29,
+     "nays": 4
+    }
+   },
+   {
+    "id": "ar-2025-sb263",
+    "state": "AR",
+    "stateName": "Arkansas",
+    "session": "2025",
+    "year": "2025",
+    "number": "SB 263",
+    "officialTitle": "TO INCREASE THE HOMESTEAD PROPERTY TAX CREDIT.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 33,
+      "nays": 0,
+      "date": "2025-03-03",
+      "motion": "Read the third time and passed"
+     },
+     {
+      "chamber": "House",
+      "yeas": 99,
+      "nays": 0,
+      "date": "2025-03-12",
+      "motion": "Read the third time and passed and ordered transmitted to the Senate"
+     }
+    ],
+    "floor": {
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 33,
+      "nays": 0
+     },
+     "lower": {
+      "chamber": "House",
+      "yeas": 99,
+      "nays": 0
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://arkleg.state.ar.us/Bills/Detail?id=SB263&ddBienniumSession=2025%2F2025R",
+    "openstatesUrl": "https://arkleg.state.ar.us/Bills/Detail?id=SB263&ddBienniumSession=2025%2F2025R",
+    "memberVotes": [],
+    "rankVote": {
+     "chamber": "Senate",
+     "yeas": 33,
+     "nays": 0
+    }
+   }
+  ],
+  "filed-or-fake": [
+   {
+    "id": "ar-2025-hb1173",
+    "state": "AR",
+    "stateName": "Arkansas",
+    "session": "2025",
+    "year": "2025",
+    "number": "HB 1173",
+    "officialTitle": "TO AMEND THE DEFINITION OF \"BEER\" TO CHANGE THE ALLOWABLE ALCOHOLIC CONTENT AND TO INCLUDE MALT BEVERAGES.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 36,
+      "nays": 44,
+      "date": "2025-02-03",
+      "motion": "Read the third time and failed"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 36,
+      "nays": 44
+     }
+    },
+    "passed": false,
+    "outcome": "Failed in the House",
+    "sourceUrl": "https://arkleg.state.ar.us/Bills/Detail?id=HB1173&ddBienniumSession=2025%2F2025R",
+    "openstatesUrl": "https://arkleg.state.ar.us/Bills/Detail?id=HB1173&ddBienniumSession=2025%2F2025R",
+    "memberVotes": []
+   },
+   {
+    "id": "ar-2025-hb1193",
+    "state": "AR",
+    "stateName": "Arkansas",
+    "session": "2025",
+    "year": "2025",
+    "number": "HB 1193",
+    "officialTitle": "TO REQUIRE AN INSURER TO INCLUDE A LIENHOLDER ON PAYMENTS MADE UNDER AN INSURANCE POLICY.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 75,
+      "nays": 9,
+      "date": "2025-02-06",
+      "motion": "Read the third time and passed and ordered transmitted to the Senate"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 7,
+      "nays": 15,
+      "date": "2025-04-08",
+      "motion": "Read the third time and failed"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 75,
+      "nays": 9
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 7,
+      "nays": 15
+     }
+    },
+    "passed": false,
+    "outcome": "Failed in the Senate",
+    "sourceUrl": "https://arkleg.state.ar.us/Bills/Detail?id=HB1193&ddBienniumSession=2025%2F2025R",
+    "openstatesUrl": "https://arkleg.state.ar.us/Bills/Detail?id=HB1193&ddBienniumSession=2025%2F2025R",
+    "memberVotes": []
+   },
+   {
+    "id": "ar-2025-hb1422",
+    "state": "AR",
+    "stateName": "Arkansas",
+    "session": "2025",
+    "year": "2025",
+    "number": "HB 1422",
+    "officialTitle": "TO CREATE THE ONLY CITIZENS VOTE ACT; TO AMEND THE LAW CONCERNING THE DRIVER'S LICENSES AND IDENTIFICATION CARDS OF CERTAIN NONCITIZENS; AND TO AMEND ARKANSAS CONSTITUTION, AMENDMENT 51, SECTION 13.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 53,
+      "nays": 25,
+      "date": "2025-03-20",
+      "motion": "Read the third time and failed"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 53,
+      "nays": 25
+     }
+    },
+    "passed": false,
+    "outcome": "Failed in the House",
+    "sourceUrl": "https://arkleg.state.ar.us/Bills/Detail?id=HB1422&ddBienniumSession=2025%2F2025R",
+    "openstatesUrl": "https://arkleg.state.ar.us/Bills/Detail?id=HB1422&ddBienniumSession=2025%2F2025R",
+    "memberVotes": []
+   },
+   {
+    "id": "ar-2025-sb142",
+    "state": "AR",
+    "stateName": "Arkansas",
+    "session": "2025",
+    "year": "2025",
+    "number": "SB 142",
+    "officialTitle": "TO CREATE THE BELL TO BELL, NO CELL ACT; AND TO AMEND THE REQUIREMENTS FOR PUBLIC SCHOOL DISCIPLINE POLICIES WITH REGARD TO STUDENT USE OF PERSONAL ELECTRONIC DEVICES.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 97,
+      "nays": 1,
+      "date": "2025-02-13",
+      "motion": "Read the third time and passed and ordered transmitted to the Senate"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 27,
+      "nays": 1,
+      "date": "2025-02-18",
+      "motion": "Read the third time and passed"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 97,
+      "nays": 1
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 27,
+      "nays": 1
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://arkleg.state.ar.us/Bills/Detail?id=SB142&ddBienniumSession=2025%2F2025R",
+    "openstatesUrl": "https://arkleg.state.ar.us/Bills/Detail?id=SB142&ddBienniumSession=2025%2F2025R",
+    "memberVotes": []
+   }
+  ]
+ },
+ "KS": {
+  "stateName": "Kansas",
+  "unicameral": false,
+  "roll-call": [
+   {
+    "id": "ks-2026-hb2481",
+    "state": "KS",
+    "stateName": "Kansas",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 2481",
+    "officialTitle": "During the period of the FIFA 2026 world cup, prohibiting certain limitations by municipalities on short-term rental or vacation properties and requiring timely rental permit processing, modifying the definition of transient guest for transient guest tax purposes and authorizing expanded sales of alcoholic beverages by cities and counties.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 23,
+      "nays": 17,
+      "date": "2026-03-25",
+      "motion": "Conference Committee Report was adopted"
+     },
+     {
+      "chamber": "House",
+      "yeas": 86,
+      "nays": 39,
+      "date": "2026-03-26",
+      "motion": "Conference Committee Report was adopted"
+     }
+    ],
+    "floor": {
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 23,
+      "nays": 17
+     },
+     "lower": {
+      "chamber": "House",
+      "yeas": 86,
+      "nays": 39
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://www.kslegislature.gov/b2025_26/bills/hb2481/",
+    "openstatesUrl": "https://www.kslegislature.gov/b2025_26/bills/hb2481/",
+    "memberVotes": []
+   },
+   {
+    "id": "ks-2026-hb2402",
+    "state": "KS",
+    "stateName": "Kansas",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 2402",
+    "officialTitle": "Senate Substitute for HB 2402 by Committee on Education - Requiring eligible boards of education to consider participation in the community eligibility provision, providing a financial hardship exception to such participation, requiring the state department of education to assist school districts seeking such participation, extending the application deadline for authorization to operate as a public innovative district from December 1 to May 1 and deeming such applications approved if not approved or denied within 45 days of submission.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 31,
+      "nays": 9,
+      "date": "2026-03-27",
+      "motion": "Conference Committee Report was adopted"
+     },
+     {
+      "chamber": "House",
+      "yeas": 91,
+      "nays": 33,
+      "date": "2026-03-27",
+      "motion": "Conference Committee Report was adopted"
+     }
+    ],
+    "floor": {
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 31,
+      "nays": 9
+     },
+     "lower": {
+      "chamber": "House",
+      "yeas": 91,
+      "nays": 33
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://www.kslegislature.gov/b2025_26/bills/hb2402/",
+    "openstatesUrl": "https://www.kslegislature.gov/b2025_26/bills/hb2402/",
+    "memberVotes": []
+   },
+   {
+    "id": "ks-2026-sb254",
+    "state": "KS",
+    "stateName": "Kansas",
+    "session": "2026",
+    "year": "2026",
+    "number": "SB 254",
+    "officialTitle": "Prohibiting aliens who are unlawfully present in the United States from receiving any state or local public benefit in accordance with applicable federal law.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 78,
+      "nays": 46,
+      "date": "2026-03-19",
+      "motion": "Conference Committee Report was adopted"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 22,
+      "nays": 18,
+      "date": "2026-03-24",
+      "motion": "Conference Committee Report was adopted"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 78,
+      "nays": 46
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 22,
+      "nays": 18
+     }
+    },
+    "passed": true,
+    "outcome": "Vetoed by the governor",
+    "sourceUrl": "https://www.kslegislature.gov/b2025_26/bills/sb254/",
+    "openstatesUrl": "https://www.kslegislature.gov/b2025_26/bills/sb254/",
+    "memberVotes": []
+   }
+  ],
+  "landslide": [
+   {
+    "id": "ks-2026-hb2745",
+    "state": "KS",
+    "stateName": "Kansas",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 2745",
+    "officialTitle": "Senate Substitute for HB 2745 by Committee on Assessment and Taxation - Providing a protest petition to contest certain increases in property tax revenues and continuing reimbursements from the taxpayer notification costs fund for an additional five years.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 22,
+      "nays": 18,
+      "date": "2026-03-27",
+      "motion": "Emergency Final Action - Substitute passed as amended"
+     },
+     {
+      "chamber": "House",
+      "yeas": 63,
+      "nays": 59,
+      "date": "2026-03-27",
+      "motion": "Concurred with amendments"
+     }
+    ],
+    "floor": {
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 22,
+      "nays": 18
+     },
+     "lower": {
+      "chamber": "House",
+      "yeas": 63,
+      "nays": 59
+     }
+    },
+    "passed": true,
+    "outcome": "Vetoed by the governor",
+    "sourceUrl": "https://www.kslegislature.gov/b2025_26/bills/hb2745/",
+    "openstatesUrl": "https://www.kslegislature.gov/b2025_26/bills/hb2745/",
+    "memberVotes": [],
+    "rankVote": {
+     "chamber": "House",
+     "yeas": 63,
+     "nays": 59
+    }
+   },
+   {
+    "id": "ks-2026-hb2466",
+    "state": "KS",
+    "stateName": "Kansas",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 2466",
+    "officialTitle": "Enacting the Kansas sports authority act, authorizing STAR bond projects in major amusement park areas and extending the expiration date of the STAR bonds financing act.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 30,
+      "nays": 10,
+      "date": "2026-03-27",
+      "motion": "Conference Committee Report was adopted"
+     },
+     {
+      "chamber": "House",
+      "yeas": 78,
+      "nays": 44,
+      "date": "2026-03-27",
+      "motion": "Conference Committee Report was adopted"
+     }
+    ],
+    "floor": {
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 30,
+      "nays": 10
+     },
+     "lower": {
+      "chamber": "House",
+      "yeas": 78,
+      "nays": 44
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://www.kslegislature.gov/b2025_26/bills/hb2466/",
+    "openstatesUrl": "https://www.kslegislature.gov/b2025_26/bills/hb2466/",
+    "memberVotes": [],
+    "rankVote": {
+     "chamber": "House",
+     "yeas": 78,
+     "nays": 44
+    }
+   },
+   {
+    "id": "ks-2026-hb2124",
+    "state": "KS",
+    "stateName": "Kansas",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 2124",
+    "officialTitle": "Providing cities the authority to allow the driving of golf carts upon sidewalks and permitting local authorities with jurisdiction over city residence districts to reduce the maximum speed limit from 30 miles per hour to 25 miles per hour without an engineering and traffic investigation.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 38,
+      "nays": 2,
+      "date": "2026-03-25",
+      "motion": "Conference Committee Report was adopted"
+     },
+     {
+      "chamber": "House",
+      "yeas": 89,
+      "nays": 35,
+      "date": "2026-03-25",
+      "motion": "Conference Committee Report was adopted"
+     }
+    ],
+    "floor": {
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 38,
+      "nays": 2
+     },
+     "lower": {
+      "chamber": "House",
+      "yeas": 89,
+      "nays": 35
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://www.kslegislature.gov/b2025_26/bills/hb2124/",
+    "openstatesUrl": "https://www.kslegislature.gov/b2025_26/bills/hb2124/",
+    "memberVotes": [],
+    "rankVote": {
+     "chamber": "House",
+     "yeas": 89,
+     "nays": 35
+    }
+   },
+   {
+    "id": "ks-2026-hb2537",
+    "state": "KS",
+    "stateName": "Kansas",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 2537",
+    "officialTitle": "Increasing the penalties for the crime of sexual extortion when an offender is 18 years of age or older and the victim is less than 18 years of age or a dependent adult, creating the crimes of aggravated sexual extortion causing great bodily harm and aggravated sexual extortion causing death and requiring the attorney general to prepare and provide educational materials and information concerning such crimes.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 124,
+      "nays": 0,
+      "date": "2026-02-18",
+      "motion": "Final Action - Passed as amended"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 40,
+      "nays": 0,
+      "date": "2026-03-19",
+      "motion": "Final Action - Passed"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 124,
+      "nays": 0
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 40,
+      "nays": 0
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://www.kslegislature.gov/b2025_26/bills/hb2537/",
+    "openstatesUrl": "https://www.kslegislature.gov/b2025_26/bills/hb2537/",
+    "memberVotes": [],
+    "rankVote": {
+     "chamber": "House",
+     "yeas": 124,
+     "nays": 0
+    }
+   }
+  ],
+  "filed-or-fake": [
+   {
+    "id": "ks-2026-hb2366",
+    "state": "KS",
+    "stateName": "Kansas",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 2366",
+    "officialTitle": "Expanding the scope of practice of naturopathic doctors, specifying continuing education requirements, increasing the required amount of professional liability insurance and modifying certain provisions relating to the licensure and regulations of naturopathic doctors.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 58,
+      "nays": 58,
+      "date": "2026-02-19",
+      "motion": "Emergency Final Action - Not passed"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 58,
+      "nays": 58
+     }
+    },
+    "passed": false,
+    "outcome": "Failed in the House",
+    "sourceUrl": "https://www.kslegislature.gov/b2025_26/bills/hb2366/",
+    "openstatesUrl": "https://www.kslegislature.gov/b2025_26/bills/hb2366/",
+    "memberVotes": []
+   },
+   {
+    "id": "ks-2026-hb2736",
+    "state": "KS",
+    "stateName": "Kansas",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 2736",
+    "officialTitle": "Requiring hospitals to screen all patients for eligibility for such hospital's financial assistance program or charity care policy.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 20,
+      "nays": 102,
+      "date": "2026-02-19",
+      "motion": "Final Action - Not  passed"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 20,
+      "nays": 102
+     }
+    },
+    "passed": false,
+    "outcome": "Failed in the House",
+    "sourceUrl": "https://www.kslegislature.gov/b2025_26/bills/hb2736/",
+    "openstatesUrl": "https://www.kslegislature.gov/b2025_26/bills/hb2736/",
+    "memberVotes": []
+   },
+   {
+    "id": "ks-2026-sb436",
+    "state": "KS",
+    "stateName": "Kansas",
+    "session": "2026",
+    "year": "2026",
+    "number": "SB 436",
+    "officialTitle": "Increasing the cost threshold for when a county shall use the public bidding process in awarding a construction contract.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 12,
+      "nays": 26,
+      "date": "2026-02-18",
+      "motion": "Emergency Final Action - Not passed"
+     }
+    ],
+    "floor": {
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 12,
+      "nays": 26
+     }
+    },
+    "passed": false,
+    "outcome": "Failed in the Senate",
+    "sourceUrl": "https://www.kslegislature.gov/b2025_26/bills/sb436/",
+    "openstatesUrl": "https://www.kslegislature.gov/b2025_26/bills/sb436/",
+    "memberVotes": []
+   },
+   {
+    "id": "ks-2026-hb2412",
+    "state": "KS",
+    "stateName": "Kansas",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 2412",
+    "officialTitle": "Requiring instruction to provide students with an understanding of communist, fascist and socialist regimes and ideologies and that students pass an American civics examination in order to graduate with a high school diploma.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 23,
+      "nays": 14,
+      "date": "2026-03-27",
+      "motion": "Conference Committee Report was adopted"
+     },
+     {
+      "chamber": "House",
+      "yeas": 80,
+      "nays": 43,
+      "date": "2026-04-09",
+      "motion": "Conference Committee Report was adopted"
+     }
+    ],
+    "floor": {
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 23,
+      "nays": 14
+     },
+     "lower": {
+      "chamber": "House",
+      "yeas": 80,
+      "nays": 43
+     }
+    },
+    "passed": true,
+    "outcome": "Vetoed by the governor",
+    "sourceUrl": "https://www.kslegislature.gov/b2025_26/bills/hb2412/",
+    "openstatesUrl": "https://www.kslegislature.gov/b2025_26/bills/hb2412/",
+    "memberVotes": []
+   }
+  ]
+ },
+ "NM": {
+  "stateName": "New Mexico",
+  "unicameral": false,
+  "roll-call": [
+   {
+    "id": "nm-2026-hb9",
+    "state": "NM",
+    "stateName": "New Mexico",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 9",
+    "officialTitle": "AN ACT RELATING TO PUBLIC BODIES; ENACTING THE IMMIGRANT SAFETY ACT; PROHIBITING PUBLIC BODIES FROM ENTERING INTO AGREEMENTS USED TO DETAIN INDIVIDUALS FOR FEDERAL CIVIL IMMIGRATION VIOLATIONS AND REQUIRING THE TERMINATION OF ANY SUCH EXISTING AGREEMENTS; PROHIBITING PUBLIC BODIES FROM OTHERWISE USING PUBLIC PROPERTY TO FACILITATE DETAINING INDIVIDUALS FOR FEDERAL CIVIL IMMIGRATION VIOLATIONS.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 40,
+      "nays": 29,
+      "date": "2026-01-30",
+      "motion": "Final passage"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 24,
+      "nays": 15,
+      "date": "2026-02-03",
+      "motion": "Passed"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 40,
+      "nays": 29
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 24,
+      "nays": 15
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://www.nmlegis.gov/Legislation/Legislation?chamber=H&legtype=B&legno=9&year=26",
+    "openstatesUrl": "https://www.nmlegis.gov/Legislation/Legislation?chamber=H&legtype=B&legno=9&year=26",
+    "memberVotes": []
+   },
+   {
+    "id": "nm-2026-sb96",
+    "state": "NM",
+    "stateName": "New Mexico",
+    "session": "2026",
+    "year": "2026",
+    "number": "SB 96",
+    "officialTitle": "AN ACT RELATING TO CHILD CARE; PROVIDING THAT REGISTERED CHILD CARE HOMES, LICENSED FAMILY CHILD CARE HOMES AND LICENSED GROUP CHILD CARE HOMES BE TREATED AS RESIDENTIAL USES IN THE APPLICATION OF LOCAL ORDINANCES AND REGULATIONS; PROHIBITING LOCAL AUTHORITIES FROM IMPOSING ADDITIONAL REGULATIONS THAT DO NOT ALSO APPLY TO OTHER PRIVATE RESIDENCES WITHIN THE SAME ZONING DISTRICT; PROVIDING THAT LOCAL AUTHORITIES SHALL NOT ASSESS OR COLLECT CERTAIN FEES OR REGULATORY TAXES FROM REGISTERED CHILD CARE HOMES, LICENSED FAMILY CHILD CARE HOMES, LICENSED GROUP CHILD CARE HOMES OR LICENSED CHILD CARE CENTERS; PROVIDING THAT LICENSED CHILD CARE CENTERS BE PERMITTED BY RIGHT USE IN ZONES DESIGNATED AS COMMERCIAL; DEFINING \"PERMITTED BY RIGHT\" AND OTHER TERMS; LIMITING ZONING AUTHORITIES' REGULATION OF OFF-STREET PARKING AS IT APPLIES TO CHILD CARE HOMES AND CHILD CARE CENTERS; CLARIFYING THE APPLICATION OF RULES PROMULGATED PURSUANT TO CHAPTER 59A, ARTICLE 52 NMSA 1978; PROVIDING THAT A HOMEOWNER ASSOCIATION SHALL NOT PROHIBIT THE OPERATION OF, OR ASSESS OR COLLECT A FEE OR TAX FOR THE OPERATION OF, A REGISTERED CHILD CARE HOME, LICENSED FAMILY CHILD CARE HOME OR LICENSED GROUP CHILD CARE HOME.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 25,
+      "nays": 13,
+      "date": "2026-02-11",
+      "motion": "Passed"
+     },
+     {
+      "chamber": "House",
+      "yeas": 41,
+      "nays": 23,
+      "date": "2026-02-17",
+      "motion": "Final passage"
+     }
+    ],
+    "floor": {
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 25,
+      "nays": 13
+     },
+     "lower": {
+      "chamber": "House",
+      "yeas": 41,
+      "nays": 23
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://www.nmlegis.gov/Legislation/Legislation?chamber=S&legtype=B&legno=96&year=26",
+    "openstatesUrl": "https://www.nmlegis.gov/Legislation/Legislation?chamber=S&legtype=B&legno=96&year=26",
+    "memberVotes": []
+   },
+   {
+    "id": "nm-2026-sb40",
+    "state": "NM",
+    "stateName": "New Mexico",
+    "session": "2026",
+    "year": "2026",
+    "number": "SB 40",
+    "officialTitle": "AN ACT RELATING TO LICENSE PLATE READERS; ENACTING THE DRIVER PRIVACY AND SAFETY ACT; PROVIDING LIMITATIONS ON THE SHARING OF AUTOMATED LICENSE PLATE READER INFORMATION AND REQUIRING REPORTING; PROVIDING FOR ENFORCEMENT AND PENALTIES.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 32,
+      "nays": 8,
+      "date": "2026-02-12",
+      "motion": "Passed"
+     },
+     {
+      "chamber": "House",
+      "yeas": 42,
+      "nays": 22,
+      "date": "2026-02-17",
+      "motion": "Final passage"
+     }
+    ],
+    "floor": {
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 32,
+      "nays": 8
+     },
+     "lower": {
+      "chamber": "House",
+      "yeas": 42,
+      "nays": 22
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://www.nmlegis.gov/Legislation/Legislation?chamber=S&legtype=B&legno=40&year=26",
+    "openstatesUrl": "https://www.nmlegis.gov/Legislation/Legislation?chamber=S&legtype=B&legno=40&year=26",
+    "memberVotes": []
+   }
+  ],
+  "landslide": [
+   {
+    "id": "nm-2026-sb264",
+    "state": "NM",
+    "stateName": "New Mexico",
+    "session": "2026",
+    "year": "2026",
+    "number": "SB 264",
+    "officialTitle": "AN ACT RELATING TO THE PUBLIC PEACE, HEALTH, SAFETY AND WELFARE; AMENDING AND ENACTING SECTIONS OF THE ELECTION CODE; PROHIBITING PERSONS ACTING UNDER COLOR OF LAW OR OTHERWISE FROM ORDERING TROOPS TO A PLACE WHERE AN ELECTION IS HELD UNLESS NECESSARY TO REPEL ARMED ENEMIES OF THE UNITED STATES; PROHIBITING INTERFERENCE WITH A PERSON'S RIGHT OF SUFFRAGE AT AN ELECTION; PROVIDING PENALTIES; PROVIDING REMEDIES; PROVIDING PROCEDURES FOR ELECTIONS FOLLOWING A DECLARATION OF A STATE OF EMERGENCY.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 26,
+      "nays": 16,
+      "date": "2026-02-15",
+      "motion": "Passed"
+     },
+     {
+      "chamber": "House",
+      "yeas": 41,
+      "nays": 26,
+      "date": "2026-02-17",
+      "motion": "Final passage"
+     }
+    ],
+    "floor": {
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 26,
+      "nays": 16
+     },
+     "lower": {
+      "chamber": "House",
+      "yeas": 41,
+      "nays": 26
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://www.nmlegis.gov/Legislation/Legislation?chamber=S&legtype=B&legno=264&year=26",
+    "openstatesUrl": "https://www.nmlegis.gov/Legislation/Legislation?chamber=S&legtype=B&legno=264&year=26",
+    "memberVotes": [],
+    "rankVote": {
+     "chamber": "House",
+     "yeas": 41,
+     "nays": 26
+    }
+   },
+   {
+    "id": "nm-2026-hb200",
+    "state": "NM",
+    "stateName": "New Mexico",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 200",
+    "officialTitle": "AN ACT RELATING TO HOUSING; CREATING THE NEW HOMES FOR NEW MEXICO PROGRAM; PROVIDING FOR PROGRAM ADMINISTRATION BY THE NEW MEXICO MORTGAGE FINANCE AUTHORITY; PROVIDING LOANS TO ELIGIBLE HOME BUYERS; PROVIDING FOR REPAYMENT.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 52,
+      "nays": 15,
+      "date": "2026-02-12",
+      "motion": "Final passage"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 22,
+      "nays": 13,
+      "date": "2026-02-19",
+      "motion": "Passed"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 52,
+      "nays": 15
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 22,
+      "nays": 13
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://www.nmlegis.gov/Legislation/Legislation?chamber=H&legtype=B&legno=200&year=26",
+    "openstatesUrl": "https://www.nmlegis.gov/Legislation/Legislation?chamber=H&legtype=B&legno=200&year=26",
+    "memberVotes": [],
+    "rankVote": {
+     "chamber": "House",
+     "yeas": 52,
+     "nays": 15
+    }
+   },
+   {
+    "id": "nm-2026-hb61",
+    "state": "NM",
+    "stateName": "New Mexico",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 61",
+    "officialTitle": "AN ACT RELATING TO CRIME; INCREASING THE PENALTY FOR AGGRAVATED BATTERY UPON A PEACE OFFICER.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 55,
+      "nays": 11,
+      "date": "2026-02-09",
+      "motion": "Final passage"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 37,
+      "nays": 0,
+      "date": "2026-02-18",
+      "motion": "Passed"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 55,
+      "nays": 11
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 37,
+      "nays": 0
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://www.nmlegis.gov/Legislation/Legislation?chamber=H&legtype=B&legno=61&year=26",
+    "openstatesUrl": "https://www.nmlegis.gov/Legislation/Legislation?chamber=H&legtype=B&legno=61&year=26",
+    "memberVotes": [],
+    "rankVote": {
+     "chamber": "House",
+     "yeas": 55,
+     "nays": 11
+    }
+   },
+   {
+    "id": "nm-2026-hb306",
+    "state": "NM",
+    "stateName": "New Mexico",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 306",
+    "officialTitle": "AN ACT RELATING TO HEALTH CARE; PROHIBITING HEALTH CARE FACILITY FEES FROM BEING CHARGED FOR CERTAIN SERVICES; REQUIRING DISCLOSURE OF FACILITY FEES TO PATIENTS AND REPORTING OF FACILITY FEES TO THE ALL-PAYER CLAIMS DATABASE.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 69,
+      "nays": 0,
+      "date": "2026-02-14",
+      "motion": "Final passage"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 39,
+      "nays": 0,
+      "date": "2026-02-19",
+      "motion": "Passed"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 69,
+      "nays": 0
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 39,
+      "nays": 0
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://www.nmlegis.gov/Legislation/Legislation?chamber=H&legtype=B&legno=306&year=26",
+    "openstatesUrl": "https://www.nmlegis.gov/Legislation/Legislation?chamber=H&legtype=B&legno=306&year=26",
+    "memberVotes": [],
+    "rankVote": {
+     "chamber": "House",
+     "yeas": 69,
+     "nays": 0
+    }
+   }
+  ],
+  "filed-or-fake": [
+   {
+    "id": "nm-2026-hb103",
+    "state": "NM",
+    "stateName": "New Mexico",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 103",
+    "officialTitle": "AN ACT RELATING TO TAXATION; ALLOWING A LIMITATION ON INCREASES IN VALUATION OF RESIDENTIAL PROPERTY IF THE ZONING OF THE PROPERTY HAS CHANGED.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 54,
+      "nays": 10,
+      "date": "2026-02-11",
+      "motion": "Final passage"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 16,
+      "nays": 26,
+      "date": "2026-02-17",
+      "motion": "Failed to pass"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 54,
+      "nays": 10
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 16,
+      "nays": 26
+     }
+    },
+    "passed": false,
+    "outcome": "Failed in the Senate",
+    "sourceUrl": "https://www.nmlegis.gov/Legislation/Legislation?chamber=H&legtype=B&legno=103&year=26",
+    "openstatesUrl": "https://www.nmlegis.gov/Legislation/Legislation?chamber=H&legtype=B&legno=103&year=26",
+    "memberVotes": []
+   },
+   {
+    "id": "nm-2026-hb164",
+    "state": "NM",
+    "stateName": "New Mexico",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 164",
+    "officialTitle": "AN ACT RELATING TO LOBBYING; REQUIRING A LOBBYING ACTIVITY REPORT ON THE LEGISLATION LOBBIED AND POSITION TAKEN BY A LOBBYIST'S EMPLOYER; PRESERVING LOBBYING ACTIVITY REPORTS FOR AT LEAST TEN YEARS.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 32,
+      "nays": 32,
+      "date": "2026-02-14",
+      "motion": "Final passage"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 32,
+      "nays": 32
+     }
+    },
+    "passed": false,
+    "outcome": "Failed in the House",
+    "sourceUrl": "https://www.nmlegis.gov/Legislation/Legislation?chamber=H&legtype=B&legno=164&year=26",
+    "openstatesUrl": "https://www.nmlegis.gov/Legislation/Legislation?chamber=H&legtype=B&legno=164&year=26",
+    "memberVotes": []
+   },
+   {
+    "id": "nm-2026-hb153",
+    "state": "NM",
+    "stateName": "New Mexico",
+    "session": "2026",
+    "year": "2026",
+    "number": "HB 153",
+    "officialTitle": "AN ACT RELATING TO THE ENVIRONMENT; ENACTING THE LOW-CARBON CONSTRUCTION MATERIAL REBATE ACT; ENACTING THE ENVIRONMENTAL PRODUCT DECLARATION ACT; ENACTING THE INDUSTRIAL CARBON REDUCTION ACT.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "House",
+    "chamberVotes": [
+     {
+      "chamber": "House",
+      "yeas": 48,
+      "nays": 15,
+      "date": "2026-02-15",
+      "motion": "Final passage"
+     },
+     {
+      "chamber": "Senate",
+      "yeas": 30,
+      "nays": 6,
+      "date": "2026-02-18",
+      "motion": "Passed"
+     }
+    ],
+    "floor": {
+     "lower": {
+      "chamber": "House",
+      "yeas": 48,
+      "nays": 15
+     },
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 30,
+      "nays": 6
+     }
+    },
+    "passed": true,
+    "outcome": "Vetoed by the governor",
+    "sourceUrl": "https://www.nmlegis.gov/Legislation/Legislation?chamber=H&legtype=B&legno=153&year=26",
+    "openstatesUrl": "https://www.nmlegis.gov/Legislation/Legislation?chamber=H&legtype=B&legno=153&year=26",
+    "memberVotes": []
+   },
+   {
+    "id": "nm-2026-sb21",
+    "state": "NM",
+    "stateName": "New Mexico",
+    "session": "2026",
+    "year": "2026",
+    "number": "SB 21",
+    "officialTitle": "AN ACT RELATING TO HEALTH INSURANCE; REQUIRING ISSUERS OF MEDICARE SUPPLEMENT POLICIES TO PROVIDE OPEN ENROLLMENT PERIODS.",
+    "abstract": "",
+    "subjects": [],
+    "originChamber": "Senate",
+    "chamberVotes": [
+     {
+      "chamber": "Senate",
+      "yeas": 36,
+      "nays": 0,
+      "date": "2026-02-12",
+      "motion": "Passed"
+     },
+     {
+      "chamber": "House",
+      "yeas": 41,
+      "nays": 22,
+      "date": "2026-02-17",
+      "motion": "Final passage"
+     }
+    ],
+    "floor": {
+     "upper": {
+      "chamber": "Senate",
+      "yeas": 36,
+      "nays": 0
+     },
+     "lower": {
+      "chamber": "House",
+      "yeas": 41,
+      "nays": 22
+     }
+    },
+    "passed": true,
+    "outcome": "Signed into law",
+    "sourceUrl": "https://www.nmlegis.gov/Legislation/Legislation?chamber=S&legtype=B&legno=21&year=26",
+    "openstatesUrl": "https://www.nmlegis.gov/Legislation/Legislation?chamber=S&legtype=B&legno=21&year=26",
+    "memberVotes": []
+   }
+  ]
+ }
 }

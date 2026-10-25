@@ -4,6 +4,10 @@ Newest first. Each commit adds a line or two here: what changed, what's live, wh
 
 ## 2026-10-25
 
+### Every state's bills: 48 of 50 states live (backend)
+- Added Virginia, Washington and Wyoming (LIS data files, the Washington Legislature web services, the Wyoming LSO API) and Arkansas, Kansas and New Mexico (arkleg.state.ar.us, the Kansas KLISS API, nmlegis.gov). Each has 11 bills, with every tally checked against the official record. 520 state bills in all; seeded and live.
+- All 50 states except Wisconsin and West Virginia now get their own bills; Texas keeps its curated set. Those two, and a better Georgia Landslide, are being gathered from their legislatures' sites. Puerto Rico still uses the default set: its bill titles are in Spanish and don't have plain-English text yet.
+
 ### Deploy keeps the launch page (backend)
 - `server/deploy/deploy.sh` now ships `promo/site` (the HackTX launch page at docketapp.tech) next to the share-link page, without `--delete`, and serves `/` as the launch page. `/invite/*` and `/group/*` rewrite to `open.html`, `/media/*` is cached for a day, and unknown paths return 404. Checked after a full deploy: all of those work, the video serves byte ranges, and the API health check is 200.
 - Cleared the test account's Landslide for today a second time. The 09:13 lock submitted the untouched starting order, which is what pressing "Lock in" without dragging does.
