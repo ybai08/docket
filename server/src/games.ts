@@ -7,6 +7,10 @@ import { requireUser } from './auth.ts';
 import { setFor, type DaySet } from './content.ts';
 import { query } from './db.ts';
 
+const HISTORY_PAGE = 60;
+// Items per game in a daily set, for days whose set isn't stored. Landslide is out of 3 points per item.
+const SET_SIZE = { 'roll-call': 5, 'filed-or-fake': 8, landslide: 12 } as const;
+
 type ResultRow = { game: string; score: number | null; detail: Record<string, unknown>; finished_at: string | null };
 
 /** The player's progress on one day's set, in the same shape the app keeps locally. */
@@ -66,6 +70,78 @@ export async function gameRoutes(app: FastifyInstance) {
     const set = await setFor(centralDay());
     if (!set) return reply.code(404).send({ error: 'No ballots are scheduled yet.' });
     return progressFor(req.uid, set);
+  });
+
+  // Every finished game of one kind, newest first, 60 days a page. Text comes from each day's stored set.
+  app.get<{ Params: { game: string }; Querystring: { before?: string } }>('/me/history/:game', async (req) => {
+    const game = z.enum(['roll-call', 'filed-or-fake', 'landslide']).parse(req.params.game);
+    const before = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Use a YYYY-MM-DD day.').optional().parse(req.query.before);
+    const all = await query<{ day: string; score: number | null; detail: Record<string, unknown> }>(
+      `SELECT day, score, detail FROM game_results WHERE user_id = $1 AND game = $2 AND finished_at IS NOT NULL ORDER BY day DESC`,
+      [req.uid, game],
+    );
+    const page = all.filter((r) => !before || r.day < before).slice(0, HISTORY_PAGE);
+
+    const days = [];
+    for (const r of page) {
+      const found = await setFor(r.day);
+      const set = found?.day === r.day ? found : null;
+      if (!set) {
+        // A score with no stored ballot (sample history from seed-test): show the score alone.
+        const empty = game === 'roll-call' ? 'bills' : game === 'filed-or-fake' ? 'captions' : 'items';
+        days.push({ day: r.day, score: r.score ?? 0, outOf: SET_SIZE[game], detail: false, [empty]: [] });
+        continue;
+      }
+      if (game === 'roll-call') {
+        const votes = await query<{ bill_id: string; vote: 'yea' | 'nay' }>(
+          'SELECT bill_id, vote FROM votes WHERE user_id = $1 AND bill_id = ANY($2)',
+          [req.uid, set.rollCall.map((b) => b.id)],
+        );
+        const bills = set.rollCall.flatMap((b) => {
+          const v = votes.find((x) => x.bill_id === b.id)?.vote;
+          return v ? [{ billId: b.id, number: b.number, title: b.shortTitle, vote: v, agreed: agreed(b, v) }] : [];
+        });
+        days.push({ day: r.day, score: r.score ?? bills.filter((b) => b.agreed).length, outOf: set.rollCall.length, detail: true, bills });
+      } else if (game === 'filed-or-fake') {
+        const answers = (r.detail.answers as Record<string, boolean>) ?? {};
+        const captions = set.filedOrFake.map((c) => ({
+          id: c.id,
+          text: c.text,
+          real: c.real,
+          answeredReal: answers[c.id] ?? null,
+          ...(c.real && c.number ? { number: c.number } : {}),
+        }));
+        days.push({ day: r.day, score: r.score ?? 0, outOf: set.filedOrFake.length, detail: true, captions });
+      } else {
+        const order = (r.detail.order as string[]) ?? [];
+        const answer = landslideAnswer(set.landslide.items);
+        const points = landslidePoints(order, answer);
+        const items = order.flatMap((id, i) => {
+          const it = set.landslide.items.find((x) => x.billId === id);
+          return it ? [{ billId: id, number: it.number, title: it.title, yourRank: i + 1, realRank: answer.indexOf(id) + 1, points: points[i] }] : [];
+        });
+        days.push({ day: r.day, score: r.score ?? 0, outOf: set.landslide.items.length * 3, detail: true, prompt: set.landslide.prompt, items });
+      }
+    }
+
+    // Summary over every finished game, not only this page. Roll Call is a percentage; the others are points.
+    const sets = await Promise.all(all.map(async (r) => ({ r, set: await setFor(r.day).then((x) => (x?.day === r.day ? x : null)) })));
+    const outOf = ({ set }: { set: DaySet | null }) =>
+      !set ? SET_SIZE[game] : game === 'roll-call' ? set.rollCall.length : game === 'filed-or-fake' ? set.filedOrFake.length : set.landslide.items.length * 3;
+    const scored = sets.filter((x) => x.r.score !== null && outOf(x) > 0);
+    const values = scored.map((x) => (game === 'roll-call' ? (x.r.score! / outOf(x)) * 100 : x.r.score!));
+    const round1 = (x: number) => Math.round(x * 10) / 10;
+    return {
+      game,
+      summary: {
+        daysPlayed: all.length,
+        average: values.length ? round1(values.reduce((a, b) => a + b, 0) / values.length) : null,
+        best: values.length ? round1(Math.max(...values)) : null,
+        outOf: game === 'roll-call' ? 100 : sets[0] ? outOf(sets[0]) : SET_SIZE[game],
+      },
+      days,
+      nextBefore: all.length > all.indexOf(page[page.length - 1]) + 1 && page.length ? page[page.length - 1].day : null,
+    };
   });
 
   const voteBody = z.object({ day: z.string(), billId: z.string(), vote: z.enum(['yea', 'nay']) });
