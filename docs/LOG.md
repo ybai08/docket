@@ -7,6 +7,7 @@ Newest first. Each commit adds a line or two here: what changed, what's live, wh
 ### QA
 - `docs/QA_REPORT.md`: break-testing the API with simulated players (cheater, races, groups, area leaderboard, spammer/fuzzer, a player who moves states). Found 1 critical, 7 high, 10 medium and 12 low issues. The worst: group and area vote splits reveal one person's vote, `/today` ships the Filed or Fake and Landslide answers, and parallel submits can un-finish and replay a game. Sent to the backend session; no server code changed.
 - `server/qa/`: rerunnable repro scripts, plus `start-local.sh`, which runs the API against its own Docker Postgres with stubbed auth. Production was never touched.
+- Re-tested the backend's fixes (`dbbaa7f`) with every script; the report now has a Status column. Fixed: replays and double submits, votes after lock-in, the group cap, splits and agreement counting unfinished votes, block-vs-accept, and Fastify 4xx errors that came back as 500. Still open: the `/today` answers, differencing when group or area membership changes, some 500s (non-uuid group ids, NUL bytes, non-numeric request ids), moving states, and no set for a new day. Added `08-groups-finished.mjs`, and updated checks the fixes made stale.
 
 ### Web demo CORS (backend)
 - The API now allows PATCH, PUT and DELETE from browsers, so the web demo at yangbai-docket.expo.app can save profile changes after sign-in. Before this, the cors plugin allowed only GET, HEAD and POST.

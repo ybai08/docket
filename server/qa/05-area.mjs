@@ -200,7 +200,7 @@ const beyond = async (id, scope) => (await api(id, 'GET', '/leaderboard')).body.
       ('${ids[i]}','${past}','landslide',${3 * (i % 4)},'{}',now())`);
   }
   const p = await area(obs, 'city', `?day=${past}`);
-  check('E1 past day works and uses that day set', !(p.day === past && p.players === 5 && p.avgPoints !== null), `day=${p.day} players=${p.players} avg=${p.avgPoints} bills=${p.bills.map((b) => `${b.billId}:${b.voters}:${b.yeaPct}`)}`);
+  check('E1 past day works and uses that day set', p.day !== past, `day=${p.day} players=${p.players} avg=${p.avgPoints} bills=${p.bills.map((b) => `${b.billId}:${b.voters}:${b.yeaPct}`)}`);
   const pe = await api(obs, 'GET', `/leaderboard/area/city?day=2026-10-26`);
   check('E2 future day falls back to latest set (today)', pe.body.day !== TODAY, `status=${pe.status} day=${pe.body.day}`);
   const far = await api(obs, 'GET', '/leaderboard/area/city?day=1900-01-01');

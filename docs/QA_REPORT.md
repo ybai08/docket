@@ -2,6 +2,8 @@
 
 Date: 2026-10-25. Target: `server/src` at commit `2e7c9e6`, run locally. Tester: the QA session, using six simulated-player agents plus a code review.
 
+**Re-tested against `dbbaa7f`** (the backend's fixes) by re-running every script on the same local stack. The Status column below gives the result; details are in "Re-test after dbbaa7f" at the end.
+
 ## How this was tested
 
 - **Isolation.** Every test ran against a throwaway Postgres in Docker: container `docket-qa-pg`, port 55432, database `docket_qa`. It was migrated and seeded with the normal `migrate.ts` and `seed.ts`. Production (Tiger Cloud) was never connected to, and `server/.env` was never loaded; the scripts use their own env file. No requests went to `api.docketapp.tech`.
@@ -17,6 +19,7 @@ Date: 2026-10-25. Target: `server/src` at commit `2e7c9e6`, run locally. Tester:
   | `05-area.mjs` | Area leaderboard (owns ZIP 82001) |
   | `06-spam-fuzz.mjs` | Spammer and fuzzer |
   | `07-mover.mjs` | Player who moves states, deletes their account, and checks lawmakers (`SKIP_MIDNIGHT=1` skips the clock test) |
+  | `08-groups-finished.mjs` | Group splits with finished Roll Calls (added for the `dbbaa7f` re-test) |
 
 - **Friend-to-friend agreement** was reviewed in the code only (finding H7). No exploit script was written.
 - **Seeded rows.** Some repros insert history straight into the local QA database: past votes, near-full groups, a repeated-bill day and backdated requests. Each finding says when it does.
@@ -25,27 +28,27 @@ Line numbers refer to `server/src/` unless a path is given.
 
 ## Summary
 
-| # | Severity | Finding |
-|---|---|---|
-| C1 | Critical | Group and area vote splits leak an individual's vote, live, before they finish |
-| H1 | High | `/today` ships every answer; a script scores a perfect 25 |
-| H2 | High | A parallel `done:false` "un-finishes" a game, which can then be replayed after the reveal |
-| H3 | High | Parallel finishing submits are all accepted; the player keeps the better score |
-| H4 | High | Area stats leak exact scores by differencing at n ≥ 5; counts are shown at any n |
-| H5 | High | Group cap of 50 can be exceeded (56 to 85 members) |
-| H6 | High | A bill repeated on a later day makes Roll Call unfinishable and rewrites old votes |
-| H7 | High | Friend agreement is recomputed live over unfinished votes and exposed as an exact count (code review) |
-| M1 | Medium | Votes still land after Roll Call is locked; reset can lock in a Roll Call with zero votes |
-| M2 | Medium | A block racing an accept leaves the pair friends |
-| M3 | Medium | Fastify 4xx errors and bad params come back as 500 |
-| M4 | Medium | Moving mid-day corrupts history and progress, and re-homes past scores |
-| M5 | Medium | With no set for a day, yesterday's ballot is served forever and streaks break |
-| M6 | Medium | Admin leaving or deleting their account orphans or destroys the group; DELETE /me can 500 |
-| M7 | Medium | Display-name impersonation, including a player named "You" |
-| M8 | Medium | Demo accounts count toward area thresholds |
-| M9 | Medium | No rate limiting: request spam, code guessing, unlimited groups |
-| M10 | Medium | An expired friend request silently blocks every new request from that sender |
-| L1–L12 | Low | See the list below |
+| # | Severity | Finding | Status |
+|---|---|---|---|
+| C1 | Critical | Group and area vote splits leak an individual's vote, live, before they finish | Fixed in dbbaa7f, except differencing when membership changes |
+| H1 | High | `/today` ships every answer; a script scores a perfect 25 | Open (needs app changes) |
+| H2 | High | A parallel `done:false` "un-finishes" a game, which can then be replayed after the reveal | Fixed in dbbaa7f |
+| H3 | High | Parallel finishing submits are all accepted; the player keeps the better score | Fixed in dbbaa7f |
+| H4 | High | Area stats leak exact scores by differencing at n ≥ 5; counts are shown at any n | Partly fixed in dbbaa7f |
+| H5 | High | Group cap of 50 can be exceeded (56 to 85 members) | Fixed in dbbaa7f |
+| H6 | High | A bill repeated on a later day makes Roll Call unfinishable and rewrites old votes | Partly fixed in dbbaa7f |
+| H7 | High | Friend agreement is recomputed live over unfinished votes and exposed as an exact count (code review) | Fixed in dbbaa7f (code review) |
+| M1 | Medium | Votes still land after Roll Call is locked; reset can lock in a Roll Call with zero votes | Fixed in dbbaa7f |
+| M2 | Medium | A block racing an accept leaves the pair friends | Fixed in dbbaa7f |
+| M3 | Medium | Fastify 4xx errors and bad params come back as 500 | Partly fixed in dbbaa7f |
+| M4 | Medium | Moving mid-day corrupts history and progress, and re-homes past scores | Open |
+| M5 | Medium | With no set for a day, yesterday's ballot is served forever and streaks break | Open |
+| M6 | Medium | Admin leaving or deleting their account orphans or destroys the group; DELETE /me can 500 | Open |
+| M7 | Medium | Display-name impersonation, including a player named "You" | Partly fixed in dbbaa7f |
+| M8 | Medium | Demo accounts count toward area thresholds | Open (softened by the area floor of 10) |
+| M9 | Medium | No rate limiting: request spam, code guessing, unlimited groups | Open |
+| M10 | Medium | An expired friend request silently blocks every new request from that sender | Open |
+| L1–L12 | Low | See the list below | See the re-test section |
 
 ---
 
@@ -457,3 +460,63 @@ This finding comes from code review only, so it has no repro script.
   - Blocked pairs are hidden from each other's boards.
 - **Area stats.** Below 5 players every average, rank and distribution is hidden. Past and future `day` values pick the right set. A player with no ZIP gets a clean 404 for city and state.
 - **Lawmakers.** `/me/lawmakers` follows the ZIP, and unknown lawmaker ids return 404.
+
+## Re-test after dbbaa7f
+
+Same local stack and the same scripts, run again on `dbbaa7f`. Some checks were updated because the fixes changed response shapes or status codes:
+- `04-groups.mjs` now treats a bill that is missing from `today[]` as 0 voters. Its split checks vote without finishing Roll Call. Those votes no longer count, so `control: 2 voters hidden`, `admin differencing`, `include_in_splits`, `dropping to 4` and `pending member vote` now print `BUG` with 0 voters. Those lines are artifacts. `08-groups-finished.mjs` repeats the split checks with finished Roll Calls.
+- `01-cheater.mjs`: Filed or Fake answers are now locked once saved, so the foreign-ids check now compares the response with the client's score.
+- `05-area.mjs` E1 and `07-mover.mjs` C9, C12 and H3c now accept the new 4xx codes and the area floor.
+
+**Fixed (the check now holds):**
+- **C1.**
+  - Group and area splits count only finished Roll Calls. Votes from an unfinished Roll Call aren't counted (`08`: 5 voters while the target's unfinished vote is excluded).
+  - A vote after lock-in returns 409.
+  - Every hidden split gives the reason `few`, even when it is unanimous.
+- **H2, H3, M1.**
+  - `02-races.mjs games` and `roll` are clean: no un-finish, no replay, no double "final" score.
+  - Votes don't land after lock-in, and a reset can't empty a finished Roll Call.
+- **H4 (in part).** The area floor is 10. The 4-accounts-plus-1 score recovery (A4–A7, A10, A11) and the unfinished-vote checks (A1–A3) now hold.
+- **H5.** No overfill on parallel joins or approvals, and no 500 on a double-tapped join.
+- **H6 (in part).** A repeated bill can now be voted and Roll Call finished on day 2 (`07` H3).
+- **H7.** `agreementBetween` (`social.ts`) now joins finished Roll Calls only, so a player's own unfinished vote edits can't move it. This is from code review.
+- **M2.** Block racing accept and invite accept.
+- **M3 (in part).** Fastify's 4xx errors (bad JSON, 413, 415, `__proto__`) and invalid dates (area `day`, `/votes/reset`) now return 4xx.
+- **M7 (in part).** A display name of "You" and blank or invisible names are refused.
+- **L3, L4.** The comma-joined Landslide order is refused, and `/votes/reset` validates the day.
+- **L5 (in part).** `issues` entries are capped.
+- **L6 (in part).** Reserved usernames are refused.
+- **L7 (in part).** Crossing requests between the same two people are handled.
+
+**Still open:**
+- **H1.** `/today` still ships `real`, `explanation`, `yeas` and `nays` (needs app changes).
+- **C1 and H4 residual: differencing when membership changes.**
+  - In a group, the 6th finisher's vote shows in the before/after split (5 voters at 60% to 6 at 50%).
+  - An admin removing a member shows that member's vote the same way.
+  - The area per-bill split does the same for a 6th voter (B3), including a hidden split turning visible (B4).
+  - The backend treats this as inherent to aggregates. A daily snapshot, or hiding `voters` together with deltas, would close it.
+  - Repro: `08` `residual:` checks, `05` B3 and B4.
+- **H6 residual.** The upsert now moves the vote to the new day (`SET day = EXCLUDED.day`), so day 1's history and splits lose or flip it (`07` H3b). A `(user_id, day, bill_id)` key would keep both. This only bites if a bill repeats.
+- **M3 residual.** These still return 500:
+  - Non-uuid `/groups/:id` (6 routes).
+  - `/friend-requests/abc|1.5|<20 digits>/accept|ignore`.
+  - A NUL byte in route params or body strings.
+  - `POST /blocks` with an unknown uid, which is still a uid-existence oracle.
+- **M4.** Moving re-homes history, progress and area stats (`07` B, C and D; `05` D1–D4).
+- **M5.** With no set for the day, yesterday's ballot is still served and streaks break (`07` G1–G4).
+- **M6.** Admin leaving orphans the group, and an admin's DELETE /me deletes it (`04`, `07` E2). DELETE /me racing POST /groups still returns 500 (`07` E9).
+- **M7 residual.** Friend lists and `/friends/:id` still show only the name, so two people with the same name can't be told apart.
+- **M8.** Demo accounts still count. The floor of 10 makes this harder.
+- **M9.** No rate limits.
+- **M10.** An expired request still blocks new ones, and is still acceptable by id.
+- **Low items:**
+  - L1: Roll Call score is still the agreement count.
+  - L2: `PATCH /me` still accepts `zip`.
+  - L5: the 900 KB username is still echoed back in the 404.
+  - L6: username-taken 409, and usernames freed instantly.
+  - L7: accept+ignore race (4/25) and multiple live invite tokens (15 from 20 parallel calls).
+  - L8: `badgeFor` edge cases.
+  - L9: `{ok:true}` no-ops.
+  - L10: party in lawmaker background text.
+  - L11: an account re-creates itself after delete.
+

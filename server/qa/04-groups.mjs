@@ -26,7 +26,8 @@ async function group(admin, name, approvalRequired = false) {
 }
 const join = (u, code) => api(u, 'POST', '/groups/join', { code });
 const view = async (u, g) => (await api(u, 'GET', `/groups/${g.id}`)).body;
-const splitOf = async (u, g, bill) => (await view(u, g)).today?.find((s) => s.billId === bill);
+// A bill with no counted voters is absent from today[]; treat it as 0 voters, hidden.
+const splitOf = async (u, g, bill) => (await view(u, g)).today?.find((s) => s.billId === bill) ?? { billId: bill, voters: 0, yeaPct: null, hiddenReason: null };
 const yeaCount = (s) => (s && s.yeaPct !== null ? Math.round((s.yeaPct / 100) * s.voters) : null);
 
 const info = (label, extra = '') => console.log(`info ${label}${extra ? ` — ${extra}` : ''}`);
@@ -55,7 +56,7 @@ const held = (label, ok, extra = '') => check(label, !ok, extra); // ok=true mea
   // target changes mind: voters constant, pct moves -> flip is visible
   await vote(t, B0, 'yea');
   const flip = await splitOf(a, g, B0);
-  check('vote change by target visible as yeaPct move at constant voters', flip.voters === post0.voters && flip.yeaPct !== post0.yeaPct, `${post0.yeaPct}% -> ${flip.yeaPct}%`);
+  check('vote change by target visible as yeaPct move at constant voters', flip?.voters !== undefined && flip.voters === post0?.voters && flip.yeaPct !== post0?.yeaPct, `${post0?.yeaPct}% -> ${flip?.yeaPct}%`);
   // reset
   const boardBefore = (await view(a, g)).board;
   await api(t, 'POST', '/votes/reset', { day: DAY });

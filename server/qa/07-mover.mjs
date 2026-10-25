@@ -158,13 +158,13 @@ console.log('--- C. move mid-game (Filed or Fake / Landslide)');
   await player(u, { zip: '78705' });
   const t = await today(u);
   const r = await Promise.all([vote(u, '2026-10-24', t.rollCall[0].id), vote(u, '2026-10-26', t.rollCall[0].id), vote(u, 'garbage', t.rollCall[0].id), api(u, 'POST', '/results/landslide', { day: '2026-10-24', order: t.landslide.items.map((i) => i.billId) })]);
-  bug('C9 votes/results for other days are refused (409)', r.some((x) => x.status !== 409), r.map((x) => x.status).join(','));
+  bug('C9 votes/results for other days are refused (4xx)', r.some((x) => x.status < 400 || x.status >= 500), r.map((x) => x.status).join(','));
   const bad = await api(u, 'POST', '/results/landslide', { day, order: [...t.landslide.items.map((i) => i.billId).slice(0, 3), 'tx-89r-hb2'] });
   bug('C10 Landslide with a foreign bill id is refused (400)', bad.status !== 400, J(bad));
   const dup = await api(u, 'POST', '/results/landslide', { day, order: Array(4).fill(t.landslide.items[0].billId) });
   bug('C11 Landslide with duplicated ids is refused (400)', dup.status !== 400, J(dup));
   const g = await api(u, 'POST', '/results/bogus', { day });
-  bug('C12 unknown game -> 404', g.status !== 404, J(g));
+  bug('C12 unknown game -> 4xx', g.status < 400 || g.status >= 500, J(g));
 }
 
 // ---------------------------------------------------------------- D. area boards after a move
@@ -383,7 +383,7 @@ globalThis.Date = D;
     const h25b = (await api2(w, 'GET', '/me/history/roll-call')).body.days.find((d) => d.day === '2026-10-25');
     bug('H3b voting the repeated bill on day 2 silently rewrites the day-1 vote in history', J(h25a.bills.map((x) => x.vote)) !== J(h25b.bills.map((x) => x.vote)), `10-25 history votes before=${h25a.bills.map((x) => x.vote)} after=${h25b.bills.map((x) => x.vote)}`);
     const reset25 = await api2(w, 'POST', '/votes/reset', { day: '2026-10-25' });
-    bug('H3c player cannot escape: reset of day 1 refused because day-1 Roll Call is finished, day-2 reset deletes nothing', reset25.status === 409, `reset 10-25 -> ${reset25.status} ${J(reset25.body)}`);
+    bug('H3c player cannot escape: day-2 Roll Call unfinishable and day-1 reset refused', fin26.status === 400 && reset25.status === 409, `reset 10-25 -> ${reset25.status} ${J(reset25.body)}`);
     const reset = await api2(w, 'POST', '/votes/reset', { day: '2026-10-26' });
     const stats = (await api2(w, 'GET', '/me')).body.stats;
     console.log(`info H4 /votes/reset 10-26 -> ${J(reset)}; DB votes still ${sql(`select count(*) from votes where user_id='${w}'`)}; stats.billsVoted=${stats.billsVoted}`);

@@ -182,7 +182,7 @@ const dbRows = (uid) => sql(`select game||':'||coalesce(score::text,'null')||':'
   // foreign ids + extra keys
   r = await post({ answers: { ...fof, 'fake-x': true, '__proto__': true, constructor: false }, done: true, extra: 'x', score: 8 });
   p = await progress(u);
-  check('foreign ids stored, or client-supplied score honoured (FoF done:true w/ foreign ids + extra keys)', Object.keys(p.filedOrFake.answers).some((k) => !ids.includes(k)) || r.body.score !== 8, JSON.stringify(r.body));
+  check('foreign ids stored, or client-supplied score honoured (FoF done:true w/ foreign ids + extra keys)', Object.keys(p.filedOrFake.answers).some((k) => !ids.includes(k)) || r.body.score === 8, JSON.stringify(r.body));
   console.log(`info done:true w/ foreign ids+extra keys -> ${r.status} ${JSON.stringify(r.body)}`);
 
   // done:true with missing answers
