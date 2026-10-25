@@ -40,7 +40,7 @@ Line numbers refer to `server/src/` unless a path is given.
 | H7 | High | Friend agreement is recomputed live over unfinished votes and exposed as an exact count (code review) | Fixed in dbbaa7f (code review) |
 | M1 | Medium | Votes still land after Roll Call is locked; reset can lock in a Roll Call with zero votes | Fixed in dbbaa7f |
 | M2 | Medium | A block racing an accept leaves the pair friends | Fixed in dbbaa7f |
-| M3 | Medium | Fastify 4xx errors and bad params come back as 500 | Partly fixed in dbbaa7f |
+| M3 | Medium | Fastify 4xx errors and bad params come back as 500 | Fixed in dbbaa7f and 6d366ff |
 | M4 | Medium | Moving mid-day corrupts history and progress, and re-homes past scores | Open |
 | M5 | Medium | With no set for a day, yesterday's ballot is served forever and streaks break | Open |
 | M6 | Medium | Admin leaving or deleting their account orphans or destroys the group; DELETE /me can 500 | Open |
@@ -481,7 +481,10 @@ Same local stack and the same scripts, run again on `dbbaa7f`. Some checks were 
 - **H6 (in part).** A repeated bill can now be voted and Roll Call finished on day 2 (`07` H3).
 - **H7.** `agreementBetween` (`social.ts`) now joins finished Roll Calls only, so a player's own unfinished vote edits can't move it. This is from code review.
 - **M2.** Block racing accept and invite accept.
-- **M3 (in part).** Fastify's 4xx errors (bad JSON, 413, 415, `__proto__`) and invalid dates (area `day`, `/votes/reset`) now return 4xx.
+- **M3.**
+  - `dbbaa7f`: Fastify's 4xx errors (bad JSON, 413, 415, `__proto__`) and invalid dates (area `day`, `/votes/reset`) now return 4xx.
+  - `6d366ff`: Postgres invalid-input errors return 400 (non-uuid group ids, non-numeric request ids, NUL bytes). `POST /blocks` with an unknown uid returns `{ok:true}`, so it is no longer an oracle.
+  - Re-test: `06-spam-fuzz.mjs` has no 5xx left, and spot checks on `/groups/not-a-uuid`, `/lawmakers/%00`, `/bills/%00` and `/groups/preview/%00` return 400.
 - **M7 (in part).** A display name of "You" and blank or invisible names are refused.
 - **L3, L4.** The comma-joined Landslide order is refused, and `/votes/reset` validates the day.
 - **L5 (in part).** `issues` entries are capped.
@@ -497,11 +500,6 @@ Same local stack and the same scripts, run again on `dbbaa7f`. Some checks were 
   - The backend treats this as inherent to aggregates. A daily snapshot, or hiding `voters` together with deltas, would close it.
   - Repro: `08` `residual:` checks, `05` B3 and B4.
 - **H6 residual.** The upsert now moves the vote to the new day (`SET day = EXCLUDED.day`), so day 1's history and splits lose or flip it (`07` H3b). A `(user_id, day, bill_id)` key would keep both. This only bites if a bill repeats.
-- **M3 residual.** These still return 500:
-  - Non-uuid `/groups/:id` (6 routes).
-  - `/friend-requests/abc|1.5|<20 digits>/accept|ignore`.
-  - A NUL byte in route params or body strings.
-  - `POST /blocks` with an unknown uid, which is still a uid-existence oracle.
 - **M4.** Moving re-homes history, progress and area stats (`07` B, C and D; `05` D1–D4).
 - **M5.** With no set for the day, yesterday's ballot is still served and streaks break (`07` G1–G4).
 - **M6.** Admin leaving orphans the group, and an admin's DELETE /me deletes it (`04`, `07` E2). DELETE /me racing POST /groups still returns 500 (`07` E9).
