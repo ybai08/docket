@@ -1,7 +1,7 @@
 import * as Haptics from 'expo-haptics';
 import { Redirect, router } from 'expo-router';
 import { useImperativeHandle, useRef, type Ref } from 'react';
-import { Alert, Linking, Pressable, Text, useWindowDimensions, View } from 'react-native';
+import { Linking, Pressable, Text, useWindowDimensions, View } from 'react-native';
 import { GestureDetector, usePanGesture } from 'react-native-gesture-handler';
 import Animated, {
   useAnimatedStyle,
@@ -25,10 +25,7 @@ const CARD_HEIGHT = 300;
 const SWIPE_COMMIT = 110;
 
 export function showRollCallHelp() {
-  Alert.alert(
-    'How to play Roll Call',
-    'Vote Yea or Nay on five real bills. Then see whether you agreed with the final vote, and how lawmakers voted in each chamber.',
-  );
+  router.push({ pathname: '/how-to-play/[game]', params: { game: 'roll-call' } });
 }
 
 export default function RollCallScreen() {

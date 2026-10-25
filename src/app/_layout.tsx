@@ -52,6 +52,10 @@ function RootStack() {
         <Stack.Screen name="lawmaker/[id]" />
         <Stack.Screen name="area/[scope]" />
         <Stack.Screen name="person/[id]" />
+        <Stack.Screen
+          name="how-to-play/[game]"
+          options={{ presentation: 'formSheet', sheetGrabberVisible: true, sheetAllowedDetents: [0.9], sheetCornerRadius: 20 }}
+        />
         <Stack.Screen name="invite/[token]" options={{ gestureEnabled: false }} />
         <Stack.Screen
           name="invite-friends"

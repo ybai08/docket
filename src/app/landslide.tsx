@@ -1,7 +1,7 @@
 import * as Haptics from 'expo-haptics';
 import { router } from 'expo-router';
 import { useState } from 'react';
-import { Alert, Pressable, ScrollView, Share, Text, View } from 'react-native';
+import { Pressable, ScrollView, Share, Text, View } from 'react-native';
 import { GestureDetector, usePanGesture } from 'react-native-gesture-handler';
 import Animated, {
   useAnimatedReaction,
@@ -28,10 +28,7 @@ const SLOT = ROW + GAP;
 const SETTLE = { duration: 250, dampingRatio: 1 };
 
 function showHelp() {
-  Alert.alert(
-    'How to play Landslide',
-    'Long-press a bill and drag it to rank all four by their final vote, widest margin on top. 3 points for an exact spot, 1 for one off.',
-  );
+  router.push({ pathname: '/how-to-play/[game]', params: { game: 'landslide' } });
 }
 
 export default function LandslideScreen() {

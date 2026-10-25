@@ -1,10 +1,9 @@
 import * as Haptics from 'expo-haptics';
 import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { Alert, Linking, Pressable, ScrollView, Share, Text, View } from 'react-native';
+import { Pressable, ScrollView, Share, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { sourceHost } from '@/components/civic';
 import { PillButton } from '@/components/pill-button';
 import { ProgressTiles, type TileState } from '@/components/progress-tiles';
 import { ScreenHeader } from '@/components/screen-header';
@@ -16,10 +15,7 @@ import { useToday } from '@/lib/use-today';
 import { colors, fonts, type } from '@/theme';
 
 function showHelp() {
-  Alert.alert(
-    'How to play Filed or Fake',
-    'Read what each bill would do. Decide whether a lawmaker really filed it or Docket made it up. Every made-up one is marked FAKE after you answer.',
-  );
+  router.push({ pathname: '/how-to-play/[game]', params: { game: 'filed-or-fake' } });
 }
 
 export default function FiledOrFakeScreen() {
@@ -117,13 +113,6 @@ export default function FiledOrFakeScreen() {
                   style={{ marginTop: 6 }}
                   onPress={() => router.push({ pathname: '/bill/[id]', params: { id: caption.id } })}
                 />
-              )}
-              {caption.real && caption.sourceUrl && (
-                <Pressable accessibilityRole="link" onPress={() => Linking.openURL(caption.sourceUrl!)} hitSlop={8}>
-                  <Text style={{ fontSize: 15, fontWeight: '600', textDecorationLine: 'underline', marginTop: 4 }}>
-                    See {caption.number} on {sourceHost(caption.sourceUrl!)}
-                  </Text>
-                </Pressable>
               )}
             </View>
           )}
