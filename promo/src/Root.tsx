@@ -26,7 +26,7 @@ function DocketDemo({ showSafeZone, music }: Props) {
         // Composed in scripts/music.mjs, so it is royalty-free. Fades out over the last two seconds.
         <Audio
           src={staticFile('music.mp3')}
-          volume={(f) => interpolate(f, [TOTAL_FRAMES - 60, TOTAL_FRAMES], [0.9, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' })}
+          volume={(f) => interpolate(f, [TOTAL_FRAMES - 60, TOTAL_FRAMES], [0.7, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' })}
         />
       )}
       {showSafeZone && <SafeZone />}

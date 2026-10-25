@@ -4,18 +4,18 @@ import { Area, Close, FiledOrFake, Friends, Hook, Landslide, Nationwide, Privacy
 
 /** Scene order and length in frames at 30 fps. Neighbors overlap by TRANSITION frames. */
 export const SCENES: { id: string; component: ComponentType; frames: number }[] = [
-  { id: 'hook', component: Hook, frames: 225 },
-  { id: 'today', component: Today, frames: 270 },
-  { id: 'roll-call', component: RollCall, frames: 430 },
-  { id: 'filed-or-fake', component: FiledOrFake, frames: 380 },
-  { id: 'landslide', component: Landslide, frames: 330 },
-  { id: 'friends', component: Friends, frames: 500 },
-  { id: 'area', component: Area, frames: 300 },
-  { id: 'profile', component: Profile, frames: 360 },
-  { id: 'records', component: Records, frames: 360 },
-  { id: 'nationwide', component: Nationwide, frames: 240 },
-  { id: 'privacy', component: Privacy, frames: 250 },
-  { id: 'close', component: Close, frames: 240 },
+  { id: 'hook', component: Hook, frames: 210 },
+  { id: 'today', component: Today, frames: 225 },
+  { id: 'roll-call', component: RollCall, frames: 400 },
+  { id: 'filed-or-fake', component: FiledOrFake, frames: 350 },
+  { id: 'landslide', component: Landslide, frames: 300 },
+  { id: 'friends', component: Friends, frames: 470 },
+  { id: 'area', component: Area, frames: 280 },
+  { id: 'profile', component: Profile, frames: 330 },
+  { id: 'records', component: Records, frames: 330 },
+  { id: 'nationwide', component: Nationwide, frames: 210 },
+  { id: 'privacy', component: Privacy, frames: 230 },
+  { id: 'close', component: Close, frames: 210 },
 ];
 
 export const TRANSITION = 16;

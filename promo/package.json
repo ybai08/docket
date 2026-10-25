@@ -10,7 +10,7 @@
     "typecheck": "tsc --noEmit",
     "render:safe": "remotion render DocketDemo out/docket-demo-safezone.mp4 --props={\"showSafeZone\":true}",
     "render:silent": "remotion render DocketDemo out/docket-demo-no-music.mp4 --props={\"music\":false}",
-    "music": "./scripts/music.sh 124"
+    "music": "./scripts/music.sh 112.5"
   },
   "dependencies": {
     "@remotion/cli": "^4.0.538",
