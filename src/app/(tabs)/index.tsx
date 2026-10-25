@@ -69,7 +69,7 @@ export default function TodayScreen() {
           status={
             <Status s={status.rollCall} unit="votes" result={`Agreed on ${status.rollCall.result} of ${status.rollCall.total}`} />
           }
-          action={<Action s={status.rollCall} play="/roll-call" results="/roll-call/results" />}
+          action={<Action game="Roll Call" s={status.rollCall} play="/roll-call" results="/roll-call/results" />}
         />
         <BallotStubCard
           color={colors.yellow}
@@ -83,7 +83,7 @@ export default function TodayScreen() {
               result={`Cast, ${status.filedOrFake.result} of ${status.filedOrFake.total} right`}
             />
           }
-          action={<Action s={status.filedOrFake} play="/filed-or-fake" results="/filed-or-fake" />}
+          action={<Action game="Filed or Fake" s={status.filedOrFake} play="/filed-or-fake" results="/filed-or-fake" />}
         />
         <BallotStubCard
           color={colors.teal}
@@ -91,7 +91,7 @@ export default function TodayScreen() {
           subtitle="Rank four bills by how big they won."
           glyph={<LandslideGlyph />}
           status={<Status s={status.landslide} unit="" result={`Cast, ${status.landslide.result ?? 0} points`} />}
-          action={<Action s={status.landslide} play="/landslide" results="/landslide" />}
+          action={<Action game="Landslide" s={status.landslide} play="/landslide" results="/landslide" />}
         />
       </View>
 
@@ -146,14 +146,24 @@ function Status({ s, unit, result }: { s: GameStatus; unit: string; result: stri
   );
 }
 
-function Action({ s, play, results }: { s: GameStatus; play: Href; results: Href }) {
+function Action({ game, s, play, results }: { game: string; s: GameStatus; play: Href; results: Href }) {
   if (s.state === 'done') {
-    return <PillButton size="md" variant="outline" label="See results" onPress={() => router.push(results)} />;
+    return (
+      <PillButton
+        size="md"
+        variant="outline"
+        label="See results"
+        accessibilityLabel={`See ${game} results`}
+        onPress={() => router.push(results)}
+      />
+    );
   }
+  const label = s.state === 'progress' ? 'Continue' : 'Play';
   return (
     <PillButton
       size="md"
-      label={s.state === 'progress' ? 'Continue' : 'Play'}
+      label={label}
+      accessibilityLabel={`${label} ${game}`}
       style={s.state === 'new' ? { paddingHorizontal: 26 } : undefined}
       onPress={() => router.push(play)}
     />

@@ -7,7 +7,8 @@ import { PillButton } from '@/components/pill-button';
 import { ScreenHeader } from '@/components/screen-header';
 import { SwitchRow } from '@/components/switch-row';
 import { api } from '@/lib/api';
-import { groupLink, useRemote, type GroupDetail, type GroupSplit } from '@/lib/social';
+import { groupLink } from '@/lib/invite';
+import { useRemote, type GroupDetail, type GroupSplit } from '@/lib/social';
 import { colors, fonts, type } from '@/theme';
 
 const UUID = /^[0-9a-f-]{36}$/i;

@@ -128,4 +128,3 @@ export type GroupDetail = {
   people: { id: string; name: string; status: 'active' | 'pending'; role: string; isYou: boolean }[];
 };
 
-export const groupLink = (code: string) => `docket://group/${code}`;

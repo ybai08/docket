@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Open in Docket</title>
+<meta name="description" content="Daily ballots on real bills. Vote, guess, rank, then see how your friends and lawmakers voted.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,700;6..72,800&display=swap">
+<style>
+  :root { --ink: #000; --text2: #3A3A3C; --meta: #5A5A5E; --lavender: #C9D0F5; --yellow: #F8D08A; --teal: #A8DDD5; --muted: #F4F4F5; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #fff; color: var(--ink); font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif; }
+  main { max-width: 440px; margin: 0 auto; padding: 56px 24px 40px; display: flex; flex-direction: column; gap: 22px; min-height: 100vh; }
+  .brand { font-family: "Newsreader", Georgia, serif; font-weight: 800; font-size: 28px; letter-spacing: -0.4px; }
+  h1 { margin: 0; font-family: "Newsreader", Georgia, serif; font-weight: 700; font-size: 38px; line-height: 42px; letter-spacing: -0.5px; }
+  p { margin: 0; font-size: 17px; line-height: 24px; color: var(--text2); }
+  .cards { display: flex; gap: 8px; }
+  .cards span { flex: 1; height: 44px; border: 2px solid var(--ink); border-radius: 8px; }
+  a.button { display: flex; align-items: center; justify-content: center; height: 54px; border-radius: 999px; background: var(--ink); color: #fff; font-size: 18px; font-weight: 700; text-decoration: none; }
+  .note { padding: 12px 14px; border-radius: 12px; background: var(--muted); font-size: 14px; line-height: 19px; color: var(--text2); }
+  .spacer { flex: 1; }
+</style>
+</head>
+<body>
+<main>
+  <div class="brand">Docket</div>
+  <h1 id="title">Open this in Docket</h1>
+  <p id="body">Daily ballots on real bills from Congress, Texas and Austin. Vote, guess, rank, then see where you and your friends agree.</p>
+  <div class="cards" aria-hidden="true"><span style="background:var(--lavender)"></span><span style="background:var(--yellow)"></span><span style="background:var(--teal)"></span></div>
+  <div class="spacer"></div>
+  <a class="button" id="open" href="docket://">Open Docket</a>
+  <div class="note">If nothing happens, Docket isn't installed on this phone yet. It's a HackTX 2026 project, so ask whoever sent this link for a demo.</div>
+</main>
+<script>
+  // /invite/<token>?via=qr and /group/<code> map straight onto the app's docket:// routes.
+  var path = location.pathname.replace(/^\/+/, '');
+  var ok = /^(invite\/[A-Za-z0-9_-]{6,40}|group\/[A-Za-z0-9]{6})$/.test(path);
+  var target = 'docket://' + (ok ? path + location.search.replace(/[^?=&a-z]/gi, '') : '');
+  document.getElementById('open').href = target;
+  if (path.indexOf('invite/') === 0) {
+    document.getElementById('title').textContent = "You're invited to play Docket";
+    document.getElementById('body').textContent = "Play today's ballot and see where the two of you agree. Nothing about anyone's votes is shown here.";
+  } else if (path.indexOf('group/') === 0) {
+    document.getElementById('title').textContent = 'Join a group on Docket';
+    document.getElementById('body').textContent = 'A weekly leaderboard and anonymous splits on real bills. Your individual votes stay private.';
+  }
+  if (ok) location.href = target;
+</script>
+</body>
+</html>

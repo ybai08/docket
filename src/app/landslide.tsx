@@ -180,7 +180,7 @@ function DraggableRow({
     onDeactivate: () => {
       lifted.set(false);
       const slot = positions.get()[id];
-      top.set(withSpring(slot * SLOT, SETTLE));
+      top.set(reduceMotion ? slot * SLOT : withSpring(slot * SLOT, SETTLE));
       scheduleOnRN(drop, positions.get());
     },
   });

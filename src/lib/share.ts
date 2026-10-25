@@ -1,6 +1,7 @@
 import type { DailySet } from '@/data/types';
 
 import { formatDayShort } from './day';
+import { homeLink } from './invite';
 import type { DayProgress } from './game-store';
 import { rollCallAgreement } from './scoring';
 import type { GameStatus } from './use-today';
@@ -14,7 +15,7 @@ export function shareText(
   set: DailySet,
   progress: DayProgress,
   status: Record<'rollCall' | 'filedOrFake' | 'landslide', GameStatus>,
-  link?: string,
+  link: string | undefined = homeLink,
 ) {
   const lines = [`Docket ${formatDayShort(day)}`];
   if (status.rollCall.state === 'done') {
