@@ -149,23 +149,21 @@ export default function FriendProfile() {
             )}
           </Section>
 
-          <Section title="How you each voted" note={data.votesShared ? 'Your most recent bills in common, newest first' : undefined}>
+          <Section title="How you each voted" note={data.votesShared ? 'Your most recent bills in common' : undefined}>
             {data.votesShared ? (
-              <View>
-                {/* Column heads once, so each row is just two votes. */}
-                <View style={{ flexDirection: 'row', justifyContent: 'flex-end', gap: CELL_GAP, paddingBottom: 6 }}>
-                  <Text style={headStyle}>You</Text>
-                  <Text style={headStyle} numberOfLines={1}>
-                    {data.name}
-                  </Text>
-                </View>
-                {data.recent.map((b, i) => (
-                  <VoteRow key={b.number} bill={b} name={data.name} first={i === 0} />
-                ))}
-                <View style={{ flexDirection: 'row', gap: 16, paddingTop: 10, borderTopWidth: 1, borderTopColor: colors.hairline }}>
-                  <Swatch color={colors.teal} label="Same vote" />
-                  <Swatch color={colors.lavender} label="Different vote" />
-                </View>
+              <View style={{ gap: 22, paddingTop: 6 }}>
+                <VoteGroup
+                  label="Voted the same"
+                  color={colors.teal}
+                  bills={data.recent.filter((b) => b.mine === b.theirs)}
+                  name={data.name}
+                />
+                <VoteGroup
+                  label="Voted differently"
+                  color={colors.lavender}
+                  bills={data.recent.filter((b) => b.mine !== b.theirs)}
+                  name={data.name}
+                />
               </View>
             ) : (
               <Note>
@@ -197,64 +195,55 @@ function Note({ children }: { children: ReactNode }) {
   return <Text style={{ padding: 14, borderRadius: 12, backgroundColor: colors.muted, fontSize: 14, lineHeight: 19, color: colors.text2 }}>{children}</Text>;
 }
 
-/** One bill: a teal or lavender edge for same or different, its title, then both votes as ballot pills. */
-function VoteRow({ bill: b, name, first }: { bill: FriendDetail['recent'][number]; name: string; first: boolean }) {
-  const same = b.mine === b.theirs;
-  const word = (v: 'yea' | 'nay') => (v === 'yea' ? 'Yea' : 'Nay');
+type RecentBill = FriendDetail['recent'][number];
+const word = (v: 'yea' | 'nay') => (v === 'yea' ? 'Yea' : 'Nay');
+
+/** Bills you agreed or split on, under a small colored heading with the count. */
+function VoteGroup({ label, color, bills, name }: { label: string; color: string; bills: RecentBill[]; name: string }) {
+  if (!bills.length) return null;
   return (
-    <View
-      accessible
-      accessibilityLabel={`${b.title}, ${b.number}. You voted ${word(b.mine)}, ${name} voted ${word(b.theirs)}.`}
-      style={{
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: 12,
-        paddingVertical: 12,
-        borderTopWidth: first ? 0 : 1,
-        borderTopColor: colors.hairline,
-      }}>
-      <View style={{ width: 4, alignSelf: 'stretch', borderRadius: 2, backgroundColor: same ? colors.teal : colors.lavender }} />
-      <View style={{ flex: 1, gap: 2 }}>
-        <Text style={{ fontSize: 15, fontWeight: '600' }}>{b.title}</Text>
-        <Text style={{ fontSize: 12, color: colors.meta }}>{b.number}</Text>
+    <View>
+      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, paddingBottom: 8 }}>
+        <View style={{ width: 10, height: 10, borderRadius: 2, backgroundColor: color }} />
+        <Text style={{ fontSize: 14, fontWeight: '800' }}>{label}</Text>
+        <Text style={{ fontSize: 14, color: colors.meta, fontVariant: ['tabular-nums'] }}>{bills.length}</Text>
       </View>
-      <View style={{ flexDirection: 'row', gap: CELL_GAP }}>
-        <VotePill vote={b.mine} />
-        <VotePill vote={b.theirs} />
-      </View>
-    </View>
-  );
-}
-
-const CELL_W = 50;
-const CELL_GAP = 6;
-const headStyle = { width: CELL_W, textAlign: 'center' as const, fontSize: 12, fontWeight: '700' as const, color: colors.meta };
-
-/** Yea is a filled black pill, Nay an outlined one: readable at a glance without color. */
-function VotePill({ vote }: { vote: 'yea' | 'nay' }) {
-  const yea = vote === 'yea';
-  return (
-    <View
-      style={{
-        width: CELL_W,
-        height: 28,
-        borderRadius: 14,
-        borderWidth: 1.5,
-        borderColor: colors.ink,
-        backgroundColor: yea ? colors.ink : colors.ground,
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}>
-      <Text style={{ fontSize: 13, fontWeight: '700', color: yea ? colors.ground : colors.ink }}>{yea ? 'Yea' : 'Nay'}</Text>
-    </View>
-  );
-}
-
-function Swatch({ color, label }: { color: string; label: string }) {
-  return (
-    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-      <View style={{ width: 10, height: 10, borderRadius: 2, backgroundColor: color }} />
-      <Text style={{ fontSize: 12, color: colors.text2 }}>{label}</Text>
+      {bills.map((b) => {
+        const same = b.mine === b.theirs;
+        return (
+          <View
+            key={b.number}
+            accessible
+            accessibilityLabel={`${b.title}, ${b.number}. You voted ${word(b.mine)}, ${name} voted ${word(b.theirs)}.`}
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: 12,
+              paddingVertical: 11,
+              borderTopWidth: 1,
+              borderTopColor: colors.hairline,
+            }}>
+            <View style={{ flex: 1, gap: 1 }}>
+              <Text style={{ fontSize: 15, fontWeight: '600' }}>{b.title}</Text>
+              <Text style={{ fontSize: 12, color: colors.meta }}>{b.number}</Text>
+            </View>
+            {same ? (
+              <Text style={{ fontSize: 14, color: colors.text2 }}>
+                Both <Text style={{ fontWeight: '700', color: colors.ink }}>{word(b.mine)}</Text>
+              </Text>
+            ) : (
+              <View style={{ alignItems: 'flex-end' }}>
+                <Text style={{ fontSize: 14, color: colors.text2 }}>
+                  You <Text style={{ fontWeight: '700', color: colors.ink }}>{word(b.mine)}</Text>
+                </Text>
+                <Text style={{ fontSize: 14, color: colors.text2 }} numberOfLines={1}>
+                  {name} <Text style={{ fontWeight: '700', color: colors.ink }}>{word(b.theirs)}</Text>
+                </Text>
+              </View>
+            )}
+          </View>
+        );
+      })}
     </View>
   );
 }
