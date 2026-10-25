@@ -23,7 +23,7 @@ export default function TodayScreen() {
   const streak = stats.currentStreak;
 
   return (
-    <TabScreen>
+    <TabScreen style={{ paddingTop: 24 }}>
       <View style={{ gap: 8, paddingBottom: 12, borderBottomWidth: 1, borderBottomColor: colors.ink }}>
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
           <Text style={[type.display, { flexShrink: 1 }]} accessibilityRole="header">
