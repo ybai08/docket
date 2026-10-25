@@ -4,6 +4,10 @@ Newest first. Each commit adds a line or two here: what changed, what's live, wh
 
 ## 2026-10-25
 
+### Deploy keeps the launch page (backend)
+- `server/deploy/deploy.sh` now ships `promo/site` (the HackTX launch page at docketapp.tech) next to the share-link page, without `--delete`, and serves `/` as the launch page. `/invite/*` and `/group/*` rewrite to `open.html`, `/media/*` is cached for a day, and unknown paths return 404. Checked after a full deploy: all of those work, the video serves byte ranges, and the API health check is 200.
+- Cleared the test account's Landslide for today a second time. The 09:13 lock submitted the untouched starting order, which is what pressing "Lock in" without dragging does.
+
 ### Every state's bills: 42 places live (backend)
 - Seeded and live: 39 states from Open States (Alabama through Vermont, minus Arkansas, Kansas and New Mexico), Massachusetts and New Hampshire from their legislatures' own sites, and D.C. That's 454 bills with recorded floor tallies and outcomes, and about 43,000 member votes for legislators still in office.
 - Each player's Roll Call is Congress's 2 bills plus 3 from their state; Texans keep the curated Texas and Austin set. Filed or Fake (4 real, 4 fake) and Landslide come from their state. Georgia and D.C. use the default Landslide (too few distinct margins).

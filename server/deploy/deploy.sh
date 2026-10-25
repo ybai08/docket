@@ -24,8 +24,14 @@ rsync -az --delete -e "ssh -i $KEY -o IdentitiesOnly=yes -o BatchMode=yes" \
 rsync -az -e "ssh -i $KEY -o IdentitiesOnly=yes -o BatchMode=yes" \
   "$ROOT/src/lib/day.ts" "$ROOT/src/lib/rules.ts" "root@$IP:/opt/docket/src/lib/"
 
-rsync -az --delete --no-owner --no-group -e "ssh -i $KEY -o IdentitiesOnly=yes -o BatchMode=yes" \
+# The site: the hand-off page for share links, plus the launch page at / (promo/site). No --delete, so
+# neither copy removes the other's files.
+rsync -az --no-owner --no-group -e "ssh -i $KEY -o IdentitiesOnly=yes -o BatchMode=yes" \
   "$ROOT/server/deploy/site/" "root@$IP:/var/www/docket/"
+if [ -d "$ROOT/promo/site" ]; then
+  rsync -az --no-owner --no-group -e "ssh -i $KEY -o IdentitiesOnly=yes -o BatchMode=yes" \
+    "$ROOT/promo/site/" "root@$IP:/var/www/docket/"
+fi
 
 # Secrets go straight from server/.env to a root-owned file only the service can read.
 grep -E '^(DATABASE_URL|FIREBASE_PROJECT_ID)=' "$ROOT/server/.env" | "${SSH[@]}" \
@@ -69,7 +75,9 @@ cat >> /etc/caddy/Caddyfile <<CADDY
 $SITE {
 	root * /var/www/docket
 	encode gzip
-	rewrite * /open.html
+	@share path /invite/* /group/*
+	rewrite @share /open.html
+	header /media/* Cache-Control "public, max-age=86400"
 	file_server
 }
 CADDY
