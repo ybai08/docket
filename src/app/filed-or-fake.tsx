@@ -109,7 +109,7 @@ export default function FiledOrFakeScreen() {
               {caption.real && (
                 <PillButton
                   size="md"
-                  label={`Open ${caption.number ?? 'the bill'}`}
+                  label={`See ${caption.number ?? 'the bill'}`}
                   style={{ marginTop: 6 }}
                   onPress={() => router.push({ pathname: '/bill/[id]', params: { id: caption.id } })}
                 />

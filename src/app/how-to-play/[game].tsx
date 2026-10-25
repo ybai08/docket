@@ -29,7 +29,7 @@ const GUIDES: Record<string, Guide> = {
     steps: [
       ['Read what it would do', 'Each bill is a short, plain description of what it would change.'],
       ['Call it', 'Tap Filed if you think a lawmaker really filed it, or Fake if you think Docket wrote it.'],
-      ['See the stamp', 'Every answer is stamped FILED or FAKE. Open a real one to see what happened to it.'],
+      ['See the stamp', 'Every answer is stamped FILED or FAKE. Tap See on a real one to find out what happened to it.'],
     ],
     scoring: '1 point for each bill you get right, up to 8.',
   },
