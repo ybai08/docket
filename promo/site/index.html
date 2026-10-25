@@ -51,6 +51,7 @@
   .cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 26px; }
   .cta .pill { height: 54px; padding: 0 28px; font-size: 17px; }
   .cta.try { margin-top: 20px; }
+  .browser-note { margin: 12px auto 0; max-width: 560px; font-size: 14px; line-height: 1.45; color: var(--meta); }
 
   /* Video */
   .video { margin: 22px auto 0; max-width: 920px; border-radius: 22px; overflow: hidden; border: 2px solid var(--ink); background: #000; box-shadow: 0 40px 90px rgba(0,0,0,.14); aspect-ratio: 16 / 9; }
@@ -143,12 +144,12 @@
 
 <header class="hero">
   <div class="wrap">
-    <span class="badge"><b></b> Built at HackTX 2026</span>
     <h1>Do you know how <em>yours</em> voted?</h1>
     <div class="cta try">
       <a class="pill" href="https://app.docketapp.tech">Try it in your browser</a>
-      <a class="pill outline" href="#demo">Watch the 2-minute demo</a>
+      <a class="pill outline" href="#demo">See how it works</a>
     </div>
+    <p class="browser-note">For now, Docket runs in your browser. The iPhone app is on TestFlight, but Apple's review for outside testers didn't finish before judging.</p>
 
     <div class="video" id="demo">
       <video controls playsinline preload="metadata" poster="/media/poster.jpg?v=36dc4965">
@@ -158,9 +159,6 @@
     </div>
     <p class="video-note">The 2-minute demo. Every screen is the real iOS app, running on our test account.</p>
     <p class="lede">Docket is a daily ballot on real bills. Three quick games show you what Congress and your statehouse actually voted on, then where you, your friends and your lawmakers agree.</p>
-    <div class="cta">
-      <a class="pill" href="#games">See how it works</a>
-    </div>
   </div>
 </header>
 
@@ -274,7 +272,7 @@
   <span class="tiles" aria-hidden="true"><i style="background:var(--lavender)"></i><i style="background:var(--yellow)"></i><i style="background:var(--teal)"></i></span><br>
   <a class="pill" href="https://app.docketapp.tech">Try Docket</a>
 </div>
-<footer>Docket · docketapp.tech · Built at HackTX 2026<br>Lawmaker backgrounds from Wikipedia, CC BY-SA 4.0. Bill data from official legislative records.</footer>
+<footer>Docket · docketapp.tech<br>Lawmaker backgrounds from Wikipedia, CC BY-SA 4.0. Bill data from official legislative records.</footer>
 
 </body>
 </html>
