@@ -1,12 +1,14 @@
-import { useState } from 'react';
-import { Alert, Text, View } from 'react-native';
+import { router } from 'expo-router';
+import { useState, type ReactNode } from 'react';
+import { Alert, Pressable, Text, View } from 'react-native';
+import Svg, { Line } from 'react-native-svg';
 
-import { PillButton } from '@/components/pill-button';
+import { ChevronRight, FiledOrFakeGlyph, FlameIcon, LandslideGlyph, RollCallGlyph } from '@/components/icons';
 import { TabScreen } from '@/components/tab-screen';
 import { authErrorMessage, useAuth } from '@/lib/auth-context';
 import { addDays } from '@/lib/day';
 import { useMe } from '@/lib/me-context';
-import { useRemote } from '@/lib/social';
+import { useRemote, type FriendsData } from '@/lib/social';
 import { useToday } from '@/lib/use-today';
 import { colors, fonts, type } from '@/theme';
 
@@ -15,9 +17,10 @@ type Level = 'state' | 'federal' | 'local';
 export default function ProfileScreen() {
   const { user, signOut } = useAuth();
   const { profile, stats: serverStats } = useMe();
-  const { day, stats } = useToday();
+  const { day, stats, status } = useToday();
   const [level, setLevel] = useState<Level>('federal');
   const { data: lawmakerData } = useRemote<LawmakerData>('/me/lawmakers');
+  const { data: friendsData } = useRemote<FriendsData>('/friends');
   const [error, setError] = useState<string | null>(null);
 
   if (!user) return null;
@@ -48,92 +51,70 @@ export default function ProfileScreen() {
   }
 
   const byGame = serverStats?.byGame;
+  // Today counts as played as soon as any ballot is in, even before the server stats refresh.
+  const played = new Set(serverStats?.weekPlayed ?? []);
+  if (Object.values(status).some((s) => s.state === 'done')) played.add(day);
 
   return (
-    <TabScreen gap={26}>
-      <View style={{ paddingBottom: 12, borderBottomWidth: 1, borderBottomColor: colors.ink }}>
-        <Text style={type.title} accessibilityRole="header">
-          Profile
-        </Text>
-      </View>
+    <TabScreen gap={28}>
+      <Text style={type.title} accessibilityRole="header">
+        Profile
+      </Text>
 
-      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 14 }}>
-        <View
-          style={{
-            width: 68,
-            height: 68,
-            borderRadius: 34,
-            backgroundColor: colors.lavender,
-            borderWidth: 2,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <Text style={{ fontFamily: fonts.serif700, fontSize: 30 }}>{name.charAt(0).toUpperCase()}</Text>
-        </View>
-        <View style={{ flex: 1, gap: 2 }}>
-          <Text style={{ fontFamily: fonts.serif700, fontSize: 26, lineHeight: 30 }}>{name}</Text>
-          {where ? <Text style={{ fontSize: 14, color: colors.text2 }}>{where}</Text> : null}
-          <Text style={type.meta}>Playing since {since}</Text>
-        </View>
-      </View>
+      <VoterCard
+        name={name}
+        where={where}
+        since={since}
+        daysPlayed={serverStats?.daysPlayed ?? stats.rollCallsPlayed}
+        billsVoted={serverStats?.billsVoted ?? 0}
+        friends={friendsData?.friends.length ?? null}
+        streak={stats.currentStreak}
+        best={stats.maxStreak}
+        today={day}
+        played={played}
+      />
 
-      <View style={{ gap: 14 }}>
-        <Text style={type.section} accessibilityRole="header">
-          Statistics
-        </Text>
-        <View style={{ flexDirection: 'row', gap: 4 }}>
-          <Stat value={serverStats?.daysPlayed ?? stats.rollCallsPlayed} label="Days played" />
-          <Stat value={serverStats?.billsVoted ?? 0} label="Bills voted" />
-          <Stat value={stats.currentStreak} label="Current streak" />
-          <Stat value={stats.maxStreak} label="Max streak" />
-        </View>
-        <WeekStrip today={day} played={new Set(serverStats?.weekPlayed ?? [])} />
-      </View>
+      <Section title="By game">
+        <GameRow
+          color={colors.lavender}
+          glyph={<RollCallGlyph size={36} />}
+          game="Roll Call"
+          caption="Agreed with the final vote"
+          value={byGame?.rollCallAgreementPct != null ? `${byGame.rollCallAgreementPct}%` : null}
+        />
+        <GameRow
+          color={colors.yellow}
+          glyph={<FiledOrFakeGlyph size={36} />}
+          game="Filed or Fake"
+          caption="Spotted correctly"
+          value={byGame?.filedOrFakePct != null ? `${byGame.filedOrFakePct}%` : null}
+        />
+        <GameRow
+          color={colors.teal}
+          glyph={<LandslideGlyph size={36} />}
+          game="Landslide"
+          caption="Average points"
+          value={byGame?.landslideAvg != null ? `${byGame.landslideAvg}/12` : null}
+        />
+      </Section>
 
-      <View style={{ gap: 10 }}>
-        <Text style={type.section} accessibilityRole="header">
-          By game
-        </Text>
-        <GameRow color={colors.lavender} game="Roll Call">
-          Agreed with the final vote <B>{byGame?.rollCallAgreementPct != null ? `${byGame.rollCallAgreementPct}%` : '–'}</B>
-        </GameRow>
-        <GameRow color={colors.yellow} game="Filed or Fake">
-          Spotted <B>{byGame?.filedOrFakePct != null ? `${byGame.filedOrFakePct}%` : '–'}</B> correctly
-        </GameRow>
-        <GameRow color={colors.teal} game="Landslide">
-          Average <B>{byGame?.landslideAvg != null ? `${byGame.landslideAvg} of 12` : '–'}</B> points
-        </GameRow>
-      </View>
-
-      <View style={{ gap: 12 }}>
-        <View style={{ gap: 2 }}>
-          <Text style={{ fontFamily: fonts.serif700, fontSize: 24 }} accessibilityRole="header">
-            Issues you care about
-          </Text>
-          <Text style={{ fontSize: 14, color: colors.meta }}>From your Roll Call votes, most-voted topics first</Text>
-        </View>
+      <Section title="Issues you care about" note="From your Roll Call votes, most-voted topics first">
         {serverStats?.issues.length ? (
-          <>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 2 }}>
-              <Text style={{ fontSize: 12, fontWeight: '700' }}>Mostly Nay</Text>
-              <Text style={{ fontSize: 12, fontWeight: '700' }}>Mostly Yea</Text>
+          <View style={{ gap: 14 }}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+              <Text style={{ fontSize: 12, fontWeight: '700', color: colors.text2 }}>Mostly Nay</Text>
+              <Text style={{ fontSize: 12, fontWeight: '700', color: colors.text2 }}>Mostly Yea</Text>
             </View>
-            {serverStats.issues.slice(0, 5).map((i) => (
+            {serverStats.issues.slice(0, 4).map((i) => (
               <IssueRow key={i.topic} name={i.topic} yeaPct={i.yeaPct} votes={i.votes} />
             ))}
-          </>
+          </View>
         ) : (
-          <Text style={type.meta}>Play a Roll Call to see where you lean on each topic.</Text>
+          <Empty>Play a Roll Call to see where you lean on each topic.</Empty>
         )}
-      </View>
+      </Section>
 
-      <View style={{ gap: 12 }}>
-        <View style={{ gap: 2 }}>
-          <Text style={{ fontFamily: fonts.serif700, fontSize: 24 }} accessibilityRole="header">
-            Lawmakers you agree with
-          </Text>
-          <Text style={{ fontSize: 14, color: colors.meta }}>Compared on the bills you both voted on</Text>
-        </View>
+      <Section title="Lawmakers you agree with" note="Compared on the bills you both voted on">
         <View style={{ flexDirection: 'row', gap: 8 }} accessibilityRole="tablist">
           {(
             [
@@ -141,55 +122,292 @@ export default function ProfileScreen() {
               ['federal', 'Congress'],
               ['local', 'Local'],
             ] as [Level, string][]
-          ).map(([id, label]) => {
-            const on = level === id;
-            return (
-              <PillTab key={id} label={label} on={on} onPress={() => setLevel(id)} />
-            );
-          })}
+          ).map(([id, label]) => (
+            <PillTab key={id} label={label} on={level === id} onPress={() => setLevel(id)} />
+          ))}
         </View>
         <View>
           {lawmakers(level, profile, lawmakerData).map((p, i) => (
-            <View
-              key={i}
-              style={{ flexDirection: 'row', alignItems: 'center', gap: 12, paddingVertical: 12, paddingHorizontal: 2, borderTopWidth: 1, borderTopColor: colors.hairline }}>
-              <View style={{ width: 40, height: 40, borderRadius: 20, backgroundColor: colors.hairline }} />
-              <View style={{ flex: 1, gap: 1 }}>
-                <Text style={{ fontSize: 16, fontWeight: '600' }}>
-                  {p.name}
-                  {p.party ? <Text style={{ fontWeight: '400', color: colors.meta }}>{` · ${PARTY[p.party] ?? p.party}`}</Text> : null}
-                </Text>
-                <Text style={type.meta}>{p.role}</Text>
-              </View>
-              <View style={{ alignItems: 'flex-end', gap: 1 }}>
-                <Text style={{ fontSize: 20, fontVariant: ['tabular-nums'] }}>
-                  {p.real ? (p.pct === null ? '–' : `${p.pct}%`) : '[%]'}
-                </Text>
-                <Text style={{ fontSize: 12, color: colors.meta }}>
-                  {p.real
-                    ? p.shared
-                      ? `${p.shared} ${level === 'local' ? (p.shared === 1 ? 'vote' : 'votes') : p.shared === 1 ? 'bill' : 'bills'}`
-                      : 'Vote to compare'
-                    : level === 'local'
-                      ? '[n] votes'
-                      : '[n] bills'}
-                </Text>
-              </View>
-            </View>
+            <LawmakerItem key={i} row={p} local={level === 'local'} />
           ))}
         </View>
-        <Text style={[type.meta]}>Party is never shown on bill cards. It appears here only after you have voted.</Text>
+        <Text style={type.meta}>Party is never shown on bill cards. It appears here only after you have voted.</Text>
+      </Section>
+
+      <View style={{ borderWidth: 1.5, borderRadius: 12, overflow: 'hidden' }}>
+        <SettingsRow label="Privacy and notifications" onPress={() => router.push('/privacy')} chevron />
+        <View style={{ height: 1, backgroundColor: colors.hairline, marginLeft: 16 }} />
+        <SettingsRow label="Sign out" onPress={confirmSignOut} />
+      </View>
+      {error && (
+        <Text style={type.meta} selectable>
+          {error}
+        </Text>
+      )}
+    </TabScreen>
+  );
+}
+
+const NOTCH = 18;
+
+/** A voter-registration style card: who you are on top, your streak on a tear-off stub below. */
+function VoterCard(props: {
+  name: string;
+  where: string;
+  since: string;
+  daysPlayed: number;
+  billsVoted: number;
+  friends: number | null;
+  streak: number;
+  best: number;
+  today: string;
+  played: Set<string>;
+}) {
+  const { name, where, since, streak, best } = props;
+  return (
+    <View style={{ borderWidth: 2, borderRadius: 14, borderCurve: 'continuous', backgroundColor: colors.ground, overflow: 'hidden' }}>
+      <View style={{ padding: 18, gap: 18 }}>
+        <View style={{ flexDirection: 'row', gap: 14, alignItems: 'center' }}>
+          <View
+            style={{
+              width: 60,
+              height: 60,
+              borderRadius: 12,
+              borderWidth: 2,
+              backgroundColor: colors.lavender,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <Text style={{ fontFamily: fonts.serif800, fontSize: 30, lineHeight: 34 }}>{name.charAt(0).toUpperCase()}</Text>
+          </View>
+          <View style={{ flex: 1, gap: 2 }}>
+            <Text style={{ fontFamily: fonts.serif800, fontSize: 28, lineHeight: 31, letterSpacing: -0.3 }} numberOfLines={2}>
+              {name}
+            </Text>
+            {where ? <Text style={{ fontSize: 14, color: colors.text2 }}>{where}</Text> : null}
+            <Text style={type.meta}>Playing since {since}</Text>
+          </View>
+        </View>
+
+        <View style={{ flexDirection: 'row' }}>
+          <Figure value={String(props.daysPlayed)} label="Days played" />
+          <Figure value={String(props.billsVoted)} label="Bills voted" divider />
+          <Figure value={props.friends === null ? '–' : String(props.friends)} label={props.friends === 1 ? 'Friend' : 'Friends'} divider />
+        </View>
       </View>
 
-      <View style={{ gap: 10, paddingTop: 8 }}>
-        <PillButton label="Sign out" variant="outline" onPress={confirmSignOut} />
-        {error && (
-          <Text style={type.meta} selectable>
-            {error}
-          </Text>
-        )}
+      {/* Tear-off stub: a dashed rule with half-circle notches cut into both edges. */}
+      <View>
+        <Svg height={2} width="100%">
+          <Line x1="0" y1="1" x2="100%" y2="1" stroke={colors.dashed} strokeWidth={2} strokeDasharray="6 4" />
+        </Svg>
+        <View style={[notch, { left: -NOTCH / 2 - 2 }]} />
+        <View style={[notch, { right: -NOTCH / 2 - 2 }]} />
       </View>
-    </TabScreen>
+
+      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 18, paddingVertical: 14, gap: 12 }}>
+        <View
+          style={{ gap: 2 }}
+          accessible
+          accessibilityLabel={`${streak}-day streak. Best streak ${best} days.`}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+            <FlameIcon size={18} />
+            <Text style={{ fontSize: 17, fontWeight: '700', fontVariant: ['tabular-nums'] }}>
+              {streak}-day streak
+            </Text>
+          </View>
+          <Text style={[type.meta, { fontVariant: ['tabular-nums'] }]}>Best: {best} days</Text>
+        </View>
+        <WeekTiles today={props.today} played={props.played} />
+      </View>
+    </View>
+  );
+}
+
+const notch = {
+  position: 'absolute' as const,
+  top: -NOTCH / 2 + 1,
+  width: NOTCH,
+  height: NOTCH,
+  borderRadius: NOTCH / 2,
+  borderWidth: 2,
+  backgroundColor: colors.ground,
+};
+
+function Figure({ value, label, divider }: { value: string; label: string; divider?: boolean }) {
+  return (
+    <View style={{ flex: 1, gap: 2, paddingLeft: divider ? 14 : 0, borderLeftWidth: divider ? 1 : 0, borderLeftColor: colors.hairline }}>
+      <Text style={{ fontSize: 30, lineHeight: 34, fontVariant: ['tabular-nums'] }}>{value}</Text>
+      <Text style={{ fontSize: 12, lineHeight: 15, color: colors.text2 }}>{label}</Text>
+    </View>
+  );
+}
+
+/** Sunday through Saturday of this Central-time week. */
+function WeekTiles({ today, played }: { today: string; played: Set<string> }) {
+  const weekday = new Date(`${today}T12:00:00Z`).getUTCDay();
+  const days = Array.from({ length: 7 }, (_, i) => addDays(today, i - weekday));
+  const letters = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+  return (
+    <View
+      style={{ flexDirection: 'row', gap: 5 }}
+      accessible
+      accessibilityLabel={`This week: played ${days.filter((d) => played.has(d)).length} of ${weekday + 1} days so far`}>
+      {days.map((d, i) => {
+        const done = played.has(d);
+        const isToday = d === today;
+        const future = d > today;
+        return (
+          <View key={d} style={{ alignItems: 'center', gap: 4 }}>
+            <Text style={{ fontSize: 10, fontWeight: '700', color: isToday ? colors.ink : colors.meta }}>{letters[i]}</Text>
+            <View
+              style={{
+                width: 18,
+                height: 18,
+                borderRadius: 4,
+                backgroundColor: done ? colors.ink : isToday ? colors.lavender : colors.ground,
+                borderWidth: done ? 0 : 1.5,
+                borderColor: isToday ? colors.ink : future ? colors.hairline : colors.outline,
+              }}
+            />
+          </View>
+        );
+      })}
+    </View>
+  );
+}
+
+function Section({ title, note, children }: { title: string; note?: string; children: ReactNode }) {
+  return (
+    <View style={{ gap: 14 }}>
+      <View style={{ gap: 2 }}>
+        <Text style={{ fontFamily: fonts.serif700, fontSize: 24, lineHeight: 28 }} accessibilityRole="header">
+          {title}
+        </Text>
+        {note ? <Text style={{ fontSize: 14, color: colors.meta }}>{note}</Text> : null}
+      </View>
+      {children}
+    </View>
+  );
+}
+
+function GameRow({ color, glyph, game, caption, value }: { color: string; glyph: ReactNode; game: string; caption: string; value: string | null }) {
+  return (
+    <View
+      accessible
+      accessibilityLabel={`${game}: ${value ?? 'not played yet'}, ${caption.toLowerCase()}`}
+      style={{ flexDirection: 'row', alignItems: 'center', gap: 12, paddingVertical: 12, paddingHorizontal: 14, borderRadius: 12, backgroundColor: color }}>
+      {glyph}
+      <View style={{ flex: 1, gap: 1 }}>
+        <Text style={{ fontFamily: fonts.serif700, fontSize: 19 }}>{game}</Text>
+        <Text style={{ fontSize: 13, color: colors.text2 }}>{caption}</Text>
+      </View>
+      <Text style={{ fontSize: 26, fontWeight: '600', fontVariant: ['tabular-nums'] }}>{value ?? '–'}</Text>
+    </View>
+  );
+}
+
+function IssueRow({ name, yeaPct, votes }: { name: string; yeaPct: number; votes: number }) {
+  return (
+    <View style={{ gap: 8 }} accessible accessibilityLabel={`${name}: ${yeaPct}% Yea across ${votes} bills`}>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline' }}>
+        <Text style={{ fontSize: 16, fontWeight: '600' }}>{name}</Text>
+        <Text style={{ fontSize: 13, color: colors.meta, fontVariant: ['tabular-nums'] }}>
+          {yeaPct}% Yea, {votes} {votes === 1 ? 'bill' : 'bills'}
+        </Text>
+      </View>
+      {/* Inset by the dot's radius so a 0% or 100% lean stays inside the track. */}
+      <View style={{ height: 6, borderRadius: 3, backgroundColor: colors.hairline, marginHorizontal: 9 }}>
+        <View style={{ position: 'absolute', left: '50%', top: -4, width: 2, height: 14, backgroundColor: colors.track }} />
+        <View
+          style={{
+            position: 'absolute',
+            top: -6,
+            left: `${yeaPct}%`,
+            marginLeft: -9,
+            width: 18,
+            height: 18,
+            borderRadius: 9,
+            backgroundColor: colors.ink,
+            borderWidth: 2,
+            borderColor: colors.ground,
+            outlineWidth: 1.5,
+            outlineColor: colors.ink,
+            outlineStyle: 'solid',
+          }}
+        />
+      </View>
+    </View>
+  );
+}
+
+function LawmakerItem({ row: p, local }: { row: LawmakerRow; local: boolean }) {
+  const initials = p.real
+    ? p.name
+        .replace(/"[^"]*"/g, '')
+        .split(/\s+/)
+        .filter(Boolean)
+        .map((w) => w[0])
+        .slice(0, 1)
+        .concat(p.name.split(/\s+/).slice(-1).map((w) => w[0]))
+        .join('')
+    : '';
+  const unit = local ? 'votes' : 'bills';
+  return (
+    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12, paddingVertical: 14, borderTopWidth: 1, borderTopColor: colors.hairline }}>
+      <View style={{ width: 42, height: 42, borderRadius: 21, backgroundColor: colors.muted, borderWidth: 1.5, borderColor: colors.outline, alignItems: 'center', justifyContent: 'center' }}>
+        <Text style={{ fontSize: 14, fontWeight: '700', color: colors.text2 }}>{initials}</Text>
+      </View>
+      <View style={{ flex: 1, gap: 4 }}>
+        <View style={{ gap: 1 }}>
+          <Text style={{ fontSize: 16, fontWeight: '600' }}>
+            {p.name}
+            {p.party ? <Text style={{ fontWeight: '400', color: colors.meta }}>{`, ${PARTY[p.party] ?? p.party}`}</Text> : null}
+          </Text>
+          <Text style={type.meta}>{p.role}</Text>
+        </View>
+        {p.real && p.pct != null ? (
+          // Teal for agreed, lavender for disagreed: the same meaning as Roll Call results.
+          <View style={{ flexDirection: 'row', height: 6, borderRadius: 3, overflow: 'hidden', marginTop: 2 }}>
+            <View style={{ flex: p.pct, backgroundColor: colors.teal }} />
+            <View style={{ flex: 100 - p.pct, backgroundColor: colors.lavender }} />
+          </View>
+        ) : null}
+      </View>
+      <View style={{ alignItems: 'flex-end', minWidth: 64 }}>
+        <Text style={{ fontSize: 22, fontVariant: ['tabular-nums'] }}>{p.real ? (p.pct == null ? '–' : `${p.pct}%`) : '[%]'}</Text>
+        <Text style={{ fontSize: 12, color: colors.meta, fontVariant: ['tabular-nums'] }}>
+          {p.real ? (p.shared ? `of ${p.shared} ${p.shared === 1 ? unit.slice(0, -1) : unit}` : 'Vote to compare') : `[n] ${unit}`}
+        </Text>
+      </View>
+    </View>
+  );
+}
+
+function SettingsRow({ label, onPress, chevron }: { label: string; onPress: () => void; chevron?: boolean }) {
+  return (
+    <Pressable
+      accessibilityRole="button"
+      onPress={onPress}
+      style={({ pressed }) => ({
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingVertical: 15,
+        paddingHorizontal: 16,
+        backgroundColor: pressed ? colors.muted : colors.ground,
+      })}>
+      <Text style={{ fontSize: 16, fontWeight: '600' }}>{label}</Text>
+      {chevron ? <ChevronRight size={16} /> : null}
+    </Pressable>
+  );
+}
+
+function Empty({ children }: { children: ReactNode }) {
+  return (
+    <Text style={{ padding: 14, borderRadius: 12, backgroundColor: colors.muted, fontSize: 14, lineHeight: 19, color: colors.text2 }}>
+      {children}
+    </Text>
   );
 }
 
@@ -238,114 +456,20 @@ function lawmakers(level: Level, profile: ReturnType<typeof useMe>['profile'], d
 
 function PillTab({ label, on, onPress }: { label: string; on: boolean; onPress: () => void }) {
   return (
-    <Text
+    <Pressable
       accessibilityRole="tab"
       accessibilityState={{ selected: on }}
       onPress={onPress}
-      suppressHighlighting
       style={{
         height: 36,
-        lineHeight: 33,
         paddingHorizontal: 18,
         borderRadius: 18,
-        overflow: 'hidden',
+        justifyContent: 'center',
         borderWidth: 1.5,
         borderColor: on ? colors.ink : colors.outline,
         backgroundColor: on ? colors.ink : colors.ground,
-        color: on ? colors.ground : colors.ink,
-        fontSize: 14,
-        fontWeight: '700',
       }}>
-      {label}
-    </Text>
-  );
-}
-
-function Stat({ value, label }: { value: number; label: string }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', gap: 2 }}>
-      <Text style={type.stat}>{value}</Text>
-      <Text style={{ fontSize: 12, lineHeight: 15, textAlign: 'center' }}>{label}</Text>
-    </View>
-  );
-}
-
-function B({ children }: { children: React.ReactNode }) {
-  return <Text style={{ fontWeight: '700' }}>{children}</Text>;
-}
-
-function GameRow({ color, game, children }: { color: string; game: string; children: React.ReactNode }) {
-  return (
-    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12, paddingVertical: 12, paddingHorizontal: 14, borderRadius: 12, backgroundColor: color }}>
-      <Text style={{ flex: 1, fontFamily: fonts.serif700, fontSize: 19 }}>{game}</Text>
-      <Text style={{ fontSize: 14 }}>{children}</Text>
-    </View>
-  );
-}
-
-function WeekStrip({ today, played }: { today: string; played: Set<string> }) {
-  // Sunday through Saturday of this Central-time week.
-  const weekday = new Date(`${today}T12:00:00Z`).getUTCDay();
-  const days = Array.from({ length: 7 }, (_, i) => addDays(today, i - weekday));
-  const letters = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
-  return (
-    <View
-      accessible
-      accessibilityLabel={`This week: played ${days.filter((d) => played.has(d)).length} of ${weekday + 1} days so far`}
-      style={{ flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 12, paddingHorizontal: 14, borderRadius: 12, borderWidth: 1.5 }}>
-      {days.map((d, i) => {
-        const isToday = d === today;
-        const done = played.has(d);
-        const future = d > today;
-        return (
-          <View key={d} style={{ alignItems: 'center', gap: 6 }}>
-            <Text style={{ fontSize: 12, fontWeight: '700' }}>{letters[i]}</Text>
-            <View
-              style={{
-                width: 30,
-                height: 30,
-                borderRadius: 6,
-                backgroundColor: done ? colors.ink : isToday ? colors.lavender : future ? colors.ground : colors.muted,
-                borderWidth: isToday && !done ? 2 : future ? 1.5 : 0,
-                borderColor: isToday ? colors.ink : colors.hairline,
-              }}
-            />
-          </View>
-        );
-      })}
-    </View>
-  );
-}
-
-function IssueRow({ name, yeaPct, votes }: { name: string; yeaPct: number; votes: number }) {
-  return (
-    <View style={{ gap: 6 }} accessible accessibilityLabel={`${name}: ${yeaPct}% Yea across ${votes} bills`}>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline' }}>
-        <Text style={{ fontSize: 16, fontWeight: '600' }}>{name}</Text>
-        <Text style={{ fontSize: 13, color: colors.meta, fontVariant: ['tabular-nums'] }}>
-          {yeaPct}% Yea, {votes} {votes === 1 ? 'bill' : 'bills'}
-        </Text>
-      </View>
-      <View style={{ height: 10, borderRadius: 5, backgroundColor: colors.hairline }}>
-        <View style={{ position: 'absolute', left: '50%', top: -3, width: 2, height: 16, backgroundColor: colors.track }} />
-        <View
-          style={{
-            position: 'absolute',
-            top: -4,
-            left: `${yeaPct}%`,
-            marginLeft: -9,
-            width: 18,
-            height: 18,
-            borderRadius: 9,
-            backgroundColor: colors.ink,
-            borderWidth: 2,
-            borderColor: colors.ground,
-            outlineWidth: 1.5,
-            outlineColor: colors.ink,
-            outlineStyle: 'solid',
-          }}
-        />
-      </View>
-    </View>
+      <Text style={{ fontSize: 14, fontWeight: '700', color: on ? colors.ground : colors.ink }}>{label}</Text>
+    </Pressable>
   );
 }
