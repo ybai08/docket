@@ -53,14 +53,14 @@ Endpoints (all need `Authorization: Bearer <Firebase ID token>`): `GET /today`, 
 
 ## Deploy the API
 
-The API runs on a Vultr VM (Ubuntu 24.04) behind Caddy, which gets HTTPS certificates from Let's Encrypt. Until there's a domain, the host is `<ip-with-dashes>.sslip.io`, which resolves to the VM's IP.
+The API runs on a Vultr VM (Ubuntu 24.04) behind Caddy, which gets HTTPS certificates from Let's Encrypt. Production is `https://api.docketapp.tech` for the API and `https://docketapp.tech` for the page share links open (`/invite/<token>`, `/group/<code>`), which hands off to the app. Without a domain, `<ip-with-dashes>.sslip.io` works as the API host.
 
 ```bash
 ssh root@<ip> 'bash -s' < server/deploy/provision.sh       # once: Node 22, Caddy, firewall (22/80/443), swap
-server/deploy/deploy.sh <ip> <ip-with-dashes>.sslip.io      # every release: code, .env, npm ci, restart
+server/deploy/deploy.sh <ip> api.docketapp.tech docketapp.tech   # every release: code, .env, npm ci, restart
 ```
 
-`deploy.sh` copies `DATABASE_URL` and `FIREBASE_PROJECT_ID` from `server/.env` to the VM (mode 600) and runs the API as the `docket` systemd service on localhost:8787. It uses `~/.ssh/docket_vultr` unless `DOCKET_SSH_KEY` says otherwise. Point the app at it with `EXPO_PUBLIC_API_URL=https://<host>` in `.env`, then restart Metro. Once a domain points at the VM, rerun `deploy.sh` with that hostname.
+`deploy.sh` copies `DATABASE_URL` and `FIREBASE_PROJECT_ID` from `server/.env` to the VM (mode 600) and runs the API as the `docket` systemd service on localhost:8787. It uses `~/.ssh/docket_vultr` unless `DOCKET_SSH_KEY` says otherwise. Point the app at it with `EXPO_PUBLIC_API_URL=https://api.docketapp.tech` and `EXPO_PUBLIC_LINK_BASE=https://docketapp.tech` in `.env`, then restart Metro.
 
 ## Layout
 

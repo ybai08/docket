@@ -13,7 +13,7 @@ KEY=${DOCKET_SSH_KEY:-$HOME/.ssh/docket_vultr}
 ROOT=$(cd "$(dirname "$0")/../.." && pwd)
 SSH=(ssh -i "$KEY" -o IdentitiesOnly=yes -o BatchMode=yes "root@$IP")
 
-"${SSH[@]}" mkdir -p /opt/docket/server /opt/docket/src/data /opt/docket/src/lib /opt/docket/site
+"${SSH[@]}" mkdir -p /opt/docket/server /opt/docket/src/data /opt/docket/src/lib /var/www/docket
 
 # The server imports shared content and rules from the app's src/, so ship that slice too.
 rsync -az --delete -e "ssh -i $KEY -o IdentitiesOnly=yes -o BatchMode=yes" \
@@ -24,8 +24,8 @@ rsync -az --delete -e "ssh -i $KEY -o IdentitiesOnly=yes -o BatchMode=yes" \
 rsync -az -e "ssh -i $KEY -o IdentitiesOnly=yes -o BatchMode=yes" \
   "$ROOT/src/lib/day.ts" "$ROOT/src/lib/rules.ts" "root@$IP:/opt/docket/src/lib/"
 
-rsync -az --delete -e "ssh -i $KEY -o IdentitiesOnly=yes -o BatchMode=yes" \
-  "$ROOT/server/deploy/site/" "root@$IP:/opt/docket/site/"
+rsync -az --delete --no-owner --no-group -e "ssh -i $KEY -o IdentitiesOnly=yes -o BatchMode=yes" \
+  "$ROOT/server/deploy/site/" "root@$IP:/var/www/docket/"
 
 # Secrets go straight from server/.env to a root-owned file only the service can read.
 grep -E '^(DATABASE_URL|FIREBASE_PROJECT_ID)=' "$ROOT/server/.env" | "${SSH[@]}" \
@@ -67,7 +67,7 @@ if [ -n "$SITE" ]; then
 cat >> /etc/caddy/Caddyfile <<CADDY
 
 $SITE {
-	root * /opt/docket/site
+	root * /var/www/docket
 	encode gzip
 	rewrite * /open.html
 	file_server
