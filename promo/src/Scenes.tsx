@@ -42,8 +42,8 @@ function Words({ text, delay, size, color = C.ink, highlight }: { text: string; 
 
 export function Hook() {
   const frame = useCurrentFrame();
-  const first = interpolate(frame, [70, 84], [1, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
-  const second = interpolate(frame, [138, 150], [1, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+  const first = interpolate(frame, [62, 74], [1, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+  const second = interpolate(frame, [106, 116], [1, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
   return (
     <AbsoluteFill>
       <Background />
@@ -51,16 +51,16 @@ export function Hook() {
         <div style={{ position: 'absolute', width: 1500, top: 330, opacity: first, transform: `translateY(${(1 - first) * -30}px)` }}>
           <Words text="Every week, lawmakers vote on bills that shape your life." delay={2} size={92} />
         </div>
-        {frame >= 82 && (
+        {frame >= 70 && (
           <div style={{ position: 'absolute', width: 1500, top: 380, opacity: second, transform: `translateY(${(1 - second) * -30}px)` }}>
-            <Words text="Do you know how yours voted?" delay={84} size={112} highlight="yours" />
+            <Words text="Do you know how yours voted?" delay={72} size={112} highlight="yours" />
           </div>
         )}
-        {frame >= 146 && (
+        {frame >= 114 && (
           <div style={{ position: 'absolute', top: 300, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 28 }}>
-            <Wordmark size={200} delay={148} />
-            <Tiles delay={158} size={34} gap={14} />
-            <Rise delay={172}>
+            <Wordmark size={200} delay={117} />
+            <Tiles delay={127} size={34} gap={14} />
+            <Rise delay={141}>
               <div style={{ fontFamily: sans, fontSize: 34, color: C.text2 }}>Three daily games about real bills.</div>
             </Rise>
           </div>
@@ -122,9 +122,9 @@ export function RollCall() {
             { src: 'history', at: swap },
           ]}
         />
-        <Tap x={yea.x} y={yea.y} at={96} />
+        <Tap x={yea.x} y={yea.y} at={83} />
         <div style={{ position: 'absolute', left: 0, right: 0, top: pt(0.47, 870), display: 'flex', justifyContent: 'center', opacity: stampOut }}>
-          <Stamp label="YEA" color="#2E8B7E" delay={104} size={46} rotate={-9} />
+          <Stamp label="YEA" color="#2E8B7E" delay={90} size={46} rotate={-9} />
         </div>
       </Phone>
       <Callout label="Bill 1 of 5" value="SB 6" sub="Grid rules for data centers, from the Texas Senate" color={C.lavender} at={30} outAt={swap - 12} />
@@ -177,9 +177,9 @@ export function FiledOrFake() {
             text="Ban modifying or controlling the weather, and make doing it a crime."
             stamp="FILED · HB 1382"
             stampColor={C.ink}
-            at={8}
+            at={1}
           />
-          <CaptionCard origin="Texas House, 2025" text="Name the armadillo the official state lawn ornament." stamp="FAKE" stampColor={C.fakeInk} at={112} />
+          <CaptionCard origin="Texas House, 2025" text="Name the armadillo the official state lawn ornament." stamp="FAKE" stampColor={C.fakeInk} at={106} />
         </>
       )}
       {frame >= phoneAt && (
@@ -214,7 +214,7 @@ function LandslideScreen() {
   const { fps } = useVideoConfig();
   const ROW = 72;
   const GAP = 8;
-  const move = spring({ frame: frame - 96, fps, config: { damping: 17, mass: 0.9 } });
+  const move = spring({ frame: frame - 90, fps, config: { damping: 17, mass: 0.9 } });
   const reveal = interpolate(frame, [150, 164], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
   return (
     <div style={{ position: 'absolute', inset: 0, background: C.ground, fontFamily: sans }}>

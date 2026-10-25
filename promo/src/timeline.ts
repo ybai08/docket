@@ -2,20 +2,28 @@ import type { ComponentType } from 'react';
 
 import { Area, Close, FiledOrFake, Friends, Hook, Landslide, Nationwide, Privacy, Profile, Records, RollCall, Today } from './Scenes';
 
-/** Scene order and length in frames at 30 fps. Neighbors overlap by TRANSITION frames. */
+/** Music tempo. One bar is 2 s, or 60 frames at 30 fps. */
+export const BPM = 120;
+export const BAR_FRAMES = 60;
+
+/**
+ * Scene order and length in frames at 30 fps. Neighbors overlap by TRANSITION frames, so a scene of
+ * BARS * 60 + TRANSITION frames makes the next one start exactly on a bar line, where the music's
+ * drops and fills land (see scripts/music.mjs).
+ */
 export const SCENES: { id: string; component: ComponentType; frames: number }[] = [
-  { id: 'hook', component: Hook, frames: 210 },
-  { id: 'today', component: Today, frames: 225 },
-  { id: 'roll-call', component: RollCall, frames: 400 },
-  { id: 'filed-or-fake', component: FiledOrFake, frames: 350 },
-  { id: 'landslide', component: Landslide, frames: 300 },
-  { id: 'friends', component: Friends, frames: 470 },
-  { id: 'area', component: Area, frames: 280 },
-  { id: 'profile', component: Profile, frames: 330 },
-  { id: 'records', component: Records, frames: 330 },
-  { id: 'nationwide', component: Nationwide, frames: 210 },
-  { id: 'privacy', component: Privacy, frames: 230 },
-  { id: 'close', component: Close, frames: 210 },
+  { id: 'hook', component: Hook, frames: 256 },
+  { id: 'today', component: Today, frames: 196 },
+  { id: 'roll-call', component: RollCall, frames: 376 },
+  { id: 'filed-or-fake', component: FiledOrFake, frames: 376 },
+  { id: 'landslide', component: Landslide, frames: 316 },
+  { id: 'friends', component: Friends, frames: 496 },
+  { id: 'area', component: Area, frames: 316 },
+  { id: 'profile', component: Profile, frames: 316 },
+  { id: 'records', component: Records, frames: 316 },
+  { id: 'nationwide', component: Nationwide, frames: 196 },
+  { id: 'privacy', component: Privacy, frames: 256 },
+  { id: 'close', component: Close, frames: 240 },
 ];
 
 export const TRANSITION = 16;
