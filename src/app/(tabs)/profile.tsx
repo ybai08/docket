@@ -4,6 +4,7 @@ import { useState, type ReactNode } from 'react';
 import { Alert, Pressable, Text, View } from 'react-native';
 import Svg, { Line } from 'react-native-svg';
 
+import { stateDistrictLine } from '@/components/civic';
 import { ChevronRight, FiledOrFakeGlyph, FlameIcon, LandslideGlyph, RollCallGlyph } from '@/components/icons';
 import { TabScreen } from '@/components/tab-screen';
 import { authErrorMessage, useAuth } from '@/lib/auth-context';
@@ -47,7 +48,7 @@ export default function ProfileScreen() {
   const name = profile?.displayName || user.displayName || (!hiddenEmail && user.email?.split('@')[0]) || 'Docket member';
   const where = [
     profile?.city,
-    profile?.districts?.stateHouse ? `${stateName} House District ${profile.districts.stateHouse}` : null,
+    profile?.state && profile.districts ? stateDistrictLine(profile.state, stateName, profile.districts) : null,
   ]
     .filter(Boolean)
     .join(', ');

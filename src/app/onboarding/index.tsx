@@ -2,6 +2,7 @@ import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, Keyboard, Text, TextInput, View } from 'react-native';
 
+import { stateSeats } from '@/components/civic';
 import { OnboardFrame, TextLink } from '@/components/onboard-frame';
 import { PillButton } from '@/components/pill-button';
 import { api } from '@/lib/api';
@@ -80,7 +81,7 @@ export default function OnboardLocation() {
           keyboardType="number-pad"
           textContentType="postalCode"
           autoComplete="postal-code"
-          placeholder="78705"
+          placeholder="12345"
           placeholderTextColor={colors.outline}
           accessibilityLabelledBy="zip-label"
           maxLength={5}
@@ -119,13 +120,13 @@ export default function OnboardLocation() {
           <Coverage
             badge={shown.state}
             color={colors.lavender}
-            title={`${shown.stateName} Legislature`}
-            detail={`House District ${shown.districts.stateHouse ?? '[##]'}, Senate District ${shown.districts.stateSenate ?? '[##]'}`}
+            title={shown.state === 'DC' ? 'D.C. Council' : `${shown.stateName} Legislature`}
+            detail={stateSeats(shown.state, shown.districts)}
           />
-          {shown.county && <Coverage badge="CTY" color={colors.teal} title={shown.county} detail="Commissioners Court" />}
+          {shown.county && <Coverage badge="CTY" color={colors.teal} title={shown.county} detail="County government" />}
           {shown.city && (
             <Coverage
-              badge={shown.city === 'Austin' ? 'ATX' : shown.city.slice(0, 3).toUpperCase()}
+              badge={shown.city.replace(/[^A-Za-z]/g, '').slice(0, 3).toUpperCase()}
               color={colors.teal}
               title={`City of ${shown.city}`}
               detail={shown.districts.council ? `City Council District ${shown.districts.council}, plus the mayor` : 'City Council and the mayor'}

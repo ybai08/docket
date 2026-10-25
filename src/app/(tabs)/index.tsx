@@ -9,12 +9,17 @@ import { ProgressTiles, tilesFor } from '@/components/progress-tiles';
 import { TabScreen } from '@/components/tab-screen';
 import type { Bill } from '@/data/types';
 import { formatDayLong } from '@/lib/day';
+import { useMe } from '@/lib/me-context';
 import { useRemote, type Leaderboard } from '@/lib/social';
 import { useToday, type GameStatus } from '@/lib/use-today';
 import { colors, type } from '@/theme';
 
 export default function TodayScreen() {
   const { day, set, status, cast, stats, loadState, error, reload } = useToday();
+  const { profile } = useMe();
+  // The server spells out your state ("Ohio"); other state codes show as is.
+  const stateName = (profile as { stateName?: string | null } | null)?.stateName;
+  const nameOf = (code: string) => (code === profile?.state && stateName ? stateName : code);
   const streak = stats.currentStreak;
 
   return (
@@ -64,7 +69,7 @@ export default function TodayScreen() {
         <BallotStubCard
           color={colors.lavender}
           title="Roll Call"
-          subtitle={`Recent bills in ${places(set.rollCall)}. Do you agree?`}
+          subtitle={`Recent bills in ${places(set.rollCall, nameOf)}. Do you agree?`}
           glyph={<RollCallGlyph />}
           status={
             <Status s={status.rollCall} unit="votes" result={`Agreed on ${status.rollCall.result} of ${status.rollCall.total}`} />
@@ -120,12 +125,10 @@ function SyncError({ message, onRetry }: { message: string; onRetry: () => void 
   );
 }
 
-const STATE_NAMES: Record<string, string> = { TX: 'Texas' };
-
-/** "Congress, Texas, and Austin": where today's Roll Call bills come from, in that order. */
-function places(bills: Bill[]) {
+/** "Congress, Ohio, and Columbus": where today's Roll Call bills come from, in that order. */
+function places(bills: Bill[], stateName: (code: string) => string) {
   const name = (b: Bill) =>
-    b.level === 'federal' ? 'Congress' : b.level === 'state' ? (STATE_NAMES[b.jurisdiction] ?? b.jurisdiction) : b.jurisdiction.split(',')[0];
+    b.level === 'federal' ? 'Congress' : b.level === 'state' ? stateName(b.jurisdiction) : b.jurisdiction.split(',')[0];
   const order = { federal: 0, state: 1, local: 2 } as const;
   const list = [...new Set([...bills].sort((a, b) => order[a.level] - order[b.level]).map(name))];
   return list.length > 2 ? `${list.slice(0, -1).join(', ')}, and ${list.at(-1)}` : list.join(' and ');

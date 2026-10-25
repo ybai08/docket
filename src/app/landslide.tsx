@@ -30,7 +30,7 @@ const SETTLE = { duration: 250, dampingRatio: 1 };
 function showHelp() {
   Alert.alert(
     'How to play Landslide',
-    'Long-press a bill and drag it to rank all four by the final Texas House vote, widest margin on top. 3 points for an exact spot, 1 for one off.',
+    'Long-press a bill and drag it to rank all four by their final vote, widest margin on top. 3 points for an exact spot, 1 for one off.',
   );
 }
 
@@ -267,7 +267,7 @@ function Reveal({ items, order, onShare }: { items: LandslideItem[]; order: stri
             {score} of {items.length * 3} points
           </Text>
           <Text style={[type.body, { color: colors.text2, textAlign: 'center' }]}>
-            The real order, by the final Texas House vote.
+            The real order, by each bill&apos;s final vote.
           </Text>
         </View>
 

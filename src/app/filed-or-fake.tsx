@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Alert, Linking, Pressable, ScrollView, Share, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { sourceHost } from '@/components/civic';
 import { PillButton } from '@/components/pill-button';
 import { ProgressTiles, type TileState } from '@/components/progress-tiles';
 import { ScreenHeader } from '@/components/screen-header';
@@ -112,7 +113,7 @@ export default function FiledOrFakeScreen() {
               {caption.real && caption.sourceUrl && (
                 <Pressable accessibilityRole="link" onPress={() => Linking.openURL(caption.sourceUrl!)} hitSlop={8}>
                   <Text style={{ fontSize: 15, fontWeight: '600', textDecorationLine: 'underline', marginTop: 4 }}>
-                    See {caption.number} on Texas Legislature Online
+                    See {caption.number} on {sourceHost(caption.sourceUrl!)}
                   </Text>
                 </Pressable>
               )}
