@@ -59,6 +59,7 @@ Newest first. Each commit adds a line or two here: what changed, what's live, wh
 - Re-seeded the plain-English Filed or Fake captions; deleted the test account's accidental 0/12 Landslide for today.
 
 ### UI
+- Web tabs scroll again. expo-router's TabSlot let the focused screen grow to its full content height, so the tab's ScrollView had nothing to scroll in. The web tab layout now holds each screen to the viewport. Checked on local web: Today in a 560pt window scrolls, and it didn't before the fix. Pushed screens (bill page) already scrolled. Needs a web redeploy.
 - Web tab bar: `src/app/(tabs)/_layout.web.tsx` replaces the web's top tab strip with the iOS-style floating pill at the bottom (Today / Friends / Profile, SF Symbol look-alike icons, a grey capsule behind the selected tab). Tab screens leave room for it on the web. iOS is unchanged. Needs a web redeploy. Signed-in web screens are still unchecked.
 - Web dialogs fixed: Sign out, block/remove/share, leave group, the group admin menu, reset code, rename, unblock, delete account and the username prompt all go through `src/components/dialog.tsx`. iOS keeps its native dialogs. On the web a single choice uses the browser's confirm or prompt, and menus with several choices use an in-app sheet. Needs a web redeploy to reach the judge demo.
 - Hidden vote splits in groups and the area breakdown now all say "Hidden so no one's vote can be guessed", matching backend `dbbaa7f`, which dropped 'unanimous'. The area page's player threshold comes from the server's `minPlayers` (now 10). Live in the app now.

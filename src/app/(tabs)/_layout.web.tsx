@@ -1,4 +1,5 @@
-import { TabList, TabSlot, TabTrigger, Tabs, type TabTriggerSlotProps } from 'expo-router/ui';
+import { TabList, TabSlot, TabTrigger, Tabs, defaultTabsSlotRender, type TabTriggerSlotProps } from 'expo-router/ui';
+import { cloneElement, type ComponentProps, type ReactElement } from 'react';
 import { Pressable, Text, View } from 'react-native';
 import Svg, { Circle, Path, Rect } from 'react-native-svg';
 
@@ -9,8 +10,8 @@ import { colors } from '@/theme';
 // selected one. Tab screens leave room for it (TabScreen adds bottom padding on the web).
 export default function TabsLayout() {
   return (
-    <Tabs>
-      <TabSlot />
+    <Tabs style={{ flex: 1 }}>
+      <TabSlot style={{ flex: 1, minHeight: 0 }} renderFn={boundedRender} />
       <TabList asChild>
         <View
           style={{
@@ -41,6 +42,13 @@ export default function TabsLayout() {
     </Tabs>
   );
 }
+
+// TabSlot's default styles let the focused screen grow to its content height (flexShrink 0), so on the web
+// a tab's ScrollView never gets a bounded height and can't scroll. Keep the screen to the viewport instead.
+const boundedRender: NonNullable<ComponentProps<typeof TabSlot>['renderFn']> = (descriptor, opts) => {
+  const el = defaultTabsSlotRender(descriptor, opts) as ReactElement<{ style?: unknown }> | null;
+  return el && cloneElement(el, { style: [el.props.style, { flexShrink: 1, minHeight: 0 }] });
+};
 
 function TabButton({
   label,
