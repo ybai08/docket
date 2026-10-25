@@ -1,6 +1,6 @@
 # Docket
 
-Swipe through real Texas and Austin bills, play quick daily games, and see how your friends voted. Built at HackTX 2026.
+Swipe through real bills from Congress, your own state legislature and (in Austin) your city council, play quick daily games, and see how your friends voted. Works for every U.S. ZIP code. Built at HackTX 2026.
 
 Stack: Expo (React Native, Expo Router) + Firebase Auth, and a Fastify + Postgres API in `server/`. Sign-in is Google (iOS, Android, web) and Apple (iOS only).
 
@@ -65,6 +65,23 @@ python3 server/scripts/build_civic_data.py   # when rosters or bills change (nee
 python3 server/scripts/build_lawmaker_profiles.py   # after it (~15 min the first time; Wikipedia intros are cached)
 cd server && npm run seed
 ```
+
+## Daily sets by place
+
+Each player's daily set depends on where they live (`daily_sets.scope`: `''` for everyone, a state like `CA`, or a city like `TX/Austin`). Roll Call is Congress's bills plus the player's state's and city's; Filed or Fake and Landslide come from the most specific place that has them, falling back to the default (Texas) set. Congress, Texas and Austin content is curated by hand in `src/data`; every other state's comes from its legislature's record:
+
+1. `server/scripts/fetch_state_bills.py` (needs `OPENSTATES_API_KEY` in `server/.env`) pulls each state's recent bills from Open States and keeps those with a recorded floor tally and a final outcome (signed, became law, vetoed, or failed a floor vote). Named member votes must add up to the counts; tallies written only in the state's action text ("Yeas 39 to Nays 0") are parsed without member votes. It picks 3 Roll Call bills, 4 Landslide bills voted in one chamber with distinct margins, and 4 real Filed or Fake bills per state into `server/data/state-bill-picks.json`.
+2. States Open States has no votes for are gathered from the legislature's own site in the same shape into `server/data/state-bill-picks-extra.json`, each tally checked against the official page in `sourceUrl`.
+3. `server/data/state-bill-text.json` holds a plain-English title, short title, summary and topic for each picked bill, written only from its official title and abstract.
+4. `server/scripts/build_state_content.py` combines them, adds four state-neutral fake captions per state, and writes `server/data/state-content.json`, which `npm run seed` loads (bills, daily set rows, and member votes for legislators still in office).
+
+```bash
+python3 server/scripts/fetch_state_bills.py      # ~30 min; responses are cached
+python3 server/scripts/build_state_content.py
+cd server && npm run seed
+```
+
+The progress log is in [docs/LOG.md](docs/LOG.md).
 
 ## Deploy the API
 

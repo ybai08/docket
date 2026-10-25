@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 import { centralDay } from '../../src/lib/day.ts';
 import { requireUser } from './auth.ts';
-import { setFor } from './content.ts';
+import { setFor, setForUser } from './content.ts';
 import { query } from './db.ts';
 import { stateName } from './geo.ts';
 import { MIN_SPLIT_VOTERS, MIN_UNANIMOUS_VOTERS } from './groups.ts';
@@ -165,7 +165,7 @@ async function areaOf(uid: string, scope: Scope) {
 /** How players in the player's city, state or the whole app did on one day. Aggregates only, behind the guards above. */
 async function areaBreakdown(uid: string, scope: Scope, day: string) {
   const area = await areaOf(uid, scope);
-  const set = await setFor(day);
+  const set = await setForUser(uid, day);
   if (!area || !set) return null;
   const n = area.params.length;
   const rows = await query<{ user_id: string; points: number; rc: number | null; fof: number | null; ls: number | null }>(
@@ -344,8 +344,8 @@ export async function socialRoutes(app: FastifyInstance) {
     const [override] = await query<{ share: boolean }>('SELECT share FROM share_overrides WHERE user_id = $1 AND friend_id = $2', [uid, other]);
     // Raw per-bill votes leave the server only under the mutual-sharing rule.
     const recent = sharing
-      ? await query<{ number: string; short_title: string; mine: string; theirs: string }>(
-          `SELECT bl.number, bl.short_title, x.vote AS mine, y.vote AS theirs
+      ? await query<{ bill_id: string; number: string; short_title: string; mine: string; theirs: string }>(
+          `SELECT bl.id AS bill_id, bl.number, bl.short_title, x.vote AS mine, y.vote AS theirs
            FROM votes x JOIN votes y ON x.bill_id = y.bill_id JOIN bills bl ON bl.id = x.bill_id
            WHERE x.user_id = $1 AND y.user_id = $2 ORDER BY x.day DESC, bl.number LIMIT 10`,
           [uid, other],
@@ -359,7 +359,7 @@ export async function socialRoutes(app: FastifyInstance) {
       topics: a.topics,
       votesShared: sharing,
       myOverride: override?.share ?? null,
-      recent: recent.map((r) => ({ number: r.number, title: r.short_title, mine: r.mine, theirs: r.theirs })),
+      recent: recent.map((r) => ({ billId: r.bill_id, number: r.number, title: r.short_title, mine: r.mine, theirs: r.theirs })),
     };
   });
 

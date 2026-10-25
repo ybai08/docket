@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { centralDay } from '../../src/lib/day.ts';
 import { agreed, filedOrFakeScore, landslideAnswer, landslidePoints } from '../../src/lib/rules.ts';
 import { requireUser } from './auth.ts';
-import { setFor, type DaySet } from './content.ts';
+import { setForUser, toBill, type BillRow, type DaySet } from './content.ts';
 import { query } from './db.ts';
 
 const HISTORY_PAGE = 60;
@@ -59,8 +59,8 @@ async function finished(uid: string, day: string, game: string) {
 }
 
 /** The set the player is allowed to write to right now: today's (or the latest scheduled). */
-async function currentSet(day: string) {
-  const set = await setFor(centralDay());
+async function currentSet(uid: string, day: string) {
+  const set = await setForUser(uid, centralDay());
   return set && set.day === day ? set : null;
 }
 
@@ -68,15 +68,22 @@ export async function gameRoutes(app: FastifyInstance) {
   app.addHook('preHandler', requireUser);
 
   app.get('/today', async (req, reply) => {
-    const set = await setFor(centralDay());
+    const set = await setForUser(req.uid, centralDay());
     if (!set) return reply.code(404).send({ error: 'No ballots are scheduled yet.' });
     return { ...set, progress: await progressFor(req.uid, set) };
   });
 
   app.get('/results/today', async (req, reply) => {
-    const set = await setFor(centralDay());
+    const set = await setForUser(req.uid, centralDay());
     if (!set) return reply.code(404).send({ error: 'No ballots are scheduled yet.' });
     return progressFor(req.uid, set);
+  });
+
+  // Any bill on the server, including state bills the app doesn't ship in src/data.
+  app.get<{ Params: { id: string } }>('/bills/:id', async (req, reply) => {
+    const [b] = await query<BillRow>('SELECT * FROM bills WHERE id = $1', [req.params.id]);
+    if (!b) return reply.code(404).send({ error: 'No such bill.' });
+    return toBill(b);
   });
 
   // Every finished game of one kind, newest first, 60 days a page. Text comes from each day's stored set.
@@ -91,7 +98,7 @@ export async function gameRoutes(app: FastifyInstance) {
 
     const days = [];
     for (const r of page) {
-      const set = storedSet(await setFor(r.day), r.day, game);
+      const set = storedSet(await setForUser(req.uid, r.day), r.day, game);
       if (!set) {
         // A score with no stored ballot (sample history from seed-test): show the score alone.
         const empty = game === 'roll-call' ? 'bills' : game === 'filed-or-fake' ? 'captions' : 'items';
@@ -131,7 +138,7 @@ export async function gameRoutes(app: FastifyInstance) {
     }
 
     // Summary over every finished game, not only this page. Roll Call is a percentage; the others are points.
-    const sets = await Promise.all(all.map(async (r) => ({ r, set: storedSet(await setFor(r.day), r.day, game) })));
+    const sets = await Promise.all(all.map(async (r) => ({ r, set: storedSet(await setForUser(req.uid, r.day), r.day, game) })));
     const outOf = ({ set }: { set: DaySet | null }) =>
       !set ? SET_SIZE[game] : game === 'roll-call' ? set.rollCall.length : game === 'filed-or-fake' ? set.filedOrFake.length : set.landslide.items.length * 3;
     const scored = sets.filter((x) => x.r.score !== null && outOf(x) > 0);
@@ -153,7 +160,7 @@ export async function gameRoutes(app: FastifyInstance) {
   const voteBody = z.object({ day: z.string(), billId: z.string(), vote: z.enum(['yea', 'nay']) });
   app.post('/votes', async (req, reply) => {
     const body = voteBody.parse(req.body);
-    const set = await currentSet(body.day);
+    const set = await currentSet(req.uid, body.day);
     if (!set) return reply.code(409).send({ error: "That ballot is closed. Today's is ready." });
     if (!set.rollCall.some((b) => b.id === body.billId)) return reply.code(400).send({ error: 'Not on this ballot.' });
     if (await finished(req.uid, body.day, 'roll-call')) return reply.code(409).send({ error: 'Your Roll Call is already in.' });
@@ -183,7 +190,7 @@ export async function gameRoutes(app: FastifyInstance) {
   app.post<{ Params: { game: string } }>('/results/:game', async (req, reply) => {
     const { game } = req.params;
     const body = resultBody.parse(req.body);
-    const set = await currentSet(body.day);
+    const set = await currentSet(req.uid, body.day);
     if (!set) return reply.code(409).send({ error: "That ballot is closed. Today's is ready." });
     if (await finished(req.uid, body.day, game)) return { ok: true, alreadyFinished: true };
 
