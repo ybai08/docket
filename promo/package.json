@@ -8,7 +8,9 @@
     "render": "remotion render DocketDemo out/docket-demo.mp4",
     "still": "remotion still DocketDemo out/frame.png --frame=60",
     "typecheck": "tsc --noEmit",
-    "render:safe": "remotion render DocketDemo out/docket-demo-safezone.mp4 --props={\"showSafeZone\":true}"
+    "render:safe": "remotion render DocketDemo out/docket-demo-safezone.mp4 --props={\"showSafeZone\":true}",
+    "render:silent": "remotion render DocketDemo out/docket-demo-no-music.mp4 --props={\"music\":false}",
+    "music": "./scripts/music.sh 124"
   },
   "dependencies": {
     "@remotion/cli": "^4.0.538",

@@ -6,7 +6,7 @@ import path from 'node:path';
 
 const frames = process.argv.slice(2).map(Number);
 const serveUrl = await bundle({ entryPoint: path.resolve('src/index.ts') });
-const inputProps = { showSafeZone: true };
+const inputProps = { showSafeZone: true, music: false };
 const composition = await selectComposition({ serveUrl, id: 'DocketDemo', inputProps });
 for (const frame of frames) {
   const output = `out/stills/f${String(frame).padStart(4, '0')}.png`;

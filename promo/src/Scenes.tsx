@@ -308,6 +308,12 @@ export function Landslide() {
 }
 
 export function Friends() {
+  const frame = useCurrentFrame();
+  const list = 150;
+  const open = 240;
+  const votes = 360;
+  // Priya's row on the Friends list, in screen points.
+  const priya = { x: pt(0.27, SCREEN_W), y: pt(0.753, 870) };
   return (
     <AbsoluteFill>
       <Background tint={C.lavender} />
@@ -315,18 +321,33 @@ export function Friends() {
         label="Friends"
         color={C.lavender}
         title="Play with friends."
-        body="A daily race on the leaderboard. See how often you vote the same, bill by bill, when you both share."
+        body="A daily race on the leaderboard, scored across all three games."
+        outAt={open - 12}
       />
+      {frame >= open - 4 && (
+        <Copy
+          label="Friends"
+          color={C.lavender}
+          title="See where you agree."
+          body="Open a friend: how often you vote the same, and both your votes side by side when you both share."
+          delay={open}
+        />
+      )}
       <Phone>
         <Screens
           shots={[
             { src: 'leaderboard', at: 0 },
-            { src: 'friend-votes', at: 196 },
+            { src: 'friends-list', at: list },
+            { src: 'friend', at: open },
+            { src: 'friend-votes', at: votes },
           ]}
         />
+        <Tap x={priya.x} y={priya.y} at={open - 18} />
       </Phone>
-      <Callout label="Today's leader" value="Priya · 25" sub="Points from all three games" color={C.lavender} at={30} outAt={184} />
-      <Callout label="You and Priya" value="50%" sub="same vote, on the 10 bills you both played" color={C.teal} at={210} />
+      <Callout label="Today's leader" value="Priya · 25" sub="Points from all three games" color={C.lavender} at={30} outAt={list - 12} />
+      <Callout label="Most in sync · Jordan" value="70%" sub="same vote, on the 10 bills you both played" color={C.teal} at={list + 14} outAt={open - 12} />
+      <Callout label="You and Priya" value="50%" sub="same vote, on the 10 bills you both played" color={C.teal} at={open + 14} outAt={votes - 12} />
+      <Callout label="Laken Riley Act" value="Nay · Yea" sub="You and Priya split on 5 of 10 bills" color={C.lavender} at={votes + 14} />
     </AbsoluteFill>
   );
 }

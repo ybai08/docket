@@ -9,7 +9,7 @@ export const SCENES: { id: string; component: ComponentType; frames: number }[] 
   { id: 'roll-call', component: RollCall, frames: 430 },
   { id: 'filed-or-fake', component: FiledOrFake, frames: 380 },
   { id: 'landslide', component: Landslide, frames: 330 },
-  { id: 'friends', component: Friends, frames: 390 },
+  { id: 'friends', component: Friends, frames: 500 },
   { id: 'area', component: Area, frames: 300 },
   { id: 'profile', component: Profile, frames: 360 },
   { id: 'records', component: Records, frames: 360 },
