@@ -198,9 +198,13 @@ function Note({ children }: { children: ReactNode }) {
 type RecentBill = FriendDetail['recent'][number];
 const word = (v: 'yea' | 'nay') => (v === 'yea' ? 'Yea' : 'Nay');
 
-/** Bills you agreed or split on, under a small colored heading with the count. */
+const CELL_W = 56;
+const CELL_GAP = 6;
+
+/** Bills you agreed or split on: a colored heading with the count, then a two-column table of your votes. */
 function VoteGroup({ label, color, bills, name }: { label: string; color: string; bills: RecentBill[]; name: string }) {
   if (!bills.length) return null;
+  const head = { width: CELL_W, textAlign: 'center' as const, fontSize: 12, fontWeight: '700' as const, color: colors.meta };
   return (
     <View>
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, paddingBottom: 8 }}>
@@ -208,47 +212,44 @@ function VoteGroup({ label, color, bills, name }: { label: string; color: string
         <View style={{ minWidth: 24, height: 22, paddingHorizontal: 7, borderRadius: 11, backgroundColor: color, alignItems: 'center', justifyContent: 'center' }}>
           <Text style={{ fontSize: 12, fontWeight: '800', fontVariant: ['tabular-nums'] }}>{bills.length}</Text>
         </View>
+        <View style={{ flex: 1 }} />
+        <View style={{ flexDirection: 'row', gap: CELL_GAP }}>
+          <Text style={head}>You</Text>
+          <Text style={head} numberOfLines={1}>
+            {name}
+          </Text>
+        </View>
       </View>
-      {bills.map((b) => {
-        const same = b.mine === b.theirs;
-        return (
-          <View
-            key={b.number}
-            accessible
-            accessibilityLabel={`${b.title}, ${b.number}. You voted ${word(b.mine)}, ${name} voted ${word(b.theirs)}.`}
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              gap: 12,
-              paddingVertical: 11,
-              borderTopWidth: 1,
-              borderTopColor: colors.hairline,
-            }}>
-            <View style={{ flex: 1, gap: 1 }}>
-              <Text style={{ fontSize: 15, fontWeight: '600' }}>{b.title}</Text>
-              <Text style={{ fontSize: 12, color: colors.meta }}>{b.number}</Text>
-            </View>
-            {same ? (
-              <Badge color={color} who="Both" vote={word(b.mine)} />
-            ) : (
-              <View style={{ flexDirection: 'row', gap: 4 }}>
-                <Badge color={color} who="You" vote={word(b.mine)} />
-                <Badge color={color} who={name} vote={word(b.theirs)} />
-              </View>
-            )}
+      {bills.map((b) => (
+        <View
+          key={b.number}
+          accessible
+          accessibilityLabel={`${b.title}, ${b.number}. You voted ${word(b.mine)}, ${name} voted ${word(b.theirs)}.`}
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: 12,
+            paddingVertical: 11,
+            borderTopWidth: 1,
+            borderTopColor: colors.hairline,
+          }}>
+          <View style={{ flex: 1, gap: 1 }}>
+            <Text style={{ fontSize: 15, fontWeight: '600' }}>{b.title}</Text>
+            <Text style={{ fontSize: 12, color: colors.meta }}>{b.number}</Text>
           </View>
-        );
-      })}
+          <View style={{ flexDirection: 'row', gap: CELL_GAP }}>
+            <VoteBadge color={color} vote={word(b.mine)} />
+            <VoteBadge color={color} vote={word(b.theirs)} />
+          </View>
+        </View>
+      ))}
     </View>
   );
 }
 
-function Badge({ color, who, vote }: { color: string; who: string; vote: string }) {
+function VoteBadge({ color, vote }: { color: string; vote: string }) {
   return (
-    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5, height: 26, paddingHorizontal: 10, borderRadius: 13, backgroundColor: color }}>
-      <Text style={{ maxWidth: 70, fontSize: 13, color: colors.text2 }} numberOfLines={1}>
-        {who}
-      </Text>
+    <View style={{ width: CELL_W, height: 28, borderRadius: 14, backgroundColor: color, alignItems: 'center', justifyContent: 'center' }}>
       <Text style={{ fontSize: 13, fontWeight: '800' }}>{vote}</Text>
     </View>
   );
