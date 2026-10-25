@@ -11,6 +11,13 @@ const HISTORY_PAGE = 60;
 // Items per game in a daily set, for days whose set isn't stored. Landslide is out of 3 points per item.
 const SET_SIZE = { 'roll-call': 5, 'filed-or-fake': 8, landslide: 12 } as const;
 
+/** That day's own set, if it holds items for this game (2026-10-23 is Roll Call only), else null. */
+function storedSet(set: DaySet | null, day: string, game: keyof typeof SET_SIZE) {
+  if (!set || set.day !== day) return null;
+  const n = game === 'roll-call' ? set.rollCall.length : game === 'filed-or-fake' ? set.filedOrFake.length : set.landslide.items.length;
+  return n ? set : null;
+}
+
 type ResultRow = { game: string; score: number | null; detail: Record<string, unknown>; finished_at: string | null };
 
 /** The player's progress on one day's set, in the same shape the app keeps locally. */
@@ -84,8 +91,7 @@ export async function gameRoutes(app: FastifyInstance) {
 
     const days = [];
     for (const r of page) {
-      const found = await setFor(r.day);
-      const set = found?.day === r.day ? found : null;
+      const set = storedSet(await setFor(r.day), r.day, game);
       if (!set) {
         // A score with no stored ballot (sample history from seed-test): show the score alone.
         const empty = game === 'roll-call' ? 'bills' : game === 'filed-or-fake' ? 'captions' : 'items';
@@ -125,7 +131,7 @@ export async function gameRoutes(app: FastifyInstance) {
     }
 
     // Summary over every finished game, not only this page. Roll Call is a percentage; the others are points.
-    const sets = await Promise.all(all.map(async (r) => ({ r, set: await setFor(r.day).then((x) => (x?.day === r.day ? x : null)) })));
+    const sets = await Promise.all(all.map(async (r) => ({ r, set: storedSet(await setFor(r.day), r.day, game) })));
     const outOf = ({ set }: { set: DaySet | null }) =>
       !set ? SET_SIZE[game] : game === 'roll-call' ? set.rollCall.length : game === 'filed-or-fake' ? set.filedOrFake.length : set.landslide.items.length * 3;
     const scored = sets.filter((x) => x.r.score !== null && outOf(x) > 0);
