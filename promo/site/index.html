@@ -40,21 +40,21 @@
   .pill.outline { background: transparent; color: var(--ink) !important; }
 
   /* Hero */
-  .hero { position: relative; padding: 84px 0 40px; overflow: hidden; }
+  .hero { position: relative; padding: 36px 0 40px; overflow: hidden; text-align: center; }
   .hero::before { content: ""; position: absolute; width: 760px; height: 760px; right: -240px; top: -300px; border-radius: 50%; background: var(--lavender); opacity: .45; filter: blur(110px); z-index: -1; }
   .hero::after { content: ""; position: absolute; width: 620px; height: 620px; left: -260px; top: 160px; border-radius: 50%; background: var(--yellow); opacity: .35; filter: blur(120px); z-index: -1; }
   .badge { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; border-radius: 999px; border: 1.5px solid var(--ink); font-size: 13px; font-weight: 700; letter-spacing: .2px; background: #fff; }
   .badge b { width: 8px; height: 8px; border-radius: 50%; background: #2E8B7E; }
-  h1 { margin: 22px 0 0; font-family: var(--serif); font-weight: 800; font-size: clamp(48px, 8.4vw, 104px); line-height: .98; letter-spacing: -2.5px; max-width: 900px; }
+  h1 { margin: 14px auto 0; font-family: var(--serif); font-weight: 800; font-size: clamp(38px, 5.2vw, 68px); line-height: 1.02; letter-spacing: -1.6px; max-width: 900px; }
   h1 em { font-style: normal; background: linear-gradient(transparent 62%, var(--teal) 62%, var(--teal) 92%, transparent 92%); }
-  .lede { margin: 26px 0 0; max-width: 620px; font-size: clamp(18px, 2.1vw, 21px); line-height: 1.5; color: var(--text2); }
-  .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+  .lede { margin: 28px auto 0; max-width: 640px; font-size: clamp(18px, 2.1vw, 21px); line-height: 1.5; color: var(--text2); }
+  .cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 26px; }
   .cta .pill { height: 54px; padding: 0 28px; font-size: 17px; }
 
   /* Video */
-  .video { margin: 56px auto 0; border-radius: 22px; overflow: hidden; border: 2px solid var(--ink); background: #000; box-shadow: 0 40px 90px rgba(0,0,0,.14); aspect-ratio: 16 / 9; }
+  .video { margin: 26px auto 0; max-width: 1000px; border-radius: 22px; overflow: hidden; border: 2px solid var(--ink); background: #000; box-shadow: 0 40px 90px rgba(0,0,0,.14); aspect-ratio: 16 / 9; }
   .video video { display: block; width: 100%; height: 100%; }
-  .video-note { margin: 14px 0 0; text-align: center; font-size: 14px; color: var(--meta); }
+  .video-note { margin: 12px 0 0; text-align: center; font-size: 14px; color: var(--meta); }
 
   /* Sections */
   section { padding: 96px 0 0; scroll-margin-top: 40px; }
@@ -144,11 +144,6 @@
   <div class="wrap">
     <span class="badge"><b></b> Built at HackTX 2026</span>
     <h1>Do you know how <em>yours</em> voted?</h1>
-    <p class="lede">Docket is a daily ballot on real bills. Three quick games show you what Congress and your statehouse actually voted on, then where you, your friends and your lawmakers agree.</p>
-    <div class="cta">
-      <a class="pill" href="#demo">Watch the 2-minute demo</a>
-      <a class="pill outline" href="#games">See how it works</a>
-    </div>
 
     <div class="video" id="demo">
       <video controls playsinline preload="metadata" poster="/media/poster.jpg?v=36dc4965">
@@ -156,7 +151,11 @@
         Your browser can't play this video. <a href="/media/docket-demo.mp4?v=36dc4965">Download it</a>.
       </video>
     </div>
-    <p class="video-note">Every screen in the demo is the real iOS app, running on our test account.</p>
+    <p class="video-note">The 2-minute demo. Every screen is the real iOS app, running on our test account.</p>
+    <p class="lede">Docket is a daily ballot on real bills. Three quick games show you what Congress and your statehouse actually voted on, then where you, your friends and your lawmakers agree.</p>
+    <div class="cta">
+      <a class="pill" href="#games">See how it works</a>
+    </div>
   </div>
 </header>
 
