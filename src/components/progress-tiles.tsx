@@ -11,7 +11,16 @@ const SIZES = {
 } as const;
 
 /** Small square progress tiles. Large tiles mark the current item in lavender and pending ones in grey. */
-export function ProgressTiles({ states, size = 'md' }: { states: TileState[]; size?: keyof typeof SIZES }) {
+export function ProgressTiles({
+  states,
+  size = 'md',
+  accent = colors.lavender,
+}: {
+  states: TileState[];
+  size?: keyof typeof SIZES;
+  /** Fill for the current tile at the large size: the game's color. */
+  accent?: string;
+}) {
   const s = SIZES[size];
   return (
     <View style={{ flexDirection: 'row', gap: s.gap }} accessible={false} importantForAccessibility="no-hide-descendants">
@@ -27,7 +36,7 @@ export function ProgressTiles({ states, size = 'md' }: { states: TileState[]; si
               borderRadius: s.radius,
               borderWidth: done && size !== 'lg' ? 0 : s.border,
               borderColor: size === 'lg' && state === 'todo' ? colors.outline : colors.ink,
-              backgroundColor: done ? colors.ink : current && size === 'lg' ? colors.lavender : colors.ground,
+              backgroundColor: done ? colors.ink : current && size === 'lg' ? accent : colors.ground,
             }}
           />
         );

@@ -27,7 +27,7 @@ export function landslideAnswer(items: LandslideItem[]) {
 
 /** 3 points for an exact spot, 1 for one off. */
 export function landslidePoints(order: string[], answer: string[]) {
-  return order.map((id, i) => {
+  return order.map((id, i): number => {
     const d = Math.abs(answer.indexOf(id) - i);
     return d === 0 ? 3 : d === 1 ? 1 : 0;
   });

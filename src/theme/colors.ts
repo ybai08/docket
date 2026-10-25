@@ -10,6 +10,7 @@ export const colors = {
   outline: '#D4D4D8', // inactive outlines
   track: '#A1A1AA', // 50% tick on vote sliders
   muted: '#F4F4F5',
+  cream: '#FFF6E6', // Filed or Fake caption card
   lavender: '#C9D0F5', // Roll Call, state bills, "disagreed"
   yellow: '#F8D08A', // Filed or Fake, Congress bills, small highlights only
   teal: '#A8DDD5', // Landslide, local items, "agreed"
