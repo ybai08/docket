@@ -22,6 +22,16 @@ export default function ProfileScreen() {
   const [level, setLevel] = useState<Level>('federal');
   const { data: lawmakerData } = useRemote<LawmakerData>('/me/lawmakers');
   const { data: friendsData } = useRemote<FriendsData>('/friends');
+  // Only offer levels we have lawmakers for; the Texas Legislature has no member votes loaded yet.
+  const levels = (
+    [
+      ['state', profileStateName(profile?.state) || 'State'],
+      ['federal', 'Congress'],
+      ['local', 'Local'],
+    ] as [Level, string][]
+  ).filter(([id]) => lawmakers(id, lawmakerData).length > 0);
+  const current = levels.some(([id]) => id === level) ? level : (levels[0]?.[0] ?? level);
+  const shown = lawmakers(current, lawmakerData);
   const [error, setError] = useState<string | null>(null);
 
   if (!user) return null;
@@ -125,25 +135,27 @@ export default function ProfileScreen() {
       </Section>
 
       <Section title="Lawmakers you agree with" note="Compared on the bills you both voted on">
-        <View style={{ flexDirection: 'row', gap: 8 }} accessibilityRole="tablist">
-          {(
-            [
-              ['state', profileStateName(profile?.state) || 'State'],
-              ['federal', 'Congress'],
-              ['local', 'Local'],
-            ] as [Level, string][]
-          ).map(([id, label]) => (
-            <PillTab key={id} label={label} on={level === id} onPress={() => setLevel(id)} />
-          ))}
-        </View>
-        <View>
-          {lawmakers(level, profile, lawmakerData).map((p, i) => (
-            <LawmakerItem key={i} row={p} local={level === 'local'} />
-          ))}
-        </View>
+        {levels.length > 1 && (
+          <View style={{ flexDirection: 'row', gap: 8 }} accessibilityRole="tablist">
+            {levels.map(([id, label]) => (
+              <PillTab key={id} label={label} on={current === id} onPress={() => setLevel(id)} />
+            ))}
+          </View>
+        )}
+        {shown.length ? (
+          <View>
+            {shown.map((p, i) => (
+              <LawmakerItem key={i} row={p} local={current === 'local'} />
+            ))}
+          </View>
+        ) : (
+          <Empty>
+            {lawmakerData ? 'No lawmakers to compare for your area yet.' : 'Loading your lawmakers'}
+          </Empty>
+        )}
         <View style={{ gap: 6 }}>
           <Text style={type.meta}>Party is never shown on bill cards. It appears here only after you have voted.</Text>
-          {level === 'local' && lawmakerData?.credit ? (
+          {current === 'local' && lawmakerData?.credit ? (
             <Text style={{ fontSize: 11, color: colors.meta }}>{lawmakerData.credit}</Text>
           ) : null}
         </View>
@@ -625,55 +637,12 @@ type LawmakerData = {
   credit?: string | null;
 };
 
-// Congress (Texas) and Austin come from recorded member votes; the rest stay placeholders.
-function lawmakers(level: Level, profile: ReturnType<typeof useMe>['profile'], data: LawmakerData | null): LawmakerRow[] {
-  const d = profile?.districts;
-  const state = profileStateName(profile?.state) || 'State';
-  if (level === 'federal' && data?.federal.length) return data.federal.map((r) => ({ ...r, real: true }));
-  if (level === 'local' && data?.local.length) {
-    return [
-      ...data.local.map((r) => ({ ...r, real: true })),
-      {
-        name: '[County commissioner]',
-        role: `${profile?.county ?? '[County]'}, Precinct [#]`,
-      },
-    ];
-  }
-  if (level === 'state') {
-    return [
-      {
-        name: '[State senator]',
-        role: `${state} Senate, District ${d?.stateSenate ?? '[##]'}`,
-      },
-      {
-        name: '[State representative]',
-        role: `${state} House, District ${d?.stateHouse ?? '[##]'}`,
-      },
-      {
-        name: '[Lawmaker you agree with most]',
-        role: `${state} House, any district`,
-      },
-    ];
-  }
-  if (level === 'federal') {
-    return [
-      { name: '[U.S. senator]', role: `U.S. Senate, ${state}` },
-      { name: '[U.S. senator]', role: `U.S. Senate, ${state}` },
-      {
-        name: '[U.S. representative]',
-        role: `U.S. House, ${state} District ${d?.congress ?? '[##]'}`,
-      },
-    ];
-  }
-  const city = profile?.city ?? '[City]';
-  return [
-    { name: '[Council member]', role: `${city} City Council, District [#]` },
-    { name: '[Mayor]', role: `Mayor of ${city}` },
-    {
-      name: '[County commissioner]',
-      role: `${profile?.county ?? '[County]'}, Precinct [#]`,
-    },
-  ];
+// Only lawmakers with recorded votes we've loaded (Congress for Texas, Austin's council). Anyone we
+// can't find, like county commissioners and Texas legislators for now, is left out rather than shown blank.
+function lawmakers(level: Level, data: LawmakerData | null): LawmakerRow[] {
+  if (level === 'federal') return (data?.federal ?? []).map((r) => ({ ...r, real: true }));
+  if (level === 'local') return (data?.local ?? []).map((r) => ({ ...r, real: true }));
+  return [];
 }
 
 function PillTab({ label, on, onPress }: { label: string; on: boolean; onPress: () => void }) {
