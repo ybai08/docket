@@ -19,8 +19,10 @@ export default function TodayScreen() {
   return (
     <TabScreen>
       <View style={{ gap: 8, paddingBottom: 12, borderBottomWidth: 1, borderBottomColor: colors.ink }}>
-        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Text style={type.brand}>Docket</Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
+          <Text style={[type.display, { flexShrink: 1 }]} accessibilityRole="header">
+            {"Today's ballots"}
+          </Text>
           <View
             accessible
             accessibilityLabel={`${streak}-day streak`}
@@ -37,9 +39,6 @@ export default function TodayScreen() {
             <Text style={{ fontSize: 14, fontWeight: '700', fontVariant: ['tabular-nums'] }}>{streak}</Text>
           </View>
         </View>
-        <Text style={type.display} accessibilityRole="header">
-          {"Today's ballots"}
-        </Text>
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
           <Text style={{ fontSize: 14, color: colors.text2 }}>{formatDayLong(day)}</Text>
           <View
