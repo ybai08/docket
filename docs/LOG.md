@@ -17,6 +17,13 @@ Newest first. Each commit adds a line or two here: what changed, what's live, wh
 - `9d6407b`: civic data for the whole country: 7,967 lawmakers, 6,457 photos served by the API, every U.S. ZIP code, 99% of state seats matched.
 - Re-seeded the plain-English Filed or Fake captions; deleted the test account's accidental 0/12 Landslide for today.
 
+### UI
+- Filed or Fake results: a cream score card with one teal or lavender tile per bill, and rows with a check or cross, the FILED/FAKE stamp and your answer. The text is easier to read. Real bills open their bill page. Live in the app now.
+- Earlier today (`852cb4f` to `70f7551`):
+  - Friends: Leaderboard and Friends tabs rebuilt as plain lists, a friend's profile with a You / friend vote table, a limited profile for pending requests, an area breakdown behind "Beyond your friends".
+  - New screens: bill and lawmaker pages, per-game history from Profile, an in-app How to play sheet, the streak popup and a full-width Invite sheet.
+  - Screens now fetch bills from `GET /bills/:id` when needed, and bill counts and place names work for any state.
+
 ### Other sessions
 - UI: lawmaker, area breakdown, history and friend-request screens; streak popup (`70f7551`); bill screens fall back to `GET /bills/:id`.
 - Promo video: `promo/out/docket-demo.mp4`.

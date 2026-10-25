@@ -3,7 +3,9 @@ import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { Pressable, ScrollView, Share, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Svg, { Path } from 'react-native-svg';
 
+import { CheckIcon, ChevronRight } from '@/components/icons';
 import { PillButton } from '@/components/pill-button';
 import { ProgressTiles, type TileState } from '@/components/progress-tiles';
 import { ScreenHeader } from '@/components/screen-header';
@@ -170,43 +172,82 @@ function Results({
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.ground }} edges={['top']}>
       <ScreenHeader title="Filed or Fake" />
       <ScrollView contentContainerStyle={{ paddingHorizontal: 16, paddingTop: 20, paddingBottom: 40, gap: 20 }}>
-        <View style={{ alignItems: 'center', gap: 8 }}>
-          <Text style={[type.billTitle, { textAlign: 'center' }]} accessibilityRole="header">
-            You spotted {score} of {captions.length}
+        <View style={{ alignItems: 'center', gap: 14, paddingVertical: 22, paddingHorizontal: 18, borderRadius: 18, backgroundColor: colors.cream }}>
+          <Text style={{ fontSize: 13, fontWeight: '700', color: colors.meta }}>You spotted</Text>
+          <Text style={{ fontFamily: fonts.serif800, fontSize: 48, lineHeight: 52 }} accessibilityRole="header">
+            {score} of {captions.length}
           </Text>
-          <Text style={[type.body, { color: colors.text2, textAlign: 'center' }]}>
-            {captions.filter((c) => !c.real).length} were made up by Docket. The rest were really filed in 2025.
+          <View style={{ flexDirection: 'row', gap: 6 }} accessible={false} importantForAccessibility="no-hide-descendants">
+            {captions.map((c) => (
+              <View
+                key={c.id}
+                style={{
+                  width: 22,
+                  height: 22,
+                  borderRadius: 5,
+                  borderWidth: 1.5,
+                  backgroundColor: answers[c.id] === c.real ? colors.teal : colors.lavender,
+                }}
+              />
+            ))}
+          </View>
+          <Text style={[type.body, { color: colors.text2, textAlign: 'center', lineHeight: 21 }]}>
+            {captions.filter((c) => !c.real).length} were made up by Docket. The rest were really filed by lawmakers.
           </Text>
         </View>
 
         <View>
-          {captions.map((c) => {
+          {captions.map((c, i) => {
             const right = answers[c.id] === c.real;
+            const said = answers[c.id] ? 'Filed' : 'Fake';
             return (
               <Pressable
                 key={c.id}
+                accessibilityLabel={`${c.text}. ${c.real ? `Filed, ${c.number}` : 'Fake'}. You said ${said}, ${right ? 'right' : 'wrong'}.`}
                 accessibilityHint={c.real ? 'Opens the bill' : undefined}
                 disabled={!c.real}
                 onPress={() => router.push({ pathname: '/bill/[id]', params: { id: c.id } })}
-                style={({ pressed }) => ({ gap: 6, paddingVertical: 12, borderTopWidth: 1, borderTopColor: colors.hairline, opacity: pressed ? 0.6 : 1 })}>
-                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                  <View
-                    style={{
-                      paddingHorizontal: 8,
-                      paddingVertical: 1,
-                      borderRadius: 6,
-                      borderWidth: 2,
-                      borderColor: c.real ? colors.ink : colors.fakeInk,
-                    }}>
-                    <Text style={{ fontSize: 11, fontWeight: '900', letterSpacing: 1.5, color: c.real ? colors.ink : colors.fakeInk }}>
-                      {c.real ? `FILED · ${c.number}` : 'FAKE'}
-                    </Text>
-                  </View>
-                  <Text style={{ fontSize: 12, fontWeight: '700', color: right ? colors.ink : colors.meta }}>
-                    {right ? 'You got it' : `You said ${answers[c.id] ? 'Filed' : 'Fake'}`}
-                  </Text>
+                style={({ pressed }) => ({
+                  flexDirection: 'row',
+                  gap: 14,
+                  paddingVertical: 16,
+                  borderTopWidth: i ? 1 : 0,
+                  borderTopColor: colors.hairline,
+                  opacity: pressed ? 0.6 : 1,
+                })}>
+                <View
+                  style={{
+                    width: 30,
+                    height: 30,
+                    borderRadius: 15,
+                    marginTop: 1,
+                    backgroundColor: right ? colors.teal : colors.lavender,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  {right ? <CheckIcon size={15} /> : <CrossIcon />}
                 </View>
-                <Text style={{ fontFamily: fonts.serif700, fontSize: 17, lineHeight: 22 }}>{c.text}</Text>
+                <View style={{ flex: 1, gap: 8 }}>
+                  <Text style={{ fontSize: 16, lineHeight: 22, fontWeight: '600' }}>{c.text}</Text>
+                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                    <View
+                      style={{
+                        paddingHorizontal: 7,
+                        paddingVertical: 2,
+                        borderRadius: 5,
+                        borderWidth: 1.5,
+                        borderColor: c.real ? colors.ink : colors.fakeInk,
+                      }}>
+                      <Text style={{ fontSize: 10, fontWeight: '900', letterSpacing: 1.2, color: c.real ? colors.ink : colors.fakeInk }}>
+                        {c.real ? `FILED · ${c.number}` : 'FAKE'}
+                      </Text>
+                    </View>
+                    <Text style={{ flex: 1, fontSize: 13, color: colors.meta }}>
+                      You said {said}
+                    </Text>
+                    {c.real && <ChevronRight size={14} color={colors.meta} />}
+                  </View>
+                </View>
               </Pressable>
             );
           })}
@@ -218,5 +259,13 @@ function Results({
         </View>
       </ScrollView>
     </SafeAreaView>
+  );
+}
+
+function CrossIcon() {
+  return (
+    <Svg width={13} height={13} viewBox="0 0 24 24" fill="none" stroke={colors.ink} strokeWidth={3.2} strokeLinecap="round">
+      <Path d="M6 6l12 12M18 6L6 18" />
+    </Svg>
   );
 }
