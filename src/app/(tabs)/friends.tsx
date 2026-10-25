@@ -148,6 +148,7 @@ function Board({ data }: { data: FriendsData }) {
             max={max}
             fill={r.isYou ? colors.yellow : colors.ink}
             detail={boardDetail(r)}
+            onPress={r.isYou ? undefined : () => router.push({ pathname: '/friend/[id]', params: { id: r.id } })}
           />
         ))}
       </View>
@@ -193,21 +194,27 @@ function RaceRow(props: {
   max: number;
   fill: string;
   detail?: string;
+  /** Opens the friend's page; left off for your own row and the averages. */
+  onPress?: () => void;
 }) {
-  const { rank, lead, name, strong, demo, points, max, fill, detail } = props;
+  const { rank, lead, name, strong, demo, points, max, fill, detail, onPress } = props;
   const pct = points ? Math.max(2, Math.round((points / max) * 100)) : 0;
   return (
-    <View
+    <Pressable
       accessible
+      accessibilityRole={onPress ? 'button' : undefined}
       accessibilityLabel={`${rank ? `${ordinalOf(rank)}, ` : ''}${name}: ${points ?? 'no'} points${detail ? `. ${detail}` : ''}`}
-      style={{
+      disabled={!onPress}
+      onPress={onPress}
+      style={({ pressed }) => ({
         flexDirection: 'row',
         alignItems: 'center',
         gap: 12,
         paddingVertical: 10,
         borderTopWidth: 1,
         borderTopColor: colors.hairline,
-      }}>
+        opacity: pressed ? 0.6 : 1,
+      })}>
       {rank ? (
         <Text style={{ width: RANK_W, fontFamily: fonts.serif800, fontSize: 18, color: strong || rank === 1 ? colors.ink : colors.meta }}>
           {rank}
@@ -241,7 +248,7 @@ function RaceRow(props: {
           )}
         </View>
       </View>
-    </View>
+    </Pressable>
   );
 }
 
