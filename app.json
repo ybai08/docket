@@ -10,7 +10,10 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.ybai08.docket",
       "usesAppleSignIn": true,
-      "appleTeamId": "K24TK2WT4M"
+      "appleTeamId": "K24TK2WT4M",
+      "config": {
+        "usesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -34,6 +37,12 @@
     "scheme": "docket",
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "6c1b6496-7bff-4c0d-91f7-c1abba25e87b"
+      }
+    },
+    "owner": "yangbai"
   }
 }

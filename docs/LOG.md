@@ -28,3 +28,9 @@ Newest first. Each commit adds a line or two here: what changed, what's live, wh
 - UI: lawmaker, area breakdown, history and friend-request screens; streak popup (`70f7551`); bill screens fall back to `GET /bills/:id`.
 - Promo video: `promo/out/docket-demo.mp4`.
 - TestFlight: a separate session is setting up EAS Build and Submit.
+
+### TestFlight setup (build session)
+- `eas.json`: development, preview and production profiles. Production bumps the build number remotely (`appVersionSource: remote`).
+- Linked EAS project `@yangbai/docket` (`extra.eas.projectId`, `owner` in `app.json`). Set `ios.config.usesNonExemptEncryption: false`.
+- All ten `EXPO_PUBLIC_*` values from `.env` are EAS env vars (sensitive) in production, preview and development. The production config resolves the Google URL scheme without `.env`.
+- Next: the first production iOS build, run by hand for the Apple login and 2FA, then submit to TestFlight.
