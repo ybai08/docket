@@ -74,12 +74,12 @@ export default function TodayScreen() {
         <BallotStubCard
           color={colors.yellow}
           title="Filed or Fake"
-          subtitle="Eight bill captions. Some were made up."
+          subtitle="Eight bills. Some were made up."
           glyph={<FiledOrFakeGlyph />}
           status={
             <Status
               s={status.filedOrFake}
-              unit="captions"
+              unit="bills"
               result={`Cast, ${status.filedOrFake.result} of ${status.filedOrFake.total} right`}
             />
           }
