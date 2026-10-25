@@ -11,7 +11,7 @@ import { TabScreen } from '@/components/tab-screen';
 import { api } from '@/lib/api';
 import { formatDayLong } from '@/lib/day';
 import { requestSource, useRemote, type BoardRow, type FriendsData, type GroupSummary } from '@/lib/social';
-import { colors, fonts, type } from '@/theme';
+import { colors, fonts, levelColor, type } from '@/theme';
 
 type Tab = 'board' | 'friends' | 'groups';
 
@@ -156,13 +156,13 @@ function Board({ data }: { data: FriendsData }) {
         <View style={{ gap: 4 }}>
           <SectionTitle title="Beyond your friends" note="Average points today" />
           <View style={{ marginTop: 4 }}>
-            {beyond.map((b) => (
+            {beyond.map((b, i) => (
               <RaceRow
                 key={b.label}
                 name={b.label.replace(/( players)?, average$/, '')}
                 points={b.points}
                 max={max}
-                fill={colors.track}
+                fill={BEYOND_FILLS[i] ?? colors.teal}
               />
             ))}
           </View>
@@ -179,6 +179,8 @@ function boardDetail(r: BoardRow) {
 }
 
 const RANK_W = 18;
+// City, state, then everyone: the app's local, state and national colors.
+const BEYOND_FILLS = [levelColor.local, levelColor.state, levelColor.federal];
 
 /** One lane of today's race: the bar's length is points against the day's best score. */
 function RaceRow(props: {
@@ -233,7 +235,7 @@ function RaceRow(props: {
                 height: 6,
                 borderRadius: 3,
                 backgroundColor: fill,
-                borderWidth: fill === colors.yellow ? 1 : 0,
+                borderWidth: strong ? 1 : 0,
               }}
             />
           )}

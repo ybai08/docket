@@ -2,8 +2,8 @@ import { Text, View } from 'react-native';
 
 import { colors, fonts } from '@/theme';
 
-/** Every other person gets the same neutral fill; only you stand out, in ink. */
-const FRIEND_FILL = colors.hairline;
+/** Every other person gets the same fill; only you stand out, in ink. */
+const FRIEND_FILL = colors.lavender;
 
 export function Avatar({
   id,
