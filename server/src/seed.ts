@@ -17,6 +17,7 @@ type Lawmaker = {
   district: string | null; district_key: string | null; photo_url: string | null; photo_source: string | null;
   photo_credit: string | null; source_url: string;
 };
+type Profile = { lawmaker_id: string; in_office_since: string | null; background: unknown; committees: unknown; links: unknown[] };
 type MemberVote = { lawmaker_id: string; bill_id: string; vote: string; source_url: string };
 type ZipDistrict = { zip: string; state: string; kind: string; code: string; name: string; share: number };
 
@@ -52,6 +53,7 @@ try {
   const lawmakers = civic<Lawmaker>('lawmakers.json.gz');
   const memberVotes = civic<MemberVote>('lawmaker-votes.json');
   const zips = civic<ZipDistrict>('zip-districts.json.gz');
+  const profiles = civic<Profile>('lawmaker-profiles.json.gz');
   await client.query('DELETE FROM lawmaker_votes');
   await client.query('DELETE FROM lawmakers');
   await client.query('DELETE FROM zip_districts');
@@ -63,6 +65,13 @@ try {
     ([
       'id', 'body', 'state', 'city', 'name', 'title', 'party', 'district', 'district_key', 'photo_url', 'photo_source', 'photo_credit', 'source_url',
     ] as const).map((k) => col(lawmakers, k)),
+  );
+  const json = (v: unknown) => (v == null ? null : JSON.stringify(v));
+  await client.query(
+    `INSERT INTO lawmaker_profiles (lawmaker_id, in_office_since, background, committees, links)
+     SELECT * FROM unnest($1::text[], $2::text[], $3::jsonb[], $4::jsonb[], $5::jsonb[])`,
+    [col(profiles, 'lawmaker_id'), col(profiles, 'in_office_since'), profiles.map((p) => json(p.background)),
+      profiles.map((p) => json(p.committees)), profiles.map((p) => JSON.stringify(p.links))],
   );
   await client.query(
     `INSERT INTO lawmaker_votes (lawmaker_id, bill_id, vote, source_url)
@@ -78,7 +87,7 @@ try {
       (['zip', 'state', 'kind', 'code', 'name', 'share'] as const).map((k) => col(chunk, k)),
     );
   }
-  console.log(`seeded ${lawmakers.length} lawmakers, ${memberVotes.length} member votes, ${zips.length} ZIP district rows`);
+  console.log(`seeded ${lawmakers.length} lawmakers, ${profiles.length} profiles, ${memberVotes.length} member votes, ${zips.length} ZIP district rows`);
 
   await client.query('COMMIT');
 } catch (err) {

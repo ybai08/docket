@@ -9,8 +9,8 @@ import { setFor } from './content.ts';
 import { query } from './db.ts';
 
 export const MAX_MEMBERS = 50;
-const MIN_SPLIT_VOTERS = 5;
-const MIN_UNANIMOUS_VOTERS = 10;
+export const MIN_SPLIT_VOTERS = 5;
+export const MIN_UNANIMOUS_VOTERS = 10;
 const CODE_CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 
 const newCode = () => Array.from({ length: 6 }, () => CODE_CHARS[randomInt(CODE_CHARS.length)]).join('');

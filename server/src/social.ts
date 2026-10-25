@@ -7,11 +7,15 @@ import { centralDay } from '../../src/lib/day.ts';
 import { requireUser } from './auth.ts';
 import { setFor } from './content.ts';
 import { query } from './db.ts';
+import { stateName } from './geo.ts';
+import { MIN_SPLIT_VOTERS, MIN_UNANIMOUS_VOTERS } from './groups.ts';
 
 // Leak guards. Every figure about another person passes through these, on the server.
 export const MIN_SHARED_OVERALL = 10;
 export const MIN_SHARED_TOPIC = 5;
 const REQUEST_TTL_DAYS = 30;
+// Area averages, ranks and score spreads stay hidden below this many players, so one person's score can't be read off.
+export const MIN_AREA_PLAYERS = 5;
 
 const pair = (a: string, b: string) => (a < b ? [a, b] : [b, a]);
 
@@ -132,22 +136,120 @@ async function leaderboard(uid: string, day: string) {
     }))
     .sort((a, b) => b.points - a.points || a.name.localeCompare(b.name));
 
-  const [me] = await query<{ city: string | null; state: string | null }>('SELECT city, state FROM users WHERE id = $1', [uid]);
-  const avg = async (where: string, params: unknown[]) => {
+  const beyond = [];
+  for (const scope of ['city', 'state', 'all'] as const) {
+    const area = await areaOf(uid, scope);
+    if (!area) continue;
     const [r] = await query<{ avg: string | null; n: string }>(
-      `WITH pts AS (${POINTS_SQL}) SELECT avg(pts.points) AS avg, count(*) AS n FROM pts JOIN users u ON u.id = pts.user_id ${where}`,
-      [day, ...params],
+      `WITH pts AS (${POINTS_SQL}) SELECT avg(pts.points) AS avg, count(*) AS n FROM pts JOIN users u ON u.id = pts.user_id ${area.where}`,
+      [day, ...area.params],
     );
-    return Number(r.n) ? Math.round(Number(r.avg)) : null;
-  };
+    const points = Number(r.n) >= MIN_AREA_PLAYERS ? Math.round(Number(r.avg)) : null;
+    beyond.push({ scope, label: scope === 'all' ? `${area.label}, average` : `${area.label} players, average`, points });
+  }
+  return { day, board, beyond };
+}
+
+type Scope = 'city' | 'state' | 'all';
+
+/** The player's own city or state (both matched on state, since city names repeat across states), or everyone. */
+async function areaOf(uid: string, scope: Scope) {
+  if (scope === 'all') return { label: 'Everyone on Docket', where: '', params: [] as string[] };
+  const [me] = await query<{ city: string | null; state: string | null }>('SELECT city, state FROM users WHERE id = $1', [uid]);
+  if (!me?.state) return null;
+  if (scope === 'state') return { label: stateName(me.state)!, where: 'WHERE u.state = $2', params: [me.state] };
+  if (!me.city) return null;
+  return { label: me.city, where: 'WHERE u.state = $2 AND u.city = $3', params: [me.state, me.city] };
+}
+
+/** How players in the player's city, state or the whole app did on one day. Aggregates only, behind the guards above. */
+async function areaBreakdown(uid: string, scope: Scope, day: string) {
+  const area = await areaOf(uid, scope);
+  const set = await setFor(day);
+  if (!area || !set) return null;
+  const n = area.params.length;
+  const rows = await query<{ user_id: string; points: number; rc: number | null; fof: number | null; ls: number | null }>(
+    `WITH pts AS (${POINTS_SQL})
+     SELECT pts.user_id, pts.points,
+            max(r.score) FILTER (WHERE r.game = 'roll-call') AS rc,
+            max(r.score) FILTER (WHERE r.game = 'filed-or-fake') AS fof,
+            max(r.score) FILTER (WHERE r.game = 'landslide') AS ls
+     FROM pts JOIN users u ON u.id = pts.user_id
+     JOIN game_results r ON r.user_id = pts.user_id AND r.day = $1 AND r.finished_at IS NOT NULL
+     ${area.where}
+     GROUP BY pts.user_id, pts.points`,
+    [set.day, ...area.params],
+  );
+  const players = rows.length;
+  const enough = players >= MIN_AREA_PLAYERS;
+  const mean = (xs: number[]) => (xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : null);
+  const round1 = (x: number | null) => (x === null ? null : Math.round(x * 10) / 10);
+
+  const rollCallMax = set.rollCall.length;
+  const fofMax = set.filedOrFake.length;
+  const lsMax = set.landslide.items.length * 3;
+  const max = 5 + fofMax + lsMax; // Roll Call counts 5 for finishing; see POINTS_SQL.
+  const points = rows.map((r) => r.points).sort((a, b) => b - a);
+  const mine = rows.find((r) => r.user_id === uid);
+  const width = Math.ceil((max + 1) / 6);
+  const distribution = enough
+    ? Array.from({ length: 6 }, (_, i) => {
+        const lo = i * width;
+        const hi = Math.min(max, lo + width - 1);
+        return { min: lo, max: hi, count: points.filter((p) => p >= lo && p <= hi).length };
+      }).filter((b) => b.min <= max)
+    : [];
+
+  const game = (key: 'rc' | 'fof' | 'ls') => rows.map((r) => r[key]).filter((x): x is number => x !== null);
+  const rc = game('rc');
+  const fof = game('fof');
+  const ls = game('ls');
+
+  // How the area voted on this day's Roll Call bills: same thresholds as group splits.
+  const votes = await query<{ bill_id: string; voters: string; yea: string }>(
+    `SELECT v.bill_id, count(*) AS voters, count(*) FILTER (WHERE v.vote = 'yea') AS yea
+     FROM votes v JOIN users u ON u.id = v.user_id
+     WHERE v.day = $1 AND v.bill_id = ANY($${n + 2}) ${area.where.replace('WHERE', 'AND')}
+     GROUP BY v.bill_id`,
+    [set.day, ...area.params, set.rollCall.map((b) => b.id)],
+  );
+  const bills = set.rollCall.map((b) => {
+    const v = votes.find((x) => x.bill_id === b.id);
+    const voters = Number(v?.voters ?? 0);
+    const share = voters ? Number(v!.yea) / voters : 0;
+    const unanimous = share === 0 || share === 1;
+    const visible = voters >= MIN_SPLIT_VOTERS && (!unanimous || voters >= MIN_UNANIMOUS_VOTERS);
+    return {
+      billId: b.id,
+      voters,
+      yeaPct: visible ? Math.round(share * 100) : null,
+      hiddenReason: visible ? null : voters < MIN_SPLIT_VOTERS ? ('few' as const) : ('unanimous' as const),
+    };
+  });
+
+  const rank = mine && enough ? points.indexOf(mine.points) + 1 : null;
   return {
-    day,
-    board,
-    beyond: [
-      me?.city ? { label: `${me.city} players, average`, points: await avg('WHERE u.city = $2', [me.city]) } : null,
-      me?.state ? { label: `${me.state === 'TX' ? 'Texas' : me.state} players, average`, points: await avg('WHERE u.state = $2', [me.state]) } : null,
-      { label: 'Everyone on Docket, average', points: await avg('', []) },
-    ].filter(Boolean),
+    scope,
+    label: area.label,
+    day: set.day,
+    players,
+    minPlayers: MIN_AREA_PLAYERS,
+    maxPoints: max,
+    avgPoints: enough ? Math.round(mean(points)!) : null,
+    topPoints: enough ? points[0] : null,
+    you: {
+      points: mine?.points ?? 0,
+      rank,
+      // Share of players you scored higher than.
+      percentile: mine && enough ? Math.round((points.filter((p) => p < mine.points).length / players) * 100) : null,
+    },
+    distribution,
+    byGame: {
+      rollCall: { players: rc.length, avgAgreedPct: rc.length >= MIN_AREA_PLAYERS && rollCallMax ? Math.round((mean(rc)! / rollCallMax) * 100) : null },
+      filedOrFake: { players: fof.length, avgCorrect: fof.length >= MIN_AREA_PLAYERS ? round1(mean(fof)) : null, outOf: fofMax },
+      landslide: { players: ls.length, avgPoints: ls.length >= MIN_AREA_PLAYERS ? round1(mean(ls)) : null, outOf: lsMax },
+    },
+    bills,
   };
 }
 
@@ -222,6 +324,14 @@ export async function socialRoutes(app: FastifyInstance) {
   app.get('/leaderboard', async (req) => {
     const today = (await setFor(centralDay()))?.day ?? centralDay();
     return leaderboard(req.uid, today);
+  });
+
+  app.get<{ Params: { scope: string }; Querystring: { day?: string } }>('/leaderboard/area/:scope', async (req, reply) => {
+    const scope = z.enum(['city', 'state', 'all']).parse(req.params.scope);
+    const day = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Use a YYYY-MM-DD day.').optional().parse(req.query.day) ?? centralDay();
+    const out = await areaBreakdown(req.uid, scope, day);
+    if (!out) return reply.code(404).send({ error: scope === 'all' ? 'No games that day.' : 'Add your ZIP code to see your area.' });
+    return out;
   });
 
   app.get<{ Params: { id: string } }>('/friends/:id', async (req, reply) => {
