@@ -34,3 +34,4 @@ Newest first. Each commit adds a line or two here: what changed, what's live, wh
 - Linked EAS project `@yangbai/docket` (`extra.eas.projectId`, `owner` in `app.json`). Set `ios.config.usesNonExemptEncryption: false`.
 - All ten `EXPO_PUBLIC_*` values from `.env` are EAS env vars (sensitive) in production, preview and development. The production config resolves the Google URL scheme without `.env`.
 - Next: the first production iOS build, run by hand for the Apple login and 2FA, then submit to TestFlight.
+- First TestFlight build is live: 1.0.0 (1), EAS build `f1bb8593`, submission `e72b21d4`, from `4eb52f8`. Apple processing `VALID`, internal testing `IN_BETA_TESTING`, external `READY_FOR_BETA_SUBMISSION`. App Store Connect app id `6826853964` is now in `eas.json`, so `eas build -p ios --profile production --auto-submit` runs without prompts.
