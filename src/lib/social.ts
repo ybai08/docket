@@ -15,6 +15,29 @@ export type Friend = {
   today: DailyAgreement;
 };
 
+export type AreaScope = 'city' | 'state' | 'all';
+
+export type AreaBreakdown = {
+  scope: AreaScope;
+  label: string;
+  day: string;
+  players: number;
+  minPlayers: number;
+  /** The day's highest possible score, for the histogram axis. */
+  maxPoints: number;
+  avgPoints: number | null;
+  topPoints: number | null;
+  /** rank and percentile (share of players you beat) are null until you play and enough others have. */
+  you: { points: number; rank: number | null; percentile: number | null };
+  distribution: { min: number; max: number; count: number }[];
+  byGame: {
+    rollCall: { players: number; avgAgreedPct: number | null };
+    filedOrFake: { players: number; avgCorrect: number | null; outOf: number };
+    landslide: { players: number; avgPoints: number | null; outOf: number };
+  };
+  bills: { billId: string; voters: number; yeaPct: number | null; hiddenReason: 'few' | 'unanimous' | null }[];
+};
+
 export type BoardRow = {
   id: string;
   name: string;
@@ -29,7 +52,8 @@ export type BoardRow = {
 export type Leaderboard = {
   day: string;
   board: BoardRow[];
-  beyond: { label: string; points: number | null }[];
+  /** points is null when fewer than 5 people played. */
+  beyond: { scope: AreaScope; label: string; points: number | null }[];
 };
 
 export type FriendsData = {

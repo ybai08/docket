@@ -164,6 +164,7 @@ function Board({ data }: { data: FriendsData }) {
                 points={b.points}
                 max={max}
                 fill={BEYOND_FILLS[i] ?? colors.teal}
+                onPress={() => router.push({ pathname: '/area/[scope]', params: { scope: b.scope } })}
               />
             ))}
           </View>

@@ -50,6 +50,7 @@ function RootStack() {
         <Stack.Screen name="friend/[id]" />
         <Stack.Screen name="bill/[id]" />
         <Stack.Screen name="lawmaker/[id]" />
+        <Stack.Screen name="area/[scope]" />
         <Stack.Screen name="invite/[token]" options={{ gestureEnabled: false }} />
         <Stack.Screen
           name="invite-friends"
