@@ -43,6 +43,7 @@ function RootStack() {
         <Stack.Screen name="(tabs)" />
         <Stack.Screen name="roll-call/index" />
         <Stack.Screen name="roll-call/results" />
+        <Stack.Screen name="roll-call/review" />
         <Stack.Screen name="filed-or-fake" />
         <Stack.Screen name="landslide" />
         <Stack.Screen name="privacy" />

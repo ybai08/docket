@@ -1,4 +1,4 @@
-import { Redirect } from 'expo-router';
+import { Redirect, router } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { Pressable, ScrollView, Share, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -97,6 +97,7 @@ export default function RollCallResultsScreen() {
 
         <Pressable
           accessibilityRole="button"
+          onPress={() => router.push('/roll-call/review')}
           style={({ pressed }) => ({
             flexDirection: 'row',
             alignItems: 'center',
