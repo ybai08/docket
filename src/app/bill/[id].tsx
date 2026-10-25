@@ -7,7 +7,8 @@ import { BillChip } from '@/components/bill-chip';
 import { PillButton } from '@/components/pill-button';
 import { ScreenHeader } from '@/components/screen-header';
 import { BILLS } from '@/data/bills';
-import type { ChamberVote, Vote } from '@/data/types';
+import { CAPTIONS_OCT24, CAPTIONS_OCT25 } from '@/data/captions';
+import type { Caption, ChamberVote, Vote } from '@/data/types';
 import { agreed } from '@/lib/scoring';
 import { useRemote } from '@/lib/social';
 import { useToday } from '@/lib/use-today';
@@ -27,6 +28,10 @@ export default function BillScreen() {
   const members = data?.byBill[id] ?? [];
   // byBill names each lawmaker but carries no id; find it among your lawmakers to link their page.
   const lawmakerId = (name: string) => (data ? [...data.federal, ...data.state, ...data.local].find((r) => r.name === name)?.id : undefined);
+
+  // Filed or Fake bills aren't in the bill list; show what their caption tells us.
+  const caption = bill ? undefined : [...set.filedOrFake, ...CAPTIONS_OCT24, ...CAPTIONS_OCT25].find((c) => c.id === id && c.real);
+  if (caption) return <CaptionBill caption={caption} />;
 
   if (!bill) {
     return (
@@ -117,6 +122,36 @@ export default function BillScreen() {
         )}
 
         <PillButton label="Read the bill" variant="outline" style={{ alignSelf: 'stretch', height: 50 }} onPress={() => Linking.openURL(bill.sourceUrl)} />
+      </ScrollView>
+    </SafeAreaView>
+  );
+}
+
+/** A real bill from Filed or Fake: its number, chamber, what it would do, and how far it got. */
+function CaptionBill({ caption: c }: { caption: Caption }) {
+  // Explanations read "Real. HB 582 was sent to committee..."; the status is what follows.
+  const status = c.explanation.replace(/^Real\.\s*/, '');
+  return (
+    <SafeAreaView style={{ flex: 1, backgroundColor: colors.ground }} edges={['top']}>
+      <ScreenHeader title={c.number ?? 'Bill'} />
+      <ScrollView contentContainerStyle={{ paddingHorizontal: 16, paddingTop: 18, paddingBottom: 40, gap: 30 }}>
+        <View style={{ gap: 12 }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
+            {c.number ? <BillChip number={c.number} level={c.origin.startsWith('U.S.') ? 'federal' : 'state'} /> : <View />}
+            <Text style={type.meta}>{c.origin}</Text>
+          </View>
+          <Text style={type.billTitle} accessibilityRole="header">
+            {c.text}
+          </Text>
+        </View>
+        <View style={{ gap: 4 }}>
+          <Text style={{ fontSize: 13, fontWeight: '700', color: colors.meta }}>What happened</Text>
+          <Text style={{ fontSize: 17, lineHeight: 24 }}>{status}</Text>
+        </View>
+        <Text style={type.meta}>From Filed or Fake. Docket has no vote counts for this bill.</Text>
+        {c.sourceUrl ? (
+          <PillButton label="Read the bill" variant="outline" style={{ alignSelf: 'stretch', height: 50 }} onPress={() => Linking.openURL(c.sourceUrl!)} />
+        ) : null}
       </ScrollView>
     </SafeAreaView>
   );

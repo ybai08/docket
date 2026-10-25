@@ -1,13 +1,14 @@
 import type { Caption } from './types';
 
-// Real captions are copied exactly from Texas Legislature Online ("Caption Text"). Fakes are
-// written by Docket and always stamped FAKE after the answer. Never show a fake out of context.
+// Real captions restate the official caption from Texas Legislature Online ("Caption Text") in plain
+// English, adding nothing it doesn't say. Fakes are written in the same style by Docket and always
+// stamped FAKE after the answer. Never show a fake out of context.
 const tlo = (bill: string) => `https://capitol.texas.gov/BillLookup/History.aspx?LegSess=89R&Bill=${bill}`;
 
 export const CAPTIONS_OCT24: Caption[] = [
   {
     id: 'tx-89r-hb582',
-    text: 'Relating to proper etiquette during the recitation of the pledge of allegiance to the state flag.',
+    text: 'Set rules of etiquette for reciting the pledge of allegiance to the Texas flag.',
     origin: 'Texas House, 2025',
     real: true,
     number: 'HB 582',
@@ -16,14 +17,14 @@ export const CAPTIONS_OCT24: Caption[] = [
   },
   {
     id: 'fake-handshake',
-    text: 'Relating to requiring a two-step handshake at the start of state agency meetings.',
+    text: 'Require a two-step handshake at the start of every state agency meeting.',
     origin: 'Texas House, 2025',
     real: false,
     explanation: 'Docket wrote this one. No bill like it was filed in 2025.',
   },
   {
     id: 'tx-89r-sb1364',
-    text: "Relating to the repeal of wheelbase and horsepower restrictions for the state's passenger vehicle fleet.",
+    text: 'Drop the wheelbase and horsepower limits on the passenger cars the state buys for its fleet.',
     origin: 'Texas Senate, 2025',
     real: true,
     number: 'SB 1364',
@@ -32,7 +33,7 @@ export const CAPTIONS_OCT24: Caption[] = [
   },
   {
     id: 'tx-89r-hb2669',
-    text: 'Relating to the establishment of a reporting and education program for the dangers of balloons to livestock.',
+    text: 'Create a program to report and teach the dangers balloons pose to livestock.',
     origin: 'Texas House, 2025',
     real: true,
     number: 'HB 2669',
@@ -41,14 +42,14 @@ export const CAPTIONS_OCT24: Caption[] = [
   },
   {
     id: 'fake-line-standers',
-    text: 'Relating to the licensing of professional line-standers at state offices; providing a civil penalty.',
+    text: 'License people paid to stand in line at state offices, with fines for breaking the rules.',
     origin: 'Texas Senate, 2025',
     real: false,
     explanation: 'Docket wrote this one. It is not a real bill.',
   },
   {
     id: 'tx-89r-hb1382',
-    text: 'Relating to a prohibition on weather modification and control; creating a criminal offense.',
+    text: 'Ban modifying or controlling the weather, and make doing it a crime.',
     origin: 'Texas House, 2025',
     real: true,
     number: 'HB 1382',
@@ -57,7 +58,7 @@ export const CAPTIONS_OCT24: Caption[] = [
   },
   {
     id: 'tx-89r-sb1804',
-    text: 'Relating to restitution and compensation paid to victims of certain offenses for tattoo removal related to the offense.',
+    text: 'Pay victims of certain crimes to remove tattoos connected to those crimes.',
     origin: 'Texas Senate, 2025',
     real: true,
     number: 'SB 1804',
@@ -66,7 +67,7 @@ export const CAPTIONS_OCT24: Caption[] = [
   },
   {
     id: 'fake-armadillo',
-    text: 'Relating to designating the armadillo as the official state lawn ornament.',
+    text: 'Name the armadillo the official state lawn ornament.',
     origin: 'Texas House, 2025',
     real: false,
     explanation: 'Docket wrote this one. It is not a real bill.',
@@ -76,7 +77,7 @@ export const CAPTIONS_OCT24: Caption[] = [
 export const CAPTIONS_OCT25: Caption[] = [
   {
     id: 'tx-89r-hb911',
-    text: 'Relating to the designation of Celebration of Life Day as a state holiday.',
+    text: 'Make Celebration of Life Day a state holiday.',
     origin: 'Texas House, 2025',
     real: true,
     number: 'HB 911',
@@ -85,14 +86,14 @@ export const CAPTIONS_OCT25: Caption[] = [
   },
   {
     id: 'fake-screen-door',
-    text: 'Relating to designating the sound of a screen door closing as the official state sound.',
+    text: 'Name the sound of a screen door closing the official state sound.',
     origin: 'Texas Senate, 2025',
     real: false,
     explanation: 'Docket wrote this one. It is not a real bill.',
   },
   {
     id: 'tx-89r-hb3760',
-    text: 'Relating to an exemption from sales and use taxes for certain materials used in trapping feral hogs.',
+    text: 'Exempt some materials used to trap feral hogs from sales and use taxes.',
     origin: 'Texas House, 2025',
     real: true,
     number: 'HB 3760',
@@ -101,7 +102,7 @@ export const CAPTIONS_OCT25: Caption[] = [
   },
   {
     id: 'tx-89r-hb2976',
-    text: 'Relating to the marketing and sale of catfish and similar fish by food service establishments; providing administrative and civil penalties.',
+    text: 'Set rules for how restaurants advertise and sell catfish and similar fish, with fines for breaking them.',
     origin: 'Texas House, 2025',
     real: true,
     number: 'HB 2976',
@@ -110,14 +111,14 @@ export const CAPTIONS_OCT25: Caption[] = [
   },
   {
     id: 'fake-trail-steps',
-    text: 'Relating to requiring state parks to post the number of steps on each hiking trail; providing a civil penalty.',
+    text: 'Require state parks to post the number of steps on each hiking trail, with fines for parks that don\'t.',
     origin: 'Texas House, 2025',
     real: false,
     explanation: 'Docket wrote this one. It is not a real bill.',
   },
   {
     id: 'tx-89r-hb3481',
-    text: 'Relating to the regulation of trampoline courts; providing injunctive relief.',
+    text: 'Regulate trampoline parks, and let courts order them to follow the rules.',
     origin: 'Texas House, 2025',
     real: true,
     number: 'HB 3481',
@@ -126,7 +127,7 @@ export const CAPTIONS_OCT25: Caption[] = [
   },
   {
     id: 'tx-89r-hb472',
-    text: 'Relating to the reimbursement of state employees for groceries consumed while traveling on official state business.',
+    text: 'Repay state employees for groceries they eat while traveling for work.',
     origin: 'Texas House, 2025',
     real: true,
     number: 'HB 472',
@@ -135,7 +136,7 @@ export const CAPTIONS_OCT25: Caption[] = [
   },
   {
     id: 'fake-mailbox-height',
-    text: 'Relating to a uniform height for residential mailboxes on county roads; creating a criminal offense.',
+    text: 'Set one required height for home mailboxes on county roads, and make breaking it a crime.',
     origin: 'Texas Senate, 2025',
     real: false,
     explanation: 'Docket wrote this one. It is not a real bill.',

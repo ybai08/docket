@@ -18,7 +18,7 @@ import { colors, fonts, type } from '@/theme';
 function showHelp() {
   Alert.alert(
     'How to play Filed or Fake',
-    'Read each bill caption. Decide whether a lawmaker really filed it or Docket made it up. Every made-up one is marked FAKE after you answer.',
+    'Read what each bill would do. Decide whether a lawmaker really filed it or Docket made it up. Every made-up one is marked FAKE after you answer.',
   );
 }
 
@@ -74,7 +74,7 @@ export default function FiledOrFakeScreen() {
       <View style={{ flex: 1, paddingHorizontal: 16, paddingTop: 18, paddingBottom: 12, gap: 18 }}>
         <View style={{ alignItems: 'center', gap: 10 }}>
           <Text style={[type.meta, { fontSize: 14 }]}>
-            Caption {index + 1} of {captions.length}
+            Bill {index + 1} of {captions.length}
           </Text>
           <ProgressTiles size="lg" accent={colors.yellow} states={tiles} />
         </View>
@@ -91,7 +91,7 @@ export default function FiledOrFakeScreen() {
               gap: 14,
             }}>
             <Text style={{ fontSize: 13, fontWeight: '700' }}>{caption.origin}</Text>
-            <Text style={{ fontFamily: fonts.serif500Italic, fontSize: 26, lineHeight: 33 }}>“{caption.text}”</Text>
+            <Text style={{ fontFamily: fonts.serif700, fontSize: 26, lineHeight: 32 }}>{caption.text}</Text>
             {answered && (
               <Stamp
                 key={caption.id}
@@ -110,6 +110,14 @@ export default function FiledOrFakeScreen() {
               <Text style={[type.body, { lineHeight: 21, color: colors.text2, textAlign: 'center' }]}>
                 {caption.explanation}
               </Text>
+              {caption.real && (
+                <PillButton
+                  size="md"
+                  label={`Open ${caption.number ?? 'the bill'}`}
+                  style={{ marginTop: 6 }}
+                  onPress={() => router.push({ pathname: '/bill/[id]', params: { id: caption.id } })}
+                />
+              )}
               {caption.real && caption.sourceUrl && (
                 <Pressable accessibilityRole="link" onPress={() => Linking.openURL(caption.sourceUrl!)} hitSlop={8}>
                   <Text style={{ fontSize: 15, fontWeight: '600', textDecorationLine: 'underline', marginTop: 4 }}>
@@ -127,7 +135,7 @@ export default function FiledOrFakeScreen() {
             <AnswerButton label="Filed" picked={guess === true} locked={answered} onPress={() => answer(true)} />
           </View>
           {answered && (
-            <PillButton label={last ? 'See results' : 'Next caption'} onPress={() => setShowing(null)} />
+            <PillButton label={last ? 'See results' : 'Next bill'} onPress={() => setShowing(null)} />
           )}
         </View>
       </View>
@@ -186,7 +194,12 @@ function Results({
           {captions.map((c) => {
             const right = answers[c.id] === c.real;
             return (
-              <View key={c.id} style={{ gap: 6, paddingVertical: 12, borderTopWidth: 1, borderTopColor: colors.hairline }}>
+              <Pressable
+                key={c.id}
+                accessibilityHint={c.real ? 'Opens the bill' : undefined}
+                disabled={!c.real}
+                onPress={() => router.push({ pathname: '/bill/[id]', params: { id: c.id } })}
+                style={({ pressed }) => ({ gap: 6, paddingVertical: 12, borderTopWidth: 1, borderTopColor: colors.hairline, opacity: pressed ? 0.6 : 1 })}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
                   <View
                     style={{
@@ -204,8 +217,8 @@ function Results({
                     {right ? 'You got it' : `You said ${answers[c.id] ? 'Filed' : 'Fake'}`}
                   </Text>
                 </View>
-                <Text style={{ fontFamily: fonts.serif500Italic, fontSize: 17, lineHeight: 22 }}>“{c.text}”</Text>
-              </View>
+                <Text style={{ fontFamily: fonts.serif700, fontSize: 17, lineHeight: 22 }}>{c.text}</Text>
+              </Pressable>
             );
           })}
         </View>
