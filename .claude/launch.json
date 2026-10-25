@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "web-dist",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["expo", "serve", "--port", "8090"],
+      "port": 8090
+    }
+  ]
+}

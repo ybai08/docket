@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Docket</title>
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,800&display=swap" rel="stylesheet" />
+    <style>
+      /* Desktop demo: the web build of the app inside an iPhone-sized frame (402 x 874 pt, like iPhone 17 Pro). */
+      :root {
+        --ink: #000;
+        --cream: #fff6e6;
+        --meta: #5a5a5e;
+        --yellow: #f8d08a;
+        --frame: #1d1d1f;
+        --screen-w: 402px;
+        --screen-h: 874px;
+        --bezel: 14px;
+      }
+      * { box-sizing: border-box; }
+      html, body { height: 100%; margin: 0; }
+      body {
+        background: var(--cream);
+        font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif;
+        color: var(--ink);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 72px;
+        overflow: hidden;
+      }
+      .intro { max-width: 340px; }
+      .intro h1 {
+        font-family: 'Newsreader', Georgia, serif;
+        font-weight: 800;
+        font-size: 64px;
+        letter-spacing: -1.5px;
+        line-height: 1;
+        margin: 0 0 16px;
+      }
+      .intro h1 span { background: linear-gradient(transparent 58%, var(--yellow) 58%, var(--yellow) 92%, transparent 92%); }
+      .intro p { font-size: 17px; line-height: 1.45; color: var(--meta); margin: 0 0 14px; }
+      .intro .note { font-size: 14px; }
+      @media (max-width: 900px) { .intro { display: none; } }
+
+      /* The device is drawn at full size, then scaled to fit the window. */
+      .stage { flex: none; }
+      .device {
+        position: relative;
+        width: calc(var(--screen-w) + 2 * var(--bezel));
+        height: calc(var(--screen-h) + 2 * var(--bezel));
+        padding: var(--bezel);
+        border-radius: 68px;
+        background: var(--frame);
+        box-shadow:
+          inset 0 0 0 2px #3a3a3c,
+          inset 0 0 0 5px #0b0b0c,
+          0 30px 60px rgba(0, 0, 0, 0.25),
+          0 8px 20px rgba(0, 0, 0, 0.15);
+        transform-origin: top left;
+      }
+      .button { position: absolute; width: 4px; background: #2c2c2e; border-radius: 2px; }
+      .button.action { left: -3px; top: 150px; height: 34px; }
+      .button.vol-up { left: -3px; top: 215px; height: 62px; }
+      .button.vol-down { left: -3px; top: 290px; height: 62px; }
+      .button.side { right: -3px; top: 240px; height: 100px; }
+      .button.camera { right: -3px; top: 560px; height: 70px; }
+      .screen {
+        position: relative;
+        width: var(--screen-w);
+        height: var(--screen-h);
+        border-radius: 54px;
+        overflow: hidden;
+        background: #fff;
+        display: flex;
+        flex-direction: column;
+      }
+      .status {
+        flex: none;
+        height: 59px;
+        position: relative;
+        font-weight: 600;
+        font-size: 17px;
+        letter-spacing: -0.2px;
+      }
+      .status .time { position: absolute; left: 0; width: 140px; top: 19px; text-align: center; }
+      .status .icons { position: absolute; right: 30px; top: 21px; display: flex; gap: 7px; align-items: center; }
+      .island {
+        position: absolute;
+        left: 50%;
+        top: 11px;
+        width: 126px;
+        height: 37px;
+        margin-left: -63px;
+        border-radius: 20px;
+        background: #000;
+      }
+      .splash {
+        position: absolute;
+        inset: 59px 0 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--cream);
+        font-family: 'Newsreader', Georgia, serif;
+        font-weight: 800;
+        font-size: 120px;
+        transition: opacity 0.3s;
+      }
+      .splash.done { opacity: 0; pointer-events: none; }
+      iframe { flex: 1; width: 100%; border: 0; display: block; background: #fff; }
+      .home {
+        flex: none;
+        height: 30px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        padding-bottom: 8px;
+        background: #fff;
+      }
+      .home i { width: 139px; height: 5px; border-radius: 3px; background: #000; }
+    </style>
+  </head>
+  <body>
+    <div class="intro">
+      <h1><span>Docket</span></h1>
+      <p>Daily mini-games on real bills from Congress, your state legislature and your city.</p>
+      <p class="note">This is the live iPhone app running in your browser. Sign in with Google to play.</p>
+    </div>
+
+    <div class="stage" id="stage">
+      <div class="device" id="device">
+        <div class="button action"></div>
+        <div class="button vol-up"></div>
+        <div class="button vol-down"></div>
+        <div class="button side"></div>
+        <div class="button camera"></div>
+        <div class="screen">
+          <div class="status">
+            <div class="time" id="time">9:41</div>
+            <div class="island"></div>
+            <div class="icons" aria-hidden="true">
+              <svg width="19" height="12" viewBox="0 0 19 12"><rect x="0" y="8" width="3.2" height="4" rx="1"/><rect x="5" y="5.5" width="3.2" height="6.5" rx="1"/><rect x="10" y="3" width="3.2" height="9" rx="1"/><rect x="15" y="0" width="3.2" height="12" rx="1"/></svg>
+              <svg width="17" height="12" viewBox="0 0 17 12"><path d="M8.5 2.3c2.4 0 4.6.9 6.3 2.5l1.2-1.2C14 1.6 11.4.5 8.5.5S3 1.6 1 3.6l1.2 1.2C3.9 3.2 6.1 2.3 8.5 2.3zm0 3.5c1.5 0 2.8.5 3.8 1.5l1.2-1.2C12.2 4.8 10.4 4 8.5 4S4.8 4.8 3.5 6.1l1.2 1.2c1-1 2.3-1.5 3.8-1.5zm0 3.4c.6 0 1.1.2 1.5.6L8.5 11.3 7 9.8c.4-.4.9-.6 1.5-.6z"/></svg>
+              <svg width="27" height="13" viewBox="0 0 27 13"><rect x="0.5" y="0.5" width="23" height="12" rx="3.8" fill="none" stroke="#000" stroke-opacity=".4"/><rect x="2" y="2" width="20" height="9" rx="2.5"/><path d="M25 4.5v4c.8-.3 1.3-1.1 1.3-2s-.5-1.7-1.3-2z" fill-opacity=".4"/></svg>
+            </div>
+          </div>
+          <div class="splash" id="splash">D</div>
+          <iframe id="app" title="Docket app" allow="clipboard-write; web-share"></iframe>
+          <div class="home"><i></i></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Load the path the visitor asked for (index.html passes it in the hash). Same-origin paths only.
+      const asked = decodeURIComponent(location.hash.slice(1));
+      const path = asked.startsWith('/') && !asked.startsWith('//') ? asked : '/';
+      const frame = document.getElementById('app');
+      frame.src = path;
+
+      // Hide the iframe's scrollbars so it looks like a phone screen.
+      frame.addEventListener('load', () => {
+        setTimeout(() => document.getElementById('splash').classList.add('done'), 600);
+        try {
+          const style = frame.contentDocument.createElement('style');
+          style.textContent = '*::-webkit-scrollbar{display:none} *{scrollbar-width:none}';
+          frame.contentDocument.head.appendChild(style);
+        } catch {}
+      });
+
+      const time = document.getElementById('time');
+      const tick = () => {
+        const d = new Date();
+        time.textContent = `${d.getHours() % 12 || 12}:${String(d.getMinutes()).padStart(2, '0')}`;
+      };
+      tick();
+      setInterval(tick, 10000);
+
+      const device = document.getElementById('device');
+      const stage = document.getElementById('stage');
+      const fit = () => {
+        const w = device.offsetWidth;
+        const h = device.offsetHeight;
+        const s = Math.min(1, (innerHeight - 40) / h, (innerWidth - 32) / w);
+        device.style.transform = `scale(${s})`;
+        stage.style.width = `${w * s}px`;
+        stage.style.height = `${h * s}px`;
+      };
+      fit();
+      addEventListener('resize', fit);
+    </script>
+  </body>
+</html>
