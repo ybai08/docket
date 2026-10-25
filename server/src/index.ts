@@ -21,6 +21,11 @@ app.setErrorHandler((err, _req, reply) => {
   // Fastify's own client errors (bad JSON, body too large, wrong content type) keep their 4xx.
   const status = (err as { statusCode?: number }).statusCode;
   if (status && status >= 400 && status < 500) return reply.code(status).send({ error: (err as Error).message });
+  // Postgres refusing malformed input (not a uuid, a NUL byte, a number out of range) is the client's mistake.
+  const pgCode = (err as { code?: string }).code;
+  if (pgCode && ['22P02', '22021', '22003', '22007', '22008', '22001'].includes(pgCode)) {
+    return reply.code(400).send({ error: 'Invalid request.' });
+  }
   app.log.error(err);
   return reply.code(500).send({ error: 'Something went wrong on our end.' });
 });

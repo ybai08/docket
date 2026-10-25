@@ -9,6 +9,10 @@ Newest first. Each commit adds a line or two here: what changed, what's live, wh
 - `server/qa/`: rerunnable repro scripts, plus `start-local.sh`, which runs the API against its own Docker Postgres with stubbed auth. Production was never touched.
 - Re-tested the backend's fixes (`dbbaa7f`) with every script; the report now has a Status column. Fixed: replays and double submits, votes after lock-in, the group cap, splits and agreement counting unfinished votes, block-vs-accept, and Fastify 4xx errors that came back as 500. Still open: the `/today` answers, differencing when group or area membership changes, some 500s (non-uuid group ids, NUL bytes, non-numeric request ids), moving states, and no set for a new day. Added `08-groups-finished.mjs`, and updated checks the fixes made stale.
 
+### More QA fixes (backend)
+- Malformed input that Postgres rejects (a non-uuid group id, a NUL byte, an out-of-range number) now gets a 400, not a 500. Blocking an unknown user id returns ok without blocking anything, so it can't be used to probe for accounts.
+- Left for after judging: what happens when a group's admin leaves or deletes their account, and keeping a vote on both days if a bill ever repeats.
+
 ### Web demo CORS (backend)
 - The API now allows PATCH, PUT and DELETE from browsers, so the web demo at yangbai-docket.expo.app can save profile changes after sign-in. Before this, the cors plugin allowed only GET, HEAD and POST.
 

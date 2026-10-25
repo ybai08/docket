@@ -406,7 +406,11 @@ export async function socialRoutes(app: FastifyInstance) {
     const [x, y] = pair(req.uid, userId);
     await forPair(req.uid, userId, async (q) => {
       await q('DELETE FROM friendships WHERE user_a = $1 AND user_b = $2', [x, y]);
-      await q('INSERT INTO blocks (blocker_id, blocked_id) VALUES ($1, $2) ON CONFLICT DO NOTHING', [req.uid, userId]);
+      // Same answer whether or not the user exists, so blocking can't be used to probe for accounts.
+      await q(
+        'INSERT INTO blocks (blocker_id, blocked_id) SELECT $1, $2 WHERE EXISTS (SELECT 1 FROM users WHERE id = $2) ON CONFLICT DO NOTHING',
+        [req.uid, userId],
+      );
       await q(`UPDATE friend_requests SET status = 'ignored' WHERE status = 'pending' AND ((from_id = $1 AND to_id = $2) OR (from_id = $2 AND to_id = $1))`, [req.uid, userId]);
     });
     return { ok: true };
