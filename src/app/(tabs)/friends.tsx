@@ -97,7 +97,9 @@ function Board({ data }: { data: FriendsData }) {
   const note = !you
     ? null
     : !you.playedToday
-      ? "Cast today's ballots to climb."
+      ? board[0].isYou
+        ? 'Nobody has scored yet today.'
+        : `${board[0].name} leads with ${board[0].points}. Play to climb.`
       : !ahead
         ? 'Ahead of all your friends.'
         : ahead.points === you.points
@@ -105,22 +107,27 @@ function Board({ data }: { data: FriendsData }) {
           : `${ahead.points - you.points} ${ahead.points - you.points === 1 ? 'point' : 'points'} behind ${ahead.name}.`;
 
   return (
-    <View style={{ gap: 28 }}>
-      <View style={{ gap: 2 }}>
+    <View style={{ gap: 26 }}>
+      <View style={{ gap: 12 }}>
         <Text style={{ fontSize: 13, fontWeight: '700', color: colors.meta }}>Today, {formatDayLong(day)}</Text>
         {you ? (
-          <View style={{ flexDirection: 'row', alignItems: 'flex-end', gap: 12 }}>
-            <Text style={{ fontFamily: fonts.serif800, fontSize: 64, lineHeight: 68, letterSpacing: -1 }}>
-              {at + 1}
-              <Text style={{ fontFamily: fonts.serif700, fontSize: 28 }}>{ordinalOf(at + 1).replace(/^\d+/, '')}</Text>
-            </Text>
-            <View style={{ flex: 1, paddingBottom: 10, gap: 1 }}>
-              <Text style={{ fontSize: 16, fontWeight: '700' }}>
-                of {board.length} friends, {you.points} {you.points === 1 ? 'point' : 'points'}
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
+            <View style={{ flexDirection: 'row' }} accessible accessibilityLabel={`${ordinalOf(at + 1)} place`}>
+              <Text style={{ fontFamily: fonts.serif800, fontSize: 64, lineHeight: 66, letterSpacing: -1 }}>{at + 1}</Text>
+              <Text style={{ fontFamily: fonts.serif700, fontSize: 24, lineHeight: 28, marginTop: 6 }}>
+                {ordinalOf(at + 1).replace(/^\d+/, '')}
               </Text>
-              {note ? <Text style={{ fontSize: 14, color: colors.text2 }}>{note}</Text> : null}
+            </View>
+            <View style={{ flex: 1, gap: 2 }}>
+              <Text style={{ fontSize: 17, fontWeight: '700' }}>
+                of {board.length} friends today
+              </Text>
+              {note ? <Text style={{ fontSize: 14, lineHeight: 19, color: colors.text2 }}>{note}</Text> : null}
             </View>
           </View>
+        ) : null}
+        {you && !you.playedToday ? (
+          <PillButton label="Play today's ballots" size="md" style={{ alignSelf: 'flex-start', height: 42 }} onPress={() => router.navigate('/')} />
         ) : null}
       </View>
 
@@ -148,6 +155,7 @@ function Board({ data }: { data: FriendsData }) {
             {beyond.map((b) => (
               <RaceRow
                 key={b.label}
+                lead={<View style={{ width: RANK_W + 12 + 36 }} />}
                 name={b.label.replace(/( players)?, average$/, '')}
                 points={b.points}
                 max={max}
@@ -161,10 +169,13 @@ function Board({ data }: { data: FriendsData }) {
   );
 }
 
+/** Only the exceptions: a full day of ballots needs no note. */
 function boardDetail(r: BoardRow) {
   if (!r.playedToday) return r.streak > 0 ? `${r.streak}-day streak at risk` : 'Not played yet';
-  return r.games === 3 ? 'All 3 ballots' : `${r.games} of 3 ballots`;
+  return r.games < 3 ? `${r.games} of 3 ballots` : undefined;
 }
+
+const RANK_W = 18;
 
 /** One lane of today's race: the bar's length is points against the day's best score. */
 function RaceRow(props: {
@@ -188,36 +199,42 @@ function RaceRow(props: {
         flexDirection: 'row',
         alignItems: 'center',
         gap: 12,
-        paddingVertical: 12,
+        paddingVertical: 13,
         borderTopWidth: 1,
         borderTopColor: colors.hairline,
       }}>
       {rank ? (
-        <Text style={{ width: 18, fontFamily: fonts.serif800, fontSize: 18, color: strong ? colors.ink : colors.meta }}>{rank}</Text>
+        <Text style={{ width: RANK_W, fontFamily: fonts.serif800, fontSize: 18, color: strong || rank === 1 ? colors.ink : colors.meta }}>
+          {rank}
+        </Text>
       ) : null}
       {lead}
-      <View style={{ flex: 1, gap: 6 }}>
+      <View style={{ flex: 1, gap: 7 }}>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
           <Text style={{ flexShrink: 1, fontSize: 16, fontWeight: strong ? '800' : '600' }} numberOfLines={1}>
             {name}
           </Text>
           {demo && <DemoTag />}
+          {detail ? (
+            <Text style={{ flexShrink: 1, fontSize: 12, color: colors.meta }} numberOfLines={1}>
+              {detail}
+            </Text>
+          ) : null}
           <Text style={{ marginLeft: 'auto', fontSize: 17, fontWeight: '700', fontVariant: ['tabular-nums'] }}>{points ?? '–'}</Text>
         </View>
-        <View style={{ height: 8, borderRadius: 4, backgroundColor: colors.muted }}>
+        <View style={{ height: 6, borderRadius: 3, backgroundColor: colors.muted }}>
           {pct > 0 && (
             <View
               style={{
                 width: `${pct}%`,
-                height: 8,
-                borderRadius: 4,
+                height: 6,
+                borderRadius: 3,
                 backgroundColor: fill,
-                borderWidth: fill === colors.yellow ? 1.5 : 0,
+                borderWidth: fill === colors.yellow ? 1 : 0,
               }}
             />
           )}
         </View>
-        {detail ? <Text style={{ fontSize: 12, color: colors.meta }}>{detail}</Text> : null}
       </View>
     </View>
   );
