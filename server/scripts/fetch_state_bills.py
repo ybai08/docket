@@ -1,7 +1,7 @@
 """Recent bills with recorded floor votes for every state legislature (except Texas, which is curated
 by hand from the journals), from the Open States API. Needs OPENSTATES_API_KEY in server/.env.
 
-Writes server/data/state-bill-picks.json: for each state, the bills chosen for its daily set, with the
+Writes server/data/state-bill-picks.json.gz: for each state, the bills chosen for its daily set, with the
 official title and abstract, each chamber's final floor vote, the outcome, and how every current
 member voted. Plain-English titles and captions are written from these into state-content.json by
 hand (see README), so nothing a player reads is generated from a guess.
@@ -15,6 +15,7 @@ A bill is kept only if:
 Responses are cached on disk, and requests are spaced out to stay inside the free API tier.
 """
 
+import gzip
 import json
 import os
 import re
@@ -256,15 +257,16 @@ def main():
         unicameral = st in ("ne", "dc")
         try:
             cands = candidates(st, j["name"], sessions, unicameral)
-        except urllib.error.HTTPError as err:
-            report.append(f"{st}: HTTP {err.code}")
+        except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError) as err:
+            report.append(f"{st}: {err}")
+            print(report[-1], flush=True)
             continue
         chosen = pick(cands)
         picks[st.upper()] = {"stateName": j["name"], "unicameral": unicameral, **chosen}
         report.append(f"{st}: {len(cands)} candidates; " + ", ".join(f"{k} {len(v)}" for k, v in chosen.items()))
         print(report[-1], flush=True)
-    with open(os.path.join(DATA, "state-bill-picks.json"), "w") as f:
-        json.dump(picks, f, indent=1, ensure_ascii=False)
+    with gzip.open(os.path.join(DATA, "state-bill-picks.json.gz"), "wt", encoding="utf-8") as f:
+        json.dump(picks, f, ensure_ascii=False, sort_keys=True)
     print(f"{len(picks)} states written")
 
 

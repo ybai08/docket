@@ -1,7 +1,7 @@
-"""Builds server/data/state-content.json, which `npm run seed` loads: every state's bills and its part of
+"""Builds server/data/state-content.json.gz, which `npm run seed` loads: every state's bills and its part of
 the daily set, from
 
-  state-bill-picks.json   fetch_state_bills.py: official titles, floor votes, outcomes, member votes
+  state-bill-picks.json.gz   fetch_state_bills.py: official titles, floor votes, outcomes, member votes
   state-bill-picks-extra.json   the same for states whose votes come from the legislature's own site
   state-bill-text.json    plain-English title, short title, summary and topic for each picked bill,
                           written from the official title and abstract only (see README)
@@ -12,6 +12,7 @@ Each game falls back on its own: a state without enough bills for Filed or Fake 
 (4 distinct margins) gets the default set's version of that game, and Roll Call then has only Congress.
 """
 
+import gzip
 import json
 import os
 import random
@@ -56,7 +57,8 @@ def chamber_label(state_name, chamber):
 
 
 def main():
-    picks = json.load(open(os.path.join(DATA, "state-bill-picks.json")))
+    with gzip.open(os.path.join(DATA, "state-bill-picks.json.gz"), "rt") as f:
+        picks = json.load(f)
     # States Open States has no votes for, gathered from their legislatures' own sites in the same shape.
     extra = os.path.join(DATA, "state-bill-picks-extra.json")
     if os.path.exists(extra):
@@ -130,8 +132,10 @@ def main():
         if partial:
             skipped.append(f"{st} uses the default for: {', '.join(partial)}")
 
-    with open(os.path.join(DATA, "state-content.json"), "w") as f:
-        json.dump({"day": DAY, "bills": bills, "sets": sets, "memberVotes": member_votes}, f, indent=1, ensure_ascii=False)
+    # Someone who moved chambers can appear in both chambers' votes on one bill; keep their later vote.
+    member_votes = list({(v["lawmaker_id"], v["bill_id"]): v for v in member_votes}.values())
+    with gzip.open(os.path.join(DATA, "state-content.json.gz"), "wt", encoding="utf-8") as f:
+        json.dump({"day": DAY, "bills": bills, "sets": sets, "memberVotes": member_votes}, f, ensure_ascii=False, sort_keys=True)
     print(f"{len(sets)} states, {len(bills)} bills, {len(member_votes)} member votes")
     if skipped:
         print("notes: " + "; ".join(skipped))

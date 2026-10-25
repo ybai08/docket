@@ -42,9 +42,9 @@ const client = await pool.connect();
 try {
   await client.query('BEGIN');
   // Every state's own bills and daily set, from scripts/fetch_state_bills.py and the plain-English text in
-  // data/state-content.json. Texas, Austin and Congress come from src/data.
-  const content = existsSync(join(import.meta.dirname, '..', 'data', 'state-content.json'))
-    ? (JSON.parse(readFileSync(join(import.meta.dirname, '..', 'data', 'state-content.json'), 'utf8')) as StateContent)
+  // data/state-content.json.gz. Texas, Austin and Congress come from src/data.
+  const content = existsSync(join(import.meta.dirname, '..', 'data', 'state-content.json.gz'))
+    ? (civic<StateContent>('state-content.json.gz') as unknown as StateContent)
     : null;
   for (const b of [...Object.values(BILLS), ...(content?.bills ?? [])]) {
     await client.query(

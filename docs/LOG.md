@@ -4,6 +4,13 @@ Newest first. Each commit adds a line or two here: what changed, what's live, wh
 
 ## 2026-10-25
 
+### Every state's bills: 42 places live (backend)
+- Seeded and live: 39 states from Open States (Alabama through Vermont, minus Arkansas, Kansas and New Mexico), Massachusetts and New Hampshire from their legislatures' own sites, and D.C. That's 454 bills with recorded floor tallies and outcomes, and about 43,000 member votes for legislators still in office.
+- Each player's Roll Call is Congress's 2 bills plus 3 from their state; Texans keep the curated Texas and Austin set. Filed or Fake (4 real, 4 fake) and Landslide come from their state. Georgia and D.C. use the default Landslide (too few distinct margins).
+- Plain-English titles, short titles, summaries and topics are written only from each bill's official title and abstract (`server/data/state-bill-text.json`).
+- Open States' free key allows 250 requests a day, and it's used up. Virginia, Washington, West Virginia, Wisconsin, Wyoming, Georgia's Landslide, Arkansas, Kansas and New Mexico are being gathered from official legislature sites. Until then those players get Congress's bills plus the default Texas Filed or Fake and Landslide.
+- Data files are gzipped (`state-bill-picks.json.gz`, `state-content.json.gz`).
+
 ### Every state's bills (backend, in progress)
 - Daily sets are now per player: Roll Call = Congress + the player's state (+ Austin for Austin). Filed or Fake and Landslide use the player's state, else the default Texas set. Migration 008 (`daily_sets.scope`) is applied and the code is deployed; state rows aren't seeded yet, so players still see the Texas and Congress set.
 - New `GET /bills/:id` for bills the app doesn't ship. `GET /friends/:id` recent votes now carry `billId`.
