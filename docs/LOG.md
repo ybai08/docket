@@ -17,7 +17,7 @@ Newest first. Each commit adds a line or two here: what changed, what's live, wh
 - Re-tested `6d366ff`: malformed ids and NUL bytes now return 400, and blocking an unknown uid no longer reveals whether it exists. The spam/fuzz script has no 500s left. The report marks M3 fixed.
 
 ### Deploy keeps the web app (backend)
-- `server/deploy/deploy.sh` now writes the `app.docketapp.tech` Caddy block (the playable web app from `promo/deploy-app.sh`) whenever `/var/www/docket-app` exists, so a full deploy no longer drops it. Checked after a full deploy: the launch page, the web app (including deep links), share links and the API all respond.
+- `server/deploy/deploy.sh` now writes the `app.docketapp.tech` Caddy block (the playable web app from `promo/deploy-app.sh`) whenever `/var/www/docket-app` exists, so a full deploy no longer drops it. Checked after a full deploy: the launch page, share links and the API respond, and the web app serves 200 when reached by the server IP (this Mac's DNS cache hadn't picked up the new name yet).
 
 ### More QA fixes (backend)
 - Malformed input that Postgres rejects (a non-uuid group id, a NUL byte, an out-of-range number) now gets a 400, not a 500. Blocking an unknown user id returns ok without blocking anything, so it can't be used to probe for accounts.

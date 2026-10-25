@@ -81,6 +81,21 @@ $SITE {
 	file_server
 }
 CADDY
+# The playable web app at app.<site>, published by promo/deploy-app.sh into /var/www/docket-app.
+if [ -d /var/www/docket-app ]; then
+cat >> /etc/caddy/Caddyfile <<CADDY
+
+app.$SITE {
+	root * /var/www/docket-app
+	encode gzip
+	@hashed path /_expo/* /assets/*
+	header @hashed Cache-Control "public, max-age=31536000, immutable"
+	header /index.html Cache-Control "no-cache"
+	try_files {path} /index.html
+	file_server
+}
+CADDY
+fi
 fi
 
 systemctl daemon-reload
