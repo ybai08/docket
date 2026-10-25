@@ -4,7 +4,9 @@
 # Never reads server/.env, so the production DATABASE_URL is never used. Stop with: docker rm -f docket-qa-pg
 set -euo pipefail
 cd "$(dirname "$0")/.."
-TMP=$(mktemp -d)
+# Generated env and loader files live here; 07-mover.mjs reads them to start its own clock-shifted server.
+TMP="${QA_TMP:-${TMPDIR:-/tmp}/docket-qa}"
+mkdir -p "$TMP"
 printf 'DATABASE_URL=postgres://postgres:qa@localhost:55432/docket_qa\nFIREBASE_PROJECT_ID=docket-qa-local\nPORT=%s\nLOG_LEVEL=warn\n' "${PORT:-8799}" > "$TMP/qa.env"
 echo "export const getAuth = () => ({ verifyIdToken: async (t) => ({ uid: t }) });" > "$TMP/stub-auth.mjs"
 cat > "$TMP/register.mjs" <<JS

@@ -4,7 +4,7 @@
 // Midnight section (G/H) starts its OWN second API instance on :8798 with a Date shim (clock read from a
 // file) so it can cross 2026-10-25 -> 2026-10-26 Central. For H it temporarily inserts daily_sets rows for
 // 2026-10-26 (a copy of 2026-10-25's) into the LOCAL QA db and deletes them again in `finally`.
-// Set SKIP_MIDNIGHT=1 to skip G/H. Needs QA_ENV (defaults to the scratchpad qa.env) and REGISTER (stub-auth loader).
+// Set SKIP_MIDNIGHT=1 to skip G/H. Needs QA_ENV (defaults to start-local.sh's qa.env) and REGISTER (stub-auth loader).
 import { spawn } from 'node:child_process';
 import { mkdtempSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
@@ -13,7 +13,7 @@ import { api, player, sql, check, RUN } from './lib.mjs';
 
 const P = `move-${RUN}`;
 const J = (x) => JSON.stringify(x);
-const SCRATCH = '/private/tmp/claude-501/-Users-yangbai-Desktop-docket/0e793d11-9997-462f-a0df-fada91017b13/scratchpad';
+const SCRATCH = process.env.QA_TMP ?? `${(process.env.TMPDIR ?? '/tmp').replace(/\/$/, '')}/docket-qa`; // written by start-local.sh
 const bug = (label, isBug, extra) => check(label, !!isBug, extra);
 const sortByMargin = (items) => [...items].sort((a, b) => (b.yeas - b.nays) - (a.yeas - a.nays)).map((i) => i.billId);
 const today = async (u) => (await api(u, 'GET', '/today')).body;
