@@ -2,7 +2,7 @@ import type { ComponentType } from 'react';
 
 import { Area, Close, FiledOrFake, Friends, Hook, Landslide, Nationwide, Privacy, Profile, Records, RollCall, Today } from './Scenes';
 
-/** Music tempo. One bar is 2 s, or 60 frames at 30 fps. */
+/** Music tempo for the music-only cut (scripts/music.mjs). The voiceover cut sizes scenes to the voiceover instead. */
 export const BPM = 120;
 export const BAR_FRAMES = 60;
 
@@ -12,18 +12,18 @@ export const BAR_FRAMES = 60;
  * drops and fills land (see scripts/music.mjs).
  */
 export const SCENES: { id: string; component: ComponentType; frames: number }[] = [
-  { id: 'hook', component: Hook, frames: 256 },
-  { id: 'today', component: Today, frames: 196 },
-  { id: 'roll-call', component: RollCall, frames: 376 },
-  { id: 'filed-or-fake', component: FiledOrFake, frames: 376 },
-  { id: 'landslide', component: Landslide, frames: 316 },
-  { id: 'friends', component: Friends, frames: 496 },
-  { id: 'area', component: Area, frames: 316 },
-  { id: 'profile', component: Profile, frames: 316 },
-  { id: 'records', component: Records, frames: 316 },
-  { id: 'nationwide', component: Nationwide, frames: 196 },
-  { id: 'privacy', component: Privacy, frames: 256 },
-  { id: 'close', component: Close, frames: 240 },
+  { id: 'hook', component: Hook, frames: 328 },
+  { id: 'today', component: Today, frames: 397 },
+  { id: 'roll-call', component: RollCall, frames: 334 },
+  { id: 'filed-or-fake', component: FiledOrFake, frames: 428 },
+  { id: 'landslide', component: Landslide, frames: 279 },
+  { id: 'friends', component: Friends, frames: 321 },
+  { id: 'area', component: Area, frames: 256 },
+  { id: 'profile', component: Profile, frames: 207 },
+  { id: 'records', component: Records, frames: 270 },
+  { id: 'nationwide', component: Nationwide, frames: 216 },
+  { id: 'privacy', component: Privacy, frames: 245 },
+  { id: 'close', component: Close, frames: 152 },
 ];
 
 export const TRANSITION = 16;

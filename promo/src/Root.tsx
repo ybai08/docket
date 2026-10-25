@@ -7,9 +7,9 @@ import { SafeZone } from './components';
 import { SCENES, TOTAL_FRAMES, TRANSITION } from './timeline';
 import { FPS, H, W } from './theme';
 
-type Props = { showSafeZone: boolean; music: boolean };
+type Props = { showSafeZone: boolean; music: boolean; voiceover: boolean };
 
-function DocketDemo({ showSafeZone, music }: Props) {
+function DocketDemo({ showSafeZone, music, voiceover }: Props) {
   return (
     <AbsoluteFill style={{ background: '#fff' }}>
       <TransitionSeries>
@@ -29,6 +29,10 @@ function DocketDemo({ showSafeZone, music }: Props) {
           volume={(f) => interpolate(f, [TOTAL_FRAMES - 60, TOTAL_FRAMES], [0.7, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' })}
         />
       )}
+      {voiceover && (
+        // The team's recorded voiceover, trimmed and leveled (see SCRIPT.md); scene lengths in timeline.ts follow it.
+        <Audio src={staticFile('voiceover.m4a')} />
+      )}
       {showSafeZone && <SafeZone />}
     </AbsoluteFill>
   );
@@ -43,7 +47,7 @@ export function Root() {
       fps={FPS}
       width={W}
       height={H}
-      defaultProps={{ showSafeZone: false, music: true }}
+      defaultProps={{ showSafeZone: false, music: false, voiceover: true }}
     />
   );
 }

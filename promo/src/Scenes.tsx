@@ -92,7 +92,7 @@ export function Today() {
 
 export function RollCall() {
   const frame = useCurrentFrame();
-  const swap = 230;
+  const swap = 160;
   // The Yea button and the bill card, as fractions of the screenshot.
   const yea = { x: pt(0.737, SCREEN_W), y: pt(0.881, 870) };
   const stampOut = interpolate(frame, [swap - 10, swap], [1, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
@@ -122,9 +122,9 @@ export function RollCall() {
             { src: 'history', at: swap },
           ]}
         />
-        <Tap x={yea.x} y={yea.y} at={83} />
+        <Tap x={yea.x} y={yea.y} at={45} />
         <div style={{ position: 'absolute', left: 0, right: 0, top: pt(0.47, 870), display: 'flex', justifyContent: 'center', opacity: stampOut }}>
-          <Stamp label="YEA" color="#2E8B7E" delay={90} size={46} rotate={-9} />
+          <Stamp label="YEA" color="#2E8B7E" delay={52} size={46} rotate={-9} />
         </div>
       </Phone>
       <Callout label="Bill 1 of 5" value="SB 6" sub="Grid rules for data centers, from the Texas Senate" color={C.lavender} at={30} outAt={swap - 12} />
@@ -161,7 +161,7 @@ function CaptionCard({ origin, text, stamp, stampColor, at }: { origin: string; 
 
 export function FiledOrFake() {
   const frame = useCurrentFrame();
-  const phoneAt = 214;
+  const phoneAt = 290;
   return (
     <AbsoluteFill>
       <Background tint={frame >= phoneAt ? C.yellow : undefined} />
@@ -177,9 +177,9 @@ export function FiledOrFake() {
             text="Ban modifying or controlling the weather, and make doing it a crime."
             stamp="FILED · HB 1382"
             stampColor={C.ink}
-            at={1}
+            at={55}
           />
-          <CaptionCard origin="Texas House, 2025" text="Name the armadillo the official state lawn ornament." stamp="FAKE" stampColor={C.fakeInk} at={106} />
+          <CaptionCard origin="Texas House, 2025" text="Name the armadillo the official state lawn ornament." stamp="FAKE" stampColor={C.fakeInk} at={178} />
         </>
       )}
       {frame >= phoneAt && (
@@ -316,9 +316,9 @@ export function Landslide() {
 
 export function Friends() {
   const frame = useCurrentFrame();
-  const list = 150;
-  const open = 240;
-  const votes = 360;
+  const list = 140;
+  const open = 190;
+  const votes = 250;
   // Priya's row on the Friends list, in screen points.
   const priya = { x: pt(0.27, SCREEN_W), y: pt(0.753, 870) };
   return (
@@ -392,12 +392,12 @@ export function Profile() {
         <Screens
           shots={[
             { src: 'profile', at: 0 },
-            { src: 'profile-lawmakers', at: 180 },
+            { src: 'profile-lawmakers', at: 95 },
           ]}
         />
       </Phone>
-      <Callout label="Your streak" value="4 days" sub="Best: 10 days" color={C.yellow} at={30} outAt={168} />
-      <Callout label="You agree most with" value="100%" sub="Lloyd Doggett, U.S. House, Texas District 37" color={C.teal} at={194} />
+      <Callout label="Your streak" value="4 days" sub="Best: 10 days" color={C.yellow} at={30} outAt={83} />
+      <Callout label="You agree most with" value="100%" sub="Lloyd Doggett, U.S. House, Texas District 37" color={C.teal} at={109} />
     </AbsoluteFill>
   );
 }
@@ -416,12 +416,12 @@ export function Records() {
         <Screens
           shots={[
             { src: 'bill', at: 0 },
-            { src: 'lawmaker', at: 180 },
+            { src: 'lawmaker', at: 125 },
           ]}
         />
       </Phone>
-      <Callout label="HB 1481 · Phones in classrooms" value="128–17" sub="Texas House. Your state rep voted Yea." color={C.yellow} at={30} outAt={168} />
-      <Callout label="Gina Hinojosa · Texas House" value="67%" sub="You agree on 4 of the 6 bills you've both voted on" color={C.teal} at={194} />
+      <Callout label="HB 1481 · Phones in classrooms" value="128–17" sub="Texas House. Your state rep voted Yea." color={C.yellow} at={30} outAt={113} />
+      <Callout label="Gina Hinojosa · Texas House" value="67%" sub="You agree on 4 of the 6 bills you've both voted on" color={C.teal} at={139} />
     </AbsoluteFill>
   );
 }
