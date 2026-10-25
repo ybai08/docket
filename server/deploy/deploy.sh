@@ -79,6 +79,7 @@ systemctl daemon-reload
 systemctl enable --now docket-api >/dev/null
 systemctl restart docket-api
 systemctl reload caddy || systemctl restart caddy
-sleep 3
-curl -fsS http://127.0.0.1:8787/health && echo
+# tsx compiles on start, which can take several seconds on the smallest VM.
+for i in $(seq 1 30); do curl -fsS http://127.0.0.1:8787/health && echo && exit 0; sleep 1; done
+echo "API did not answer on :8787 within 30s" >&2; exit 1
 REMOTE

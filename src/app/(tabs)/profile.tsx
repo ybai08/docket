@@ -1,3 +1,4 @@
+import { Image } from 'expo-image';
 import { router } from 'expo-router';
 import { useState, type ReactNode } from 'react';
 import { Alert, Pressable, Text, View } from 'react-native';
@@ -56,52 +57,61 @@ export default function ProfileScreen() {
   if (Object.values(status).some((s) => s.state === 'done')) played.add(day);
 
   return (
-    <TabScreen gap={28}>
-      <Text style={type.title} accessibilityRole="header">
-        Profile
-      </Text>
+    <TabScreen gap={36}>
+      <View style={{ gap: 14 }}>
+        <Text style={type.title} accessibilityRole="header">
+          Profile
+        </Text>
 
-      <VoterCard
-        name={name}
-        where={where}
-        since={since}
-        daysPlayed={serverStats?.daysPlayed ?? stats.rollCallsPlayed}
-        billsVoted={serverStats?.billsVoted ?? 0}
-        friends={friendsData?.friends.length ?? null}
-        streak={stats.currentStreak}
-        best={stats.maxStreak}
-        today={day}
-        played={played}
-      />
+        <VoterCard
+          name={name}
+          where={where}
+          since={since}
+          daysPlayed={serverStats?.daysPlayed ?? stats.rollCallsPlayed}
+          billsVoted={serverStats?.billsVoted ?? 0}
+          friends={friendsData?.friends.length ?? null}
+          streak={stats.currentStreak}
+          best={stats.maxStreak}
+          today={day}
+          played={played}
+        />
+      </View>
 
       <Section title="By game">
-        <GameRow
-          color={colors.lavender}
-          glyph={<RollCallGlyph size={36} />}
-          game="Roll Call"
-          caption="Agreed with the final vote"
-          value={byGame?.rollCallAgreementPct != null ? `${byGame.rollCallAgreementPct}%` : null}
-        />
-        <GameRow
-          color={colors.yellow}
-          glyph={<FiledOrFakeGlyph size={36} />}
-          game="Filed or Fake"
-          caption="Spotted correctly"
-          value={byGame?.filedOrFakePct != null ? `${byGame.filedOrFakePct}%` : null}
-        />
-        <GameRow
-          color={colors.teal}
-          glyph={<LandslideGlyph size={36} />}
-          game="Landslide"
-          caption="Average points"
-          value={byGame?.landslideAvg != null ? `${byGame.landslideAvg}/12` : null}
-        />
+        <View style={{ gap: 10 }}>
+          <GameRow
+            color={colors.lavender}
+            glyph={<RollCallGlyph size={36} />}
+            game="Roll Call"
+            caption="Agreed with the final vote"
+            value={byGame?.rollCallAgreementPct != null ? `${byGame.rollCallAgreementPct}%` : null}
+          />
+          <GameRow
+            color={colors.yellow}
+            glyph={<FiledOrFakeGlyph size={36} />}
+            game="Filed or Fake"
+            caption="Spotted correctly"
+            value={byGame?.filedOrFakePct != null ? `${byGame.filedOrFakePct}%` : null}
+          />
+          <GameRow
+            color={colors.teal}
+            glyph={<LandslideGlyph size={36} />}
+            game="Landslide"
+            caption="Average points"
+            value={byGame?.landslideAvg != null ? `${byGame.landslideAvg}/12` : null}
+          />
+        </View>
       </Section>
 
       <Section title="Issues you care about" note="From your Roll Call votes, most-voted topics first">
         {serverStats?.issues.length ? (
-          <View style={{ gap: 14 }}>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          <View style={{ gap: 22 }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                marginBottom: -8,
+              }}>
               <Text style={{ fontSize: 12, fontWeight: '700', color: colors.text2 }}>Mostly Nay</Text>
               <Text style={{ fontSize: 12, fontWeight: '700', color: colors.text2 }}>Mostly Yea</Text>
             </View>
@@ -131,12 +141,23 @@ export default function ProfileScreen() {
             <LawmakerItem key={i} row={p} local={level === 'local'} />
           ))}
         </View>
-        <Text style={type.meta}>Party is never shown on bill cards. It appears here only after you have voted.</Text>
+        <View style={{ gap: 6 }}>
+          <Text style={type.meta}>Party is never shown on bill cards. It appears here only after you have voted.</Text>
+          {level === 'local' && lawmakerData?.credit ? (
+            <Text style={{ fontSize: 11, color: colors.meta }}>{lawmakerData.credit}</Text>
+          ) : null}
+        </View>
       </Section>
 
       <View style={{ borderWidth: 1.5, borderRadius: 12, overflow: 'hidden' }}>
         <SettingsRow label="Privacy and notifications" onPress={() => router.push('/privacy')} chevron />
-        <View style={{ height: 1, backgroundColor: colors.hairline, marginLeft: 16 }} />
+        <View
+          style={{
+            height: 1,
+            backgroundColor: colors.hairline,
+            marginLeft: 16,
+          }}
+        />
         <SettingsRow label="Sign out" onPress={confirmSignOut} />
       </View>
       {error && (
@@ -165,7 +186,14 @@ function VoterCard(props: {
 }) {
   const { name, where, since, streak, best } = props;
   return (
-    <View style={{ borderWidth: 2, borderRadius: 14, borderCurve: 'continuous', backgroundColor: colors.ground, overflow: 'hidden' }}>
+    <View
+      style={{
+        borderWidth: 2,
+        borderRadius: 14,
+        borderCurve: 'continuous',
+        backgroundColor: colors.ground,
+        overflow: 'hidden',
+      }}>
       <View style={{ padding: 18, gap: 18 }}>
         <View style={{ flexDirection: 'row', gap: 14, alignItems: 'center' }}>
           <View
@@ -178,10 +206,24 @@ function VoterCard(props: {
               alignItems: 'center',
               justifyContent: 'center',
             }}>
-            <Text style={{ fontFamily: fonts.serif800, fontSize: 30, lineHeight: 34 }}>{name.charAt(0).toUpperCase()}</Text>
+            <Text
+              style={{
+                fontFamily: fonts.serif800,
+                fontSize: 30,
+                lineHeight: 34,
+              }}>
+              {name.charAt(0).toUpperCase()}
+            </Text>
           </View>
           <View style={{ flex: 1, gap: 2 }}>
-            <Text style={{ fontFamily: fonts.serif800, fontSize: 28, lineHeight: 31, letterSpacing: -0.3 }} numberOfLines={2}>
+            <Text
+              style={{
+                fontFamily: fonts.serif800,
+                fontSize: 28,
+                lineHeight: 31,
+                letterSpacing: -0.3,
+              }}
+              numberOfLines={2}>
               {name}
             </Text>
             {where ? <Text style={{ fontSize: 14, color: colors.text2 }}>{where}</Text> : null}
@@ -192,7 +234,11 @@ function VoterCard(props: {
         <View style={{ flexDirection: 'row' }}>
           <Figure value={String(props.daysPlayed)} label="Days played" />
           <Figure value={String(props.billsVoted)} label="Bills voted" divider />
-          <Figure value={props.friends === null ? '–' : String(props.friends)} label={props.friends === 1 ? 'Friend' : 'Friends'} divider />
+          <Figure
+            value={props.friends === null ? '–' : String(props.friends)}
+            label={props.friends === 1 ? 'Friend' : 'Friends'}
+            divider
+          />
         </View>
       </View>
 
@@ -205,14 +251,24 @@ function VoterCard(props: {
         <View style={[notch, { right: -NOTCH / 2 - 2 }]} />
       </View>
 
-      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 18, paddingVertical: 14, gap: 12 }}>
-        <View
-          style={{ gap: 2 }}
-          accessible
-          accessibilityLabel={`${streak}-day streak. Best streak ${best} days.`}>
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          paddingHorizontal: 18,
+          paddingVertical: 14,
+          gap: 12,
+        }}>
+        <View style={{ gap: 2 }} accessible accessibilityLabel={`${streak}-day streak. Best streak ${best} days.`}>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
             <FlameIcon size={18} />
-            <Text style={{ fontSize: 17, fontWeight: '700', fontVariant: ['tabular-nums'] }}>
+            <Text
+              style={{
+                fontSize: 17,
+                fontWeight: '700',
+                fontVariant: ['tabular-nums'],
+              }}>
               {streak}-day streak
             </Text>
           </View>
@@ -236,7 +292,14 @@ const notch = {
 
 function Figure({ value, label, divider }: { value: string; label: string; divider?: boolean }) {
   return (
-    <View style={{ flex: 1, gap: 2, paddingLeft: divider ? 14 : 0, borderLeftWidth: divider ? 1 : 0, borderLeftColor: colors.hairline }}>
+    <View
+      style={{
+        flex: 1,
+        gap: 2,
+        paddingLeft: divider ? 14 : 0,
+        borderLeftWidth: divider ? 1 : 0,
+        borderLeftColor: colors.hairline,
+      }}>
       <Text style={{ fontSize: 30, lineHeight: 34, fontVariant: ['tabular-nums'] }}>{value}</Text>
       <Text style={{ fontSize: 12, lineHeight: 15, color: colors.text2 }}>{label}</Text>
     </View>
@@ -259,7 +322,14 @@ function WeekTiles({ today, played }: { today: string; played: Set<string> }) {
         const future = d > today;
         return (
           <View key={d} style={{ alignItems: 'center', gap: 4 }}>
-            <Text style={{ fontSize: 10, fontWeight: '700', color: isToday ? colors.ink : colors.meta }}>{letters[i]}</Text>
+            <Text
+              style={{
+                fontSize: 10,
+                fontWeight: '700',
+                color: isToday ? colors.ink : colors.meta,
+              }}>
+              {letters[i]}
+            </Text>
             <View
               style={{
                 width: 18,
@@ -279,8 +349,8 @@ function WeekTiles({ today, played }: { today: string; played: Set<string> }) {
 
 function Section({ title, note, children }: { title: string; note?: string; children: ReactNode }) {
   return (
-    <View style={{ gap: 14 }}>
-      <View style={{ gap: 2 }}>
+    <View style={{ gap: 16 }}>
+      <View style={{ gap: 4 }}>
         <Text style={{ fontFamily: fonts.serif700, fontSize: 24, lineHeight: 28 }} accessibilityRole="header">
           {title}
         </Text>
@@ -291,34 +361,86 @@ function Section({ title, note, children }: { title: string; note?: string; chil
   );
 }
 
-function GameRow({ color, glyph, game, caption, value }: { color: string; glyph: ReactNode; game: string; caption: string; value: string | null }) {
+function GameRow({
+  color,
+  glyph,
+  game,
+  caption,
+  value,
+}: {
+  color: string;
+  glyph: ReactNode;
+  game: string;
+  caption: string;
+  value: string | null;
+}) {
   return (
     <View
       accessible
       accessibilityLabel={`${game}: ${value ?? 'not played yet'}, ${caption.toLowerCase()}`}
-      style={{ flexDirection: 'row', alignItems: 'center', gap: 12, paddingVertical: 12, paddingHorizontal: 14, borderRadius: 12, backgroundColor: color }}>
+      style={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 12,
+        paddingVertical: 12,
+        paddingHorizontal: 14,
+        borderRadius: 12,
+        backgroundColor: color,
+      }}>
       {glyph}
       <View style={{ flex: 1, gap: 1 }}>
         <Text style={{ fontFamily: fonts.serif700, fontSize: 19 }}>{game}</Text>
         <Text style={{ fontSize: 13, color: colors.text2 }}>{caption}</Text>
       </View>
-      <Text style={{ fontSize: 26, fontWeight: '600', fontVariant: ['tabular-nums'] }}>{value ?? '–'}</Text>
+      <Text
+        style={{
+          fontSize: 26,
+          fontWeight: '600',
+          fontVariant: ['tabular-nums'],
+        }}>
+        {value ?? '–'}
+      </Text>
     </View>
   );
 }
 
 function IssueRow({ name, yeaPct, votes }: { name: string; yeaPct: number; votes: number }) {
   return (
-    <View style={{ gap: 8 }} accessible accessibilityLabel={`${name}: ${yeaPct}% Yea across ${votes} bills`}>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline' }}>
+    <View style={{ gap: 10 }} accessible accessibilityLabel={`${name}: ${yeaPct}% Yea across ${votes} bills`}>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'baseline',
+        }}>
         <Text style={{ fontSize: 16, fontWeight: '600' }}>{name}</Text>
-        <Text style={{ fontSize: 13, color: colors.meta, fontVariant: ['tabular-nums'] }}>
+        <Text
+          style={{
+            fontSize: 13,
+            color: colors.meta,
+            fontVariant: ['tabular-nums'],
+          }}>
           {yeaPct}% Yea, {votes} {votes === 1 ? 'bill' : 'bills'}
         </Text>
       </View>
       {/* Inset by the dot's radius so a 0% or 100% lean stays inside the track. */}
-      <View style={{ height: 6, borderRadius: 3, backgroundColor: colors.hairline, marginHorizontal: 9 }}>
-        <View style={{ position: 'absolute', left: '50%', top: -4, width: 2, height: 14, backgroundColor: colors.track }} />
+      <View
+        style={{
+          height: 6,
+          borderRadius: 3,
+          backgroundColor: colors.hairline,
+          marginHorizontal: 9,
+        }}>
+        <View
+          style={{
+            position: 'absolute',
+            left: '50%',
+            top: -4,
+            width: 2,
+            height: 14,
+            backgroundColor: colors.track,
+          }}
+        />
         <View
           style={{
             position: 'absolute',
@@ -349,14 +471,54 @@ function LawmakerItem({ row: p, local }: { row: LawmakerRow; local: boolean }) {
         .filter(Boolean)
         .map((w) => w[0])
         .slice(0, 1)
-        .concat(p.name.split(/\s+/).slice(-1).map((w) => w[0]))
+        .concat(
+          p.name
+            .split(/\s+/)
+            .slice(-1)
+            .map((w) => w[0]),
+        )
         .join('')
     : '';
   const unit = local ? 'votes' : 'bills';
   return (
-    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12, paddingVertical: 14, borderTopWidth: 1, borderTopColor: colors.hairline }}>
-      <View style={{ width: 42, height: 42, borderRadius: 21, backgroundColor: colors.muted, borderWidth: 1.5, borderColor: colors.outline, alignItems: 'center', justifyContent: 'center' }}>
+    <View
+      style={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 12,
+        paddingVertical: 14,
+        borderTopWidth: 1,
+        borderTopColor: colors.hairline,
+      }}>
+      <View
+        style={{
+          width: 48,
+          height: 48,
+          borderRadius: 24,
+          overflow: 'hidden',
+          backgroundColor: colors.muted,
+          borderWidth: 1.5,
+          borderColor: p.photo ? colors.ink : colors.outline,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
         <Text style={{ fontSize: 14, fontWeight: '700', color: colors.text2 }}>{initials}</Text>
+        {p.photo ? (
+          <Image
+            source={{ uri: p.photo }}
+            accessibilityIgnoresInvertColors
+            contentFit="cover"
+            contentPosition="top"
+            transition={150}
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+            }}
+          />
+        ) : null}
       </View>
       <View style={{ flex: 1, gap: 4 }}>
         <View style={{ gap: 1 }}>
@@ -368,16 +530,34 @@ function LawmakerItem({ row: p, local }: { row: LawmakerRow; local: boolean }) {
         </View>
         {p.real && p.pct != null ? (
           // Teal for agreed, lavender for disagreed: the same meaning as Roll Call results.
-          <View style={{ flexDirection: 'row', height: 6, borderRadius: 3, overflow: 'hidden', marginTop: 2 }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              height: 6,
+              borderRadius: 3,
+              overflow: 'hidden',
+              marginTop: 2,
+            }}>
             <View style={{ flex: p.pct, backgroundColor: colors.teal }} />
             <View style={{ flex: 100 - p.pct, backgroundColor: colors.lavender }} />
           </View>
         ) : null}
       </View>
       <View style={{ alignItems: 'flex-end', minWidth: 64 }}>
-        <Text style={{ fontSize: 22, fontVariant: ['tabular-nums'] }}>{p.real ? (p.pct == null ? '–' : `${p.pct}%`) : '[%]'}</Text>
-        <Text style={{ fontSize: 12, color: colors.meta, fontVariant: ['tabular-nums'] }}>
-          {p.real ? (p.shared ? `of ${p.shared} ${p.shared === 1 ? unit.slice(0, -1) : unit}` : 'Vote to compare') : `[n] ${unit}`}
+        <Text style={{ fontSize: 22, fontVariant: ['tabular-nums'] }}>
+          {p.real ? (p.pct == null ? '–' : `${p.pct}%`) : '[%]'}
+        </Text>
+        <Text
+          style={{
+            fontSize: 12,
+            color: colors.meta,
+            fontVariant: ['tabular-nums'],
+          }}>
+          {p.real
+            ? p.shared
+              ? `of ${p.shared} ${p.shared === 1 ? unit.slice(0, -1) : unit}`
+              : 'Vote to compare'
+            : `[n] ${unit}`}
         </Text>
       </View>
     </View>
@@ -405,7 +585,15 @@ function SettingsRow({ label, onPress, chevron }: { label: string; onPress: () =
 
 function Empty({ children }: { children: ReactNode }) {
   return (
-    <Text style={{ padding: 14, borderRadius: 12, backgroundColor: colors.muted, fontSize: 14, lineHeight: 19, color: colors.text2 }}>
+    <Text
+      style={{
+        padding: 14,
+        borderRadius: 12,
+        backgroundColor: colors.muted,
+        fontSize: 14,
+        lineHeight: 19,
+        color: colors.text2,
+      }}>
       {children}
     </Text>
   );
@@ -416,10 +604,26 @@ function profileStateName(state: string | null | undefined) {
   return state ? (STATE_NAMES[state] ?? state) : '';
 }
 
-const PARTY: Record<string, string> = { D: 'Democrat', R: 'Republican', I: 'Independent' };
+const PARTY: Record<string, string> = {
+  D: 'Democrat',
+  R: 'Republican',
+  I: 'Independent',
+};
 
-type LawmakerRow = { name: string; role: string; party?: string | null; pct?: number | null; shared?: number; real?: boolean };
-type LawmakerData = { federal: LawmakerRow[]; local: LawmakerRow[] };
+type LawmakerRow = {
+  name: string;
+  role: string;
+  party?: string | null;
+  pct?: number | null;
+  shared?: number;
+  real?: boolean;
+  photo?: string | null;
+};
+type LawmakerData = {
+  federal: LawmakerRow[];
+  local: LawmakerRow[];
+  credit?: string | null;
+};
 
 // Congress (Texas) and Austin come from recorded member votes; the rest stay placeholders.
 function lawmakers(level: Level, profile: ReturnType<typeof useMe>['profile'], data: LawmakerData | null): LawmakerRow[] {
@@ -429,28 +633,46 @@ function lawmakers(level: Level, profile: ReturnType<typeof useMe>['profile'], d
   if (level === 'local' && data?.local.length) {
     return [
       ...data.local.map((r) => ({ ...r, real: true })),
-      { name: '[County commissioner]', role: `${profile?.county ?? '[County]'}, Precinct [#]` },
+      {
+        name: '[County commissioner]',
+        role: `${profile?.county ?? '[County]'}, Precinct [#]`,
+      },
     ];
   }
   if (level === 'state') {
     return [
-      { name: '[State senator]', role: `${state} Senate, District ${d?.stateSenate ?? '[##]'}` },
-      { name: '[State representative]', role: `${state} House, District ${d?.stateHouse ?? '[##]'}` },
-      { name: '[Lawmaker you agree with most]', role: `${state} House, any district` },
+      {
+        name: '[State senator]',
+        role: `${state} Senate, District ${d?.stateSenate ?? '[##]'}`,
+      },
+      {
+        name: '[State representative]',
+        role: `${state} House, District ${d?.stateHouse ?? '[##]'}`,
+      },
+      {
+        name: '[Lawmaker you agree with most]',
+        role: `${state} House, any district`,
+      },
     ];
   }
   if (level === 'federal') {
     return [
       { name: '[U.S. senator]', role: `U.S. Senate, ${state}` },
       { name: '[U.S. senator]', role: `U.S. Senate, ${state}` },
-      { name: '[U.S. representative]', role: `U.S. House, ${state} District ${d?.congress ?? '[##]'}` },
+      {
+        name: '[U.S. representative]',
+        role: `U.S. House, ${state} District ${d?.congress ?? '[##]'}`,
+      },
     ];
   }
   const city = profile?.city ?? '[City]';
   return [
     { name: '[Council member]', role: `${city} City Council, District [#]` },
     { name: '[Mayor]', role: `Mayor of ${city}` },
-    { name: '[County commissioner]', role: `${profile?.county ?? '[County]'}, Precinct [#]` },
+    {
+      name: '[County commissioner]',
+      role: `${profile?.county ?? '[County]'}, Precinct [#]`,
+    },
   ];
 }
 
@@ -469,7 +691,14 @@ function PillTab({ label, on, onPress }: { label: string; on: boolean; onPress: 
         borderColor: on ? colors.ink : colors.outline,
         backgroundColor: on ? colors.ink : colors.ground,
       }}>
-      <Text style={{ fontSize: 14, fontWeight: '700', color: on ? colors.ground : colors.ink }}>{label}</Text>
+      <Text
+        style={{
+          fontSize: 14,
+          fontWeight: '700',
+          color: on ? colors.ground : colors.ink,
+        }}>
+        {label}
+      </Text>
     </Pressable>
   );
 }
