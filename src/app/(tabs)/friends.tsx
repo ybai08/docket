@@ -261,16 +261,24 @@ function FriendList({ data, onRespond }: { data: FriendsData; onRespond: (id: st
           <SectionTitle title={`${data.requests.length} friend ${data.requests.length === 1 ? 'request' : 'requests'}`} />
           <View style={{ marginTop: 6 }}>
             {data.requests.map((r) => (
-              <View
+              <Pressable
                 key={r.id}
-                style={{
+                accessibilityHint="Opens their profile"
+                onPress={() =>
+                  router.push({
+                    pathname: '/person/[id]',
+                    params: { id: r.from.id, name: r.from.name, source: r.source, requestId: r.id },
+                  })
+                }
+                style={({ pressed }) => ({
                   flexDirection: 'row',
                   alignItems: 'center',
                   gap: 10,
                   paddingVertical: 12,
                   borderTopWidth: 1,
                   borderTopColor: colors.hairline,
-                }}>
+                  opacity: pressed ? 0.6 : 1,
+                })}>
                 <Avatar id={r.from.id} name={r.from.name} size={40} />
                 <View style={{ flex: 1 }}>
                   <Text style={{ fontSize: 16, fontWeight: '600' }}>{r.from.name}</Text>
@@ -278,7 +286,7 @@ function FriendList({ data, onRespond }: { data: FriendsData; onRespond: (id: st
                 </View>
                 <SmallPill label="Ignore" onPress={() => onRespond(r.id, 'ignore')} />
                 <SmallPill label="Accept" filled onPress={() => onRespond(r.id, 'accept')} />
-              </View>
+              </Pressable>
             ))}
           </View>
         </View>
