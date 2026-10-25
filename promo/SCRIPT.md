@@ -15,7 +15,7 @@
 
 ## Scenes
 
-The times are when each scene is fully on screen. Transitions overlap by about half a second. The voiceover lines are suggestions; say them in your own words.
+Product scenes use three columns: the headline on the left, the phone in the middle, and a stat card in the upper right. Each stat card repeats one real number from the screen being shown, for example "4 of 5" or "147–0". The times are when each scene is fully on screen. Transitions overlap by about half a second. The voiceover lines are suggestions; say them in your own words.
 
 | # | Time | On screen | Suggested voiceover |
 |---|------|-----------|---------------------|

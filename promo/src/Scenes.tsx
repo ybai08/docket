@@ -1,6 +1,6 @@
 import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
 
-import { Background, Copy, Phone, Rise, SCREEN_W, Screens, Stamp, Tap, Tiles, Wordmark, useEnter } from './components';
+import { Background, Callout, Copy, Phone, Rise, SCREEN_W, Screens, Stamp, Tap, Tiles, Wordmark, useEnter } from './components';
 import { C, sans, serif } from './theme';
 
 // Phone screen points are app points: the screenshots are 402pt wide, shown at 400px.
@@ -78,6 +78,7 @@ export function Today() {
       <Phone>
         <Screens shots={[{ src: 'today', at: 0 }]} />
       </Phone>
+      <Callout label="Today's ballot" value="3 games" sub="Roll Call, Filed or Fake and Landslide" color={C.yellow} at={30} />
     </AbsoluteFill>
   );
 }
@@ -119,6 +120,8 @@ export function RollCall() {
           <Stamp label="YEA" color="#2E8B7E" delay={104} size={46} rotate={-9} />
         </div>
       </Phone>
+      <Callout label="Bill 1 of 5" value="SB 6" sub="Grid rules for data centers, from the Texas Senate" color={C.lavender} at={30} outAt={swap - 12} />
+      <Callout label="Saturday, October 24" value="4 of 5" sub="votes matched the final result" color={C.teal} at={swap + 14} />
     </AbsoluteFill>
   );
 }
@@ -131,9 +134,9 @@ function CaptionCard({ origin, text, stamp, stampColor, at }: { origin: string; 
     <div
       style={{
         position: 'absolute',
-        left: 220,
+        left: 260,
         top: 300,
-        width: 1080,
+        width: 1240,
         padding: '44px 52px 56px',
         borderRadius: 22,
         border: `3px solid ${C.ink}`,
@@ -157,7 +160,7 @@ export function FiledOrFake() {
       <Background tint={frame >= phoneAt ? C.yellow : undefined} />
       {frame < phoneAt + 10 && (
         <>
-          <Rise delay={4} outAt={phoneAt - 14} style={{ position: 'absolute', left: 220, top: 200 }}>
+          <Rise delay={4} outAt={phoneAt - 14} style={{ position: 'absolute', left: 260, top: 200 }}>
             <div style={{ display: 'inline-block', padding: '8px 18px', borderRadius: 999, background: C.yellow, fontFamily: sans, fontWeight: 700, fontSize: 22 }}>
               02 · Filed or Fake
             </div>
@@ -184,6 +187,7 @@ export function FiledOrFake() {
           <Phone delay={phoneAt}>
             <Screens shots={[{ src: 'fof-results', at: 0 }]} />
           </Phone>
+          <Callout label="Your score" value="4 of 8" sub="3 of today's 8 bills were made up" color={C.yellow} at={phoneAt + 26} />
         </>
       )}
     </AbsoluteFill>
@@ -298,6 +302,7 @@ export function Landslide() {
       <Phone>
         <LandslideScreen />
       </Phone>
+      <Callout label="Widest margin" value="147–0" sub="SB 984, experimental treatments, in the Texas House" color={C.teal} at={160} />
     </AbsoluteFill>
   );
 }
@@ -320,6 +325,8 @@ export function Friends() {
           ]}
         />
       </Phone>
+      <Callout label="Today's leader" value="Priya · 25" sub="Points from all three games" color={C.lavender} at={30} outAt={184} />
+      <Callout label="You and Priya" value="50%" sub="same vote, on the 10 bills you both played" color={C.teal} at={210} />
     </AbsoluteFill>
   );
 }
@@ -342,6 +349,8 @@ export function Area() {
           ]}
         />
       </Phone>
+      <Callout label="Texas today" value="7 players" sub="Average 15 points, top score 25" color={C.teal} at={30} outAt={138} />
+      <Callout label="Large loads on the grid" value="67% Yea" sub="How Texas players voted today" color={C.teal} at={164} />
     </AbsoluteFill>
   );
 }
@@ -364,6 +373,8 @@ export function Profile() {
           ]}
         />
       </Phone>
+      <Callout label="Your streak" value="4 days" sub="Best: 10 days" color={C.yellow} at={30} outAt={168} />
+      <Callout label="You agree most with" value="100%" sub="Lloyd Doggett, U.S. House, Texas District 37" color={C.teal} at={194} />
     </AbsoluteFill>
   );
 }
@@ -386,6 +397,8 @@ export function Records() {
           ]}
         />
       </Phone>
+      <Callout label="HB 1481 · Phones in classrooms" value="128–17" sub="Texas House. Signed into law." color={C.yellow} at={30} outAt={168} />
+      <Callout label="Lloyd Doggett" value="Since 1995" sub="Background from Wikipedia, credited in the app" color={C.lavender} at={194} />
     </AbsoluteFill>
   );
 }
@@ -445,7 +458,7 @@ export function Privacy() {
   return (
     <AbsoluteFill>
       <Background tint={C.teal} />
-      <div style={{ position: 'absolute', left: 150, top: 250, width: 700 }}>
+      <div style={{ position: 'absolute', left: 130, top: 250, width: 600 }}>
         <Rise delay={4}>
           <div style={{ fontFamily: serif, fontWeight: 800, fontSize: 84, letterSpacing: -1.5, lineHeight: 1.02 }}>Private by design.</div>
         </Rise>
@@ -456,6 +469,7 @@ export function Privacy() {
       <Phone>
         <Screens shots={[{ src: 'group', at: 0 }]} />
       </Phone>
+      <Callout label="Group splits" value="5+ voters" sub="before anyone sees how the group voted" color={C.teal} at={70} />
     </AbsoluteFill>
   );
 }

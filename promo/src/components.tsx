@@ -28,10 +28,10 @@ export function Background({ tint }: { tint?: string }) {
         <div
           style={{
             position: 'absolute',
-            left: 820,
-            top: -160,
-            width: 900,
-            height: 900,
+            left: 640,
+            top: -140,
+            width: 1000,
+            height: 860,
             borderRadius: 450,
             background: tint,
             opacity: 0.35,
@@ -50,18 +50,16 @@ const BEZEL = 14;
 /** An iPhone-style frame. Children fill the 400-wide screen (1px = 1pt, like the app). */
 const PHONE_SCALE = 1.1;
 
-export function Phone({ x = 896, delay = 0, children }: { x?: number; delay?: number; children: ReactNode }) {
-  const frame = useCurrentFrame();
+export function Phone({ x = 770, delay = 0, children }: { x?: number; delay?: number; children: ReactNode }) {
   const t = useEnter(delay, 20);
-  const float = Math.sin(frame / 40) * 4;
-  // Scaled from the top-left corner, so the right edge lands at x + 428 * 1.1 (about 1367), clear of the facecam.
-  const top = (1080 - (SCREEN_H + BEZEL * 2) * PHONE_SCALE) / 2;
+  // Scaled from the top-left corner; the phone sits mid-frame, clear of the facecam corner. It holds still once in.
+  const top = Math.round((1080 - (SCREEN_H + BEZEL * 2) * PHONE_SCALE) / 2);
   return (
     <div
       style={{
         position: 'absolute',
         left: x,
-        top: top + (1 - t) * 120 + float,
+        top: top + Math.round((1 - t) * 120),
         transform: `scale(${PHONE_SCALE})`,
         transformOrigin: '0 0',
         width: SCREEN_W + BEZEL * 2,
@@ -129,7 +127,7 @@ export function Copy({
   top?: number;
 }) {
   return (
-    <div style={{ position: 'absolute', left: 150, top, width: 690 }}>
+    <div style={{ position: 'absolute', left: 130, top, width: 590 }}>
       <Rise delay={delay} outAt={outAt}>
         <div
           style={{
@@ -147,12 +145,12 @@ export function Copy({
         </div>
       </Rise>
       <Rise delay={delay + 5} outAt={outAt}>
-        <div style={{ marginTop: 26, fontFamily: serif, fontWeight: 800, fontSize: 92, lineHeight: 1.02, letterSpacing: -1.6, color: C.ink }}>
+        <div style={{ marginTop: 26, fontFamily: serif, fontWeight: 800, fontSize: 86, lineHeight: 1.03, letterSpacing: -1.5, color: C.ink }}>
           {title}
         </div>
       </Rise>
       <Rise delay={delay + 10} outAt={outAt}>
-        <div style={{ marginTop: 24, fontFamily: sans, fontWeight: 400, fontSize: 34, lineHeight: 1.42, color: C.text2 }}>{body}</div>
+        <div style={{ marginTop: 24, fontFamily: sans, fontWeight: 400, fontSize: 32, lineHeight: 1.42, color: C.text2 }}>{body}</div>
       </Rise>
     </div>
   );
@@ -272,6 +270,53 @@ export function SafeZone() {
         justifyContent: 'center',
       }}>
       Facecam
+    </div>
+  );
+}
+
+/** A stat card in the upper right, beside the phone and above the facecam corner. */
+export function Callout({
+  label,
+  value,
+  sub,
+  color,
+  at,
+  outAt,
+  top = 230,
+}: {
+  label: string;
+  value: string;
+  sub?: string;
+  color: string;
+  at: number;
+  outAt?: number;
+  top?: number;
+}) {
+  const frame = useCurrentFrame();
+  const t = useEnter(at, 16);
+  const out = outAt == null ? 0 : interpolate(frame, [outAt, outAt + 12], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+  if (frame < at - 1 || out >= 1) return null;
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        left: 1330,
+        top,
+        width: 470,
+        padding: '30px 34px 32px',
+        borderRadius: 26,
+        background: C.ground,
+        border: `3px solid ${C.ink}`,
+        boxShadow: '0 30px 60px rgba(0,0,0,0.10)',
+        opacity: t * (1 - out),
+        transform: `translateX(${Math.round((1 - t) * 60)}px) rotate(${((1 - t) * 3).toFixed(2)}deg)`,
+      }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        <div style={{ width: 16, height: 16, borderRadius: 4, background: color, border: `2px solid ${C.ink}` }} />
+        <div style={{ fontFamily: sans, fontWeight: 700, fontSize: 22, color: C.meta }}>{label}</div>
+      </div>
+      <div style={{ marginTop: 14, fontFamily: serif, fontWeight: 800, fontSize: 72, lineHeight: 1, letterSpacing: -1.5, color: C.ink }}>{value}</div>
+      {sub ? <div style={{ marginTop: 14, fontFamily: sans, fontSize: 24, lineHeight: 1.35, color: C.text2 }}>{sub}</div> : null}
     </div>
   );
 }
