@@ -90,7 +90,7 @@ export default function TodayScreen() {
           title="Landslide"
           subtitle="Rank four bills by how big they won."
           glyph={<LandslideGlyph />}
-          status={<Status s={status.landslide} unit="" result={`Cast, ${status.landslide.result ?? 0} points`} />}
+          status={<Status s={status.landslide} unit="ranked" result={`Cast, ${status.landslide.result ?? 0} points`} />}
           action={<Action game="Landslide" s={status.landslide} play="/landslide" results="/landslide" />}
         />
       </View>
@@ -129,19 +129,16 @@ function Status({ s, unit, result }: { s: GameStatus; unit: string; result: stri
       </View>
     );
   }
-  if (s.state === 'progress') {
-    return (
-      <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
-        {s.total <= 5 && <ProgressTiles states={tilesFor(s.total, s.done)} />}
-        <Text style={{ marginLeft: s.total <= 5 ? 6 : 0, fontSize: 13, fontWeight: '600', fontVariant: ['tabular-nums'] }}>
-          {s.done} of {s.total} {unit}
-        </Text>
-      </View>
-    );
-  }
+  // Not started or partway: one tile per item, filled as you go.
   return (
-    <View style={{ paddingHorizontal: 9, paddingVertical: 3, borderRadius: 999, backgroundColor: colors.ground }}>
-      <Text style={{ fontSize: 12, fontWeight: '800' }}>New today</Text>
+    <View
+      style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}
+      accessible
+      accessibilityLabel={`${s.done} of ${s.total} ${unit}`}>
+      <ProgressTiles states={tilesFor(s.total, s.done)} />
+      <Text style={{ marginLeft: 6, fontSize: 13, fontWeight: '600', fontVariant: ['tabular-nums'] }}>
+        {s.done} of {s.total} {unit}
+      </Text>
     </View>
   );
 }

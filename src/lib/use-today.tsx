@@ -132,8 +132,8 @@ function useTodayState() {
     },
     landslide: {
       state: progress.landslide.done ? 'done' : 'new',
-      done: progress.landslide.done ? 1 : 0,
-      total: 1,
+      done: progress.landslide.done ? set.landslide.items.length : 0,
+      total: set.landslide.items.length,
       result: progress.landslide.score,
     },
   } satisfies Record<string, GameStatus>;
