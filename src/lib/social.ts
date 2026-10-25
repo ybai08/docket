@@ -70,7 +70,8 @@ export type FriendDetail = {
   topics: { topic: string; pct: number; shared: number }[];
   votesShared: boolean;
   myOverride: boolean | null;
-  recent: { number: string; title: string; mine: 'yea' | 'nay'; theirs: 'yea' | 'nay' }[];
+  /** billId arrives once the server sends it; older responses only carry number and title. */
+  recent: { billId?: string; number: string; title: string; mine: 'yea' | 'nay'; theirs: 'yea' | 'nay' }[];
 };
 
 /** Loads a server resource whenever the screen gains focus. */

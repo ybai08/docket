@@ -61,7 +61,7 @@ export default function ReviewBills() {
                 </View>
               ) : (
                 <Text style={type.meta}>
-                  {b.level === 'state' ? "Your lawmakers' votes: [placeholder]" : b.chamberVotes.some((c) => c.consent) ? 'Passed the Senate by unanimous consent, with no recorded votes' : ''}
+                  {b.chamberVotes.some((c) => c.consent) ? 'Passed by unanimous consent, with no recorded votes' : ''}
                 </Text>
               )}
               <Pressable accessibilityRole="link" onPress={() => Linking.openURL(b.sourceUrl)} hitSlop={8}>

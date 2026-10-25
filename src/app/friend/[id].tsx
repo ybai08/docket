@@ -197,9 +197,9 @@ function Note({ children }: { children: ReactNode }) {
 type RecentBill = FriendDetail['recent'][number];
 const word = (v: 'yea' | 'nay') => (v === 'yea' ? 'Yea' : 'Nay');
 
-// The friend endpoint sends a bill's number and short title but not its id, so match both against the bill list.
+// Use the bill id when the server sends one; otherwise match number and short title against the app's own bills.
 function billIdFor(b: RecentBill) {
-  return Object.values(BILLS).find((x) => x.number === b.number && x.shortTitle === b.title)?.id;
+  return b.billId ?? Object.values(BILLS).find((x) => x.number === b.number && x.shortTitle === b.title)?.id;
 }
 
 const CELL_W = 56;

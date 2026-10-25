@@ -6,7 +6,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { ChevronRight } from '@/components/icons';
 import { PillButton } from '@/components/pill-button';
 import { ScreenHeader } from '@/components/screen-header';
-import { BILLS } from '@/data/bills';
+import { useBills } from '@/components/use-bills';
+import type { Bill } from '@/data/types';
 import { formatDayLong } from '@/lib/day';
 import { useRemote, type AreaBreakdown } from '@/lib/social';
 import { colors, fonts, type } from '@/theme';
@@ -15,6 +16,7 @@ import { colors, fonts, type } from '@/theme';
 export default function AreaScreen() {
   const { scope } = useLocalSearchParams<{ scope: string }>();
   const { data: a, error, reload } = useRemote<AreaBreakdown>(`/leaderboard/area/${scope}`);
+  const bills = useBills(a?.bills.map((b) => b.billId) ?? []);
 
   if (!a) {
     return (
@@ -105,7 +107,7 @@ export default function AreaScreen() {
           <Section title={`How ${a.label} voted`} note="On today's Roll Call bills">
             <View>
               {a.bills.map((b, i) => (
-                <BillSplit key={b.billId} bill={b} first={i === 0} />
+                <BillSplit key={b.billId} bill={b} known={bills.get(b.billId)} first={i === 0} />
               ))}
               <View style={{ flexDirection: 'row', gap: 16, paddingTop: 10, borderTopWidth: 1, borderTopColor: colors.hairline }}>
                 <Swatch color={colors.teal} label="Yea" />
@@ -208,8 +210,7 @@ function GameLine({ name, players, value, caption, first }: { name: string; play
 }
 
 /** One bill's Yea/Nay split in this area, hidden below the privacy threshold. Opens the bill. */
-function BillSplit({ bill: b, first }: { bill: AreaBreakdown['bills'][number]; first: boolean }) {
-  const known = BILLS[b.billId];
+function BillSplit({ bill: b, known, first }: { bill: AreaBreakdown['bills'][number]; known?: Bill; first: boolean }) {
   return (
     <Pressable
       accessibilityRole={known ? 'button' : undefined}

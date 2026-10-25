@@ -6,7 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { ChevronRight, FiledOrFakeGlyph, LandslideGlyph, RollCallGlyph } from '@/components/icons';
 import { PillButton } from '@/components/pill-button';
 import { ScreenHeader } from '@/components/screen-header';
-import { BILLS } from '@/data/bills';
+import { CAPTIONS_OCT24, CAPTIONS_OCT25 } from '@/data/captions';
 import { api } from '@/lib/api';
 import { formatDayLong, formatDayShort } from '@/lib/day';
 import { useRemote } from '@/lib/social';
@@ -243,13 +243,12 @@ function DayBlock(props: { game: GameId; day: Day; color: string; note: string; 
   );
 }
 
-/** Opens the bill page when the app knows the bill. */
+/** Opens the bill page; the page loads any bill the server has. */
 function BillRow({ billId, children }: { billId?: string; children: ReactNode }) {
-  const known = !!billId && !!BILLS[billId];
   return (
     <Pressable
-      disabled={!known}
-      accessibilityHint={known ? 'Opens the bill' : undefined}
+      disabled={!billId}
+      accessibilityHint={billId ? 'Opens the bill' : undefined}
       onPress={() => billId && router.push({ pathname: '/bill/[id]', params: { id: billId } })}
       style={({ pressed }) => ({ flexDirection: 'row', alignItems: 'center', gap: 10, paddingVertical: 8, opacity: pressed ? 0.6 : 1 })}>
       {children}
@@ -293,11 +292,16 @@ function RollCallLine({ bill: b }: { bill: RollCallBill }) {
   );
 }
 
+// Real Filed or Fake bills have a page only when the app has their caption in its own list.
+function hasCaptionPage(id: string) {
+  return [...CAPTIONS_OCT24, ...CAPTIONS_OCT25].some((c) => c.id === id);
+}
+
 function CaptionLine({ caption: c }: { caption: CaptionAnswer }) {
   const right = c.answeredReal === c.real;
   const said = c.answeredReal == null ? 'No answer' : c.answeredReal ? 'You said Filed' : 'You said Fake';
   return (
-    <BillRow billId={c.real ? c.id : undefined}>
+    <BillRow billId={c.real && hasCaptionPage(c.id) ? c.id : undefined}>
       <Title title={c.text} sub={`${said} · ${right ? 'right' : 'wrong'}`} />
       <View
         style={{

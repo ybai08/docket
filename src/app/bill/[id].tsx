@@ -1,12 +1,12 @@
 import { router, useLocalSearchParams } from 'expo-router';
 import type { ReactNode } from 'react';
-import { Linking, Pressable, ScrollView, Text, View } from 'react-native';
+import { ActivityIndicator, Linking, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { BillChip } from '@/components/bill-chip';
 import { PillButton } from '@/components/pill-button';
 import { ScreenHeader } from '@/components/screen-header';
-import { BILLS } from '@/data/bills';
+import { useBills } from '@/components/use-bills';
 import { CAPTIONS_OCT24, CAPTIONS_OCT25 } from '@/data/captions';
 import type { Caption, ChamberVote, Vote } from '@/data/types';
 import { agreed } from '@/lib/scoring';
@@ -20,7 +20,10 @@ type MemberVote = { name: string; label: string; vote: string };
 export default function BillScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const { set, progress } = useToday();
-  const bill = BILLS[id] ?? set.rollCall.find((b) => b.id === id);
+  // Filed or Fake bills aren't in the bill list; show what their caption tells us.
+  const caption = [...set.filedOrFake, ...CAPTIONS_OCT24, ...CAPTIONS_OCT25].find((c) => c.id === id && c.real);
+  const bills = useBills(caption ? [] : [id]);
+  const bill = caption ? undefined : bills.get(id);
   const yours = progress.rollCall.votes[id] as Vote | undefined;
   const { data } = useRemote<{ byBill: Record<string, MemberVote[]> } & Record<'federal' | 'state' | 'local', { id: string; name: string }[]>>(
     '/me/lawmakers',
@@ -29,15 +32,19 @@ export default function BillScreen() {
   // byBill names each lawmaker but carries no id; find it among your lawmakers to link their page.
   const lawmakerId = (name: string) => (data ? [...data.federal, ...data.state, ...data.local].find((r) => r.name === name)?.id : undefined);
 
-  // Filed or Fake bills aren't in the bill list; show what their caption tells us.
-  const caption = bill ? undefined : [...set.filedOrFake, ...CAPTIONS_OCT24, ...CAPTIONS_OCT25].find((c) => c.id === id && c.real);
   if (caption) return <CaptionBill caption={caption} />;
 
   if (!bill) {
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor: colors.ground }} edges={['top']}>
         <ScreenHeader title="Bill" />
-        <Text style={[type.meta, { padding: 24 }]}>{"We don't have the details for this bill."}</Text>
+        {bills.missing(id) || bills.failed(id) ? (
+          <Text style={[type.meta, { padding: 24 }]}>
+            {bills.missing(id) ? "We don't have the details for this bill." : "Couldn't load this bill. Check your connection."}
+          </Text>
+        ) : (
+          <ActivityIndicator color={colors.ink} style={{ marginTop: 24 }} />
+        )}
       </SafeAreaView>
     );
   }

@@ -8,7 +8,7 @@ import { BillChip } from '@/components/bill-chip';
 import { ChevronRight } from '@/components/icons';
 import { PillButton } from '@/components/pill-button';
 import { ScreenHeader } from '@/components/screen-header';
-import { BILLS } from '@/data/bills';
+import { useBills } from '@/components/use-bills';
 import type { Vote } from '@/data/types';
 import { useRemote } from '@/lib/social';
 import { colors, fonts, type } from '@/theme';
@@ -42,6 +42,7 @@ export default function LawmakerScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   // State lawmaker ids contain a slash ("ocd-person/…"), so encode it to keep one path segment.
   const { data: l, error, reload } = useRemote<Lawmaker>(`/lawmakers/${encodeURIComponent(id)}`);
+  const bills = useBills(l?.votes.map((v) => v.billId) ?? []);
 
   if (!l) {
     return (
@@ -61,8 +62,8 @@ export default function LawmakerScreen() {
     );
   }
 
-  // Only bills the app knows can be shown and opened.
-  const votes = l.votes.filter((v) => BILLS[v.billId]);
+  // Each vote shows once its bill has loaded; ones the server has no record of are left out.
+  const votes = l.votes.filter((v) => bills.get(v.billId));
   const { pct, agreed, shared } = l.agreement;
   const facts = [l.party ? (PARTY[l.party] ?? l.party) : null, l.inOfficeSince ? `In office since ${l.inOfficeSince}` : null].filter(Boolean);
 
@@ -113,7 +114,7 @@ export default function LawmakerScreen() {
           <Section title="How they voted" note="Their recorded votes on Docket's bills">
             <View>
               {votes.map((v, i) => {
-                const bill = BILLS[v.billId];
+                const bill = bills.get(v.billId)!;
                 return (
                   <Pressable
                     key={v.billId}

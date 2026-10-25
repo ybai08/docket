@@ -3,6 +3,7 @@ import { ActivityIndicator, Pressable, Text, View } from 'react-native';
 
 import { Avatar } from '@/components/avatar';
 import { BallotStubCard } from '@/components/ballot-stub-card';
+import { countWord } from '@/components/civic';
 import { CheckIcon, ChevronRight, FiledOrFakeGlyph, FlameIcon, LandslideGlyph, RollCallGlyph } from '@/components/icons';
 import { PillButton } from '@/components/pill-button';
 import { ProgressTiles, tilesFor } from '@/components/progress-tiles';
@@ -79,7 +80,7 @@ export default function TodayScreen() {
         <BallotStubCard
           color={colors.yellow}
           title="Filed or Fake"
-          subtitle="Eight bills. Some were made up."
+          subtitle={`${countWord(set.filedOrFake.length)} bills. Some were made up.`}
           glyph={<FiledOrFakeGlyph />}
           status={
             <Status
@@ -93,7 +94,7 @@ export default function TodayScreen() {
         <BallotStubCard
           color={colors.teal}
           title="Landslide"
-          subtitle="Rank four bills by how big they won."
+          subtitle={`Rank ${countWord(set.landslide.items.length).toLowerCase()} bills by how big they won.`}
           glyph={<LandslideGlyph />}
           status={<Status s={status.landslide} unit="ranked" result={`Cast, ${status.landslide.result ?? 0} points`} />}
           action={<Action game="Landslide" s={status.landslide} play="/landslide" results="/landslide" />}

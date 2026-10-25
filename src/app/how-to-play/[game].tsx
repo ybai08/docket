@@ -2,55 +2,62 @@ import { router, useLocalSearchParams } from 'expo-router';
 import type { ReactNode } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 
+import { countWord } from '@/components/civic';
 import { FiledOrFakeGlyph, LandslideGlyph, RollCallGlyph } from '@/components/icons';
 import { PillButton } from '@/components/pill-button';
+import { useToday } from '@/lib/use-today';
 import { colors, fonts, type } from '@/theme';
 
 type Guide = { title: string; color: string; glyph: ReactNode; intro: string; steps: [string, string][]; scoring: string };
 
-const GUIDES: Record<string, Guide> = {
+// Counts come from today's set: they vary by state (Roll Call has 4 or 5 bills).
+function guides(rollCall: number, filedOrFake: number, landslide: number): Record<string, Guide> {
+  return {
   'roll-call': {
     title: 'Roll Call',
     color: colors.lavender,
     glyph: <RollCallGlyph size={40} />,
-    intro: 'Five real bills that lawmakers voted on. How would you have voted?',
+    intro: `${countWord(rollCall)} real bills that lawmakers voted on. How would you have voted?`,
     steps: [
       ['Read the bill', 'Each card says what the bill does, where it came from, and its number.'],
       ['Cast your vote', 'Tap Yea or Nay, or swipe the card right for Yea and left for Nay.'],
       ['See how it went', 'Find out whether you agreed with the final vote, and how each chamber voted.'],
     ],
-    scoring: 'Finish all five bills for 5 points on the leaderboard.',
+    scoring: 'Finish every bill for 5 points on the leaderboard.',
   },
   'filed-or-fake': {
     title: 'Filed or Fake',
     color: colors.yellow,
     glyph: <FiledOrFakeGlyph size={40} />,
-    intro: 'Eight bills. Some were really filed by lawmakers, and Docket made the rest up.',
+    intro: `${countWord(filedOrFake)} bills. Some were really filed by lawmakers, and Docket made the rest up.`,
     steps: [
       ['Read what it would do', 'Each bill is a short, plain description of what it would change.'],
       ['Call it', 'Tap Filed if you think a lawmaker really filed it, or Fake if you think Docket wrote it.'],
       ['See the stamp', 'Every answer is stamped FILED or FAKE. Tap See on a real one to find out what happened to it.'],
     ],
-    scoring: '1 point for each bill you get right, up to 8.',
+    scoring: `1 point for each bill you get right, up to ${filedOrFake}.`,
   },
   landslide: {
     title: 'Landslide',
     color: colors.teal,
     glyph: <LandslideGlyph size={40} />,
-    intro: 'Four bills that passed. Which one won by the widest margin?',
+    intro: `${countWord(landslide)} bills that passed. Which one won by the widest margin?`,
     steps: [
       ['Rank them', 'Press and hold a bill, then drag it. Put the widest win on top and the closest vote at the bottom.'],
       ['Lock it in', 'When the order looks right, tap Lock in ranking.'],
       ['See the real order', 'Each bill shows its final vote and how much it won by.'],
     ],
-    scoring: '3 points for each bill in exactly the right spot, 1 point if it is one spot off. Up to 12.',
+    scoring: `3 points for each bill in exactly the right spot, 1 point if it is one spot off. Up to ${landslide * 3}.`,
   },
-};
+  };
+}
 
 /** How to play one game, as a sheet over the game. */
 export default function HowToPlay() {
   const { game } = useLocalSearchParams<{ game: string }>();
-  const g = GUIDES[game] ?? GUIDES['roll-call'];
+  const { set } = useToday();
+  const all = guides(set.rollCall.length || 5, set.filedOrFake.length || 8, set.landslide.items.length || 4);
+  const g = all[game] ?? all['roll-call'];
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: colors.ground }} contentContainerStyle={{ padding: 20, paddingTop: 28, gap: 24 }}>

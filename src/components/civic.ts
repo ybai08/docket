@@ -1,3 +1,10 @@
+const WORDS = ['No', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten'];
+
+/** "Eight", "Four": bill counts in copy, which vary by state. */
+export function countWord(n: number) {
+  return WORDS[n] ?? String(n);
+}
+
 // What each state calls its legislative chambers, where it isn't "House" and "Senate".
 // Mirrors server/src/lawmakers.ts so labels match the lawmaker roles the API sends.
 const LOWER: Record<string, string> = {
