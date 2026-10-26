@@ -105,7 +105,7 @@ App Store Connect computes the rating from these answers. Expect 13+, mainly bec
 
 ## 7. Build and submit
 
-1. In the version page's **Build** section, pick the newest build. Export compliance is already answered in the build (`usesNonExemptEncryption: false`).
+1. In the version page's **Build** section, pick build **4 or later**. Build 3 lacks full account deletion (Firebase account and Sign in with Apple token), which guideline 5.1.1(v) requires. Export compliance is already answered in the build (`usesNonExemptEncryption: false`).
 2. **Version release:** choose *Manually release this version*, so it goes live only when you press the button.
 3. Click **Add for Review**, then **Submit to App Review**.
 
