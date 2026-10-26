@@ -24,13 +24,13 @@ const BAR = BEAT * 4;
 const N = Math.ceil(SECONDS * SR);
 const TAU = Math.PI * 2;
 
-const DROP1 = 4;
-const DROP2 = 24;
-const BREAK = 47;
-const BUILD = 50;
-const FINAL = 54;
-const END = 58;
-const CUTS = [7, 13, 19, 32, 37, 42];
+// Bar numbers of each section, matching the scene starts in src/timeline.ts. "short" is the
+// under-a-minute cut (SHORT_SCENES); the default is the full cut.
+const ARRANGEMENTS = {
+  full: { LOGO: 2, DROP1: 4, DROP2: 24, BREAK: 47, BUILD: 50, FINAL: 54, END: 58, CUTS: [7, 13, 19, 32, 37, 42] },
+  short: { LOGO: 2, DROP1: 3, DROP2: 14, BREAK: 23, BUILD: 24, FINAL: 26, END: 29, CUTS: [7, 11, 19] },
+};
+const { LOGO, DROP1, DROP2, BREAK, BUILD, FINAL, END, CUTS } = ARRANGEMENTS[process.argv[4] ?? 'full'];
 
 // Buses. Chords and pad are filtered and pumped together; everything else is mixed dry, with sends to
 // a reverb and (lead only) a ping-pong delay.
@@ -275,8 +275,8 @@ for (let b = 0; b < END; b++) {
     // Intro: soft chords, then the build after the logo lands.
     const s = SOFT[b % 2];
     pad(t0, BAR, s.notes, 0.05);
-    if (b >= 2) chord(t0, BAR - 0.05, s.notes, 0.07, 0.4);
-    if (b >= 2) bass(t0, s.root - 12, 0.22, BAR * 0.95);
+    if (b >= LOGO) chord(t0, BAR - 0.05, s.notes, 0.07, 0.4);
+    if (b >= LOGO) bass(t0, s.root - 12, 0.22, BAR * 0.95);
   } else if (groove) {
     // Pumping chords: hits on every beat, ducked by the kick bus so they breathe.
     for (let k = 0; k < 4; k++) chord(t0 + k * BEAT, BEAT * 0.9, c.notes, drop2 || final ? 0.1 : 0.068);
@@ -320,10 +320,10 @@ for (let b = 0; b < END; b++) {
 }
 
 // Logo impact and the first build.
-impact(at(2), 0.5);
-riser(at(2), 2 * BAR, 0.32);
+impact(at(LOGO), 0.5);
+riser(at(LOGO), (DROP1 - LOGO) * BAR, 0.32);
 swell(at(DROP1), BEAT * 2, 0.22);
-for (let i = 0; i < 16; i++) snareHit(at(3) + i * (BEAT / 4), 0.04 + 0.12 * (i / 15));
+for (let i = 0; i < 16; i++) snareHit(at(DROP1 - 1) + i * (BEAT / 4), 0.04 + 0.12 * (i / 15));
 
 // Drops land with a crash and impact.
 for (const b of [DROP1, DROP2, FINAL]) {
@@ -346,9 +346,9 @@ impact(at(BREAK), 0.42);
 whoosh(at(BREAK), 0.14);
 
 // Final build: riser, snare roll speeding up, then one beat of near-silence before the drop.
-riser(at(BUILD), 4 * BAR - BEAT, 0.34);
-for (let i = 0; i < 8; i++) snareHit(at(BUILD + 2) + i * (BEAT / 2), 0.05 + 0.04 * (i / 7));
-for (let i = 0; i < 12; i++) snareHit(at(BUILD + 3) + i * (BEAT / 4), 0.09 + 0.08 * (i / 11));
+riser(at(BUILD), (FINAL - BUILD) * BAR - BEAT, 0.34);
+for (let i = 0; i < 8; i++) snareHit(at(FINAL - 2) + i * (BEAT / 2), 0.05 + 0.04 * (i / 7));
+for (let i = 0; i < 12; i++) snareHit(at(FINAL - 1) + i * (BEAT / 4), 0.09 + 0.08 * (i / 11));
 swell(at(FINAL), BEAT * 1.5, 0.24);
 // The "gap": clear out the moment before each drop so it hits. A full beat before the final drop,
 // half a beat before the other two.
@@ -381,11 +381,11 @@ gap(FINAL, 1);
     const t = i / SR;
     const bar = t / BAR;
     let cutoff;
-    if (bar < 2) cutoff = 500 + 300 * (bar / 2);
-    else if (bar < DROP1) cutoff = 800 + 5200 * ((bar - 2) / 2) ** 2;
+    if (bar < LOGO) cutoff = 500 + 300 * (bar / LOGO);
+    else if (bar < DROP1) cutoff = 800 + 5200 * ((bar - LOGO) / (DROP1 - LOGO)) ** 2;
     else if (bar < BREAK) cutoff = bar < DROP2 ? 4200 : 6000;
     else if (bar < BUILD) cutoff = 700;
-    else if (bar < FINAL) cutoff = 700 + 6300 * ((bar - BUILD) / 4) ** 2;
+    else if (bar < FINAL) cutoff = 700 + 6300 * ((bar - BUILD) / (FINAL - BUILD)) ** 2;
     else if (bar < FINAL + 2) cutoff = 7000;
     else cutoff = 7000 - 5500 * Math.min(1, (bar - FINAL - 2) / 2);
     const g = Math.tan((Math.PI * Math.min(cutoff, 16000)) / SR);

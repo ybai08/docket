@@ -4,7 +4,7 @@ import { Fragment } from 'react';
 import { AbsoluteFill, Audio, Composition, interpolate, staticFile } from 'remotion';
 
 import { SafeZone } from './components';
-import { SCENES, TOTAL_FRAMES, TRANSITION } from './timeline';
+import { SCENES, SHORT_FRAMES, SHORT_SCENES, TOTAL_FRAMES, TRANSITION } from './timeline';
 import { FPS, H, W } from './theme';
 
 type Props = { showSafeZone: boolean; music: boolean; voiceover: boolean };
@@ -38,8 +38,41 @@ function DocketDemo({ showSafeZone, music, voiceover }: Props) {
   );
 }
 
+/** The under-a-minute cut: fewer scenes, its own music arrangement (public/music-short.mp3). */
+function DocketShort({ showSafeZone }: { showSafeZone: boolean }) {
+  return (
+    <AbsoluteFill style={{ background: '#fff' }}>
+      <TransitionSeries>
+        {SHORT_SCENES.map((s, i) => (
+          <Fragment key={s.id}>
+            {i > 0 && <TransitionSeries.Transition presentation={fade()} timing={linearTiming({ durationInFrames: TRANSITION })} />}
+            <TransitionSeries.Sequence durationInFrames={s.frames}>
+              <s.component />
+            </TransitionSeries.Sequence>
+          </Fragment>
+        ))}
+      </TransitionSeries>
+      <Audio
+        src={staticFile('music-short.mp3')}
+        volume={(f) => interpolate(f, [SHORT_FRAMES - 60, SHORT_FRAMES], [0.7, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' })}
+      />
+      {showSafeZone && <SafeZone />}
+    </AbsoluteFill>
+  );
+}
+
 export function Root() {
   return (
+    <>
+      <Composition
+        id="DocketShort"
+        component={DocketShort}
+        durationInFrames={SHORT_FRAMES}
+        fps={FPS}
+        width={W}
+        height={H}
+        defaultProps={{ showSafeZone: false }}
+      />
     <Composition
       id="DocketDemo"
       component={DocketDemo}
@@ -49,5 +82,6 @@ export function Root() {
       height={H}
       defaultProps={{ showSafeZone: false, music: false, voiceover: true }}
     />
+    </>
   );
 }

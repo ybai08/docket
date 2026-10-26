@@ -29,3 +29,23 @@ export const SCENES: { id: string; component: ComponentType; frames: number }[] 
 export const TRANSITION = 16;
 
 export const TOTAL_FRAMES = SCENES.reduce((n, s) => n + s.frames, 0) - TRANSITION * (SCENES.length - 1);
+
+/**
+ * The under-a-minute cut (58 s) for the launch page: hook, the three games, friends, bills and
+ * lawmakers, every state, end card. Scenes are whole bars at 120 bpm so the drops land on cuts;
+ * its music is `scripts/music.sh 58 short`.
+ */
+const bars = (n: number, last = false) => n * BAR_FRAMES + (last ? 0 : TRANSITION);
+export const SHORT_SCENES: { id: string; component: ComponentType; frames: number }[] = [
+  { id: 'hook', component: Hook, frames: bars(3) },
+  { id: 'roll-call', component: RollCall, frames: bars(4) },
+  { id: 'filed-or-fake', component: FiledOrFake, frames: bars(4) },
+  { id: 'landslide', component: Landslide, frames: bars(3) },
+  { id: 'friends', component: Friends, frames: bars(5) },
+  { id: 'records', component: Records, frames: bars(4) },
+  { id: 'nationwide', component: Nationwide, frames: bars(3) },
+  { id: 'close', component: Close, frames: bars(3, true) },
+];
+
+export const SHORT_FRAMES = SHORT_SCENES.reduce((n, s) => n + s.frames, 0) - TRANSITION * (SHORT_SCENES.length - 1);
+

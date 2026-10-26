@@ -4,8 +4,11 @@
 set -e
 cd "$(dirname "$0")/.."
 LENGTH=${1:-116}
-node scripts/music.mjs "$LENGTH" out/music-raw.wav
+ARR=${2:-full}
+OUTFILE=public/music.mp3
+[ "$ARR" = short ] && OUTFILE=public/music-short.mp3
+node scripts/music.mjs "$LENGTH" out/music-raw.wav "$ARR"
 ffmpeg -y -loglevel error -i out/music-raw.wav \
   -af "highpass=f=35,lowpass=f=13000,acompressor=threshold=0.12:ratio=2.5:attack=15:release=180:makeup=1.5,loudnorm=I=-22:TP=-2:LRA=8,alimiter=limit=0.89" \
-  -ar 44100 -c:a libmp3lame -b:a 192k public/music.mp3
-echo public/music.mp3
+  -ar 44100 -c:a libmp3lame -b:a 192k "$OUTFILE"
+echo "$OUTFILE"

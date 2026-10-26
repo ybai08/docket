@@ -64,6 +64,6 @@ REMOTE
 
 # Checks: the app shell, the desktop frame page, and a deep link that falls back to the app shell.
 for i in $(seq 1 20); do curl -fsS "https://$APP/" >/dev/null 2>&1 && break; sleep 3; done
-curl -fsS "https://$APP/" | grep -q 'id="root"' && echo "app: serves the web build"
-curl -fsS "https://$APP/demo.html" | grep -q 'id="device"' && echo "desktop: iPhone frame page"
-curl -fsS "https://$APP/friends" | grep -q 'id="root"' && echo "deep links: fall back to the app"
+curl -fsS "https://$APP/" | grep 'id="root"' >/dev/null && echo "app: serves the web build"
+curl -fsS "https://$APP/demo.html" | grep 'id="device"' >/dev/null && echo "desktop: iPhone frame page"
+curl -fsS "https://$APP/friends" | grep 'id="root"' >/dev/null && echo "deep links: fall back to the app"
