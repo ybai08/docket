@@ -22,7 +22,7 @@ import { shareText } from '@/lib/share';
 import { useToday } from '@/lib/use-today';
 import { colors, type } from '@/theme';
 
-const ROW = 72; // row height
+const ROW = 86; // row height: room for a two-line bill title
 const GAP = 8;
 const SLOT = ROW + GAP;
 const SETTLE = { duration: 250, dampingRatio: 1 };
@@ -247,7 +247,7 @@ function DraggableRow({
           <Text style={{ fontSize: 13, fontWeight: '700', color: isLifted ? '#1F3B38' : colors.meta, fontVariant: ['tabular-nums'] }}>
             {item.number}
           </Text>
-          <Text style={{ fontSize: 16, fontWeight: '600' }} numberOfLines={1}>
+          <Text style={{ fontSize: 15, lineHeight: 19, fontWeight: '600' }} numberOfLines={2}>
             {item.title}
           </Text>
         </View>

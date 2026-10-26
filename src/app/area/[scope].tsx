@@ -225,7 +225,7 @@ function BillSplit({ bill: b, known, first }: { bill: AreaBreakdown['bills'][num
         opacity: pressed ? 0.6 : 1,
       })}>
       <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-        <Text style={{ flex: 1, fontSize: 15, fontWeight: '600' }} numberOfLines={1}>
+        <Text style={{ flex: 1, fontSize: 15, lineHeight: 20, fontWeight: '600' }}>
           {known?.shortTitle ?? b.billId}
         </Text>
         <Text style={{ fontSize: 12, color: colors.meta }}>{b.voters} voted</Text>

@@ -2,6 +2,11 @@
 
 Newest first. Each commit adds a line or two here: what changed, what's live, what's left.
 
+## 2026-10-26
+
+### UI
+- Long bill titles wrap instead of ending in "…": Landslide ranking rows (now two lines, rows 86pt tall) and the bill names in group and area vote splits. Filed or Fake never truncated its text. Live in the app; the web needs a redeploy.
+
 ## 2026-10-25
 
 ### Promo video and launch page

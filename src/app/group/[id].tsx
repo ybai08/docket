@@ -230,7 +230,7 @@ function Split({ split: s }: { split: GroupSplit }) {
       onPress={() => router.push({ pathname: '/bill/[id]', params: { id: s.billId } })}
       style={({ pressed }) => ({ gap: 5, opacity: pressed ? 0.6 : 1 })}>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 8 }}>
-        <Text style={{ flex: 1, fontSize: 14, fontWeight: '600' }} numberOfLines={1}>
+        <Text style={{ flex: 1, fontSize: 14, lineHeight: 19, fontWeight: '600' }}>
           {s.number}, {s.title}
         </Text>
         <Text style={{ fontSize: 14, color: colors.text2 }}>{s.voters} voted</Text>
