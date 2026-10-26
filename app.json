@@ -7,7 +7,7 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "ios": {
-      "supportsTablet": true,
+      "supportsTablet": false,
       "bundleIdentifier": "com.ybai08.docket",
       "usesAppleSignIn": true,
       "appleTeamId": "K24TK2WT4M",

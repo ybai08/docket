@@ -111,3 +111,10 @@ Newest first. Each commit adds a line or two here: what changed, what's live, wh
 - TestFlight build 2 (new icon): EAS build `cf5fdede`, submission `debc2c4c`, from `b3722e7`.
 - Web demo in an iPhone frame: on a desktop browser, `public/index.html` (the web template) redirects to `public/demo.html`, which draws an iPhone-sized device (402 x 874, status bar, Dynamic Island, home indicator) around the app in a same-origin iframe, with a short intro beside it. Phones and narrow windows get the app full screen. Redeploy after changes with `npx expo export -p web` and `eas deploy --prod`.
 - Web demo redeployed with the UI session's web dialog fix (`203f57b`). Sign out and the other confirms need a signed-in check on the web.
+
+## 2026-10-26
+
+### App Store prep (build session)
+- `ios.supportsTablet` is off, so App Review tests on iPhone only and needs no iPad screenshots.
+- `docs/APP_STORE.md`: the App Store Connect checklist (privacy labels, age rating answers, 6.9" screenshots at 1320 x 2868, description with "Docket is not affiliated with any government.", review notes with Sign in with Apple and ZIP 78705, privacy and support URLs).
+- Next: a production build once the UI session's compliance changes are pushed, then submit it.
