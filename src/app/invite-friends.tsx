@@ -6,7 +6,6 @@ import { Pressable, ScrollView, Share, Text, TextInput, View } from 'react-nativ
 import QRCode from 'react-native-qrcode-svg';
 
 import { showAlert, showPrompt } from '@/components/dialog';
-import { ChevronRight } from '@/components/icons';
 import { PillButton } from '@/components/pill-button';
 import { api } from '@/lib/api';
 import { formatDayShort } from '@/lib/day';
@@ -137,22 +136,6 @@ export default function InviteSheet() {
       </View>
 
       <View style={{ borderWidth: 1.5, borderRadius: 12, overflow: 'hidden' }}>
-        <Pressable
-          accessibilityRole="button"
-          onPress={() =>
-            showAlert(
-              'Contact matching',
-              'Matching works only when both people turn on "Match me from contacts" in Privacy. It arrives in a later update.',
-            )
-          }
-          style={{ flexDirection: 'row', alignItems: 'center', gap: 12, paddingVertical: 13, paddingHorizontal: 14 }}>
-          <View style={{ flex: 1 }}>
-            <Text style={{ fontSize: 15, fontWeight: '700' }}>Find friends in contacts</Text>
-            <Text style={{ fontSize: 13, color: colors.text2 }}>Only people already on Docket</Text>
-          </View>
-          <ChevronRight />
-        </Pressable>
-        <View style={{ height: 1, backgroundColor: colors.hairline, marginLeft: 14 }} />
         <Pressable
           accessibilityRole="button"
           onPress={editUsername}

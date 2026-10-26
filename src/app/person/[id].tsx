@@ -1,11 +1,13 @@
 import { router, useLocalSearchParams } from 'expo-router';
 import { useState } from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Svg, { Path, Rect } from 'react-native-svg';
 
 import { Avatar } from '@/components/avatar';
+import { showAlert } from '@/components/dialog';
 import { PillButton } from '@/components/pill-button';
+import { blockUser, report } from '@/components/report';
 import { ScreenHeader } from '@/components/screen-header';
 import { api } from '@/lib/api';
 import { requestSource } from '@/lib/social';
@@ -35,6 +37,24 @@ export default function PersonScreen() {
     } catch {
       setBusy(null);
     }
+  }
+
+  function block() {
+    showAlert(`Block ${name}?`, `${name} won't be told. They can't send you requests, and you won't see each other's rank in shared groups.`, [
+      { text: 'Cancel', style: 'cancel' },
+      {
+        text: 'Block',
+        style: 'destructive',
+        onPress: async () => {
+          try {
+            await blockUser(id);
+            router.back();
+          } catch (err) {
+            showAlert("Couldn't block", (err as Error).message);
+          }
+        },
+      },
+    ]);
   }
 
   return (
@@ -76,7 +96,20 @@ export default function PersonScreen() {
             <Text style={[type.meta, { textAlign: 'center' }]}>{`${name} won't be told if you ignore this.`}</Text>
           </View>
         ) : null}
+
+        <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 28 }}>
+          <TextButton label="Report" onPress={() => report({ type: 'user', id, name }, () => router.back())} />
+          <TextButton label="Block" onPress={block} />
+        </View>
       </ScrollView>
     </SafeAreaView>
+  );
+}
+
+function TextButton({ label, onPress }: { label: string; onPress: () => void }) {
+  return (
+    <Pressable accessibilityRole="button" onPress={onPress} hitSlop={10} style={({ pressed }) => ({ opacity: pressed ? 0.5 : 1 })}>
+      <Text style={{ fontSize: 15, fontWeight: '600', color: colors.text2, textDecorationLine: 'underline' }}>{label}</Text>
+    </Pressable>
   );
 }

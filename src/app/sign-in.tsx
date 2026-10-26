@@ -5,6 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { BillChip } from '@/components/bill-chip';
 import { GoogleG } from '@/components/icons';
+import { AgreeLine } from '@/components/legal';
 import { PillButton } from '@/components/pill-button';
 import { Stamp } from '@/components/stamp';
 import { authErrorMessage, isCancelled, useAuth } from '@/lib/auth-context';
@@ -97,6 +98,7 @@ export default function SignInScreen() {
           <Text style={[type.meta, { marginTop: 4, textAlign: 'center' }]}>
             We use your name and email only for your profile. We never ask for your party.
           </Text>
+          <AgreeLine style={{ ...type.meta, textAlign: 'center' }} />
         </View>
       </View>
     </SafeAreaView>

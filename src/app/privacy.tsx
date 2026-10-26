@@ -11,19 +11,7 @@ import { useMe, type Profile } from '@/lib/me-context';
 import { useRemote } from '@/lib/social';
 import { colors, fonts, type } from '@/theme';
 
-type Key = keyof Pick<
-  Profile,
-  | 'shareVotes'
-  | 'groupBoards'
-  | 'allowUsername'
-  | 'matchContacts'
-  | 'dailyReminder'
-  | 'notifyFriendPasses'
-  | 'notifyStreakRisk'
-  | 'notifyWeeklyRecap'
-  | 'notifyRequests'
-  | 'notifyOppositeVote'
->;
+type Key = keyof Pick<Profile, 'shareVotes' | 'groupBoards' | 'allowUsername'>;
 
 export default function PrivacyScreen() {
   const { profile, patch } = useMe();
@@ -112,33 +100,6 @@ export default function PrivacyScreen() {
             detail={profile.username ? `@${profile.username}` : 'Set a username from Invite friends'}
             value={profile.allowUsername}
             onChange={set('allowUsername')}
-          />
-          <Divider />
-          <SwitchRow
-            title="Match me from contacts"
-            detail="Only with people already on Docket"
-            value={profile.matchContacts}
-            onChange={set('matchContacts')}
-          />
-        </Section>
-
-        <Section title="Notifications">
-          <SwitchRow title="Daily reminder" detail="9:00 AM, when new ballots drop" value={profile.dailyReminder} onChange={set('dailyReminder')} />
-          <Divider />
-          <SwitchRow title="A friend passes you" detail="On the daily or group leaderboard" value={profile.notifyFriendPasses} onChange={set('notifyFriendPasses')} />
-          <Divider />
-          <SwitchRow title="A friend's streak is at risk" detail="So you can nudge them" value={profile.notifyStreakRisk} onChange={set('notifyStreakRisk')} />
-          <Divider />
-          <SwitchRow title="Weekly recap" detail="Where you and your groups agreed and split" value={profile.notifyWeeklyRecap} onChange={set('notifyWeeklyRecap')} />
-          <Divider />
-          <SwitchRow title="New friend requests" detail="Accept or ignore from the Friends tab" value={profile.notifyRequests} onChange={set('notifyRequests')} />
-          <Divider />
-          <SwitchRow
-            title="A friend votes the opposite way"
-            detail={profile.shareVotes ? 'Only if you both share votes' : 'Turn on vote sharing first'}
-            value={profile.notifyOppositeVote && profile.shareVotes}
-            disabled={!profile.shareVotes}
-            onChange={set('notifyOppositeVote')}
           />
         </Section>
 

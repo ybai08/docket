@@ -35,7 +35,7 @@ export default function FriendsScreen() {
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
           <Pressable
             accessibilityRole="button"
-            accessibilityLabel="Privacy and notifications"
+            accessibilityLabel="Privacy"
             onPress={() => router.push('/privacy')}
             style={{
               width: 40,

@@ -5,6 +5,7 @@ import Svg, { Circle, Path } from 'react-native-svg';
 
 import { showAlert, showOptions, showPrompt } from '@/components/dialog';
 import { PillButton } from '@/components/pill-button';
+import { blockUser, report } from '@/components/report';
 import { ScreenHeader } from '@/components/screen-header';
 import { SwitchRow } from '@/components/switch-row';
 import { api } from '@/lib/api';
@@ -50,8 +51,16 @@ function Group({ id }: { id: string }) {
           },
         },
       ]);
+    const reporting = [
+      ...(others().length ? [{ text: 'Report a member', onPress: reportMember }] : []),
+      { text: 'Report this group', onPress: () => report({ type: 'group', id, name: g.name }) },
+    ];
     if (!g.isAdmin) {
-      return showOptions({ title: g.name, message: `Group code ${g.code}`, options: [{ text: 'Leave group', style: 'destructive', onPress: leave }] });
+      return showOptions({
+        title: g.name,
+        message: `Group code ${g.code}`,
+        options: [...reporting, { text: 'Leave group', style: 'destructive', onPress: leave }],
+      });
     }
     showOptions({
       title: `Code ${g.code}`,
@@ -91,6 +100,45 @@ function Group({ id }: { id: string }) {
             ]),
         },
         { text: 'Members', onPress: manageMembers },
+        ...reporting,
+      ],
+    });
+  }
+
+  // Everyone else in the group. Only admins get the full member list; others see the weekly board.
+  function others() {
+    if (!g) return [];
+    const seen = new Map<string, { id: string; name: string }>();
+    for (const p of [...g.people.filter((m) => m.status === 'active'), ...g.board]) if (!p.isYou) seen.set(p.id, p);
+    return [...seen.values()];
+  }
+
+  function reportMember() {
+    showOptions({ title: 'Report a member', options: others().map((p) => ({ text: p.name, onPress: () => member(p) })) });
+  }
+
+  // Report or block one person in the group.
+  function member(p: { id: string; name: string }) {
+    showOptions({
+      title: p.name,
+      options: [
+        { text: `Report ${p.name}`, style: 'destructive', onPress: () => report({ type: 'user', id: p.id, name: p.name }, reload) },
+        {
+          text: `Block ${p.name}`,
+          style: 'destructive',
+          onPress: () =>
+            showAlert(`Block ${p.name}?`, `${p.name} won't be told. You won't see each other's rank in shared groups, and they can't send you requests.`, [
+              { text: 'Cancel', style: 'cancel' },
+              {
+                text: 'Block',
+                style: 'destructive',
+                onPress: async () => {
+                  await blockUser(p.id).catch((err: Error) => showAlert("Couldn't block", err.message));
+                  reload();
+                },
+              },
+            ]),
+        },
       ],
     });
   }
@@ -167,9 +215,13 @@ function Group({ id }: { id: string }) {
                 .map((r, i) => ({ ...r, rank: i + 1 }))
                 .filter((r, i) => i < 5 || r.isYou)
                 .map((r) => (
-                <View
+                <Pressable
                   key={r.id}
-                  style={{
+                  disabled={r.isYou}
+                  accessibilityHint={r.isYou ? undefined : `Report or block ${r.name}`}
+                  onPress={() => member(r)}
+                  style={({ pressed }) => ({
+                    opacity: pressed ? 0.6 : 1,
                     flexDirection: 'row',
                     alignItems: 'center',
                     gap: 10,
@@ -179,11 +231,11 @@ function Group({ id }: { id: string }) {
                     borderTopColor: colors.hairline,
                     backgroundColor: r.isYou ? colors.yellow : undefined,
                     borderRadius: r.isYou ? 8 : 0,
-                  }}>
+                  })}>
                   <Text style={{ width: 22, fontSize: 15, fontWeight: '800' }}>{r.rank}</Text>
                   <Text style={{ flex: 1, fontSize: 15, fontWeight: r.isYou ? '700' : '400' }}>{r.name}</Text>
                   <Text style={{ fontSize: 15, fontVariant: ['tabular-nums'] }}>{r.points}</Text>
-                </View>
+                </Pressable>
                 ))}
               <Text style={type.meta}>Resets every Monday.</Text>
             </View>

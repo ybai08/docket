@@ -1,11 +1,12 @@
 import { Image } from 'expo-image';
 import { router } from 'expo-router';
 import { useState, type ReactNode } from 'react';
-import { Pressable, Text, View } from 'react-native';
+import { Linking, Pressable, Text, View } from 'react-native';
 import Svg, { Line } from 'react-native-svg';
 
 import { stateDistrictLine } from '@/components/civic';
 import { showAlert } from '@/components/dialog';
+import { NOT_AFFILIATED, PRIVACY_URL, SUPPORT_URL, TERMS_URL } from '@/components/legal';
 import { ChevronRight, FiledOrFakeGlyph, FlameIcon, LandslideGlyph, RollCallGlyph } from '@/components/icons';
 import { TabScreen } from '@/components/tab-screen';
 import { WeekTiles } from '@/components/week-tiles';
@@ -173,7 +174,7 @@ export default function ProfileScreen() {
       </Section>
 
       <View style={{ borderWidth: 1.5, borderRadius: 12, overflow: 'hidden' }}>
-        <SettingsRow label="Privacy and notifications" onPress={() => router.push('/privacy')} chevron />
+        <SettingsRow label="Privacy" onPress={() => router.push('/privacy')} chevron />
         <View
           style={{
             height: 1,
@@ -182,6 +183,14 @@ export default function ProfileScreen() {
           }}
         />
         <SettingsRow label="Sign out" onPress={confirmSignOut} />
+      </View>
+      <View style={{ gap: 10 }}>
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', columnGap: 18, rowGap: 6 }}>
+          <FooterLink label="Privacy Policy" url={PRIVACY_URL} />
+          <FooterLink label="Terms of Use" url={TERMS_URL} />
+          <FooterLink label="Support" url={SUPPORT_URL} />
+        </View>
+        <Text style={{ fontSize: 12, lineHeight: 17, color: colors.meta }}>{NOT_AFFILIATED}</Text>
       </View>
       {error && (
         <Text style={type.meta} selectable>
@@ -555,6 +564,14 @@ function LawmakerItem({ row: p, local }: { row: LawmakerRow; local: boolean }) {
               : 'No votes on file'}
         </Text>
       </View>
+    </Pressable>
+  );
+}
+
+function FooterLink({ label, url }: { label: string; url: string }) {
+  return (
+    <Pressable accessibilityRole="link" onPress={() => Linking.openURL(url)} hitSlop={8}>
+      <Text style={{ fontSize: 14, fontWeight: '600', textDecorationLine: 'underline' }}>{label}</Text>
     </Pressable>
   );
 }

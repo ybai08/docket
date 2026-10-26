@@ -7,6 +7,7 @@ import Svg, { Circle } from 'react-native-svg';
 import { Avatar, DemoTag } from '@/components/avatar';
 import { showAlert, showOptions } from '@/components/dialog';
 import { PillButton } from '@/components/pill-button';
+import { blockUser, report } from '@/components/report';
 import { ScreenHeader } from '@/components/screen-header';
 import { BILLS } from '@/data/bills';
 import { api } from '@/lib/api';
@@ -42,6 +43,11 @@ export default function FriendProfile() {
           },
         },
         {
+          text: `Report ${name}`,
+          style: 'destructive',
+          onPress: () => report({ type: 'user', id, name }, () => router.back()),
+        },
+        {
           text: `Block ${name}`,
           style: 'destructive',
           onPress: () =>
@@ -51,7 +57,7 @@ export default function FriendProfile() {
                 text: 'Block',
                 style: 'destructive',
                 onPress: async () => {
-                  await api('/blocks', { method: 'POST', body: { userId: id } }).catch(() => {});
+                  await blockUser(id).catch(() => {});
                   router.back();
                 },
               },
@@ -68,7 +74,7 @@ export default function FriendProfile() {
         right={
           <Pressable
             accessibilityRole="button"
-            accessibilityLabel={`Remove, block or change sharing with ${data?.name ?? 'this friend'}`}
+            accessibilityLabel={`Remove, report, block or change sharing with ${data?.name ?? 'this friend'}`}
             onPress={manage}
             style={{ width: 44, height: 44, alignItems: 'center', justifyContent: 'center' }}>
             <Svg width={22} height={22} viewBox="0 0 24 24" fill={colors.ink}>
