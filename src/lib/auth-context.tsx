@@ -61,7 +61,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (!current) throw new Error('Sign in first.');
       // A fresh sign-in gives Apple's code to revoke and makes the login recent enough for deleteUser.
       const { appleAuthorizationCode } = await reauthenticate(current);
-      if (appleAuthorizationCode) await revokeAppleCode(a, appleAuthorizationCode);
+      // A failed revoke must not block deletion (it fails until the Firebase Apple provider has its key set up).
+      if (appleAuthorizationCode) await revokeAppleCode(a, appleAuthorizationCode).catch((err) => console.warn(err));
       await deleteData();
       try {
         await deleteUser(current);
@@ -90,7 +91,7 @@ async function revokeAppleCode(a: Auth, code: string) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ providerId: 'apple.com', tokenType: 'CODE', token: code, idToken }),
   }).catch(() => null);
-  if (!res?.ok) throw new Error("Couldn't disconnect Sign in with Apple. Nothing was deleted. Try again.");
+  if (!res?.ok) throw new Error(`Sign in with Apple revoke failed (${res ? `${res.status} ${await res.text().catch(() => '')}` : 'network'})`);
 }
 
 export function useAuth() {
