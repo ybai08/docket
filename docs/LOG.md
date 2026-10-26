@@ -10,6 +10,7 @@ Newest first. Each commit adds a line or two here: what changed, what's live, wh
 ## 2026-10-25
 
 ### Promo video and launch page
+- Live (2026-10-26): the 58 s video on docketapp.tech has a new soundtrack made with the bg-music skill (installed at the user's request; ACE-Step 1.5, MIT-licensed, generated locally, 120 BPM). Its drop lands at 8 s, as the first game appears; the hook is now 4 bars and bills-and-lawmakers 3, so every cut is on a bar line. The older synthesized track is kept as `promo/public/music-short-synth.mp3`.
 - Live (2026-10-26): removed the "A daily game about real legislation" label above the headline on docketapp.tech (user request).
 - Live (2026-10-26): republished app.docketapp.tech with `promo/deploy-app.sh` from a clean tree at `de31dc0`, so long bill titles now wrap instead of being cut off on the web too. The app shell, desktop frame and deep links all checked OK.
 - Live (2026-10-26): docketapp.tech plays a 58 s cut (`DocketShort`, `promo/out/docket-demo-short.mp4`): hook, the three games, friends, bills and lawmakers, every state, end card. Its music is re-arranged so the drops land on its cuts (`scripts/music.sh 58 short`). New poster; the page says "The 1-minute demo". The full cuts are unchanged. Fixed the deploy scripts' checks, which `grep -q` plus `pipefail` could fail at random.
