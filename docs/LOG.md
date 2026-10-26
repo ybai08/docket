@@ -129,6 +129,7 @@ Newest first. Each commit adds a line or two here: what changed, what's live, wh
 - `docs/APP_STORE.md`: privacy, support and terms pages are live (checked, all 200). Added the EULA choice and a review note on reporting, blocking, name filtering and 24-hour moderation.
 - TestFlight build 1.0.0 (3): EAS build `963fc6a1`, submission `2f4d6e02`, from `8fd3773` (Report and Block, legal links, no iPad). Not for App Review: build 4 waits on full account deletion (Firebase account and Apple token) and the suspended-account screen from the UI session.
 - App Review candidate 1.0.0 (4): EAS build `c46d7285`, submission `c3d52515`, from `c88cda0` (full account deletion with Apple token revocation that cannot block deletion, suspended-account screen). Deletion still needs an end-to-end test on a throwaway Apple ID in TestFlight.
+- Build 4 is processed by Apple (`VALID`, internal testing). Builds 1 to 3 are `BETA_APPROVED` for external testing, so the TestFlight public link can be turned on. Build 4 is ready to attach to version 1.0.0 for App Review.
 
 ### UI
 - App Store compliance: Report (harassment, hate, spam, impersonation, inappropriate, other) on a friend's page, the friend-request profile, group members (tap a name on the weekly board, or "Report a member") and the group itself. Sends POST /reports, confirms "We'll review this within 24 hours", and offers to block the person too. The request profile also gets Block.
