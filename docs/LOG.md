@@ -131,6 +131,7 @@ Newest first. Each commit adds a line or two here: what changed, what's live, wh
 - App Review candidate 1.0.0 (4): EAS build `c46d7285`, submission `c3d52515`, from `c88cda0` (full account deletion with Apple token revocation that cannot block deletion, suspended-account screen). Deletion still needs an end-to-end test on a throwaway Apple ID in TestFlight.
 - Build 4 is processed by Apple (`VALID`, internal testing). Builds 1 to 3 are `BETA_APPROVED` for external testing, so the TestFlight public link can be turned on. Build 4 is ready to attach to version 1.0.0 for App Review.
 - Launch page (docketapp.tech): removed the Games, Friends, Lawmakers and Privacy links from the header, leaving GitHub and Try it. Uploaded `promo/site/index.html` only; Caddy and the API were not touched.
+- docketapp.tech favicon: the monogram (`promo/site/favicon.ico`, the same file as the app's web favicon, plus a 180px `apple-touch-icon.png`), linked from the launch page, open.html and the privacy, support and terms pages. It had none before, so browsers showed a default icon. app.docketapp.tech already had it.
 
 ### UI
 - App Store compliance: Report (harassment, hate, spam, impersonation, inappropriate, other) on a friend's page, the friend-request profile, group members (tap a name on the weekly board, or "Report a member") and the group itself. Sends POST /reports, confirms "We'll review this within 24 hours", and offers to block the person too. The request profile also gets Block.
