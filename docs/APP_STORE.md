@@ -9,6 +9,7 @@ The build comes from EAS (`eas build -p ios --profile production --auto-submit`)
 - **Category:** Primary *Education*, secondary *News*.
 - **Content rights:** "Yes, it contains third-party content, and I have the rights to use it." Bill text and votes are public government records. Lawmaker photos are the official ones published by Congress and the state legislatures. Lawmaker summaries are Wikipedia openings under CC BY-SA, so keep their attribution in the app.
 - **Age rating:** see section 4.
+- **License Agreement (EULA):** keep Apple's standard EULA. To use Docket's own terms instead, choose *Custom* under **App Information > License Agreement** and paste the text of https://docketapp.tech/terms/ (the field takes text, not a link). Either way, the in-app terms notice links to it.
 
 ## 2. Pricing and Availability
 
@@ -17,7 +18,7 @@ The build comes from EAS (`eas build -p ios --profile production --auto-submit`)
 
 ## 3. App Privacy
 
-- **Privacy Policy URL:** https://docketapp.tech/privacy
+- **Privacy Policy URL:** https://docketapp.tech/privacy/
 - **Data collection:** "Yes, we collect data from this app."
 
 Declare these data types. For each one, answer: used for **App Functionality** only, **linked to the user's identity**, and **not used for tracking**.
@@ -83,7 +84,7 @@ App Store Connect computes the rating from these answers. Expect 13+, mainly bec
   > Docket is not affiliated with any government.
 
 - **Keywords:** `congress,legislature,bills,vote,civics,politics,government,lawmakers,daily,game`
-- **Support URL:** https://docketapp.tech/support
+- **Support URL:** https://docketapp.tech/support/
 - **Marketing URL** (optional): https://docketapp.tech
 - **Copyright:** `2026 Yang Bai`
 
@@ -95,6 +96,8 @@ App Store Connect computes the rating from these answers. Expect 13+, mainly bec
   > Docket has no username and password accounts. Tap "Sign in with Apple" on the first screen and use any Apple ID; a new account is created automatically. When asked for a ZIP code, enter 78705 (Austin, Texas) to see Congress, Texas Legislature and Austin City Council bills.
   >
   > Bill information comes from public government records, and every bill page links to its official source ("Read the bill"). Docket is not affiliated with any government.
+  >
+  > Players can report any user or group in the app with the Report button, and can block anyone. Usernames and group names are filtered for abuse. Reports are reviewed within 24 hours using a moderation tool, and offending content and accounts are removed.
   >
   > To delete an account: Profile tab > the Privacy row > "Delete my account and all my votes".
 

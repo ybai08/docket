@@ -126,3 +126,4 @@ Newest first. Each commit adds a line or two here: what changed, what's live, wh
 - `ios.supportsTablet` is off, so App Review tests on iPhone only and needs no iPad screenshots.
 - `docs/APP_STORE.md`: the App Store Connect checklist (privacy labels, age rating answers, 6.9" screenshots at 1320 x 2868, description with "Docket is not affiliated with any government.", review notes with Sign in with Apple and ZIP 78705, privacy and support URLs).
 - Next: a production build once the UI session's compliance changes are pushed, then submit it.
+- `docs/APP_STORE.md`: privacy, support and terms pages are live (checked, all 200). Added the EULA choice and a review note on reporting, blocking, name filtering and 24-hour moderation.
