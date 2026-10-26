@@ -4,17 +4,16 @@ Newest first. Each commit adds a line or two here: what changed, what's live, wh
 
 ## 2026-10-26
 
-### UI
-- Long bill titles wrap instead of ending in "…": Landslide ranking rows (now two lines, rows 86pt tall) and the bill names in group and area vote splits. Filed or Fake never truncated its text. Live in the app; the web needs a redeploy.
-
-## 2026-10-26
-
 ### App Store compliance: reports, moderation, policy pages (backend)
 - `POST /reports` lets players report a user or group (reasons: harassment, hate, spam, impersonation, inappropriate, other). One open report per person and target, and the same answer whether or not the target exists. Migration 009 adds `reports` and `users.suspended_at`.
 - `npm run moderate` (from `server/`) lists open reports and can dismiss one, reset a player's name, remove a group, or suspend or unsuspend an account. A suspended account gets 403 everywhere except `DELETE /me`, so it can still delete itself.
 - Display names, usernames and group names are filtered for slurs and profanity, including l33t spellings and spaced-out letters, without blocking real names like Dick Durbin, Cumming or Scunthorpe.
 - Live at https://docketapp.tech/privacy, https://docketapp.tech/terms (zero tolerance for objectionable content, reports reviewed within 24 hours) and https://docketapp.tech/support (GitHub Issues as the contact).
 - With the UI session: a Report button, removing the switches that did nothing, a terms notice, and full account deletion. With the TestFlight session: iPad off, a new build, and the App Store Connect checklist.
+
+
+### UI
+- Long bill titles wrap instead of ending in "…": Landslide ranking rows (now two lines, rows 86pt tall) and the bill names in group and area vote splits. Filed or Fake never truncated its text. Live in the app; the web needs a redeploy.
 
 ## 2026-10-25
 
