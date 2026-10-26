@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Support · Docket</title>
+<meta name="description" content="Get help with Docket.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,700&display=swap">
+<style>
+  :root { --ground: #fff; --ink: #000; --text2: #3A3A3C; --meta: #5A5A5E; --hairline: #E4E4E7; --muted: #F4F4F5;
+    --serif: "Newsreader", Georgia, serif; --sans: "Inter", -apple-system, BlinkMacSystemFont, system-ui, sans-serif; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font: 17px/1.6 var(--sans); }
+  header { border-bottom: 1px solid var(--hairline); }
+  header div, main, footer div { max-width: 720px; margin: 0 auto; padding: 0 16px; }
+  header div { display: flex; gap: 20px; align-items: center; height: 60px; }
+  header a { color: var(--text2); text-decoration: none; font-size: 15px; font-weight: 500; }
+  header a.home { color: var(--ink); font: 700 22px var(--serif); margin-right: auto; }
+  header a[aria-current] { color: var(--ink); text-decoration: underline; text-underline-offset: 4px; }
+  main { padding-top: 40px; padding-bottom: 56px; }
+  h1 { font: 700 clamp(34px, 7vw, 46px)/1.1 var(--serif); margin: 0 0 8px; letter-spacing: -0.01em; }
+  .updated { color: var(--meta); font-size: 15px; margin: 0 0 32px; }
+  h2 { font: 700 24px/1.25 var(--serif); margin: 40px 0 8px; }
+  p, li { color: var(--text2); }
+  ul { padding-left: 22px; } li { margin: 6px 0; }
+  strong { color: var(--ink); font-weight: 600; }
+  a { color: var(--ink); }
+  .note { background: var(--muted); border-radius: 12px; padding: 16px 18px; margin: 24px 0; }
+  .note p { margin: 0; }
+  footer { border-top: 1px solid var(--hairline); }
+  footer div { padding-top: 24px; padding-bottom: 32px; color: var(--meta); font-size: 14px; }
+  footer a { color: var(--meta); }
+</style>
+</head>
+<body>
+<header><div>
+  <a class="home" href="/">Docket</a>
+  <a href="/privacy">Privacy</a>
+  <a href="/terms">Terms</a>
+  <a href="/support" aria-current="page">Support</a>
+</div></header>
+<main>
+<h1>Support</h1>
+<p class="updated">Effective October 26, 2026</p>
+<p>Need help, found a bug, or want to tell us something? Open an issue at <a href="https://github.com/ybai08/docket/issues">github.com/ybai08/docket/issues</a>. We read every one.</p>
+
+<h2>Common questions</h2>
+<h3 style="font: 600 18px var(--sans); margin: 24px 0 4px;">How do I report a player or a group?</h3>
+<p>Open their page in the app and tap <strong>Report</strong>. Pick a reason and, if you like, add a note. We review reports within 24 hours. You can also block them from the same place.</p>
+<h3 style="font: 600 18px var(--sans); margin: 24px 0 4px;">How do I delete my account?</h3>
+<p>Go to <strong>Profile → Privacy → Delete account</strong>. That removes your data and your sign-in account, and it can't be undone. See the <a href="/privacy">Privacy Policy</a> for details.</p>
+<h3 style="font: 600 18px var(--sans); margin: 24px 0 4px;">Who can see how I voted?</h3>
+<p>Only friends who also share their votes with you, and only if you turn sharing on. Everyone else sees totals at most, hidden until enough people have voted.</p>
+<h3 style="font: 600 18px var(--sans); margin: 24px 0 4px;">Where do the bills come from?</h3>
+<p>From official legislature records: Congress through Voteview and congress-legislators, state legislatures through Open States and their own websites, and Austin through the city's open data. Each bill links to its source. Docket isn't affiliated with any government.</p>
+<h3 style="font: 600 18px var(--sans); margin: 24px 0 4px;">My district or lawmakers look wrong.</h3>
+<p>Districts are matched from your ZIP code, and a ZIP code can span more than one district. Docket uses the district that covers most of it. Open an issue with your ZIP code and we'll take a look.</p>
+</main>
+<footer><div>
+  Docket is not affiliated with any government. Bills and votes come from official legislature records, Open States and Voteview.
+  <br><a href="/">docketapp.tech</a> · <a href="https://github.com/ybai08/docket">Code on GitHub</a>
+</div></footer>
+</body>
+</html>

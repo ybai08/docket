@@ -83,6 +83,17 @@ cd server && npm run seed
 
 The progress log is in [docs/LOG.md](docs/LOG.md).
 
+## Reports and moderation
+
+Players can report a user or group from the app (`POST /reports`). Review them at least daily, since the Terms promise a response within 24 hours:
+
+```bash
+cd server && npm run moderate                 # open reports
+npm run moderate -- reset-name <uid>          # or: dismiss <report>, remove-group <id>, suspend <uid>, unsuspend <uid>
+```
+
+Display names, usernames and group names are also filtered when set (`server/src/names.ts`). The Privacy Policy, Terms of Use and Support pages are in `server/deploy/site/` and served at docketapp.tech/privacy, /terms and /support.
+
 ## Deploy the API
 
 The API runs on a Vultr VM (Ubuntu 24.04) behind Caddy, which gets HTTPS certificates from Let's Encrypt. Production is `https://api.docketapp.tech` for the API and `https://docketapp.tech` for the page share links open (`/invite/<token>`, `/group/<code>`), which hands off to the app. Without a domain, `<ip-with-dashes>.sslip.io` works as the API host.

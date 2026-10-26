@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy · Docket</title>
+<meta name="description" content="What Docket collects, who can see it, and how to delete it.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,700&display=swap">
+<style>
+  :root { --ground: #fff; --ink: #000; --text2: #3A3A3C; --meta: #5A5A5E; --hairline: #E4E4E7; --muted: #F4F4F5;
+    --serif: "Newsreader", Georgia, serif; --sans: "Inter", -apple-system, BlinkMacSystemFont, system-ui, sans-serif; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font: 17px/1.6 var(--sans); }
+  header { border-bottom: 1px solid var(--hairline); }
+  header div, main, footer div { max-width: 720px; margin: 0 auto; padding: 0 16px; }
+  header div { display: flex; gap: 20px; align-items: center; height: 60px; }
+  header a { color: var(--text2); text-decoration: none; font-size: 15px; font-weight: 500; }
+  header a.home { color: var(--ink); font: 700 22px var(--serif); margin-right: auto; }
+  header a[aria-current] { color: var(--ink); text-decoration: underline; text-underline-offset: 4px; }
+  main { padding-top: 40px; padding-bottom: 56px; }
+  h1 { font: 700 clamp(34px, 7vw, 46px)/1.1 var(--serif); margin: 0 0 8px; letter-spacing: -0.01em; }
+  .updated { color: var(--meta); font-size: 15px; margin: 0 0 32px; }
+  h2 { font: 700 24px/1.25 var(--serif); margin: 40px 0 8px; }
+  p, li { color: var(--text2); }
+  ul { padding-left: 22px; } li { margin: 6px 0; }
+  strong { color: var(--ink); font-weight: 600; }
+  a { color: var(--ink); }
+  .note { background: var(--muted); border-radius: 12px; padding: 16px 18px; margin: 24px 0; }
+  .note p { margin: 0; }
+  footer { border-top: 1px solid var(--hairline); }
+  footer div { padding-top: 24px; padding-bottom: 32px; color: var(--meta); font-size: 14px; }
+  footer a { color: var(--meta); }
+</style>
+</head>
+<body>
+<header><div>
+  <a class="home" href="/">Docket</a>
+  <a href="/privacy" aria-current="page">Privacy</a>
+  <a href="/terms">Terms</a>
+  <a href="/support">Support</a>
+</div></header>
+<main>
+<h1>Privacy Policy</h1>
+<p class="updated">Effective October 26, 2026</p>
+<p>Docket is a daily game about real bills. This page explains what we collect, why, who can see it, and how to delete it. We don't sell your data, we don't show ads, and we don't track you across other apps or websites.</p>
+
+<h2>What we collect</h2>
+<ul>
+  <li><strong>Your sign-in.</strong> You sign in with Apple or Google through Firebase Authentication, a Google service. It gives us an account ID, plus the name and email address your Apple or Google account shares.</li>
+  <li><strong>Your profile.</strong> A display name, an optional username, the issues you pick, and your ZIP code. From the ZIP code we look up your state, county, city and districts, so we can show your bills and lawmakers. We never ask for a street address.</li>
+  <li><strong>How you play.</strong> Your Yea or Nay on each bill, your Filed or Fake and Landslide answers and scores, and your streaks. Your votes say something about your political views, so we treat them as sensitive.</li>
+  <li><strong>Friends and groups.</strong> Friends, friend requests, invite links, groups you join or run, people you block, and your sharing settings.</li>
+  <li><strong>Reports you send.</strong> If you report a player or group, we keep the report, its reason, and any note you add.</li>
+</ul>
+<p>We don't collect your contacts, precise location, advertising identifiers, or browsing history, and the app has no analytics or ad SDKs.</p>
+
+<h2>Who can see what</h2>
+<ul>
+  <li><strong>Your votes</strong> are private by default. A friend sees how you voted on a bill only when you've both turned on vote sharing.</li>
+  <li><strong>Group and area results</strong> are only ever totals, and they stay hidden until enough people have voted that no one's vote can be worked out.</li>
+  <li><strong>Agreement with friends</strong> shows only after you've shared enough bills that it doesn't reveal single votes.</li>
+  <li><strong>Your display name</strong> is visible to your friends, to members of your groups, and to people you send friend requests to. Others can add you by username only if you allow it.</li>
+  <li><strong>Lawmakers' votes</strong> come from public records.</li>
+</ul>
+
+<h2>Where it's kept</h2>
+<p>Your data is stored in a PostgreSQL database hosted by Timescale (Tiger Cloud), and our API runs on a server hosted by Vultr, both in the United States. Sign-in is handled by Google Firebase and, if you use it, Sign in with Apple. These companies process data only to run those services for us.</p>
+
+<h2>Deleting your account</h2>
+<p>In the app, go to <strong>Profile → Privacy → Delete account</strong>. That deletes your profile, votes, results, streaks, friendships, requests, invites, blocks, and the groups you run, and it removes your sign-in account. Reports you filed are kept for moderation, but without your name or ID. Deletion can't be undone.</p>
+
+<h2>Children</h2>
+<p>Docket isn't meant for children under 13, and we don't knowingly collect their data. If you think a child under 13 has an account, contact us and we'll delete it.</p>
+
+<h2>Changes</h2>
+<p>If this policy changes, we'll update this page and its date. If a change affects how your votes are shared, we'll tell you in the app first.</p>
+
+<h2>Contact</h2>
+<p>Questions or requests: open an issue at <a href="https://github.com/ybai08/docket/issues">github.com/ybai08/docket/issues</a>, or use the <a href="/support">Support page</a>.</p>
+</main>
+<footer><div>
+  Docket is not affiliated with any government. Bills and votes come from official legislature records, Open States and Voteview.
+  <br><a href="/">docketapp.tech</a> · <a href="https://github.com/ybai08/docket">Code on GitHub</a>
+</div></footer>
+</body>
+</html>

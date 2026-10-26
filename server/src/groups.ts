@@ -7,8 +7,10 @@ import { addDays, centralDay } from '../../src/lib/day.ts';
 import { requireUser } from './auth.ts';
 import { setFor } from './content.ts';
 import { pool, query } from './db.ts';
+import { isObjectionable } from './names.ts';
 
 export const MAX_MEMBERS = 50;
+const groupName = z.string().trim().min(2).max(40).refine((s) => !isObjectionable(s), 'Pick a different group name.');
 
 type Q = <T extends Record<string, unknown>>(text: string, params?: unknown[]) => Promise<T[]>;
 
@@ -152,7 +154,7 @@ export async function groupRoutes(app: FastifyInstance) {
   });
 
   app.post('/groups', async (req) => {
-    const body = z.object({ name: z.string().trim().min(2).max(40), approvalRequired: z.boolean().default(false) }).parse(req.body);
+    const body = z.object({ name: groupName, approvalRequired: z.boolean().default(false) }).parse(req.body);
     for (let attempt = 0; attempt < 5; attempt++) {
       try {
         const [g] = await query<GroupRow>(
@@ -256,7 +258,7 @@ export async function groupRoutes(app: FastifyInstance) {
 
   app.patch<{ Params: { id: string } }>('/groups/:id', async (req, reply) => {
     if (!(await requireAdmin(req.params.id, req.uid, reply))) return;
-    const body = z.object({ name: z.string().trim().min(2).max(40).optional(), approvalRequired: z.boolean().optional() }).parse(req.body);
+    const body = z.object({ name: groupName.optional(), approvalRequired: z.boolean().optional() }).parse(req.body);
     if (body.name) await query('UPDATE groups SET name = $2 WHERE id = $1', [req.params.id, body.name]);
     if (body.approvalRequired !== undefined) await query('UPDATE groups SET approval_required = $2 WHERE id = $1', [req.params.id, body.approvalRequired]);
     return { ok: true };

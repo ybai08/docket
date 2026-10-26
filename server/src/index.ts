@@ -9,6 +9,7 @@ import { gameRoutes } from './games.ts';
 import { groupRoutes } from './groups.ts';
 import { lawmakerRoutes } from './lawmakers.ts';
 import { meRoutes } from './me.ts';
+import { reportRoutes } from './reports.ts';
 import { socialRoutes } from './social.ts';
 
 const app = Fastify({ logger: { level: process.env.LOG_LEVEL ?? 'info' } });
@@ -44,5 +45,6 @@ await app.register(meRoutes);
 await app.register(socialRoutes);
 await app.register(groupRoutes);
 await app.register(lawmakerRoutes);
+await app.register(reportRoutes);
 
 await app.listen({ port: Number(process.env.PORT ?? 8787), host: '0.0.0.0' });

@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { addDays, centralDay } from '../../src/lib/day.ts';
 import { requireUser } from './auth.ts';
 import { lookupZip, stateName } from './geo.ts';
+import { isObjectionable } from './names.ts';
 import { query } from './db.ts';
 
 /** Played days, streaks and agreement, all from finished games on the server. */
@@ -86,11 +87,15 @@ const visibleText = (max: number, message: string) =>
 
 const profilePatch = z.object({
   // "You" is how the app labels the viewer; nobody else may look like them.
-  displayName: visibleText(60, 'Enter a name.').refine((s) => !/^you\W*$/i.test(s), 'Pick a different name.').optional(),
+  displayName: visibleText(60, 'Enter a name.')
+    .refine((s) => !/^you\W*$/i.test(s), 'Pick a different name.')
+    .refine((s) => !isObjectionable(s), 'Pick a different name.')
+    .optional(),
   username: z
     .string()
     .regex(/^[a-z0-9_]{3,20}$/, 'Usernames are 3 to 20 lowercase letters, numbers or underscores.')
     .refine((u) => !/^(admin|administrator|docket|support|official|staff|moderator|mod|help|system|root|you)$/.test(u), 'That username is reserved.')
+    .refine((u) => !isObjectionable(u), 'Pick a different username.')
     .optional(),
   zip: z.string().regex(/^\d{5}$/).optional(),
   issues: z.array(visibleText(60, 'Pick an issue.')).max(12).optional(),
