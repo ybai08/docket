@@ -127,9 +127,9 @@ Newest first. Each commit adds a line or two here: what changed, what's live, wh
 - `docs/APP_STORE.md`: the App Store Connect checklist (privacy labels, age rating answers, 6.9" screenshots at 1320 x 2868, description with "Docket is not affiliated with any government.", review notes with Sign in with Apple and ZIP 78705, privacy and support URLs).
 - Next: a production build once the UI session's compliance changes are pushed, then submit it.
 - `docs/APP_STORE.md`: privacy, support and terms pages are live (checked, all 200). Added the EULA choice and a review note on reporting, blocking, name filtering and 24-hour moderation.
+- App Store candidate: 1.0.0 (3), EAS build `963fc6a1`, submission `2f4d6e02`, from `8fd3773` (Report and Block, legal links, no iPad). Auto-submits to App Store Connect.
 
 ### UI
 - App Store compliance: Report (harassment, hate, spam, impersonation, inappropriate, other) on a friend's page, the friend-request profile, group members (tap a name on the weekly board, or "Report a member") and the group itself. Sends POST /reports, confirms "We'll review this within 24 hours", and offers to block the person too. The request profile also gets Block.
 - Removed switches and rows that did nothing: daily reminder and all notification toggles, "Match me from contacts" (Privacy), the onboarding reminder switch and its two placeholder buttons, and "Find friends in contacts" in Invite. Profile's row is now "Privacy".
 - Sign-in says "By continuing, you agree to the Terms of Use and Privacy Policy" with links. Profile ends with Privacy Policy, Terms of Use and Support links and the not-affiliated-with-any-government line.
-- App Store candidate: 1.0.0 (3), EAS build `963fc6a1`, submission `2f4d6e02`, from `8fd3773` (Report and Block, legal links, no iPad). Auto-submits to App Store Connect.
