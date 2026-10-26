@@ -48,6 +48,6 @@ fi
 REMOTE
 
 # Checks: the homepage, a seekable video, and a share link that still opens the app page.
-curl -fsS "https://$SITE/" | grep -q "Do you know how" && echo "homepage: launch page"
+curl -fsS "https://$SITE/" | grep -q "<title>Docket: daily ballots on real bills</title>" && echo "homepage: launch page"
 curl -fsSI "https://$SITE/media/docket-demo.mp4" | grep -qi "accept-ranges: bytes" && echo "video: served, seekable"
 curl -fsS "https://$SITE/invite/abc123" | grep -q "Open this in Docket" && echo "share links: still open.html"

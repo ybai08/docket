@@ -7,7 +7,7 @@
 <meta name="description" content="Docket is a daily civic game. Vote on real bills, spot the fake ones, rank the landslides, then see where you, your friends and your lawmakers agree. A HackTX 2026 project.">
 <meta property="og:title" content="Docket: daily ballots on real bills">
 <meta property="og:description" content="Three quick games about real bills, every day. See where you, your friends and your lawmakers agree.">
-<meta property="og:image" content="https://docketapp.tech/media/poster.jpg?v=5b0d1921">
+<meta property="og:image" content="https://docketapp.tech/media/poster.jpg?v=ea713e58">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#ffffff">
@@ -40,17 +40,18 @@
   .pill.outline { background: transparent; color: var(--ink) !important; }
 
   /* Hero */
-  .hero { position: relative; padding: 36px 0 40px; overflow: hidden; text-align: center; }
+  .hero { position: relative; padding: 40px 0 40px; overflow: hidden; text-align: center; }
+  .kicker { font-size: 14px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; color: var(--meta); }
   .hero::before { content: ""; position: absolute; width: 760px; height: 760px; right: -240px; top: -300px; border-radius: 50%; background: var(--lavender); opacity: .45; filter: blur(110px); z-index: -1; }
   .hero::after { content: ""; position: absolute; width: 620px; height: 620px; left: -260px; top: 160px; border-radius: 50%; background: var(--yellow); opacity: .35; filter: blur(120px); z-index: -1; }
   .badge { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; border-radius: 999px; border: 1.5px solid var(--ink); font-size: 13px; font-weight: 700; letter-spacing: .2px; background: #fff; }
   .badge b { width: 8px; height: 8px; border-radius: 50%; background: #2E8B7E; }
-  h1 { margin: 14px auto 0; font-family: var(--serif); font-weight: 800; font-size: clamp(38px, 5.2vw, 68px); line-height: 1.02; letter-spacing: -1.6px; max-width: 1100px; }
+  h1 { margin: 12px auto 0; font-family: var(--serif); font-weight: 800; font-size: clamp(38px, 5vw, 64px); line-height: 1.04; letter-spacing: -1.6px; max-width: 1000px; }
   h1 em { font-style: normal; background: linear-gradient(transparent 62%, var(--teal) 62%, var(--teal) 92%, transparent 92%); }
-  .lede { margin: 28px auto 0; max-width: 640px; font-size: clamp(18px, 2.1vw, 21px); line-height: 1.5; color: var(--text2); }
+  .lede { margin: 16px auto 0; max-width: 780px; font-size: clamp(18px, 2.1vw, 21px); line-height: 1.5; color: var(--text2); }
   .cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 26px; }
   .cta .pill { height: 54px; padding: 0 28px; font-size: 17px; }
-  .cta.try { margin-top: 20px; }
+  .cta.try { margin-top: 24px; }
   .gh { flex: none; }
   .gh-link { display: inline-flex; align-items: center; gap: 6px; }
   .code-link { margin: 10px 0 0; font-size: 15px; font-weight: 600; }
@@ -151,7 +152,9 @@
 
 <header class="hero">
   <div class="wrap">
-    <h1>Do you know how <em>yours</em> voted?</h1>
+    <div class="kicker">A daily game about real legislation</div>
+    <h1>Play the bills your <em>lawmakers</em> vote on.</h1>
+    <p class="lede">Enter your ZIP code and get a new ballot every day: real bills from Congress and your own state legislature. Vote on them, spot the fakes, rank the landslides, then see how your representatives and your friends voted.</p>
     <div class="cta try">
       <a class="pill" href="https://app.docketapp.tech">Try it in your browser</a>
       <a class="pill outline" href="#games">See how it works</a>
@@ -160,13 +163,12 @@
     <p class="browser-note">For now, Docket runs in your browser. The iPhone app is on TestFlight, but Apple's review for outside testers didn't finish before judging.</p>
 
     <div class="video" id="demo">
-      <video controls playsinline preload="metadata" poster="/media/poster.jpg?v=5b0d1921">
-        <source src="/media/docket-demo.mp4?v=5b0d1921" type="video/mp4">
-        Your browser can't play this video. <a href="/media/docket-demo.mp4?v=5b0d1921">Download it</a>.
+      <video controls playsinline preload="metadata" poster="/media/poster.jpg?v=ea713e58">
+        <source src="/media/docket-demo.mp4?v=ea713e58" type="video/mp4">
+        Your browser can't play this video. <a href="/media/docket-demo.mp4?v=ea713e58">Download it</a>.
       </video>
     </div>
-    <p class="video-note">The 2-minute demo. Every screen is the real iOS app, running on our test account.</p>
-    <p class="lede">Docket is a daily ballot on real bills. Three quick games show you what Congress and your statehouse actually voted on, then where you, your friends and your lawmakers agree.</p>
+    <p class="video-note">The 2-minute demo. Every screen is the real app, running on our test account.</p>
   </div>
 </header>
 
@@ -262,14 +264,14 @@
     <div class="built">
       <div class="card">
         <h4>The stack</h4>
-        <p>A native iOS app and a small API with its own database. Lawmakers, districts and photos are stored on our server, so the app never calls outside services at play time.</p>
+        <p>One Expo app that runs on iPhone and in the browser, plus a small API with its own database. Lawmakers, districts, bills and photos live on our server, so the app never calls outside services while you play.</p>
         <p class="code-link left"><a href="https://github.com/ybai08/docket"><svg class="gh" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>github.com/ybai08/docket</a></p>
         <div class="chips"><span>Expo</span><span>React Native</span><span>Fastify</span><span>PostgreSQL</span><span>Firebase Auth</span><span>Caddy</span></div>
       </div>
       <div class="card">
         <h4>The sources</h4>
         <p>Every bill, vote count and outcome comes from the official record, and each one links to its source. Lawmaker backgrounds are credited to Wikipedia.</p>
-        <div class="chips"><span>Congress.gov</span><span>Texas Legislature Online</span><span>Texas House &amp; Senate Journals</span><span>Open States</span><span>congress-legislators</span><span>U.S. Census</span><span>Wikipedia</span></div>
+        <div class="chips"><span>Congress.gov</span><span>Open States</span><span>State legislature websites</span><span>Texas House &amp; Senate Journals</span><span>congress-legislators</span><span>U.S. Census</span><span>Wikipedia</span></div>
       </div>
     </div>
   </div>
@@ -277,7 +279,7 @@
 
 <div class="end">
   <h2>Play today's ballot.</h2>
-  <p>Docket is a HackTX 2026 project. Play the real app right in your browser: sign in with Google and cast today's ballot.</p>
+  <p>Three quick games, a new ballot every day. Sign in with Google in your browser and cast today's.</p>
   <span class="tiles" aria-hidden="true"><i style="background:var(--lavender)"></i><i style="background:var(--yellow)"></i><i style="background:var(--teal)"></i></span><br>
   <a class="pill" href="https://app.docketapp.tech">Try Docket</a>
 </div>
