@@ -11,6 +11,7 @@ import { ActivityIndicator, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import { DialogHost } from '@/components/dialog';
+import { Suspended } from '@/components/suspended';
 import { AuthProvider, useAuth } from '@/lib/auth-context';
 import { GameStoreProvider } from '@/lib/game-store';
 import { MeProvider, useMe } from '@/lib/me-context';
@@ -31,6 +32,8 @@ function RootStack() {
       </View>
     );
   }
+
+  if (user && me.state === 'suspended') return <Suspended message={me.suspendedMessage ?? 'This account is suspended.'} />;
 
   return (
     <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.ground } }}>

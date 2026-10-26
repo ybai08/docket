@@ -1,5 +1,5 @@
 // Web: Firebase's own popup flows.
-import { GoogleAuthProvider, signInWithPopup, type Auth } from 'firebase/auth';
+import { GoogleAuthProvider, reauthenticateWithPopup, signInWithPopup, type Auth, type User } from 'firebase/auth';
 
 export const isGoogleConfigured = true;
 
@@ -16,6 +16,12 @@ export async function isAppleSignInAvailable() {
 
 export async function signInWithApple(_auth: Auth) {
   throw new Error('Sign in with Apple is only available on iOS.');
+}
+
+/** Signs in again so Firebase treats the login as recent (deleteUser needs that). Apple is iOS-only. */
+export async function reauthenticate(user: User): Promise<{ appleAuthorizationCode?: string }> {
+  if (user.providerData[0]?.providerId === 'google.com') await reauthenticateWithPopup(user, new GoogleAuthProvider());
+  return {};
 }
 
 export async function signOutOfProviders() {}

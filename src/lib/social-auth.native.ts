@@ -5,9 +5,11 @@ import * as Crypto from 'expo-crypto';
 import {
   GoogleAuthProvider,
   OAuthProvider,
+  reauthenticateWithCredential,
   signInWithCredential,
   updateProfile,
   type Auth,
+  type User,
 } from 'firebase/auth';
 import { Platform } from 'react-native';
 
@@ -62,6 +64,35 @@ export async function signInWithApple(auth: Auth) {
   const { givenName, familyName } = appleCredential.fullName ?? {};
   const name = [givenName, familyName].filter(Boolean).join(' ');
   if (name && !user.displayName) await updateProfile(user, { displayName: name });
+}
+
+/**
+ * Signs in again with the provider the user used, so Firebase treats the login as recent
+ * (deleteUser needs that). For Apple, also returns the fresh authorization code to revoke.
+ */
+export async function reauthenticate(user: User): Promise<{ appleAuthorizationCode?: string }> {
+  const provider = user.providerData[0]?.providerId;
+  if (provider === 'apple.com') {
+    const rawNonce = Crypto.randomUUID();
+    const nonce = await Crypto.digestStringAsync(Crypto.CryptoDigestAlgorithm.SHA256, rawNonce);
+    let apple: AppleAuthentication.AppleAuthenticationCredential;
+    try {
+      apple = await AppleAuthentication.signInAsync({ nonce });
+    } catch (err) {
+      if ((err as { code?: string }).code === 'ERR_REQUEST_CANCELED') throw new SignInCancelled();
+      throw err;
+    }
+    if (!apple.identityToken || !apple.authorizationCode) throw new Error('Apple did not return a sign-in token.');
+    await reauthenticateWithCredential(user, new OAuthProvider('apple.com').credential({ idToken: apple.identityToken, rawNonce }));
+    return { appleAuthorizationCode: apple.authorizationCode };
+  }
+  if (provider === 'google.com') {
+    const response = await GoogleSignin.signIn();
+    if (!isSuccessResponse(response)) throw new SignInCancelled();
+    if (!response.data.idToken) throw new Error('Google did not return an ID token.');
+    await reauthenticateWithCredential(user, GoogleAuthProvider.credential(response.data.idToken));
+  }
+  return {};
 }
 
 export async function signOutOfProviders() {

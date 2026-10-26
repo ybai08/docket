@@ -2,11 +2,11 @@ import { useState } from 'react';
 import { Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { useDeleteAccount } from '@/components/delete-account';
 import { showAlert } from '@/components/dialog';
 import { ScreenHeader } from '@/components/screen-header';
 import { SwitchRow } from '@/components/switch-row';
 import { api } from '@/lib/api';
-import { useAuth } from '@/lib/auth-context';
 import { useMe, type Profile } from '@/lib/me-context';
 import { useRemote } from '@/lib/social';
 import { colors, fonts, type } from '@/theme';
@@ -15,9 +15,9 @@ type Key = keyof Pick<Profile, 'shareVotes' | 'groupBoards' | 'allowUsername'>;
 
 export default function PrivacyScreen() {
   const { profile, patch } = useMe();
-  const { signOut } = useAuth();
   const blocked = useRemote<{ blocked: { id: string; name: string }[] }>('/blocks');
   const [error, setError] = useState<string | null>(null);
+  const deleteAccount = useDeleteAccount(setError);
 
   if (!profile) return null;
 
@@ -43,24 +43,6 @@ export default function PrivacyScreen() {
         { text: 'Done', style: 'cancel' as const },
       ],
     );
-  }
-
-  function deleteAccount() {
-    showAlert('Delete your account?', 'This deletes your votes, results, friends and groups from Docket. It cannot be undone.', [
-      { text: 'Cancel', style: 'cancel' },
-      {
-        text: 'Delete everything',
-        style: 'destructive',
-        onPress: async () => {
-          try {
-            await api('/me', { method: 'DELETE' });
-            await signOut();
-          } catch (err) {
-            setError((err as Error).message);
-          }
-        },
-      },
-    ]);
   }
 
   return (

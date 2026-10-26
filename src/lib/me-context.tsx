@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from 'react';
 
-import { api } from './api';
+import { api, ApiError } from './api';
 import { useAuth } from './auth-context';
 
 export type Profile = {
@@ -53,8 +53,12 @@ export type Location = {
 type Me = {
   profile: Profile | null;
   stats: Stats | null;
-  /** 'error' means the API is unreachable; the app then skips onboarding and plays offline. */
-  state: 'loading' | 'ready' | 'error';
+  /**
+   * 'error' means the API is unreachable; the app then skips onboarding and plays offline.
+   * 'suspended' means the server refused the account (403); suspendedMessage says why.
+   */
+  state: 'loading' | 'ready' | 'error' | 'suspended';
+  suspendedMessage: string | null;
   refresh: () => Promise<void>;
   patch: (changes: Partial<Profile>) => Promise<void>;
   saveLocation: (zip: string) => Promise<void>;
@@ -67,6 +71,7 @@ export function MeProvider({ children }: { children: ReactNode }) {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [stats, setStats] = useState<Stats | null>(null);
   const [state, setState] = useState<Me['state']>('loading');
+  const [suspendedMessage, setSuspendedMessage] = useState<string | null>(null);
 
   const refresh = useCallback(async () => {
     try {
@@ -74,14 +79,19 @@ export function MeProvider({ children }: { children: ReactNode }) {
       setProfile(res.profile);
       setStats(res.stats);
       setState('ready');
-    } catch {
+    } catch (err) {
+      if (err instanceof ApiError && err.status === 403) {
+        setSuspendedMessage(err.message);
+        setState('suspended');
+        return;
+      }
       setState((s) => (s === 'ready' ? s : 'error'));
     }
   }, []);
 
   useEffect(() => {
-    if (!user) return;
-    const t = setTimeout(refresh, 0);
+    // Signing out clears a suspension, so the next account starts fresh.
+    const t = setTimeout(user ? refresh : () => setState('loading'), 0);
     return () => clearTimeout(t);
   }, [user, refresh]);
 
@@ -97,7 +107,7 @@ export function MeProvider({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <MeContext.Provider value={{ profile: user ? profile : null, stats, state, refresh, patch, saveLocation }}>
+    <MeContext.Provider value={{ profile: user ? profile : null, stats, state, suspendedMessage, refresh, patch, saveLocation }}>
       {children}
     </MeContext.Provider>
   );

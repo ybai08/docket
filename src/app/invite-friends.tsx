@@ -18,7 +18,7 @@ import { colors, fonts, type } from '@/theme';
 
 export default function InviteSheet() {
   const { day, set, progress, status } = useToday();
-  const { profile, patch } = useMe();
+  const { profile, patch, refresh } = useMe();
   const [token, setToken] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
@@ -64,6 +64,7 @@ export default function InviteSheet() {
         try {
           await patch({ username: value.trim().replace(/^@/, '').toLowerCase() });
         } catch (err) {
+          refresh(); // patch shows the new name right away; put the saved one back
           showAlert("Couldn't save that username", (err as Error).message);
         }
       },

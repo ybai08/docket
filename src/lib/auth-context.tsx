@@ -1,8 +1,9 @@
-import { onAuthStateChanged, signOut as firebaseSignOut, type User } from 'firebase/auth';
+import { deleteUser, onAuthStateChanged, signOut as firebaseSignOut, type Auth, type User } from 'firebase/auth';
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
 
 import { auth } from './firebase';
 import {
+  reauthenticate,
   SignInCancelled,
   signInWithApple as appleSignIn,
   signInWithGoogle as googleSignIn,
@@ -15,6 +16,8 @@ type AuthState = {
   signInWithGoogle: () => Promise<void>;
   signInWithApple: () => Promise<void>;
   signOut: () => Promise<void>;
+  /** Deletes the account everywhere: revokes Sign in with Apple, runs deleteData, deletes the Firebase user, signs out. */
+  deleteAccount: (deleteData: () => Promise<void>) => Promise<void>;
 };
 
 const AuthContext = createContext<AuthState | null>(null);
@@ -52,9 +55,42 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       await signOutOfProviders();
       await firebaseSignOut(requireAuth());
     },
+    deleteAccount: async (deleteData) => {
+      const a = requireAuth();
+      const current = a.currentUser;
+      if (!current) throw new Error('Sign in first.');
+      // A fresh sign-in gives Apple's code to revoke and makes the login recent enough for deleteUser.
+      const { appleAuthorizationCode } = await reauthenticate(current);
+      if (appleAuthorizationCode) await revokeAppleCode(a, appleAuthorizationCode);
+      await deleteData();
+      try {
+        await deleteUser(current);
+      } catch (err) {
+        if ((err as { code?: string }).code !== 'auth/requires-recent-login') throw err;
+        await reauthenticate(current);
+        await deleteUser(current);
+      }
+      await signOutOfProviders();
+      await firebaseSignOut(a).catch(() => {});
+    },
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+}
+
+/**
+ * Revokes the user's Sign in with Apple grant (App Store guideline 5.1.1(v)). Firebase's revokeAccessToken
+ * sends the token as an access token, but expo-apple-authentication gives an authorization code, so this
+ * calls the same Identity Toolkit endpoint with tokenType CODE, as Firebase's iOS SDK does.
+ */
+async function revokeAppleCode(a: Auth, code: string) {
+  const idToken = await a.currentUser?.getIdToken();
+  const res = await fetch(`https://identitytoolkit.googleapis.com/v2/accounts:revokeToken?key=${a.app.options.apiKey}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ providerId: 'apple.com', tokenType: 'CODE', token: code, idToken }),
+  }).catch(() => null);
+  if (!res?.ok) throw new Error("Couldn't disconnect Sign in with Apple. Nothing was deleted. Try again.");
 }
 
 export function useAuth() {
