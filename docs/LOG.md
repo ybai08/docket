@@ -8,7 +8,7 @@ Newest first. Each commit adds a line or two here: what changed, what's live, wh
 ### Daily bank: 14 days of new games live (backend)
 - Docket had been stuck on the October 25 set. `server/data/bank.json.gz` now holds November 1 to 14, seeded on production; each day goes live on its own with no server change. After November 14 the server repeats that day's set until the bank is refilled (`python3 server/scripts/build_bank.py --status`).
 - 2,010 bills in the bank. Every bill's vote comes from a recorded floor tally, and its text is written only from its official title and abstract. New sources: Congress passage votes from Voteview with titles and outcomes from GovInfo, Austin council votes, and more bills from Open States and five legislatures' own sites.
-- Each place's set: Congress 2 Roll Call bills, the state up to 3 (Texas 2, plus 1 from Austin), and its own Filed or Fake and Landslide. Territories, players with no ZIP code, and D.C.'s Landslide use a new Congress-based version instead of the Texas one. Added 48 new fake captions.
+- Each place's set: Congress 2 Roll Call bills, the state up to 3 (Texas 2, plus 1 from Austin), and its own Filed or Fake and Landslide. Territories, players with no ZIP code, and D.C.'s Landslide use a new Congress-based version instead of the Texas one. Added 72 new fake captions: 48 for states and 24 for Congress.
 - Thin supply: New Jersey has no state Roll Call bill on 6 of the 14 days and Michigan on 1; other short states get 1 or 2 a day. A later refill can add more from Open States (250 requests a day).
 - Not tested on a real device: `/today` was played through on a local copy of the API, and production's sets were checked in the database.
 
