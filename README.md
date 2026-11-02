@@ -83,6 +83,30 @@ cd server && npm run seed
 
 The progress log is in [docs/LOG.md](docs/LOG.md).
 
+## The daily bank
+
+A new set goes live each Central-time day with no server change: `server/data/bank.json.gz` holds future days, and `npm run seed` loads them. Once the last day passes, the server keeps serving that day's set until the bank is refilled, so check it regularly:
+
+```bash
+python3 server/scripts/build_bank.py --status    # days left, and unused bills per state
+```
+
+To add days:
+
+```bash
+python3 server/scripts/fetch_bill_pool.py        # more state bills from Open States (250 requests a day; responses cached in server/.cache)
+python3 server/scripts/fetch_federal_local_pool.py   # Congress (Voteview, GovInfo) and Austin (city open data)
+python3 server/scripts/build_bank.py --missing 14 missing.json   # bills that need plain-English text
+# write their title, short title, summary and topic into server/data/state-bill-text.json, from the official text only
+python3 server/scripts/build_bank.py --days 14
+cd server && npm run seed
+```
+
+- Days already in the bank never change, so a day someone played keeps its bills.
+- A Roll Call bill is never used twice, because a player's vote is stored once per bill. Filed or Fake and Landslide may reuse a bill from another day, but never one in that day's Roll Call.
+- Where a place has no state data (Puerto Rico and other territories, players with no ZIP code, D.C.'s Landslide), it plays the Congress version of that game.
+- A state with few bills gets 1 or 2 Roll Call bills a day instead of 3. Arkansas, Kansas, Massachusetts, New Hampshire and New Mexico aren't usable through Open States; their bills are in `server/data/bill-pool-official.json`, gathered from the legislatures' own sites.
+
 ## Reports and moderation
 
 Players can report a user or group from the app (`POST /reports`). Review them at least daily, since the Terms promise a response within 24 hours:

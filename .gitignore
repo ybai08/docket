@@ -56,3 +56,7 @@ google-services.json
 
 # Lawmaker photos, rebuilt by server/scripts/build_civic_data.py and shipped by deploy.sh
 server/media/
+
+# Open States responses, kept so the daily request quota is never spent twice
+server/.cache/
+server/scripts/__pycache__/

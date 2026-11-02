@@ -27,6 +27,12 @@ type StateContent = {
   memberVotes: MemberVote[];
 };
 
+type Bank = {
+  days: Record<string, Record<string, { rollCall?: string[]; filedOrFake?: Caption[]; landslide?: { prompt: string; items: LandslideItem[] } }>>;
+  bills: Bill[];
+  memberVotes: MemberVote[];
+};
+
 /** '' for Congress, 'TX' for a state bill, 'TX/Austin' for a city's ("Austin, TX"). */
 function scopeOf(b: Bill) {
   if (b.level === 'federal') return '';
@@ -46,7 +52,11 @@ try {
   const content = existsSync(join(import.meta.dirname, '..', 'data', 'state-content.json.gz'))
     ? (civic<StateContent>('state-content.json.gz') as unknown as StateContent)
     : null;
-  for (const b of [...Object.values(BILLS), ...(content?.bills ?? [])]) {
+  // Future days, from scripts/build_bank.py. Each goes live on its own date; nothing changes on the server.
+  const bank = existsSync(join(import.meta.dirname, '..', 'data', 'bank.json.gz'))
+    ? (civic<Bank>('bank.json.gz') as unknown as Bank)
+    : null;
+  for (const b of [...Object.values(BILLS), ...(content?.bills ?? []), ...(bank?.bills ?? [])]) {
     await client.query(
       `INSERT INTO bills (id, level, jurisdiction, number, origin, title, short_title, summary, topic, chamber_votes, passed, outcome, source_url)
        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)
@@ -81,11 +91,36 @@ try {
     console.log(`seeded ${day}: ${rows.length} items`);
   }
 
+  for (const [day, sets] of Object.entries(bank?.days ?? {})) {
+    await client.query('DELETE FROM daily_sets WHERE day = $1', [day]);
+    const rows: Row[] = [];
+    for (const [scope, s] of Object.entries(sets)) {
+      // Congress's two bills sit between the state's; a city's bill comes last.
+      s.rollCall?.forEach((id, i) => rows.push(['roll-call', scope, scope === '' ? i * 2 + 1 : scope.includes('/') ? 4 + i : i * 2, id, null]));
+      s.filedOrFake?.forEach((c, i) => rows.push(['filed-or-fake', scope, i, null, c]));
+      s.landslide?.items.forEach((it, i) => rows.push(['landslide', scope, i, null, { ...it, prompt: s.landslide!.prompt }]));
+    }
+    await client.query(
+      `INSERT INTO daily_sets (day, scope, game, position, bill_id, payload)
+       SELECT $1, * FROM unnest($2::text[], $3::text[], $4::int[], $5::text[], $6::jsonb[])`,
+      [day, rows.map((r) => r[1]), rows.map((r) => r[0]), rows.map((r) => r[2]), rows.map((r) => r[3]),
+        rows.map((r) => (r[4] === null ? null : JSON.stringify(r[4])))],
+    );
+  }
+  if (bank) console.log(`seeded bank: ${Object.keys(bank.days).length} future days`);
+
   // Civic data is replaced wholesale: rosters change, and a lawmaker who left office should disappear.
   const lawmakers = civic<Lawmaker>('lawmakers.json.gz');
   const ids = new Set(lawmakers.map((l) => l.id));
   // State member votes only for people still in office, like the Texas journal votes.
-  const memberVotes = [...civic<MemberVote>('lawmaker-votes.json'), ...(content?.memberVotes ?? []).filter((v) => ids.has(v.lawmaker_id))];
+  // A bill can be in more than one source; one row per person and bill.
+  const memberVotes = [
+    ...new Map(
+      [...civic<MemberVote>('lawmaker-votes.json'), ...(content?.memberVotes ?? []), ...(bank?.memberVotes ?? [])]
+        .filter((v) => ids.has(v.lawmaker_id))
+        .map((v) => [`${v.lawmaker_id}|${v.bill_id}`, v]),
+    ).values(),
+  ];
   const zips = civic<ZipDistrict>('zip-districts.json.gz');
   const profiles = civic<Profile>('lawmaker-profiles.json.gz');
   await client.query('DELETE FROM lawmaker_votes');

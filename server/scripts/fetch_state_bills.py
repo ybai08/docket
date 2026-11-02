@@ -22,6 +22,7 @@ import re
 import sys
 import tempfile
 import time
+from datetime import date
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -31,7 +32,7 @@ from build_civic_data import DATA  # noqa: E402
 
 API = "https://v3.openstates.org"
 CACHE = os.path.join(tempfile.gettempdir(), "docket-openstates")
-TODAY = "2026-10-25"
+TODAY = date.today().isoformat()
 PAGES_PER_SESSION = 3
 
 
@@ -163,6 +164,37 @@ def outcome(bill, votes):
     return None, None
 
 
+def to_candidate(st, name, session, b):
+    """One bill as a pick, or None unless it has a floor vote and an outcome."""
+    votes = floor_votes(b)
+    if not votes:
+        return None
+    passed, result = outcome(b, votes)
+    if passed is None:
+        return None
+    ordered = sorted(votes.values(), key=lambda v: v["date"])
+    src = next((x["url"] for x in b.get("sources") or [] if x.get("url")), b["openstates_url"])
+    return {
+        "id": f"{st.lower()}-{session['identifier'].lower()}-{re.sub(r'[^a-z0-9]', '', b['identifier'].lower())}",
+        "state": st.upper(),
+        "stateName": name,
+        "session": session["identifier"],
+        "year": ordered[-1]["date"][:4],
+        "number": b["identifier"],
+        "officialTitle": b["title"],
+        "abstract": (b.get("abstracts") or [{}])[0].get("abstract", "")[:900],
+        "subjects": b.get("subject") or [],
+        "originChamber": ordered[0]["chamber"],
+        "chamberVotes": [{k: v[k] for k in ("chamber", "yeas", "nays", "date", "motion")} for v in ordered],
+        "floor": {k: {"chamber": v["chamber"], "yeas": v["yeas"], "nays": v["nays"]} for k, v in votes.items()},
+        "passed": passed,
+        "outcome": result,
+        "sourceUrl": src,
+        "openstatesUrl": b["openstates_url"],
+        "memberVotes": [m for v in ordered for m in v["members"]],
+    }
+
+
 def candidates(st, name, sessions, unicameral):
     out = []
     for s in sessions:
@@ -171,34 +203,7 @@ def candidates(st, name, sessions, unicameral):
                 return out
             res = api("/bills", jurisdiction=st, session=s["identifier"], sort="latest_action_desc", classification="bill",
                       include=["votes", "abstracts", "actions", "sources"], per_page=20, page=page)
-            for b in res["results"]:
-                votes = floor_votes(b)
-                if not votes:
-                    continue
-                passed, result = outcome(b, votes)
-                if passed is None:
-                    continue
-                ordered = sorted(votes.values(), key=lambda v: v["date"])
-                src = next((x["url"] for x in b.get("sources") or [] if x.get("url")), b["openstates_url"])
-                out.append({
-                    "id": f"{st.lower()}-{s['identifier'].lower()}-{re.sub(r'[^a-z0-9]', '', b['identifier'].lower())}",
-                    "state": st.upper(),
-                    "stateName": name,
-                    "session": s["identifier"],
-                    "year": ordered[-1]["date"][:4],
-                    "number": b["identifier"],
-                    "officialTitle": b["title"],
-                    "abstract": (b.get("abstracts") or [{}])[0].get("abstract", "")[:900],
-                    "subjects": b.get("subject") or [],
-                    "originChamber": ordered[0]["chamber"],
-                    "chamberVotes": [{k: v[k] for k in ("chamber", "yeas", "nays", "date", "motion")} for v in ordered],
-                    "floor": {k: {"chamber": v["chamber"], "yeas": v["yeas"], "nays": v["nays"]} for k, v in votes.items()},
-                    "passed": passed,
-                    "outcome": result,
-                    "sourceUrl": src,
-                    "openstatesUrl": b["openstates_url"],
-                    "memberVotes": [m for v in ordered for m in v["members"]],
-                })
+            out += [c for b in res["results"] if (c := to_candidate(st, name, s, b))]
             if page >= res["pagination"]["max_page"]:
                 break
     return out
